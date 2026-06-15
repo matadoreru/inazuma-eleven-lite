@@ -1,13 +1,8 @@
 import type { Player, Stats } from '../types/player'
+import { statTotal } from '../types/player'
 import type { EquipmentItem, EquipmentSlot } from '../types/equipment'
+import { EMPTY_EQUIPMENT } from '../types/equipment'
 import type { ClubInventory } from '../types/inventory'
-
-const EMPTY_SLOTS: Record<EquipmentSlot, EquipmentItem | null> = {
-  gloves: null,
-  boots: null,
-  pendant: null,
-  bracelet: null,
-}
 
 export function getEffectiveStats(player: Player): Stats {
   const base = { ...player.stats }
@@ -18,6 +13,7 @@ export function getEffectiveStats(player: Player): Stats {
       base[k] = (base[k] ?? 0) + bonus
     }
   }
+  base.TOT = statTotal(base)
   return base
 }
 
@@ -26,7 +22,7 @@ export function equipItem(
   item: EquipmentItem,
   inventory: ClubInventory,
 ): { player: Player; inventory: ClubInventory } {
-  const current = player.equipment ?? { ...EMPTY_SLOTS }
+  const current = player.equipment ?? { ...EMPTY_EQUIPMENT }
   const displaced = current[item.slot]
   const updatedInventory: ClubInventory = {
     ...inventory,
@@ -45,9 +41,10 @@ export function unequipItem(
   slot: EquipmentSlot,
   inventory: ClubInventory,
 ): { player: Player; inventory: ClubInventory } {
-  const current = player.equipment ?? { ...EMPTY_SLOTS }
-  const item = current[slot]
+  if (!player.equipment) return { player, inventory }
+  const item = player.equipment[slot]
   if (!item) return { player, inventory }
+  const current = player.equipment
   return {
     player: { ...player, equipment: { ...current, [slot]: null } },
     inventory: { ...inventory, equipmentItems: [...inventory.equipmentItems, item] },
@@ -62,7 +59,7 @@ export function unequipAllItems(
   const items = Object.values(player.equipment).filter((i): i is EquipmentItem => i !== null)
   if (items.length === 0) return { player, inventory }
   return {
-    player: { ...player, equipment: { ...EMPTY_SLOTS } },
+    player: { ...player, equipment: { ...EMPTY_EQUIPMENT } },
     inventory: { ...inventory, equipmentItems: [...inventory.equipmentItems, ...items] },
   }
 }

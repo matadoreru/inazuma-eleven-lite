@@ -62,7 +62,7 @@ describe('getEffectiveStats', () => {
     expect(stats.POT).toBe(70)
   })
 
-  it('accumulates bonuses from multiple slots', () => {
+  it('accumulates bonuses from multiple slots and updates TOT', () => {
     const boots = makeItem({ id: 'b', slot: 'boots', statBonuses: { TEC: 3 } })
     const gloves = makeItem({ id: 'g', slot: 'gloves', statBonuses: { TEC: 2, POT: 1 } })
     const p = makePlayer({ equipment: { gloves, boots, pendant: null, bracelet: null } })
@@ -70,6 +70,8 @@ describe('getEffectiveStats', () => {
     expect(stats.TEC).toBe(72 + 5)
     expect(stats.POT).toBe(70 + 1)
     expect(stats.CON).toBe(65)
+    // TOT must reflect the updated primary stats (POT+CON+TEC+PRE+FIS+AGI+INT)
+    expect(stats.TOT).toBe(stats.POT + stats.CON + stats.TEC + stats.PRE + stats.FIS + stats.AGI + stats.INT)
   })
 })
 
@@ -132,6 +134,13 @@ describe('unequipAllItems', () => {
 
   it('returns unchanged references when player has no equipment', () => {
     const p = makePlayer()
+    const result = unequipAllItems(p, emptyInventory)
+    expect(result.player).toBe(p)
+    expect(result.inventory).toBe(emptyInventory)
+  })
+
+  it('returns unchanged references when all slots are null', () => {
+    const p = makePlayer({ equipment: { gloves: null, boots: null, pendant: null, bracelet: null } })
     const result = unequipAllItems(p, emptyInventory)
     expect(result.player).toBe(p)
     expect(result.inventory).toBe(emptyInventory)
