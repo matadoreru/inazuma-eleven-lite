@@ -6,8 +6,10 @@ import type {
   ObjectiveDifficulty,
   ObjectiveReward,
   ObjectivePenalty,
+  DifficultySettings,
 } from '../types/career'
 import type { PotentialAnalysis } from '../types/career'
+import { DEFAULT_DIFFICULTY } from '../types/career'
 import type { Team } from '../types/team'
 import type { League } from '../types/competition'
 import type { Player } from '../types/player'
@@ -149,24 +151,31 @@ export function createCareer(
   teams: Team[],
   leagues: League[],
   players: Player[],
+  settings: DifficultySettings = DEFAULT_DIFFICULTY,
 ): { career: Career; teams: Team[]; players: Player[] } {
-  const team = chooseTeam(teamId, teams)
+  const scaledTeams = teams.map((t) =>
+    t.id === teamId
+      ? { ...t, budget: Math.round(t.budget * settings.budgetMultiplier) }
+      : t,
+  )
+
+  const team = chooseTeam(teamId, scaledTeams)
   const league = leagues.find((l) => l.id === team.leagueId)
   if (!league) throw new Error(`League ${team.leagueId} not found`)
 
-  const season = initSeason(teamId, team.leagueId, teams, leagues, CURRENT_YEAR)
+  const season = initSeason(teamId, team.leagueId, scaledTeams, leagues, CURRENT_YEAR)
   const objectives = buildObjectives(team, league)
 
   // Initialize external leagues (all leagues except user's)
   const allLeagueSeasons: Career['allLeagueSeasons'] = {}
   for (const otherLeague of leagues) {
     if (otherLeague.id !== team.leagueId) {
-      allLeagueSeasons[otherLeague.id] = initLeagueSeason(otherLeague.id, teams, leagues, CURRENT_YEAR)
+      allLeagueSeasons[otherLeague.id] = initLeagueSeason(otherLeague.id, scaledTeams, leagues, CURRENT_YEAR)
     }
   }
 
   // Initialize cup
-  const cup = initCup(teams, CURRENT_YEAR, season.startDate)
+  const cup = initCup(scaledTeams, CURRENT_YEAR, season.startDate)
 
   // Generate potential profiles for all players on the user's squad
   const playerPotential: Record<number, PotentialAnalysis> = {}
@@ -200,7 +209,7 @@ export function createCareer(
     cup,
     seasonStatus: 'active',
     lastSeasonReview: null,
-    rewardChoices: 3,
+    difficulty: settings,
     createdAt: now,
     lastSavedAt: now,
   }
@@ -212,5 +221,5 @@ export function createCareer(
     career,
   )
 
-  return { career, teams, players: assignedPlayers }
+  return { career, teams: scaledTeams, players: assignedPlayers }
 }

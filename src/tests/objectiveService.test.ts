@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { checkObjectives, completeObjective, failObjective } from '../services/objectiveService'
 import type { Career, Objective } from '../types/career'
+import { DEFAULT_DIFFICULTY } from '../types/career'
 import type { Season, StandingRow } from '../types/competition'
 
 const makeStandingRow = (teamId: number, overrides: Partial<StandingRow> = {}): StandingRow => ({
@@ -74,7 +75,7 @@ const makeCareer = (overrides: Partial<Career> = {}): Career => ({
   cup: null,
   seasonStatus: 'active',
   lastSeasonReview: null,
-  rewardChoices: 3,
+  difficulty: DEFAULT_DIFFICULTY,
   createdAt: '2026-01-01',
   lastSavedAt: '2026-01-01',
   ...overrides,

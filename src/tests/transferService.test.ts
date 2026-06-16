@@ -3,6 +3,7 @@ import { filterPlayers, calcTransferValue, buyPlayer } from '../services/transfe
 import type { Player } from '../types/player'
 import type { Team, Formation } from '../types/team'
 import type { Career } from '../types/career'
+import { DEFAULT_DIFFICULTY } from '../types/career'
 import type { TransferFilter } from '../types/transfer'
 
 const makePlayer = (overrides: Partial<Player> = {}): Player => ({
@@ -96,7 +97,7 @@ const makeCareer = (teamId: number): Career => ({
   cup: null,
   seasonStatus: 'active',
   lastSeasonReview: null,
-  rewardChoices: 3,
+  difficulty: DEFAULT_DIFFICULTY,
   createdAt: '2026-01-01',
   lastSavedAt: '2026-01-01',
 })
