@@ -1,6 +1,8 @@
 import { create } from 'zustand'
 import type { Screen } from '../App'
 import type { Career } from '../types/career'
+import { DEFAULT_DIFFICULTY } from '../types/career'
+import type { DifficultySettings } from '../types/career'
 import type { Player } from '../types/player'
 import type { Team } from '../types/team'
 import { MAX_CALLUP } from '../types/team'
@@ -84,6 +86,16 @@ function buildNpcSnapshot(team: Team, players: Player[]) {
     return { ...snap, forwardScore: base, midfieldScore: base, defenseScore: base, goalkeeperScore: base }
   }
   return snap
+}
+
+function scaleNpcSnapshot(snap: ReturnType<typeof buildTeamSnapshot>, multiplier: number) {
+  return {
+    ...snap,
+    forwardScore: snap.forwardScore * multiplier,
+    midfieldScore: snap.midfieldScore * multiplier,
+    defenseScore: snap.defenseScore * multiplier,
+    goalkeeperScore: snap.goalkeeperScore * multiplier,
+  }
 }
 
 function simulateLeagueMatchFn(match: Match, teams: Team[], players: Player[]): Match {
@@ -207,7 +219,7 @@ function commitMatchResult(
     const userTeam = teams.find((t) => t.id === career.teamId)
     const starterIds = new Set(userTeam?.lineup.filter((s) => s.isStarter).map((s) => s.playerId) ?? [])
     const benchIds = new Set(userTeam?.lineup.filter((s) => !s.isStarter).map((s) => s.playerId) ?? [])
-    let updatedPlayers = drainStaminaAfterMatch(players, starterIds, benchIds)
+    let updatedPlayers = drainStaminaAfterMatch(players, starterIds, benchIds, career.difficulty)
     updatedPlayers = updatedPlayers.map((p) => ({
       ...p,
       seasonMatchMinutes: starterIds.has(p.id)
@@ -272,7 +284,7 @@ function commitMatchResult(
       })
     : players
   if (isUserMatch) {
-    updatedPlayers = drainStaminaAfterMatch(updatedPlayers, starterIds, benchIds)
+    updatedPlayers = drainStaminaAfterMatch(updatedPlayers, starterIds, benchIds, career.difficulty)
   }
   const updatedStandings = updateStandings(career.season.standings, playedMatch)
 
@@ -365,7 +377,7 @@ function commitMatchResult(
       career.seasonNumber,
     )
 
-    const seasonResult = endSeason(finishedSeason, updatedTeams, updatedPlayers, career.playerPotential)
+    const seasonResult = endSeason(finishedSeason, updatedTeams, updatedPlayers, career.playerPotential, career.difficulty)
     updatedPlayers = seasonResult.players
     updatedTeams = seasonResult.teams
 
@@ -457,7 +469,7 @@ interface CareerState {
   setUIPanel(panel: 'notifications' | 'settings' | null): void
 
   // Career lifecycle
-  startNewCareer(managerName: string, teamId: number, managerAvatar?: string): void
+  startNewCareer(managerName: string, teamId: number, managerAvatar?: string, difficulty?: DifficultySettings): void
   loadCareer(slot: number): void
   saveCareer(slot: number, slotName: string): void
   exitToMainMenu(): void
@@ -570,7 +582,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     set({ selectedMatchId: matchId })
   },
 
-  startNewCareer(managerName, teamId, managerAvatar = '/avatars/avatar-1.svg') {
+  startNewCareer(managerName, teamId, managerAvatar = '/avatars/avatar-1.svg', difficulty = DEFAULT_DIFFICULTY) {
     const playersCopy: Player[] = JSON.parse(JSON.stringify(seedPlayers))
       .map((p: Player) => ({ ...p, seasonMatchMinutes: 0 }))
     const teamsCopy: Team[] = JSON.parse(JSON.stringify(seedTeams))
@@ -581,7 +593,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
       }))
     const leaguesCopy = JSON.parse(JSON.stringify(seedLeagues))
 
-    const { career, teams: newTeams, players: newPlayers } = createCareer(managerName, teamId, teamsCopy, leaguesCopy, playersCopy)
+    const { career, teams: newTeams, players: newPlayers } = createCareer(managerName, teamId, teamsCopy, leaguesCopy, playersCopy, difficulty)
     career.managerAvatar = managerAvatar
 
     set({
@@ -676,8 +688,12 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
       return
     }
 
-    const homeSnapshot = buildTeamSnapshot(homeTeamData, players)
-    const awaySnapshot = buildTeamSnapshot(awayTeamData, players)
+    const aiMult = career.difficulty.aiStrengthMultiplier
+    const homeIsUser = match.homeTeamId === career.teamId
+    const rawHome = buildTeamSnapshot(homeTeamData, players)
+    const rawAway = buildTeamSnapshot(awayTeamData, players)
+    const homeSnapshot = homeIsUser ? rawHome : scaleNpcSnapshot(rawHome, aiMult)
+    const awaySnapshot = !homeIsUser ? rawAway : scaleNpcSnapshot(rawAway, aiMult)
     const result = simulate(homeSnapshot, awaySnapshot, match)
 
     const committed = commitMatchResult(matchId, result, career, teams, players)
@@ -715,8 +731,12 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     const awayTeamData = teams.find((t) => t.id === match.awayTeamId)
     if (!homeTeamData || !awayTeamData) return
 
-    const homeSnapshot = buildTeamSnapshot(homeTeamData, players)
-    const awaySnapshot = buildTeamSnapshot(awayTeamData, players)
+    const aiMult = career.difficulty.aiStrengthMultiplier
+    const homeIsUser = match.homeTeamId === career.teamId
+    const rawHome = buildTeamSnapshot(homeTeamData, players)
+    const rawAway = buildTeamSnapshot(awayTeamData, players)
+    const homeSnapshot = homeIsUser ? rawHome : scaleNpcSnapshot(rawHome, aiMult)
+    const awaySnapshot = !homeIsUser ? rawAway : scaleNpcSnapshot(rawAway, aiMult)
     const result = simulate(homeSnapshot, awaySnapshot, match)
 
     set({ pendingMatch: { matchId, result }, selectedMatchId: matchId })
@@ -791,7 +811,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     )
 
     const updatedSeason = advanceDayService(career.season)
-    const recoveredPlayers = recoverStaminaForDays(players, 1)
+    const recoveredPlayers = recoverStaminaForDays(players, 1, career.difficulty.staminaRecoveryPerDay)
     const advancedPlayers = recoveredPlayers.map((p) =>
       p.career.positionChangePlan && !p.career.positionChangePlan.completed
         ? advancePositionChange(p, 1)
@@ -838,7 +858,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     }
 
     const updatedSeason = advanceSeasonToDate(career.season, targetDate)
-    const recoveredPlayers = recoverStaminaForDays(players, days)
+    const recoveredPlayers = recoverStaminaForDays(players, days, career.difficulty.staminaRecoveryPerDay)
     const advancedPlayers = recoveredPlayers.map((p) =>
       p.career.positionChangePlan && !p.career.positionChangePlan.completed
         ? advancePositionChange(p, days)
@@ -857,8 +877,9 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
 
   // --- Training ---
   trainPlayer(playerId, stat) {
-    const { players } = get()
-    const updatedPlayers = trainPlayerService(playerId, stat, players)
+    const { career, players } = get()
+    if (!career) return
+    const updatedPlayers = trainPlayerService(playerId, stat, players, career.difficulty)
     set({ players: updatedPlayers })
   },
 
@@ -914,6 +935,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
       career.weeklyTrainingPlan,
       players,
       career,
+      career.difficulty,
     )
 
     // Advance date by 7 days
@@ -959,7 +981,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     if (player.career.positionChangePlan && !player.career.positionChangePlan.completed) {
       // Already has an active plan — treated as replacing it
     }
-    const updated = startOrResetPositionChange(player, targetPosition, career.season.currentDate)
+    const updated = startOrResetPositionChange(player, targetPosition, career.season.currentDate, career.difficulty)
     set({ players: players.map((p) => (p.id === playerId ? updated : p)) })
     return 'ok'
   },
@@ -1184,7 +1206,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     if (!nextTier) return
     const player = players.find((p) => p.id === playerId)
     if (!player) return
-    const cost = calcAnalysisCost(nextTier, existing, userTeam, player)
+    const cost = calcAnalysisCost(nextTier, existing, userTeam, player, career.difficulty)
     if (userTeam.budget < cost) return
     const updated = applyAnalysisTier(
       existing,
@@ -1192,6 +1214,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
       userTeam,
       player,
       player.seasonMatchMinutes ?? 0,
+      career.difficulty,
     )
     set({
       career: {
@@ -1342,8 +1365,12 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     if (!homeTeam || !awayTeam) return
 
     set({ isSimulating: true })
-    const homeSnap = buildTeamSnapshot(homeTeam, players)
-    const awaySnap = buildTeamSnapshot(awayTeam, players)
+    const aiMult = career.difficulty.aiStrengthMultiplier
+    const homeIsUser = match.homeTeamId === career.teamId
+    const rawHomeSnap = buildTeamSnapshot(homeTeam, players)
+    const rawAwaySnap = buildTeamSnapshot(awayTeam, players)
+    const homeSnap = homeIsUser ? rawHomeSnap : scaleNpcSnapshot(rawHomeSnap, aiMult)
+    const awaySnap = !homeIsUser ? rawAwaySnap : scaleNpcSnapshot(rawAwaySnap, aiMult)
     const result = simulate(homeSnap, awaySnap, match)
 
     const committed = commitMatchResult(matchId, result, career, teams, players, true)
@@ -1379,8 +1406,12 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     const awayTeam = teams.find((t) => t.id === match.awayTeamId)
     if (!homeTeam || !awayTeam) return
 
-    const homeSnap = buildTeamSnapshot(homeTeam, players)
-    const awaySnap = buildTeamSnapshot(awayTeam, players)
+    const aiMult = career.difficulty.aiStrengthMultiplier
+    const homeIsUser = match.homeTeamId === career.teamId
+    const rawHomeSnap = buildTeamSnapshot(homeTeam, players)
+    const rawAwaySnap = buildTeamSnapshot(awayTeam, players)
+    const homeSnap = homeIsUser ? rawHomeSnap : scaleNpcSnapshot(rawHomeSnap, aiMult)
+    const awaySnap = !homeIsUser ? rawAwaySnap : scaleNpcSnapshot(rawAwaySnap, aiMult)
     const result = simulate(homeSnap, awaySnap, match)
     set({ pendingMatch: { matchId, result, isCupMatch: true }, selectedMatchId: matchId })
   },
