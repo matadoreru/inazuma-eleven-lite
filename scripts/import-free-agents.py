@@ -20,8 +20,8 @@ def media(s: dict) -> int:
 
 def get_existing_ids(ts_path: Path) -> set:
     content = ts_path.read_text(encoding='utf-8')
-    # Match only top-level player ids (2-space indent, not technique ids which are inline)
-    return set(int(m) for m in re.findall(r'^  id: (\d+),', content, re.MULTILINE))
+    # Match only top-level player ids (4-space indent, not technique ids which are inline)
+    return set(int(m) for m in re.findall(r'^    id: (\d+),', content, re.MULTILINE))
 
 
 def format_techniques(supertechniques: list) -> str:
