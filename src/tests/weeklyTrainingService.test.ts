@@ -59,7 +59,7 @@ function makeCareer(settings: DifficultySettings = DEFAULT_DIFFICULTY): Career {
     seasonHistory: [],
     playerPotential: {},
     weeklyTrainingPlan: null,
-    inventory: { equipment: [], techniqueBooks: [] },
+    inventory: { techniqueBooks: {}, equipmentItems: [], generatedBooks: {} },
     allLeagueSeasons: {},
     cup: null,
     seasonStatus: 'active',
@@ -72,7 +72,7 @@ function makeCareer(settings: DifficultySettings = DEFAULT_DIFFICULTY): Career {
 
 function makePlan(playerId: number, stat: keyof Stats): WeeklyTrainingPlan {
   return {
-    slots: [{ playerId, trainingType: 'stat', statTarget: stat as string }],
+    slots: [{ playerId, trainingType: 'stat', statTarget: stat }],
     weekStartDate: '2026-01-01',
     executed: false,
   }
