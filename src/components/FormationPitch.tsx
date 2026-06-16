@@ -5,12 +5,23 @@ import { getPlayerStatsSummary } from '../types/player'
 import { getFormationSlots } from '../data/formations'
 import { statColor } from './StatBar'
 
+// ─── Element label colours ────────────────────────────────────────────────────
+
 const ELEMENT_LABEL_BG: Record<Element | '', string> = {
   FIRE:     'rgba(220, 38, 38, 0.85)',
   WOOD:     'rgba(22, 163, 74, 0.85)',
   WIND:     'rgba(14, 165, 233, 0.85)',
   MOUNTAIN: 'rgba(217, 119, 6, 0.85)',
   '':       'rgba(55, 65, 81, 0.85)',
+}
+
+// ─── Position guide style ─────────────────────────────────────────────────────
+
+const POS_GUIDE: Record<Position, { bg: string; border: string; text: string; label: string }> = {
+  GK: { bg: 'rgba(251, 191, 36, 0.08)', border: 'rgba(251, 191, 36, 0.38)', text: '#fbbf24', label: 'PR' },
+  DF: { bg: 'rgba(59, 130, 246, 0.08)',  border: 'rgba(59, 130, 246, 0.35)',  text: '#60a5fa', label: 'DF' },
+  MD: { bg: 'rgba(167, 139, 250, 0.08)', border: 'rgba(167, 139, 250, 0.35)', text: '#a78bfa', label: 'MD' },
+  FW: { bg: 'rgba(249, 115, 22, 0.08)',  border: 'rgba(249, 115, 22, 0.38)',  text: '#fb923c', label: 'DL' },
 }
 
 interface Props {
@@ -22,21 +33,7 @@ interface Props {
   onSlotContextMenu?: (playerId: number, x: number, y: number) => void
 }
 
-function EmptySlot({ slot, isOver }: { slot: FormationSlot; isOver: boolean }) {
-  const posLabel: Record<Position, string> = { GK: 'PR', DF: 'DF', MD: 'MD', FW: 'DL' }
-  return (
-    <div
-      className={`w-12 h-12 rounded-full border-2 flex items-center justify-center transition-all
-        ${isOver
-          ? 'border-blue-400 bg-blue-800/50 border-solid scale-110'
-          : 'border-dashed border-green-400/50 bg-green-950/40'}`}
-    >
-      <span className={`text-[0.625rem] font-bold ${isOver ? 'text-blue-200' : 'text-green-400/60'}`}>
-        {posLabel[slot.position]}
-      </span>
-    </div>
-  )
-}
+// ─── Player token (draggable) ─────────────────────────────────────────────────
 
 function PlayerToken({
   player,
@@ -65,7 +62,7 @@ function PlayerToken({
   return (
     <div
       ref={setNodeRef}
-      className={`flex flex-col items-center gap-0.5 cursor-grab active:cursor-grabbing select-none transition-opacity z-10
+      className={`relative z-10 flex flex-col items-center gap-0.5 cursor-grab active:cursor-grabbing select-none transition-opacity
         ${isDragging ? 'opacity-0' : 'opacity-100'}`}
       onContextMenu={(e) => {
         e.preventDefault()
@@ -74,7 +71,7 @@ function PlayerToken({
       {...attributes}
       {...listeners}
     >
-      {/* Face circle with corner badges */}
+      {/* Face circle */}
       <div className="relative">
         <div className={`w-11 h-11 rounded-full overflow-hidden ring-2 shadow-lg bg-gray-700 ${ringColor}`}>
           <img
@@ -86,39 +83,39 @@ function PlayerToken({
           />
         </div>
 
-        {/* Top-right: media badge */}
+        {/* TOT badge */}
         <div className="absolute -top-1.5 -right-1.5 min-w-[1.25rem] h-5 bg-gray-900/90 rounded-full flex items-center justify-center px-1 shadow border border-gray-700/60 z-10">
           <span className="text-[0.5rem] font-black leading-none tabular-nums" style={{ color: statColor(media, 250) }}>
             {media}
           </span>
         </div>
 
-        {/* Top-left: captain badge */}
+        {/* Captain badge */}
         {isCaptain && (
           <div className="absolute -top-1.5 -left-1.5 w-[1.25rem] h-[1.25rem] bg-yellow-400 rounded-full flex items-center justify-center shadow z-10">
             <span className="text-black text-[0.5625rem] font-black leading-none">C</span>
           </div>
         )}
 
-        {/* Bottom-right: key player badge */}
+        {/* Key player badge */}
         {isKeyPlayer && (
           <div className="absolute -bottom-1 -right-1 w-[1.125rem] h-[1.125rem] bg-blue-400 rounded-full flex items-center justify-center shadow z-10">
             <span className="material-icons text-white select-none leading-none" style={{ fontSize: '8px' }}>star</span>
           </div>
         )}
 
-        {/* Bottom-left: mismatch warning */}
+        {/* Mismatch warning */}
         {isMismatch && (
           <div
             className="absolute -bottom-1 -left-1 z-10 cursor-help"
-            title="Este jugador no está jugando en su posición natural. Su rendimiento bajará."
+            title="Este jugador no está en su posición natural. Su rendimiento bajará."
           >
             <span className="material-icons text-amber-400 drop-shadow select-none leading-none" style={{ fontSize: '16px' }}>warning</span>
           </div>
         )}
       </div>
 
-      {/* Name label with element color */}
+      {/* Name label with element colour */}
       <span
         className="text-white text-[0.5625rem] font-semibold leading-tight rounded px-1.5 py-0.5 truncate max-w-[60px] shadow-sm text-center"
         style={{ backgroundColor: labelBg }}
@@ -128,6 +125,8 @@ function PlayerToken({
     </div>
   )
 }
+
+// ─── Field slot (droppable) with always-visible position guide ─────────────────
 
 function FieldSlot({
   slotIndex,
@@ -154,15 +153,36 @@ function FieldSlot({
     player.position !== slot.position &&
     player.positionAlt !== slot.position
 
+  const guide = POS_GUIDE[slot.position]
+
   return (
     <div
       ref={setNodeRef}
       style={{ left: `${slot.x}%`, top: `${slot.y}%` }}
-      className={`absolute -translate-x-1/2 -translate-y-1/2 flex items-center justify-center
-        w-16 h-20 rounded-xl transition-all
-        ${isOver ? 'bg-blue-700/25 ring-1 ring-blue-400/40 ring-inset' : ''}`}
+      className="absolute -translate-x-1/2 -translate-y-1/2 flex items-center justify-center w-16 h-20 rounded-xl transition-all"
     >
-      {player ? (
+      {/* Position guide box — always visible behind the player token */}
+      <div
+        className="absolute inset-0 rounded-xl border-2 transition-all pointer-events-none"
+        style={{
+          backgroundColor: isOver ? 'rgba(59, 130, 246, 0.22)' : guide.bg,
+          borderColor:     isOver ? 'rgba(96, 165, 250, 0.65)' : guide.border,
+        }}
+      >
+        {/* Position label — prominent when empty, subtle when occupied */}
+        <span
+          className="absolute inset-0 flex items-center justify-center text-[0.6875rem] font-black tracking-wider transition-opacity"
+          style={{
+            color:   isOver ? 'rgba(147, 197, 253, 0.9)' : guide.text,
+            opacity: player ? 0.18 : 0.75,
+          }}
+        >
+          {guide.label}
+        </span>
+      </div>
+
+      {/* Player token sits on top (z-10) */}
+      {player && (
         <PlayerToken
           player={player}
           slotIndex={slotIndex}
@@ -171,12 +191,12 @@ function FieldSlot({
           isMismatch={isMismatch}
           onContextMenu={onSlotContextMenu}
         />
-      ) : (
-        <EmptySlot slot={slot} isOver={isOver} />
       )}
     </div>
   )
 }
+
+// ─── Pitch ────────────────────────────────────────────────────────────────────
 
 export default function FormationPitch({ formation, slotAssignment, players, captainId, keyPlayerId, onSlotContextMenu }: Props) {
   const slots = getFormationSlots(formation)
