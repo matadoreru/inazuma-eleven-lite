@@ -579,6 +579,7 @@ export default function PlayerDetailScreen() {
   const teams = useCareerStore((s) => s.teams)
   const players = useCareerStore((s) => s.players)
   const screen = useCareerStore((s) => s.screen)
+  const previousScreen = useCareerStore((s) => s.previousScreen)
   const navigate = useCareerStore((s) => s.navigate)
   const selectedPlayerId = useCareerStore((s) => s.selectedPlayerId)
   const sellPlayer = useCareerStore((s) => s.sellPlayer)
@@ -679,9 +680,9 @@ export default function PlayerDetailScreen() {
             const { total, media } = getPlayerStatsSummary(player)
             return (
               <>
-                <button onClick={() => navigate('squad')} className="text-gray-400 hover:text-white text-sm mb-4 transition-colors flex items-center gap-1">
+                <button onClick={() => navigate(previousScreen ?? 'squad')} className="text-gray-400 hover:text-white text-sm mb-4 transition-colors flex items-center gap-1">
                   <Icon name="arrow_back" size="xs" />
-                  Volver a Plantilla
+                  {previousScreen === 'formation' ? 'Volver a Formación' : 'Volver a Plantilla'}
                 </button>
 
                 <div className="grid grid-cols-2 gap-4">

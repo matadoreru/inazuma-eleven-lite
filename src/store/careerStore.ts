@@ -446,6 +446,7 @@ function commitMatchResult(
 // ---------------------------------------------------------------------------
 interface CareerState {
   screen: Screen
+  previousScreen: Screen | null
   selectedPlayerId: number | null
   selectedMatchId: string | null
 
@@ -555,6 +556,7 @@ interface CareerState {
 
 export const useCareerStore = create<CareerState>()((set, get) => ({
   screen: 'main_menu',
+  previousScreen: null,
   selectedPlayerId: null,
   selectedMatchId: null,
   career: null,
@@ -568,7 +570,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
   uiPanel: null,
 
   navigate(screen) {
-    set({ screen })
+    set((state) => ({ screen, previousScreen: state.screen }))
   },
 
   selectPlayer(playerId) {

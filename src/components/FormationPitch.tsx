@@ -40,6 +40,7 @@ interface Props {
   captainId: number
   keyPlayerId?: number
   onSlotContextMenu?: (playerId: number, x: number, y: number) => void
+  onPlayerClick?: (playerId: number) => void
 }
 
 // ─── Player token (draggable, fills the guide box) ───────────────────────────
@@ -51,6 +52,7 @@ function PlayerToken({
   isKeyPlayer,
   isMismatch,
   onContextMenu,
+  onClick,
 }: {
   player: Player
   slotIndex: number
@@ -58,6 +60,7 @@ function PlayerToken({
   isKeyPlayer: boolean
   isMismatch: boolean
   onContextMenu?: (playerId: number, x: number, y: number) => void
+  onClick?: (playerId: number) => void
 }) {
   const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
     id: `field-player-${player.id}`,
@@ -76,12 +79,13 @@ function PlayerToken({
         e.preventDefault()
         onContextMenu?.(player.id, e.clientX, e.clientY)
       }}
+      onClick={() => onClick?.(player.id)}
       {...attributes}
       {...listeners}
     >
       <div className="relative">
         {/* Face circle */}
-        <div className={`w-9 h-9 rounded-full overflow-hidden ring-2 shadow-lg bg-gray-700 ${ringColor}`}>
+        <div className={`w-10 h-10 rounded-full overflow-hidden ring-2 shadow-lg bg-gray-700 ${ringColor}`}>
           <img
             src={player.spriteUrl}
             alt={player.nameRomaji}
@@ -135,6 +139,7 @@ function FieldSlot({
   isCaptain,
   isKeyPlayer,
   onSlotContextMenu,
+  onPlayerClick,
 }: {
   slotIndex: number
   slot: FormationSlot
@@ -142,6 +147,7 @@ function FieldSlot({
   isCaptain: boolean
   isKeyPlayer: boolean
   onSlotContextMenu?: (playerId: number, x: number, y: number) => void
+  onPlayerClick?: (playerId: number) => void
 }) {
   const { setNodeRef, isOver } = useDroppable({
     id: `slot-${slotIndex}`,
@@ -166,7 +172,7 @@ function FieldSlot({
     >
       {/* Guide box — colored by element when occupied, gray when empty */}
       <div
-        className="relative w-14 h-14 rounded-xl border-2 transition-all"
+        className="relative w-16 h-16 rounded-xl border-2 transition-all"
         style={{
           backgroundColor: isOver ? 'rgba(59, 130, 246, 0.22)' : elemBox.bg,
           borderColor:     isOver ? 'rgba(96, 165, 250, 0.65)' : elemBox.border,
@@ -180,6 +186,7 @@ function FieldSlot({
             isKeyPlayer={isKeyPlayer}
             isMismatch={isMismatch}
             onContextMenu={onSlotContextMenu}
+            onClick={onPlayerClick}
           />
         )}
       </div>
@@ -211,7 +218,7 @@ function FieldSlot({
 
 // ─── Pitch ────────────────────────────────────────────────────────────────────
 
-export default function FormationPitch({ formation, slotAssignment, players, captainId, keyPlayerId, onSlotContextMenu }: Props) {
+export default function FormationPitch({ formation, slotAssignment, players, captainId, keyPlayerId, onSlotContextMenu, onPlayerClick }: Props) {
   const slots = getFormationSlots(formation)
   const playerMap = new Map(players.map((p) => [p.id, p]))
 
@@ -250,6 +257,7 @@ export default function FormationPitch({ formation, slotAssignment, players, cap
             isCaptain={player !== null && player.id === captainId}
             isKeyPlayer={player !== null && player.id === keyPlayerId}
             onSlotContextMenu={onSlotContextMenu}
+            onPlayerClick={onPlayerClick}
           />
         )
       })}

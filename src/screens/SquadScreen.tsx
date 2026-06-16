@@ -43,7 +43,7 @@ function TableHeader() {
         <th className="py-2 px-3 text-right w-12 hidden sm:table-cell">TEC</th>
         <th className="py-2 px-3 text-right w-12 hidden sm:table-cell">FIS</th>
         <th className="py-2 px-3 text-right w-20 hidden md:table-cell">Energía</th>
-        <th className="py-2 px-3 w-16" />
+        <th className="py-2 px-3 w-28" />
       </tr>
     </thead>
   )
@@ -63,6 +63,8 @@ export default function SquadScreen() {
   const screen = useCareerStore((s) => s.screen)
   const navigate = useCareerStore((s) => s.navigate)
   const selectPlayer = useCareerStore((s) => s.selectPlayer)
+  const callUpPlayer = useCareerStore((s) => s.callUpPlayer)
+  const removeCallupPlayer = useCareerStore((s) => s.removeCallupPlayer)
 
   const [sortKey, setSortKey] = useState<SortKey>('position')
   const [squadFilter, setSquadFilter] = useState<SquadFilter>('all')
@@ -121,6 +123,36 @@ export default function SquadScreen() {
   function handleRowClick(playerId: number) {
     selectPlayer(playerId)
     navigate('player_detail')
+  }
+
+  function buildActions(player: Player) {
+    const isCalledUp = calledUpIds.has(player.id)
+    const isStarter = starterIds.has(player.id)
+    if (isStarter) return null
+    if (isCalledUp) {
+      return (
+        <button
+          onClick={(e) => { e.stopPropagation(); removeCallupPlayer(player.id) }}
+          className="text-[0.625rem] font-bold px-1.5 py-0.5 rounded bg-gray-700 text-gray-400 border border-gray-600 hover:bg-red-900/40 hover:text-red-400 hover:border-red-700/60 transition-colors whitespace-nowrap"
+        >
+          Desconv.
+        </button>
+      )
+    }
+    const disabled = totalCallups >= MAX_CALLUP
+    return (
+      <button
+        onClick={(e) => { e.stopPropagation(); callUpPlayer(player.id) }}
+        disabled={disabled}
+        className={`text-[0.625rem] font-bold px-1.5 py-0.5 rounded border transition-colors whitespace-nowrap
+          ${disabled
+            ? 'bg-gray-800 text-gray-600 border-gray-700 cursor-not-allowed'
+            : 'bg-blue-900/30 text-blue-300 border-blue-700/50 hover:bg-blue-700/40 hover:text-blue-200'
+          }`}
+      >
+        Convocar
+      </button>
+    )
   }
 
   return (
@@ -225,8 +257,8 @@ export default function SquadScreen() {
                             <PlayerRow
                               key={player.id}
                               player={player}
-                              status={getStatus(player)}
                               onClick={() => handleRowClick(player.id)}
+                              actions={buildActions(player)}
                             />
                           ))}
                         </tbody>
@@ -244,8 +276,8 @@ export default function SquadScreen() {
                       <PlayerRow
                         key={player.id}
                         player={player}
-                        status={getStatus(player)}
                         onClick={() => handleRowClick(player.id)}
+                        actions={buildActions(player)}
                       />
                     ))}
                   </tbody>

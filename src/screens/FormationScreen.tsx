@@ -3,7 +3,7 @@ import {
   DndContext,
   DragOverlay,
   PointerSensor,
-  pointerWithin,
+  closestCenter,
   useSensor,
   useSensors,
   useDraggable,
@@ -96,10 +96,12 @@ function BenchPlayerRow({
   player,
   isCaptain,
   isKeyPlayer,
+  onPlayerClick,
 }: {
   player: Player
   isCaptain: boolean
   isKeyPlayer: boolean
+  onPlayerClick?: (playerId: number) => void
 }) {
   const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
     id: `bench-player-${player.id}`,
@@ -115,6 +117,7 @@ function BenchPlayerRow({
       className={`relative flex items-center gap-2.5 pl-4 pr-3 py-2.5 border-b border-gray-700/30 select-none
         cursor-grab active:cursor-grabbing transition-opacity
         ${isDragging ? 'opacity-0' : 'hover:bg-gray-700/25'}`}
+      onClick={() => onPlayerClick?.(player.id)}
       {...attributes}
       {...listeners}
     >
@@ -185,11 +188,13 @@ function BenchDropZone({
   players,
   captainId,
   keyPlayerId,
+  onPlayerClick,
 }: {
   bench: LineupSlot[]
   players: Player[]
   captainId: number
   keyPlayerId?: number
+  onPlayerClick?: (playerId: number) => void
 }) {
   const { setNodeRef, isOver } = useDroppable({ id: 'bench' })
 
@@ -216,6 +221,7 @@ function BenchDropZone({
                 player={player}
                 isCaptain={player.id === captainId}
                 isKeyPlayer={player.id === keyPlayerId}
+                onPlayerClick={onPlayerClick}
               />
             )
           })}
@@ -242,6 +248,7 @@ export default function FormationScreen() {
   const players = useCareerStore((s) => s.players)
   const screen = useCareerStore((s) => s.screen)
   const navigate = useCareerStore((s) => s.navigate)
+  const selectPlayer = useCareerStore((s) => s.selectPlayer)
   const applyFormationAction = useCareerStore((s) => s.applyFormation)
   const updateStartersAction = useCareerStore((s) => s.updateStarters)
   const setCaptainAction = useCareerStore((s) => s.setCaptain)
@@ -257,10 +264,12 @@ export default function FormationScreen() {
   const [activePlayerId, setActivePlayerId] = useState<number | null>(null)
   const [contextMenu, setContextMenu] = useState<ContextMenuState | null>(null)
 
+  const starterKey = lineup.filter((s) => s.isStarter).map((s) => `${s.playerId}:${s.assignedPosition}`).join(',')
+
   useEffect(() => {
     if (currentFormation) setSlotAssignment(initSlots(currentFormation, lineup))
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentFormation?.id])
+  }, [currentFormation?.id, starterKey])
 
   useEffect(() => {
     if (!contextMenu) return
@@ -320,6 +329,11 @@ export default function FormationScreen() {
     }
   }
 
+  function handlePlayerClick(playerId: number) {
+    selectPlayer(playerId)
+    navigate('player_detail')
+  }
+
   function handleSlotContextMenu(playerId: number, clientX: number, clientY: number) {
     const MENU_W = 200
     const MENU_H = 90
@@ -347,7 +361,7 @@ export default function FormationScreen() {
       <div className="flex flex-1 overflow-hidden">
         <SideNavigation currentScreen={screen} onNavigate={navigate} />
 
-        <DndContext sensors={sensors} collisionDetection={pointerWithin} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
           <main className="flex-1 flex flex-col overflow-hidden min-w-0">
 
             {/* Control bar */}
@@ -388,6 +402,7 @@ export default function FormationScreen() {
                     captainId={userTeam?.captainId ?? 0}
                     keyPlayerId={userTeam?.keyPlayerId}
                     onSlotContextMenu={handleSlotContextMenu}
+                    onPlayerClick={handlePlayerClick}
                   />
                 ) : (
                   <div className="flex-1 flex items-center justify-center rounded-xl border border-dashed border-gray-700 text-gray-600 text-sm">
@@ -410,6 +425,7 @@ export default function FormationScreen() {
                   players={players}
                   captainId={userTeam?.captainId ?? 0}
                   keyPlayerId={userTeam?.keyPlayerId}
+                  onPlayerClick={handlePlayerClick}
                 />
               </div>
             </div>
