@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { save, load, listSaves, deleteSave } from '../services/saveService'
 import type { Career } from '../types/career'
+import { DEFAULT_DIFFICULTY } from '../types/career'
 import type { Player } from '../types/player'
 import type { Team, Formation } from '../types/team'
 import type { StandingRow } from '../types/competition'
@@ -77,7 +78,7 @@ const makeCareer = (teamId: number = 1): Career => ({
   cup: null,
   seasonStatus: 'active',
   lastSeasonReview: null,
-  rewardChoices: 3,
+  difficulty: DEFAULT_DIFFICULTY,
   createdAt: '2026-01-01',
   lastSavedAt: '2026-01-01',
 })
