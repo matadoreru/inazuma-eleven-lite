@@ -145,6 +145,66 @@ export interface PotentialAnalysis {
   discovered: PotentialDiscovered
 }
 
+// ─── Difficulty ─────────────────────────────────────────────────────────────
+
+export interface DifficultySettings {
+  aiStrengthMultiplier: number         // 0.7–1.3   | scales NPC team strength in user matches
+  staminaRecoveryPerDay: number        // 3–15 pts  | stamina recovered per calendar day
+  starterStaminaDrain: number          // 15–35 pts | stamina lost per match (starter)
+  benchStaminaDrain: number            // 4–15 pts  | stamina lost per match (bench)
+  trainingGainMultiplier: number       // 0.5–2.0x  | scales weekly plan + manual training
+  seasonGrowthMultiplier: number       // 0.5–2.0x  | scales end-of-season stat growth
+  positionChangeDaysMultiplier: number // 0.5–2.0x  | scales position-change duration
+  transferCostMultiplier: number       // 0.5–2.0x  | scales buy price paid by user
+  budgetMultiplier: number             // 0.5–2.0x  | scales team's starting budget
+  scoutCostMultiplier: number          // 0.5–2.0x  | scales potential analysis costs
+  rewardChoices: 1 | 2 | 3            // reward options offered after each match
+}
+
+export const DIFFICULTY_PRESETS: Record<'easy' | 'normal' | 'hard', DifficultySettings> = {
+  easy: {
+    aiStrengthMultiplier: 0.85,
+    staminaRecoveryPerDay: 10,
+    starterStaminaDrain: 20,
+    benchStaminaDrain: 6,
+    trainingGainMultiplier: 1.4,
+    seasonGrowthMultiplier: 1.25,
+    positionChangeDaysMultiplier: 0.75,
+    transferCostMultiplier: 0.8,
+    budgetMultiplier: 1.25,
+    scoutCostMultiplier: 0.75,
+    rewardChoices: 3,
+  },
+  normal: {
+    aiStrengthMultiplier: 1.0,
+    staminaRecoveryPerDay: 7,
+    starterStaminaDrain: 25,
+    benchStaminaDrain: 8,
+    trainingGainMultiplier: 1.0,
+    seasonGrowthMultiplier: 1.0,
+    positionChangeDaysMultiplier: 1.0,
+    transferCostMultiplier: 1.0,
+    budgetMultiplier: 1.0,
+    scoutCostMultiplier: 1.0,
+    rewardChoices: 2,
+  },
+  hard: {
+    aiStrengthMultiplier: 1.2,
+    staminaRecoveryPerDay: 5,
+    starterStaminaDrain: 30,
+    benchStaminaDrain: 10,
+    trainingGainMultiplier: 0.75,
+    seasonGrowthMultiplier: 0.8,
+    positionChangeDaysMultiplier: 1.5,
+    transferCostMultiplier: 1.25,
+    budgetMultiplier: 0.8,
+    scoutCostMultiplier: 1.5,
+    rewardChoices: 1,
+  },
+}
+
+export const DEFAULT_DIFFICULTY: DifficultySettings = DIFFICULTY_PRESETS.normal
+
 // ─── Career ─────────────────────────────────────────────────────────────────
 
 export interface Career {
@@ -169,7 +229,7 @@ export interface Career {
   cup: Cup | null
   seasonStatus: SeasonStatus
   lastSeasonReview: SeasonReview | null
-  rewardChoices: 1 | 2 | 3
+  difficulty: DifficultySettings
   createdAt: string
   lastSavedAt: string
 }
