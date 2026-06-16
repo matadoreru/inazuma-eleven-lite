@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-size: 20px;
+  }
+  html, body, #root {
+    @apply h-full bg-dark-900 text-white font-game;
+  }
+
+  * {
+    @apply box-border;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-dark-800;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-dark-500 rounded;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gold-600;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-4 py-2 bg-gold-500 hover:bg-gold-400 text-dark-900 font-bold rounded transition-colors;
+  }
+  .btn-secondary {
+    @apply px-4 py-2 bg-dark-600 hover:bg-dark-500 text-white font-semibold rounded border border-dark-500 hover:border-gold-600 transition-colors;
+  }
+  .btn-danger {
+    @apply px-4 py-2 bg-red-700 hover:bg-red-600 text-white font-bold rounded transition-colors;
+  }
+  .card {
+    @apply bg-dark-800 border border-dark-600 rounded-lg p-4;
+  }
+  .card-gold {
+    @apply bg-dark-800 border border-gold-600 rounded-lg p-4;
+  }
+  .panel {
+    @apply bg-dark-700 rounded-lg;
+  }
+  .screen-title {
+    @apply text-2xl font-extrabold text-gold-400 tracking-wide uppercase;
+  }
+  .label-muted {
+    @apply text-xs text-gray-400 uppercase tracking-wider;
+  }
+  .stat-value {
+    @apply text-sm font-bold text-white;
+  }
+  .input-field {
+    @apply w-full bg-dark-700 border border-dark-500 focus:border-gold-500 outline-none text-white px-3 py-2 rounded text-sm;
+  }
+}

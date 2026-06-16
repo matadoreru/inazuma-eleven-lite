@@ -3,6 +3,7 @@ import {
   DndContext,
   DragOverlay,
   PointerSensor,
+  pointerWithin,
   useSensor,
   useSensors,
   useDraggable,
@@ -30,6 +31,14 @@ const ELEMENT_STRIP: Record<Element | '', string> = {
   WIND:     '#0ea5e9',
   MOUNTAIN: '#d97706',
   '':       '#4b5563',
+}
+
+const ELEMENT_SHORT: Record<Element | '', string> = {
+  FIRE:     'FUE',
+  WOOD:     'BOS',
+  WIND:     'VIE',
+  MOUNTAIN: 'MNT',
+  '':       '',
 }
 
 // ─── Slot initialisation ─────────────────────────────────────────────────────
@@ -72,10 +81,10 @@ function PlayerOverlayToken({ player }: { player: Player }) {
         </div>
       </div>
       <span
-        className="text-white text-[0.5625rem] font-semibold rounded px-1.5 py-0.5 max-w-[56px] truncate text-center"
+        className="text-white text-[0.5rem] font-semibold rounded px-1 py-0.5 max-w-[72px] text-center leading-tight"
         style={{ backgroundColor: stripColor + 'cc' }}
       >
-        {player.nameRomaji.split(' ')[0]}
+        {player.nameRomaji}
       </span>
     </div>
   )
@@ -139,11 +148,22 @@ function BenchPlayerRow({
         )}
       </div>
 
-      {/* Name + position */}
+      {/* Name + position + element */}
       <div className="flex-1 min-w-0">
         <p className="text-white text-xs font-medium truncate leading-tight">{player.nameRomaji}</p>
-        <div className="mt-0.5">
+        <div className="mt-0.5 flex items-center gap-1.5">
           <PositionSprite position={player.position} size={16} />
+          {player.element && (
+            <span
+              className="text-[0.45rem] font-bold px-1 py-px rounded leading-none"
+              style={{
+                color: ELEMENT_STRIP[player.element],
+                backgroundColor: ELEMENT_STRIP[player.element] + '28',
+              }}
+            >
+              {ELEMENT_SHORT[player.element]}
+            </span>
+          )}
         </div>
       </div>
 
@@ -327,7 +347,7 @@ export default function FormationScreen() {
       <div className="flex flex-1 overflow-hidden">
         <SideNavigation currentScreen={screen} onNavigate={navigate} />
 
-        <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+        <DndContext sensors={sensors} collisionDetection={pointerWithin} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
           <main className="flex-1 flex flex-col overflow-hidden min-w-0">
 
             {/* Control bar */}

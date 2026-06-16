@@ -1,7 +1,7 @@
 import type { Position } from '../types/player'
 import type { Player, Stats } from '../types/player'
 import { getPlayerStatsSummary } from '../types/player'
-import type { Team, Formation, LineupSlot, TeamSnapshot } from '../types/team'
+import type { Team, Formation, LineupSlot, TeamSnapshot, SnapshotPlayer } from '../types/team'
 import { staminaPerformanceMultiplier } from './energyService'
 import { getEffectiveStats } from './equipmentService'
 
@@ -79,6 +79,14 @@ export function buildTeamSnapshot(team: Team, players: Player[]): TeamSnapshot {
     }
   }
 
+  const starterPlayers: SnapshotPlayer[] = starters
+    .map((slot) => {
+      const p = playerMap.get(slot.playerId)
+      if (!p) return null
+      return { id: p.id, nameRomaji: p.nameRomaji, spriteUrl: p.spriteUrl, position: slot.assignedPosition }
+    })
+    .filter((p): p is SnapshotPlayer => p !== null)
+
   return {
     id: team.id,
     name: team.name,
@@ -87,6 +95,7 @@ export function buildTeamSnapshot(team: Team, players: Player[]): TeamSnapshot {
     midfieldScore: midfieldCount > 0 ? midfieldTotal / midfieldCount : 0,
     defenseScore: defenseCount > 0 ? defenseTotal / defenseCount : 0,
     goalkeeperScore: goalkeeperCount > 0 ? goalkeeperTotal / goalkeeperCount : 0,
+    starters: starterPlayers,
   }
 }
 

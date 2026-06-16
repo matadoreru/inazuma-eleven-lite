@@ -1,4 +1,5 @@
 import type { Stats } from './player'
+import type { RewardRarity } from './reward'
 
 export type EquipmentSlot = 'gloves' | 'boots' | 'pendant' | 'bracelet'
 
@@ -22,6 +23,7 @@ export interface EquipmentItem {
   name: string
   statBonuses: Partial<Stats>
   tier: 1 | 2 | 3
+  rarity?: RewardRarity
 }
 
 export const EMPTY_EQUIPMENT: Record<EquipmentSlot, EquipmentItem | null> = {

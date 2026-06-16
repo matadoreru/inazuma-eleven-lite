@@ -521,6 +521,7 @@ interface CareerState {
   updateStarters(slots: (number | null)[], formation: import('../types/team').Formation): void
   setCaptain(playerId: number): void
   setKeyPlayer(playerId: number | null): void
+  swapLineupPlayers(starterId: number, benchId: number): void
 
   // Callup management
   callUpPlayer(playerId: number): boolean  // returns false if at limit
@@ -704,7 +705,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     const starterIds = new Set(userTeam?.lineup.filter((s) => s.isStarter).map((s) => s.playerId) ?? [])
     const starters = players.filter((p) => starterIds.has(p.id))
     const rewards = isUserMatch && userTeam && rivalTeam
-      ? generateMatchRewards(match, userTeam, rivalTeam, starters, career.difficulty.rewardChoices)
+      ? generateMatchRewards(match, userTeam, rivalTeam, starters, career.difficulty.rewardChoices, result)
       : null
 
     set({
@@ -767,7 +768,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     const starterIds = new Set(userTeam?.lineup.filter((s) => s.isStarter).map((s) => s.playerId) ?? [])
     const starters = players.filter((p) => starterIds.has(p.id))
     const rewards = match && userTeam && rivalTeam
-      ? generateMatchRewards(match, userTeam, rivalTeam, starters, career.difficulty.rewardChoices)
+      ? generateMatchRewards(match, userTeam, rivalTeam, starters, career.difficulty.rewardChoices, pendingMatch.result)
       : null
 
     set({
@@ -1084,6 +1085,22 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     })
   },
 
+  swapLineupPlayers(starterId, benchId) {
+    const { career, teams } = get()
+    if (!career) return
+    const userTeam = teams.find((t) => t.id === career.teamId)
+    if (!userTeam) return
+    const starterSlot = userTeam.lineup.find((s) => s.playerId === starterId && s.isStarter)
+    const benchSlot   = userTeam.lineup.find((s) => s.playerId === benchId && !s.isStarter)
+    if (!starterSlot || !benchSlot) return
+    const newLineup = userTeam.lineup.map((slot) => {
+      if (slot.playerId === starterId) return { ...slot, playerId: starterId, isStarter: false }
+      if (slot.playerId === benchId)   return { ...starterSlot, playerId: benchId }
+      return slot
+    })
+    set({ teams: teams.map((t) => t.id === career.teamId ? { ...t, lineup: newLineup } : t) })
+  },
+
   setCaptain(playerId) {
     const { career, teams } = get()
     if (!career) return
@@ -1380,7 +1397,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     const starterIds = new Set(userTeam?.lineup.filter((s) => s.isStarter).map((s) => s.playerId) ?? [])
     const starters = players.filter((p) => starterIds.has(p.id))
     const rewards = userTeam && rivalTeam
-      ? generateMatchRewards(match, userTeam, rivalTeam, starters, career.difficulty.rewardChoices)
+      ? generateMatchRewards(match, userTeam, rivalTeam, starters, career.difficulty.rewardChoices, result)
       : null
 
     set({
