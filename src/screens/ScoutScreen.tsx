@@ -14,6 +14,8 @@ export default function ScoutScreen() {
   const acceptTransferOffer = useCareerStore((s) => s.acceptTransferOffer)
   const rejectTransferOffer = useCareerStore((s) => s.rejectTransferOffer)
   const markInboxRead = useCareerStore((s) => s.markInboxRead)
+  const respondToCounterOffer = useCareerStore((s) => s.respondToCounterOffer)
+  const cancelNegotiationAction = useCareerStore((s) => s.cancelNegotiation)
 
   if (!career) {
     return (
@@ -37,6 +39,18 @@ export default function ScoutScreen() {
     (e) => e.type === 'TRANSFER_OFFER' && e.data?.offerId,
   )
 
+  // Active outgoing negotiations
+  const activeNegotiations = career.outgoingNegotiations.filter(
+    (n) => n.phase === 'club_pending' || n.phase === 'player_pending',
+  )
+
+  // Format amount helper
+  function fmtAmt(n: number): string {
+    if (n >= 1_000_000) return `€${(n / 1_000_000).toFixed(1)}M`
+    if (n >= 1_000) return `€${(n / 1_000).toFixed(0)}K`
+    return `€${n}`
+  }
+
   return (
     <div className="h-full flex flex-col">
       <TopNavigation title="Explorador" />
@@ -44,6 +58,66 @@ export default function ScoutScreen() {
         <SideNavigation currentScreen={screen} onNavigate={navigate} />
         <main className="flex-1 overflow-y-auto p-4">
           <h1 className="text-white text-2xl font-bold mb-4">Ojeadores</h1>
+
+          {/* Active outgoing negotiations */}
+          {activeNegotiations.length > 0 && (
+            <div className="mb-6">
+              <h2 className="text-white text-lg font-semibold mb-3">
+                Negociaciones activas ({activeNegotiations.length})
+              </h2>
+              <div className="flex flex-col gap-2">
+                {activeNegotiations.map((neg) => (
+                  <div
+                    key={neg.id}
+                    className={`bg-gray-800 rounded-xl p-3 border ${
+                      neg.counterAmount ? 'border-yellow-700' : 'border-gray-700'
+                    }`}
+                  >
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="flex-1 min-w-0">
+                        <p className="text-white text-sm font-semibold truncate">{neg.playerName}</p>
+                        <p className="text-gray-500 text-xs">{neg.targetClubName}</p>
+                        <p className="text-gray-400 text-xs mt-0.5">
+                          {neg.phase === 'club_pending' && !neg.counterAmount && 'Esperando respuesta del club'}
+                          {neg.phase === 'club_pending' && neg.counterAmount && `Contra-oferta: ${fmtAmt(neg.counterAmount)}`}
+                          {neg.phase === 'player_pending' && 'Jugador valorando oferta'}
+                        </p>
+                        <p className="text-gray-600 text-[0.625rem]">
+                          Oferta: {fmtAmt(neg.currentOffer)} · Est. {neg.resolutionDate}
+                        </p>
+                      </div>
+                      <div className="shrink-0 flex flex-col gap-1 items-end">
+                        {neg.counterAmount && (
+                          <>
+                            <button
+                              onClick={() => respondToCounterOffer(neg.id, 'accept_counter')}
+                              className="text-[0.625rem] px-2 py-1 bg-green-700 hover:bg-green-600 text-white rounded font-semibold transition-colors"
+                            >
+                              Aceptar
+                            </button>
+                            <button
+                              onClick={() => respondToCounterOffer(neg.id, 'reject')}
+                              className="text-[0.625rem] px-2 py-1 bg-gray-700 hover:bg-gray-600 text-gray-300 rounded font-semibold transition-colors"
+                            >
+                              Rechazar
+                            </button>
+                          </>
+                        )}
+                        {!neg.counterAmount && (
+                          <button
+                            onClick={() => cancelNegotiationAction(neg.id)}
+                            className="text-[0.625rem] px-2 py-1 bg-gray-700 hover:bg-gray-600 text-gray-300 rounded font-semibold transition-colors"
+                          >
+                            Cancelar
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* Transfer Offers */}
           {transferOffers.length > 0 && (

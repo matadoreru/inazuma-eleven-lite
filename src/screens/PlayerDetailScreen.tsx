@@ -691,7 +691,8 @@ export default function PlayerDetailScreen() {
   function handleQuickSell() {
     const targetTeam = teams.find((t) => t.id !== career!.teamId)
     if (!targetTeam) return
-    sellPlayer(player!.id, targetTeam.id, calcTransferValue(player!))
+    const quickSellPrice = Math.round(calcTransferValue(player!) * 0.95)
+    sellPlayer(player!.id, targetTeam.id, quickSellPrice)
     setShowSellModal(false)
     navigate('squad')
   }
@@ -1216,9 +1217,12 @@ export default function PlayerDetailScreen() {
             <div className="bg-gray-700/50 rounded-xl p-3 border border-gray-600/50 space-y-2">
               <div className="flex items-center justify-between">
                 <span className="text-gray-300 text-xs font-semibold">Venta rápida</span>
-                <span className="text-white text-sm font-bold tabular-nums">
-                  {fmt(calcTransferValue(player))}
-                </span>
+                <div className="text-right">
+                  <span className="text-white text-sm font-bold tabular-nums block">
+                    {fmt(Math.round(calcTransferValue(player) * 0.95))}
+                  </span>
+                  <span className="text-gray-500 text-[0.625rem]">−5% del valor</span>
+                </div>
               </div>
               <button
                 onClick={handleQuickSell}
