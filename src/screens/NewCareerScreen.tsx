@@ -748,9 +748,9 @@ export default function NewCareerScreen() {
             <div className="bg-gray-800 rounded-2xl p-5 border border-gray-700">
               <p className="text-gray-400 text-xs uppercase tracking-wide mb-3">Dificultad</p>
               <div className="flex items-center gap-3">
-                {difficultyMode === 'easy'   && <span className="text-green-400 font-bold text-lg">Facil</span>}
+                {difficultyMode === 'easy'   && <span className="text-green-400 font-bold text-lg">Fácil</span>}
                 {difficultyMode === 'normal' && <span className="text-blue-400 font-bold text-lg">Normal</span>}
-                {difficultyMode === 'hard'   && <span className="text-red-400 font-bold text-lg">Dificil</span>}
+                {difficultyMode === 'hard'   && <span className="text-red-400 font-bold text-lg">Difícil</span>}
                 {difficultyMode === 'custom' && <span className="text-purple-400 font-bold text-lg">Custom</span>}
               </div>
             </div>
