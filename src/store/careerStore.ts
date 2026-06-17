@@ -29,6 +29,10 @@ import {
   sellPlayer as sellPlayerService,
   generateAIOffers,
   sanitizeAmount,
+  initiateNegotiation as initiateNegotiationService,
+  cancelNegotiation as cancelNegotiationService,
+  respondToCounter as respondToCounterService,
+  resolveNegotiations as resolveNegotiationsService,
 } from '../services/transferService'
 import { checkObjectives, canClaimObjective } from '../services/objectiveService'
 import { markRead, markAllRead, addEvent } from '../services/inboxService'
@@ -586,6 +590,9 @@ interface CareerState {
   sellPlayer(playerId: number, toTeamId: number, amount: number): void
   acceptTransferOffer(offerId: string): void
   rejectTransferOffer(offerId: string): void
+  initiateTransferNegotiation(playerId: number, amount: number): void
+  respondToCounterOffer(negotiationId: string, action: 'accept_counter' | 'reject' | 'counter', newAmount?: number): void
+  cancelNegotiation(negotiationId: string): void
 
   // Formation
   applyFormation(formationId: number): void
@@ -962,14 +969,15 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
       return
     }
 
-    const updatedCareer: Career = {
+    const preNegCareer: Career = {
       ...career,
       season: updatedSeason,
       allLeagueSeasons,
       cup,
       seasonStatus: computeSeasonStatus({ ...career, season: updatedSeason, allLeagueSeasons, cup }),
     }
-    set({ career: updatedCareer, players: advancedPlayers })
+    const negResult = resolveNegotiationsService(preNegCareer, nextDate, advancedPlayers, teams)
+    set({ career: negResult.career, players: negResult.players, teams: negResult.teams })
   },
 
   advanceToNextMatch() {
@@ -1028,14 +1036,15 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
       days,
     )
 
-    const updatedCareer: Career = {
+    const preNegCareer: Career = {
       ...career,
       season: updatedSeason,
       allLeagueSeasons,
       cup,
       seasonStatus: computeSeasonStatus({ ...career, season: updatedSeason, allLeagueSeasons, cup }),
     }
-    set({ career: updatedCareer, players: advancedPlayers })
+    const negResult = resolveNegotiationsService(preNegCareer, targetDate, advancedPlayers, teams)
+    set({ career: negResult.career, players: negResult.players, teams: negResult.teams })
   },
 
   // --- Training ---
@@ -1212,6 +1221,27 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     )
     if (!offerEvent) return
     set({ career: markRead(offerEvent.id, career) })
+  },
+
+  initiateTransferNegotiation(playerId, amount) {
+    const { career, players, teams } = get()
+    if (!career) return
+    const updated = initiateNegotiationService(playerId, amount, career, players, teams)
+    if (updated) set({ career: updated })
+  },
+
+  respondToCounterOffer(negotiationId, action, newAmount) {
+    const { career } = get()
+    if (!career) return
+    const updated = respondToCounterService(negotiationId, action, career, newAmount)
+    set({ career: updated })
+  },
+
+  cancelNegotiation(negotiationId) {
+    const { career } = get()
+    if (!career) return
+    const updated = cancelNegotiationService(negotiationId, career)
+    set({ career: updated })
   },
 
   // --- Formation ---
