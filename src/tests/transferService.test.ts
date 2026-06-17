@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest'
-import { filterPlayers, calcTransferValue, buyPlayer, sanitizeAmount, MAX_TRANSFER_VALUE } from '../services/transferService'
+import { filterPlayers, calcTransferValue, buyPlayer, sanitizeAmount, MAX_TRANSFER_VALUE, evaluateClubOffer, evaluatePlayerDecision, initiateNegotiation, cancelNegotiation, respondToCounter } from '../services/transferService'
+import type { OutgoingNegotiation } from '../types/career'
 import type { Player } from '../types/player'
 import type { Team, Formation } from '../types/team'
 import type { Career } from '../types/career'
@@ -380,5 +381,265 @@ describe('calcTransferValue — new factors', () => {
   it('never exceeds MAX_TRANSFER_VALUE', () => {
     const p = makePlayer({ age: 18, stats: { ...makePlayer().stats, TOT: 300 }, career: { ...makePlayer().career, potential: 99 }, canonTier: 'legendary', seasonStats: { goals: 100, assists: 100, cleanSheets: 100, matchesPlayed: 40, minutesPlayed: 3600 } })
     expect(calcTransferValue(p)).toBeLessThanOrEqual(MAX_TRANSFER_VALUE)
+  })
+})
+
+// ─── helpers ────────────────────────────────────────────────────────────────
+
+const makeNegotiation = (overrides: Partial<OutgoingNegotiation> = {}): OutgoingNegotiation => ({
+  id: 'neg-1',
+  playerId: 10,
+  playerName: 'Test Player',
+  targetClubId: 2,
+  targetClubName: 'Team 2',
+  phase: 'club_pending',
+  currentOffer: 50_000,
+  offerRound: 1,
+  isFreeAgent: false,
+  resolutionDate: '2026-01-03',
+  ...overrides,
+})
+
+// ─── evaluateClubOffer ───────────────────────────────────────────────────────
+
+describe('evaluateClubOffer', () => {
+  it('rejects when offer is below 70% of market value', () => {
+    const player = makePlayer({ id: 10, teamId: 2, age: 25, stats: { ...makePlayer().stats, TOT: 50 }, career: { ...makePlayer().career, potential: 50 } })
+    const sellingTeam = makeTeam(2, 100_000, [10, 11, 12])
+    const players = [
+      player,
+      makePlayer({ id: 11, teamId: 2, position: 'FW' }),
+      makePlayer({ id: 12, teamId: 2, position: 'FW' }),
+    ]
+    const marketValue = calcTransferValue(player) // ~60000
+    const result = evaluateClubOffer(Math.round(marketValue * 0.5), player, sellingTeam, players, [sellingTeam])
+    expect(result.decision).toBe('reject')
+  })
+
+  it('rejects when critical-position player has no replacement (GK with 0 other GKs)', () => {
+    const player = makePlayer({ id: 10, teamId: 2, position: 'GK' })
+    const sellingTeam = makeTeam(2, 100_000, [10]) // only GK
+    const players = [player]
+    const marketValue = calcTransferValue(player)
+    const result = evaluateClubOffer(marketValue * 2, player, sellingTeam, players, [sellingTeam])
+    expect(result.decision).toBe('reject')
+  })
+
+  it('accepts when offer meets threshold (enough replacements, matching rep)', () => {
+    const player = makePlayer({ id: 10, teamId: 2, position: 'FW', age: 25, stats: { ...makePlayer().stats, TOT: 50 }, career: { ...makePlayer().career, potential: 50 } })
+    const sellingTeam = makeTeam(2, 100_000, [10, 11, 12, 13]) // 3 other FWs
+    const players = [
+      player,
+      makePlayer({ id: 11, teamId: 2, position: 'FW' }),
+      makePlayer({ id: 12, teamId: 2, position: 'FW' }),
+      makePlayer({ id: 13, teamId: 2, position: 'FW' }),
+    ]
+    // Threshold = marketValue * reputationFactor (rep=50 → 1.25) * no replacement penalty
+    const marketValue = calcTransferValue(player)
+    const threshold = Math.round(marketValue * (1 + 50 / 200))
+    const result = evaluateClubOffer(threshold, player, sellingTeam, players, [sellingTeam])
+    expect(result.decision).toBe('accept')
+  })
+
+  it('returns counter when offer is in 85%–99% of threshold', () => {
+    const player = makePlayer({ id: 10, teamId: 2, position: 'FW', age: 25, stats: { ...makePlayer().stats, TOT: 50 }, career: { ...makePlayer().career, potential: 50 } })
+    const sellingTeam = makeTeam(2, 100_000, [10, 11, 12, 13])
+    const players = [
+      player,
+      makePlayer({ id: 11, teamId: 2, position: 'FW' }),
+      makePlayer({ id: 12, teamId: 2, position: 'FW' }),
+      makePlayer({ id: 13, teamId: 2, position: 'FW' }),
+    ]
+    const marketValue = calcTransferValue(player)
+    const threshold = Math.round(marketValue * (1 + 50 / 200))
+    const offerAt90Pct = Math.round(threshold * 0.90)
+    const result = evaluateClubOffer(offerAt90Pct, player, sellingTeam, players, [sellingTeam])
+    expect(result.decision).toBe('counter')
+    if (result.decision === 'counter') {
+      expect(result.counterAmount).toBe(Math.round(threshold * 1.05))
+    }
+  })
+
+  it('applies replacement penalty when only 1 same-position player remains', () => {
+    const player = makePlayer({ id: 10, teamId: 2, position: 'FW', age: 25, stats: { ...makePlayer().stats, TOT: 50 }, career: { ...makePlayer().career, potential: 50 } })
+    const sellingTeam = makeTeam(2, 100_000, [10, 11]) // only 1 other FW
+    const players = [player, makePlayer({ id: 11, teamId: 2, position: 'FW' })]
+    const marketValue = calcTransferValue(player)
+    // With penalty: threshold = marketValue * repFactor * 1.15
+    const threshold = Math.round(marketValue * (1 + 50 / 200) * 1.15)
+    // Offer at exactly marketValue * repFactor (would accept without penalty) → now rejected
+    const offerWithoutPenalty = Math.round(marketValue * (1 + 50 / 200))
+    const result = evaluateClubOffer(offerWithoutPenalty, player, sellingTeam, players, [sellingTeam])
+    // Should not be accept since threshold is higher now
+    expect(['reject', 'counter'].includes(result.decision)).toBe(true)
+    // Offer at full threshold with penalty → accept
+    const result2 = evaluateClubOffer(threshold, player, sellingTeam, players, [sellingTeam])
+    expect(result2.decision).toBe('accept')
+  })
+})
+
+// ─── evaluatePlayerDecision ──────────────────────────────────────────────────
+
+describe('evaluatePlayerDecision', () => {
+  it('player with TOT < 65 always accepts regardless of team reputation', () => {
+    const player = makePlayer({ stats: { ...makePlayer().stats, TOT: 60 } })
+    const poorTeam = makeTeam(1, 100_000)
+    poorTeam.reputation = 10
+    expect(evaluatePlayerDecision(player, poorTeam)).toBe('accept')
+  })
+
+  it('player TOT 65–74: accepts if buyingTeam.reputation >= 30', () => {
+    const player = makePlayer({ stats: { ...makePlayer().stats, TOT: 70 } })
+    const goodTeam = { ...makeTeam(1, 100_000), reputation: 30 }
+    const badTeam = { ...makeTeam(1, 100_000), reputation: 29 }
+    expect(evaluatePlayerDecision(player, goodTeam)).toBe('accept')
+    expect(evaluatePlayerDecision(player, badTeam)).toBe('reject')
+  })
+
+  it('player TOT 75–84: accepts if buyingTeam.reputation >= 50', () => {
+    const player = makePlayer({ stats: { ...makePlayer().stats, TOT: 80 } })
+    const goodTeam = { ...makeTeam(1, 100_000), reputation: 50 }
+    const badTeam = { ...makeTeam(1, 100_000), reputation: 49 }
+    expect(evaluatePlayerDecision(player, goodTeam)).toBe('accept')
+    expect(evaluatePlayerDecision(player, badTeam)).toBe('reject')
+  })
+
+  it('player TOT >= 85: accepts if buyingTeam.reputation >= 70', () => {
+    const player = makePlayer({ stats: { ...makePlayer().stats, TOT: 90 } })
+    const goodTeam = { ...makeTeam(1, 100_000), reputation: 70 }
+    const badTeam = { ...makeTeam(1, 100_000), reputation: 69 }
+    expect(evaluatePlayerDecision(player, goodTeam)).toBe('accept')
+    expect(evaluatePlayerDecision(player, badTeam)).toBe('reject')
+  })
+})
+
+// ─── initiateNegotiation ────────────────────────────────────────────────────
+
+describe('initiateNegotiation', () => {
+  it('returns null when player is in user team', () => {
+    const player = makePlayer({ id: 10, teamId: 1 })
+    const career = makeCareer(1)
+    const result = initiateNegotiation(10, 50_000, career, [player], [makeTeam(1, 500_000, [10])])
+    expect(result).toBeNull()
+  })
+
+  it('returns null when active negotiation already exists for player', () => {
+    const player = makePlayer({ id: 10, teamId: 2 })
+    const career = {
+      ...makeCareer(1),
+      outgoingNegotiations: [makeNegotiation({ playerId: 10, phase: 'club_pending' })],
+    }
+    const result = initiateNegotiation(10, 50_000, career, [player], [makeTeam(1, 500_000), makeTeam(2, 100_000, [10])])
+    expect(result).toBeNull()
+  })
+
+  it('returns null for invalid offer amount', () => {
+    const player = makePlayer({ id: 10, teamId: 2 })
+    const career = makeCareer(1)
+    expect(initiateNegotiation(10, -1, career, [player], [makeTeam(1, 500_000), makeTeam(2, 100_000, [10])])).toBeNull()
+    expect(initiateNegotiation(10, 0, career, [player], [makeTeam(1, 500_000), makeTeam(2, 100_000, [10])])).toBeNull()
+  })
+
+  it('creates club_pending negotiation for player with a club', () => {
+    const player = makePlayer({ id: 10, teamId: 2 })
+    const career = makeCareer(1)
+    const result = initiateNegotiation(10, 50_000, career, [player], [makeTeam(1, 500_000), makeTeam(2, 100_000, [10])])
+    expect(result).not.toBeNull()
+    expect(result!.outgoingNegotiations).toHaveLength(1)
+    expect(result!.outgoingNegotiations[0].phase).toBe('club_pending')
+    expect(result!.outgoingNegotiations[0].offerRound).toBe(1)
+    expect(result!.outgoingNegotiations[0].isFreeAgent).toBe(false)
+  })
+
+  it('creates player_pending negotiation for free agent (teamId null)', () => {
+    const player = makePlayer({ id: 10, teamId: null as unknown as number })
+    const career = makeCareer(1)
+    const result = initiateNegotiation(10, 50_000, career, [player], [makeTeam(1, 500_000)])
+    expect(result).not.toBeNull()
+    expect(result!.outgoingNegotiations[0].phase).toBe('player_pending')
+    expect(result!.outgoingNegotiations[0].isFreeAgent).toBe(true)
+  })
+
+  it('sets resolutionDate 2 or 3 days after current date', () => {
+    const player = makePlayer({ id: 10, teamId: 2 })
+    const career = { ...makeCareer(1), season: { ...makeCareer(1).season, currentDate: '2026-03-01' } }
+    const result = initiateNegotiation(10, 50_000, career, [player], [makeTeam(1, 500_000), makeTeam(2, 100_000, [10])])
+    expect(result).not.toBeNull()
+    expect(['2026-03-03', '2026-03-04'].includes(result!.outgoingNegotiations[0].resolutionDate)).toBe(true)
+  })
+})
+
+// ─── cancelNegotiation ──────────────────────────────────────────────────────
+
+describe('cancelNegotiation', () => {
+  it('sets the negotiation phase to cancelled', () => {
+    const career = { ...makeCareer(1), outgoingNegotiations: [makeNegotiation({ id: 'neg-1', phase: 'club_pending' })] }
+    const result = cancelNegotiation('neg-1', career)
+    expect(result.outgoingNegotiations[0].phase).toBe('cancelled')
+  })
+
+  it('leaves other negotiations untouched', () => {
+    const career = {
+      ...makeCareer(1),
+      outgoingNegotiations: [
+        makeNegotiation({ id: 'neg-1', phase: 'club_pending' }),
+        makeNegotiation({ id: 'neg-2', phase: 'player_pending' }),
+      ],
+    }
+    const result = cancelNegotiation('neg-1', career)
+    expect(result.outgoingNegotiations[1].phase).toBe('player_pending')
+  })
+})
+
+// ─── respondToCounter ────────────────────────────────────────────────────────
+
+describe('respondToCounter', () => {
+  const baseCareer = {
+    ...makeCareer(1),
+    season: { ...makeCareer(1).season, currentDate: '2026-03-01' },
+    outgoingNegotiations: [
+      makeNegotiation({ id: 'neg-1', phase: 'club_pending', counterAmount: 75_000, offerRound: 1 }),
+    ],
+  }
+
+  it('accept_counter moves to player_pending and clears counterAmount', () => {
+    const result = respondToCounter('neg-1', 'accept_counter', baseCareer)
+    const neg = result.outgoingNegotiations[0]
+    expect(neg.phase).toBe('player_pending')
+    expect(neg.counterAmount).toBeUndefined()
+    expect(neg.currentOffer).toBe(75_000)
+  })
+
+  it('reject sets phase to failed', () => {
+    const result = respondToCounter('neg-1', 'reject', baseCareer)
+    expect(result.outgoingNegotiations[0].phase).toBe('failed')
+  })
+
+  it('counter increments offerRound and sets new resolutionDate', () => {
+    const result = respondToCounter('neg-1', 'counter', baseCareer, 65_000)
+    const neg = result.outgoingNegotiations[0]
+    expect(neg.offerRound).toBe(2)
+    expect(neg.currentOffer).toBe(65_000)
+    expect(neg.counterAmount).toBeUndefined()
+    expect(['2026-03-03', '2026-03-04'].includes(neg.resolutionDate)).toBe(true)
+  })
+
+  it('counter is blocked when offerRound >= 3', () => {
+    const career = {
+      ...baseCareer,
+      outgoingNegotiations: [makeNegotiation({ id: 'neg-1', phase: 'club_pending', counterAmount: 75_000, offerRound: 3 })],
+    }
+    const result = respondToCounter('neg-1', 'counter', career, 70_000)
+    // Returns unchanged career
+    expect(result.outgoingNegotiations[0].offerRound).toBe(3)
+  })
+
+  it('returns unchanged career when negotiation has no counterAmount', () => {
+    const career = {
+      ...baseCareer,
+      outgoingNegotiations: [makeNegotiation({ id: 'neg-1', phase: 'club_pending' })],
+    }
+    const result = respondToCounter('neg-1', 'accept_counter', career)
+    expect(result).toBe(career)
   })
 })

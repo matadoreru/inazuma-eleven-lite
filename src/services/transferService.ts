@@ -1,6 +1,6 @@
 import type { Player } from '../types/player'
 import type { Team } from '../types/team'
-import type { Career, TransferOffer } from '../types/career'
+import type { Career, TransferOffer, OutgoingNegotiation, NegotiationPhase, InboxEventType, InboxEvent } from '../types/career'
 import type { TransferFilter } from '../types/transfer'
 
 export const MAX_TRANSFER_VALUE = 10_000_000
@@ -231,4 +231,162 @@ export function generateAIOffers(
   }
 
   return offers
+}
+
+// ─── Private helpers ─────────────────────────────────────────────────────────
+
+function addDays(dateStr: string, days: number): string {
+  const d = new Date(dateStr)
+  d.setDate(d.getDate() + days)
+  return d.toISOString().split('T')[0]
+}
+
+function randInt(min: number, max: number): number {
+  return Math.floor(Math.random() * (max - min + 1)) + min
+}
+
+function updateNeg(career: Career, id: string, updates: Partial<OutgoingNegotiation>): Career {
+  return {
+    ...career,
+    outgoingNegotiations: career.outgoingNegotiations.map((n) =>
+      n.id === id ? { ...n, ...updates } : n,
+    ),
+  }
+}
+
+function makeEvent(
+  type: InboxEventType,
+  title: string,
+  body: string,
+  date: string,
+  data?: Record<string, unknown>,
+): InboxEvent {
+  return { id: crypto.randomUUID(), type, title, body, date, read: false, data }
+}
+
+function pushEvent(career: Career, event: InboxEvent): Career {
+  return { ...career, inbox: [event, ...career.inbox] }
+}
+
+// ─── Evaluation ──────────────────────────────────────────────────────────────
+
+export type ClubDecision =
+  | { decision: 'accept' }
+  | { decision: 'counter'; counterAmount: number }
+  | { decision: 'reject' }
+
+export function evaluateClubOffer(
+  offer: number,
+  player: Player,
+  sellingTeam: Team,
+  allPlayers: Player[],
+  _teams: Team[],
+): ClubDecision {
+  const marketValue = calcTransferValue(player)
+
+  if (offer < marketValue * 0.7) return { decision: 'reject' }
+
+  // Replacement capacity: count same-position players in the selling team excluding this player
+  const replacements = allPlayers.filter(
+    (p) => p.teamId === sellingTeam.id && p.id !== player.id && p.position === player.position,
+  ).length
+
+  const isCritical = player.position === 'GK' || player.position === 'DF'
+  if (isCritical && replacements < 1) return { decision: 'reject' }
+
+  const replacementPenalty = replacements < 2 ? 1.15 : 1.0
+  const reputationFactor = 1.0 + sellingTeam.reputation / 200
+
+  const threshold = Math.round(marketValue * reputationFactor * replacementPenalty)
+
+  if (offer >= threshold) return { decision: 'accept' }
+  if (offer >= Math.round(threshold * 0.85)) {
+    return { decision: 'counter', counterAmount: Math.round(threshold * 1.05) }
+  }
+  return { decision: 'reject' }
+}
+
+export function evaluatePlayerDecision(player: Player, buyingTeam: Team): 'accept' | 'reject' {
+  const tot = player.stats.TOT
+  if (tot < 65) return 'accept'
+  if (tot < 75) return buyingTeam.reputation >= 30 ? 'accept' : 'reject'
+  if (tot < 85) return buyingTeam.reputation >= 50 ? 'accept' : 'reject'
+  return buyingTeam.reputation >= 70 ? 'accept' : 'reject'
+}
+
+// ─── Mutation functions ───────────────────────────────────────────────────────
+
+export function initiateNegotiation(
+  playerId: number,
+  amount: number,
+  career: Career,
+  players: Player[],
+  teams: Team[],
+): Career | null {
+  const player = players.find((p) => p.id === playerId)
+  if (!player || player.teamId === career.teamId) return null
+
+  const alreadyActive = career.outgoingNegotiations.some(
+    (n) => n.playerId === playerId && (n.phase === 'club_pending' || n.phase === 'player_pending'),
+  )
+  if (alreadyActive) return null
+
+  const safe = sanitizeAmount(amount)
+  if (safe === null) return null
+
+  const isFreeAgent = player.teamId === null
+  const targetClub = player.teamId !== null ? teams.find((t) => t.id === player.teamId) : null
+
+  const negotiation: OutgoingNegotiation = {
+    id: crypto.randomUUID(),
+    playerId,
+    playerName: player.nameRomaji,
+    targetClubId: player.teamId ?? null,
+    targetClubName: isFreeAgent ? 'Agente Libre' : (targetClub?.name ?? 'Desconocido'),
+    phase: isFreeAgent ? 'player_pending' : 'club_pending',
+    currentOffer: safe,
+    offerRound: 1,
+    isFreeAgent,
+    resolutionDate: addDays(career.season.currentDate, randInt(2, 3)),
+  }
+
+  return { ...career, outgoingNegotiations: [...career.outgoingNegotiations, negotiation] }
+}
+
+export function cancelNegotiation(negotiationId: string, career: Career): Career {
+  return updateNeg(career, negotiationId, { phase: 'cancelled' })
+}
+
+export function respondToCounter(
+  negotiationId: string,
+  action: 'accept_counter' | 'reject' | 'counter',
+  career: Career,
+  newAmount?: number,
+): Career {
+  const neg = career.outgoingNegotiations.find((n) => n.id === negotiationId)
+  if (!neg || neg.phase !== 'club_pending' || neg.counterAmount === undefined) return career
+
+  if (action === 'accept_counter') {
+    return updateNeg(career, negotiationId, {
+      currentOffer: neg.counterAmount,
+      counterAmount: undefined,
+      phase: 'player_pending',
+      resolutionDate: addDays(career.season.currentDate, randInt(2, 3)),
+    })
+  }
+
+  if (action === 'reject') {
+    return updateNeg(career, negotiationId, { phase: 'failed' })
+  }
+
+  // counter
+  if (neg.offerRound >= 3 || newAmount === undefined) return career
+  const safe = sanitizeAmount(newAmount)
+  if (safe === null) return career
+  return updateNeg(career, negotiationId, {
+    currentOffer: safe,
+    counterAmount: undefined,
+    offerRound: neg.offerRound + 1,
+    resolutionDate: addDays(career.season.currentDate, randInt(2, 3)),
+  })
 }
