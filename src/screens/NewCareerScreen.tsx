@@ -262,6 +262,128 @@ export default function NewCareerScreen() {
           </div>
         )}
 
+        {/* ── STEP 3b: Badge picker ── */}
+        {step === 3 && careerMode === 'custom' && (
+          <div className="max-w-2xl mx-auto px-6 py-8 flex flex-col gap-6">
+            <div>
+              <h2 className="text-white text-2xl font-bold mb-1">Emblema del club</h2>
+              <p className="text-gray-400 text-sm">Elige el emblema que representará a tu club.</p>
+            </div>
+            <div className="flex gap-6">
+              {/* Left: preset grid */}
+              <div className="flex-1">
+                <p className="text-gray-400 text-xs font-semibold uppercase tracking-wide mb-3">Emblemas predeterminados</p>
+                <div className="grid grid-cols-5 gap-2">
+                  {PRESET_BADGES.map((url) => (
+                    <button
+                      key={url}
+                      type="button"
+                      onClick={() => { setClubBadgeUrl(url); setClubBadgeIsCustom(false) }}
+                      className={`p-1 rounded-xl border-2 transition-all ${clubBadgeUrl === url && !clubBadgeIsCustom ? 'border-purple-500 bg-purple-900/20' : 'border-gray-700 bg-gray-800 hover:border-gray-600'}`}
+                    >
+                      <img src={url} alt="" className="w-10 h-10 object-contain mx-auto" />
+                    </button>
+                  ))}
+                </div>
+                <div className="mt-4">
+                  <button
+                    type="button"
+                    onClick={() => badgeFileRef.current?.click()}
+                    className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 text-sm font-semibold transition-colors ${clubBadgeIsCustom ? 'border-purple-500 bg-purple-900/20 text-purple-300' : 'border-gray-700 bg-gray-800 text-gray-300 hover:border-gray-500'}`}
+                  >
+                    <span className="material-symbols-rounded text-lg">upload</span>
+                    {clubBadgeIsCustom ? 'Imagen personalizada seleccionada' : 'Subir imagen propia'}
+                  </button>
+                  <input
+                    ref={badgeFileRef}
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0]
+                      if (!file) return
+                      const reader = new FileReader()
+                      reader.onload = (ev) => {
+                        const result = ev.target?.result
+                        if (typeof result === 'string') {
+                          setClubBadgeUrl(result)
+                          setClubBadgeIsCustom(true)
+                        }
+                      }
+                      reader.readAsDataURL(file)
+                    }}
+                  />
+                </div>
+              </div>
+              {/* Right: preview */}
+              <div className="w-48 flex-shrink-0 flex flex-col items-center gap-3 pt-6">
+                <TeamBadgeImage teamName={clubName || 'Mi Club'} badgeUrl={clubBadgeUrl} size="xl" />
+                <p className="text-white font-bold text-center text-sm leading-tight">{clubName || 'Mi Club'}</p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ── STEP 4b: Strength + League ── */}
+        {step === 4 && careerMode === 'custom' && (
+          <div className="max-w-lg mx-auto px-6 py-8 flex flex-col gap-8">
+            <div>
+              <h2 className="text-white text-2xl font-bold mb-1">Fuerza inicial</h2>
+              <p className="text-gray-400 text-sm">Elige el nivel de tu plantilla inicial y la liga donde empezarás.</p>
+            </div>
+
+            {/* Strength */}
+            <div>
+              <p className="text-gray-400 text-xs font-semibold uppercase tracking-wide mb-3">Nivel de la plantilla</p>
+              <div className="grid grid-cols-2 gap-3">
+                {STRENGTH_OPTIONS.map(({ tier, label, description, color }) => {
+                  const colorMap: Record<string, string> = {
+                    gray: 'border-gray-500 bg-gray-700/40',
+                    blue: 'border-blue-500 bg-blue-900/20',
+                    green: 'border-green-500 bg-green-900/20',
+                    purple: 'border-purple-500 bg-purple-900/20',
+                  }
+                  const labelColorMap: Record<string, string> = {
+                    gray: 'text-gray-300', blue: 'text-blue-400',
+                    green: 'text-green-400', purple: 'text-purple-400',
+                  }
+                  const isSelected = clubStrength === tier
+                  return (
+                    <button
+                      key={tier}
+                      onClick={() => setClubStrength(tier)}
+                      className={`text-left p-4 rounded-2xl border-2 transition-colors ${isSelected ? colorMap[color] : 'border-gray-700 bg-gray-800 hover:border-gray-600'}`}
+                    >
+                      <p className={`text-lg font-bold mb-1 ${isSelected ? labelColorMap[color] : 'text-gray-300'}`}>{label}</p>
+                      <p className="text-gray-400 text-xs">{description}</p>
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+
+            {/* League */}
+            <div>
+              <p className="text-gray-400 text-xs font-semibold uppercase tracking-wide mb-3">Liga inicial</p>
+              <div className="flex flex-col gap-3">
+                {[
+                  { id: 'second_division', label: 'Segunda División', desc: 'Nivel 2 · Empieza desde abajo y asciende.' },
+                  { id: 'first_division',  label: 'Primera División', desc: 'Nivel 1 · Directamente en la liga más alta.' },
+                ].map(({ id, label, desc }) => (
+                  <button
+                    key={id}
+                    onClick={() => setClubLeagueId(id)}
+                    className={`text-left p-4 rounded-2xl border-2 transition-colors ${clubLeagueId === id ? 'border-yellow-500 bg-yellow-900/20' : 'border-gray-700 bg-gray-800 hover:border-gray-600'}`}
+                  >
+                    <p className={`font-bold mb-0.5 ${clubLeagueId === id ? 'text-yellow-300' : 'text-gray-300'}`}>{label}</p>
+                    <p className="text-gray-500 text-xs">{desc}</p>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* ── STEP 2: Team ── */}
         {step === 2 && careerMode === 'existing' && (
           <div className="flex h-full">
