@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { filterPlayers, calcTransferValue, buyPlayer } from '../services/transferService'
+import { filterPlayers, calcTransferValue, buyPlayer, sanitizeAmount, MAX_TRANSFER_VALUE } from '../services/transferService'
 import type { Player } from '../types/player'
 import type { Team, Formation } from '../types/team'
 import type { Career } from '../types/career'
@@ -288,5 +288,96 @@ describe('buyPlayer', () => {
 
     const { career: updatedCareer } = buyPlayer(10, 1, 50_000, career, [buyingTeam, sellingTeam], [player])
     expect(updatedCareer.totalBudgetSpent).toBe(50_000)
+  })
+})
+
+describe('sanitizeAmount', () => {
+  it('returns null for NaN', () => {
+    expect(sanitizeAmount(NaN)).toBeNull()
+  })
+  it('returns null for Infinity', () => {
+    expect(sanitizeAmount(Infinity)).toBeNull()
+  })
+  it('returns null for 0', () => {
+    expect(sanitizeAmount(0)).toBeNull()
+  })
+  it('returns null for negative values', () => {
+    expect(sanitizeAmount(-500)).toBeNull()
+  })
+  it('returns null for amounts above MAX_TRANSFER_VALUE', () => {
+    expect(sanitizeAmount(MAX_TRANSFER_VALUE + 1)).toBeNull()
+  })
+  it('returns rounded integer for valid amounts', () => {
+    expect(sanitizeAmount(100_000.7)).toBe(100_001)
+  })
+  it('returns MAX_TRANSFER_VALUE exactly when at the cap', () => {
+    expect(sanitizeAmount(MAX_TRANSFER_VALUE)).toBe(MAX_TRANSFER_VALUE)
+  })
+  it('accepts string numbers', () => {
+    expect(sanitizeAmount('50000')).toBe(50_000)
+  })
+})
+
+describe('calcTransferValue — new factors', () => {
+  // Base: TOT=50, age=25, potential=50, common, no performance, healthy
+  // base=50000, ageFactor=1.2 (≤26), potentialFactor=1.0, canon=1.0, perf=1.0, injury=1.0
+  // Expected: 50000 * 1.2 = 60000
+  it('baseline: TOT=50, age=25, potential=50, common', () => {
+    const p = makePlayer({ age: 25, stats: { ...makePlayer().stats, TOT: 50 }, career: { ...makePlayer().career, potential: 50 } })
+    expect(calcTransferValue(p)).toBe(60_000)
+  })
+
+  it('legendary canon multiplies by 2.2', () => {
+    const common = makePlayer({ age: 25, stats: { ...makePlayer().stats, TOT: 50 }, career: { ...makePlayer().career, potential: 50 }, canonTier: 'common' })
+    const legendary = makePlayer({ age: 25, stats: { ...makePlayer().stats, TOT: 50 }, career: { ...makePlayer().career, potential: 50 }, canonTier: 'legendary' })
+    expect(calcTransferValue(legendary)).toBe(Math.round(calcTransferValue(common) * 2.2))
+  })
+
+  it('epic canon multiplies by 1.6', () => {
+    const common = makePlayer({ age: 25, stats: { ...makePlayer().stats, TOT: 50 }, career: { ...makePlayer().career, potential: 50 }, canonTier: 'common' })
+    const epic = makePlayer({ age: 25, stats: { ...makePlayer().stats, TOT: 50 }, career: { ...makePlayer().career, potential: 50 }, canonTier: 'epic' })
+    expect(calcTransferValue(epic)).toBe(Math.round(calcTransferValue(common) * 1.6))
+  })
+
+  it('rare canon multiplies by 1.3', () => {
+    const common = makePlayer({ age: 25, stats: { ...makePlayer().stats, TOT: 50 }, career: { ...makePlayer().career, potential: 50 }, canonTier: 'common' })
+    const rare = makePlayer({ age: 25, stats: { ...makePlayer().stats, TOT: 50 }, career: { ...makePlayer().career, potential: 50 }, canonTier: 'rare' })
+    expect(calcTransferValue(rare)).toBe(Math.round(calcTransferValue(common) * 1.3))
+  })
+
+  it('injured player is worth 15% less', () => {
+    const healthy = makePlayer({ age: 25, stats: { ...makePlayer().stats, TOT: 50 }, career: { ...makePlayer().career, potential: 50 }, isInjured: false })
+    const injured = makePlayer({ age: 25, stats: { ...makePlayer().stats, TOT: 50 }, career: { ...makePlayer().career, potential: 50 }, isInjured: true })
+    expect(calcTransferValue(injured)).toBe(Math.round(calcTransferValue(healthy) * 0.85))
+  })
+
+  it('10 goals add 10% performance bonus', () => {
+    const noGoals = makePlayer({ age: 25, stats: { ...makePlayer().stats, TOT: 50 }, career: { ...makePlayer().career, potential: 50 } })
+    const scorer = makePlayer({ age: 25, stats: { ...makePlayer().stats, TOT: 50 }, career: { ...makePlayer().career, potential: 50 }, seasonStats: { goals: 10, assists: 0, cleanSheets: 0, matchesPlayed: 10, minutesPlayed: 900 } })
+    expect(calcTransferValue(scorer)).toBe(Math.round(calcTransferValue(noGoals) * 1.10))
+  })
+
+  it('performance bonus is capped at 30%', () => {
+    // 100 goals → would be 100% bonus but caps at 30%
+    const big = makePlayer({ age: 25, stats: { ...makePlayer().stats, TOT: 50 }, career: { ...makePlayer().career, potential: 50 }, seasonStats: { goals: 100, assists: 0, cleanSheets: 0, matchesPlayed: 30, minutesPlayed: 2700 } })
+    const cap = makePlayer({ age: 25, stats: { ...makePlayer().stats, TOT: 50 }, career: { ...makePlayer().career, potential: 50 }, seasonStats: { goals: 30, assists: 0, cleanSheets: 0, matchesPlayed: 30, minutesPlayed: 2700 } })
+    expect(calcTransferValue(big)).toBe(calcTransferValue(cap))
+  })
+
+  it('starter ctx adds 10% importance bonus', () => {
+    const p = makePlayer({ age: 25, stats: { ...makePlayer().stats, TOT: 50 }, career: { ...makePlayer().career, potential: 50 } })
+    const base = calcTransferValue(p)
+    expect(calcTransferValue(p, { lineupStatus: 'starter' })).toBe(Math.round(base * 1.1))
+  })
+
+  it('uncalled ctx reduces value by 5%', () => {
+    const p = makePlayer({ age: 25, stats: { ...makePlayer().stats, TOT: 50 }, career: { ...makePlayer().career, potential: 50 } })
+    const base = calcTransferValue(p)
+    expect(calcTransferValue(p, { lineupStatus: 'uncalled' })).toBe(Math.round(base * 0.95))
+  })
+
+  it('never exceeds MAX_TRANSFER_VALUE', () => {
+    const p = makePlayer({ age: 18, stats: { ...makePlayer().stats, TOT: 300 }, career: { ...makePlayer().career, potential: 99 }, canonTier: 'legendary', seasonStats: { goals: 100, assists: 100, cleanSheets: 100, matchesPlayed: 40, minutesPlayed: 3600 } })
+    expect(calcTransferValue(p)).toBeLessThanOrEqual(MAX_TRANSFER_VALUE)
   })
 })

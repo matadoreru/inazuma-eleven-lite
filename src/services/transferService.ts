@@ -3,11 +3,58 @@ import type { Team } from '../types/team'
 import type { Career, TransferOffer } from '../types/career'
 import type { TransferFilter } from '../types/transfer'
 
-export function calcTransferValue(player: Player): number {
-  const base = player.stats.TOT * 1000
-  const ageFactor = player.age <= 22 ? 1.4 : player.age <= 26 ? 1.2 : player.age <= 30 ? 1.0 : 0.7
-  const potentialFactor = player.career.potential > 80 ? 1.3 : player.career.potential > 60 ? 1.1 : 1.0
-  return Math.round(base * ageFactor * potentialFactor)
+export const MAX_TRANSFER_VALUE = 10_000_000
+
+export function sanitizeAmount(amount: unknown): number | null {
+  const n = Number(amount)
+  if (!Number.isFinite(n) || Number.isNaN(n)) return null
+  if (n <= 0) return null
+  if (n > MAX_TRANSFER_VALUE) return null
+  return Math.round(n)
+}
+
+export function calcTransferValue(
+  player: Player,
+  ctx?: { lineupStatus?: 'starter' | 'bench' | 'uncalled'; teamReputation?: number },
+): number {
+  const ageFactor =
+    player.age <= 22 ? 1.4 :
+    player.age <= 26 ? 1.2 :
+    player.age <= 30 ? 1.0 : 0.7
+
+  const potentialFactor =
+    player.career.potential > 80 ? 1.3 :
+    player.career.potential > 60 ? 1.1 : 1.0
+
+  const canonFactor =
+    player.canonTier === 'legendary' ? 2.2 :
+    player.canonTier === 'epic'      ? 1.6 :
+    player.canonTier === 'rare'      ? 1.3 : 1.0
+
+  const { goals, assists, cleanSheets } = player.seasonStats
+  const rawPerf = goals * 0.01 + assists * 0.005 + cleanSheets * 0.008
+  const performanceFactor = 1 + Math.min(rawPerf, 0.30)
+
+  const injuryFactor = player.isInjured ? 0.85 : 1.0
+
+  const importanceFactor =
+    ctx?.lineupStatus === 'starter'  ? 1.1 :
+    ctx?.lineupStatus === 'uncalled' ? 0.95 : 1.0
+
+  const divisionFactor = ctx?.teamReputation !== undefined
+    ? 0.85 + (Math.min(Math.max(ctx.teamReputation, 0), 100) / 100) * 0.30
+    : 1.0
+
+  const raw = player.stats.TOT * 1000
+    * ageFactor
+    * potentialFactor
+    * canonFactor
+    * performanceFactor
+    * injuryFactor
+    * importanceFactor
+    * divisionFactor
+
+  return Math.min(Math.round(raw), MAX_TRANSFER_VALUE)
 }
 
 export function filterPlayers(players: Player[], filter: TransferFilter): Player[] {
@@ -33,11 +80,12 @@ export function buyPlayer(
   teams: Team[],
   players: Player[],
 ): { career: Career; teams: Team[]; players: Player[] } {
+  const safe = sanitizeAmount(amount)
   const player = players.find((p) => p.id === playerId)
   const buyingTeam = teams.find((t) => t.id === teamId)
 
-  if (!player || !buyingTeam) return { career, teams, players }
-  if (buyingTeam.budget < amount) return { career, teams, players }
+  if (safe === null || !player || !buyingTeam) return { career, teams, players }
+  if (buyingTeam.budget < safe) return { career, teams, players }
 
   const now = new Date().toISOString().split('T')[0]
   const previousTeamId = player.teamId
@@ -50,14 +98,14 @@ export function buyPlayer(
     if (t.id === teamId) {
       return {
         ...t,
-        budget: t.budget - amount,
+        budget: t.budget - safe,
         playerIds: [...t.playerIds, playerId],
       }
     }
     if (t.id === previousTeamId) {
       return {
         ...t,
-        budget: t.budget + amount,
+        budget: t.budget + safe,
         playerIds: t.playerIds.filter((id) => id !== playerId),
       }
     }
@@ -70,15 +118,15 @@ export function buyPlayer(
     fromTeamName: buyingTeam.name,
     playerId,
     playerName: player.name,
-    amount,
+    amount: safe,
     date: now,
     status: 'accepted',
   }
 
   const updatedCareer: Career = {
     ...career,
-    totalBudgetSpent: career.teamId === teamId ? career.totalBudgetSpent + amount : career.totalBudgetSpent,
-    totalBudgetEarned: career.teamId === previousTeamId ? career.totalBudgetEarned + amount : career.totalBudgetEarned,
+    totalBudgetSpent: career.teamId === teamId ? career.totalBudgetSpent + safe : career.totalBudgetSpent,
+    totalBudgetEarned: career.teamId === previousTeamId ? career.totalBudgetEarned + safe : career.totalBudgetEarned,
     transferHistory: [...career.transferHistory, offer],
   }
 
@@ -93,11 +141,12 @@ export function sellPlayer(
   teams: Team[],
   players: Player[],
 ): { career: Career; teams: Team[]; players: Player[] } {
+  const safe = sanitizeAmount(amount)
   const player = players.find((p) => p.id === playerId)
   const sellingTeamId = player?.teamId ?? null
   const buyingTeam = teams.find((t) => t.id === toTeamId)
 
-  if (!player || !buyingTeam || sellingTeamId === null) return { career, teams, players }
+  if (safe === null || !player || !buyingTeam || sellingTeamId === null) return { career, teams, players }
 
   const now = new Date().toISOString().split('T')[0]
 
@@ -109,14 +158,14 @@ export function sellPlayer(
     if (t.id === toTeamId) {
       return {
         ...t,
-        budget: t.budget - amount,
+        budget: t.budget - safe,
         playerIds: [...t.playerIds, playerId],
       }
     }
     if (t.id === sellingTeamId) {
       return {
         ...t,
-        budget: t.budget + amount,
+        budget: t.budget + safe,
         playerIds: t.playerIds.filter((id) => id !== playerId),
       }
     }
@@ -129,15 +178,15 @@ export function sellPlayer(
     fromTeamName: buyingTeam.name,
     playerId,
     playerName: player.name,
-    amount,
+    amount: safe,
     date: now,
     status: 'accepted',
   }
 
   const updatedCareer: Career = {
     ...career,
-    totalBudgetSpent: career.teamId === toTeamId ? career.totalBudgetSpent + amount : career.totalBudgetSpent,
-    totalBudgetEarned: career.teamId === sellingTeamId ? career.totalBudgetEarned + amount : career.totalBudgetEarned,
+    totalBudgetSpent: career.teamId === toTeamId ? career.totalBudgetSpent + safe : career.totalBudgetSpent,
+    totalBudgetEarned: career.teamId === sellingTeamId ? career.totalBudgetEarned + safe : career.totalBudgetEarned,
     transferHistory: [...career.transferHistory, offer],
   }
 
