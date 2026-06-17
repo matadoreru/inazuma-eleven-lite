@@ -6,7 +6,7 @@ import type { DifficultySettings } from '../types/career'
 import type { Player } from '../types/player'
 import type { Team } from '../types/team'
 import { MAX_CALLUP } from '../types/team'
-import type { Match, MatchResult } from '../types/competition'
+import type { Match, MatchResult, MatchEvent } from '../types/competition'
 import type { TransferFilter } from '../types/transfer'
 import { DEFAULT_TRANSFER_FILTER } from '../types/transfer'
 import type { LeagueSeason, SeasonStatus } from '../types/season'
@@ -191,6 +191,107 @@ function computeSeasonStatus(
 }
 
 // ---------------------------------------------------------------------------
+// Injury helpers
+// ---------------------------------------------------------------------------
+
+function randomInjuryDays(): number {
+  const r = Math.random()
+  if (r < 0.08) return Math.floor(Math.random() * 5) + 3    // 3-7 days  (8%)
+  if (r < 0.85) return Math.floor(Math.random() * 9) + 12   // 12-20 days (77%)
+  if (r < 0.97) return Math.floor(Math.random() * 20) + 21  // 21-40 days (12%)
+  return Math.floor(Math.random() * 50) + 41                  // 41-90 days (3%)
+}
+
+function applyMatchInjuries(
+  events: MatchEvent[],
+  userTeamId: number,
+  players: Player[],
+): Player[] {
+  const injuredIds = new Set(
+    events
+      .filter((e) => e.type === 'INJURY' && e.teamId === userTeamId && e.playerId != null)
+      .map((e) => e.playerId!),
+  )
+  if (injuredIds.size === 0) return players
+  return players.map((p) =>
+    injuredIds.has(p.id) && !p.isInjured
+      ? { ...p, isInjured: true, injuryDaysRemaining: randomInjuryDays() }
+      : p,
+  )
+}
+
+function advanceInjuryCountdown(players: Player[], days: number): Player[] {
+  return players.map((p) => {
+    if (!p.isInjured) return p
+    const remaining = Math.max(0, p.injuryDaysRemaining - days)
+    return { ...p, injuryDaysRemaining: remaining, isInjured: remaining > 0 }
+  })
+}
+
+// ---------------------------------------------------------------------------
+// Season-end logic (shared by commitMatchResult and advanceDay)
+// ---------------------------------------------------------------------------
+
+function applySeasonEnd(
+  career: Career,
+  teams: Team[],
+  players: Player[],
+  finalMatches: Career['season']['matches'],
+  finalStandings: Career['season']['standings'],
+): { career: Career; teams: Team[]; players: Player[] } {
+  const finishedSeason = { ...career.season, matches: finalMatches, standings: finalStandings, finished: true }
+  const seasonStats = computeSeasonStats(finishedSeason, career.teamId, career.seasonNumber)
+  const seasonResult = endSeason(finishedSeason, teams, players, career.playerPotential, career.difficulty)
+  let updatedPlayers = seasonResult.players
+  let updatedTeams = seasonResult.teams
+  let updatedCareer: Career = {
+    ...career,
+    season: finishedSeason,
+    seasonHistory: [...career.seasonHistory, seasonStats],
+  }
+  const newStatus = computeSeasonStatus({ ...updatedCareer, season: finishedSeason })
+  updatedCareer = { ...updatedCareer, seasonStatus: newStatus }
+  updatedCareer = addEvent(
+    'SEASON_END',
+    'Temporada finalizada',
+    'La temporada ha terminado. Consulta la clasificación para ver la tabla final.',
+    updatedCareer,
+  )
+  const prevFailed = new Set(updatedCareer.objectives.filter((o) => o.failed).map((o) => o.id))
+  updatedCareer = checkObjectives(updatedCareer, updatedCareer.season)
+  const endFailed = updatedCareer.objectives.filter((o) => o.failed && !prevFailed.has(o.id))
+  for (const obj of endFailed) {
+    if (obj.isMandatory && !obj.penaltyApplied && obj.penalty.reputation > 0) {
+      updatedTeams = updatedTeams.map((t) =>
+        t.id === updatedCareer.teamId
+          ? { ...t, reputation: Math.max(0, t.reputation - obj.penalty.reputation) }
+          : t,
+      )
+      updatedCareer = {
+        ...updatedCareer,
+        objectives: updatedCareer.objectives.map((o) =>
+          o.id === obj.id ? { ...o, penaltyApplied: true } : o,
+        ),
+      }
+      updatedCareer = addEvent(
+        'OBJECTIVE_FAILED',
+        `Objetivo fallido: ${obj.description}`,
+        `Penalización aplicada: -${obj.penalty.reputation} reputación al club.`,
+        updatedCareer,
+      )
+    } else if (!obj.isMandatory) {
+      updatedCareer = addEvent(
+        'OBJECTIVE_FAILED',
+        `Objetivo no conseguido: ${obj.description}`,
+        'Este objetivo no era obligatorio, no hay penalización.',
+        updatedCareer,
+      )
+    }
+  }
+  return { career: updatedCareer, teams: updatedTeams, players: updatedPlayers }
+}
+
+// ---------------------------------------------------------------------------
 // Pure helper: apply a computed MatchResult to career/teams/players state
 // ---------------------------------------------------------------------------
 function commitMatchResult(
@@ -228,6 +329,7 @@ function commitMatchResult(
         ? (p.seasonMatchMinutes ?? 0) + 45
         : p.seasonMatchMinutes ?? 0,
     }))
+    updatedPlayers = applyMatchInjuries(result.events, career.teamId, updatedPlayers)
 
     const updatedRounds = career.cup.rounds.map((r, i) =>
       i === cupRoundIdx
@@ -285,6 +387,7 @@ function commitMatchResult(
     : players
   if (isUserMatch) {
     updatedPlayers = drainStaminaAfterMatch(updatedPlayers, starterIds, benchIds, career.difficulty)
+    updatedPlayers = applyMatchInjuries(result.events, career.teamId, updatedPlayers)
   }
   const updatedStandings = updateStandings(career.season.standings, playedMatch)
 
@@ -364,79 +467,9 @@ function commitMatchResult(
     }
   }
 
-  // Check if season is over
-  const allPlayed = updatedMatches.every((m) => m.played)
-
-  if (allPlayed) {
-    const finishedSeason = { ...updatedCareer.season, finished: true }
-
-    // Archive season stats before updating career
-    const seasonStats = computeSeasonStats(
-      { ...finishedSeason, matches: updatedMatches, standings: updatedStandings },
-      career.teamId,
-      career.seasonNumber,
-    )
-
-    const seasonResult = endSeason(finishedSeason, updatedTeams, updatedPlayers, career.playerPotential, career.difficulty)
-    updatedPlayers = seasonResult.players
-    updatedTeams = seasonResult.teams
-
-    updatedCareer = {
-      ...updatedCareer,
-      season: finishedSeason,
-      seasonHistory: [...updatedCareer.seasonHistory, seasonStats],
-    }
-
-    // Compute new season status (may be user_finished or all_finished)
-    const newStatus = computeSeasonStatus({
-      ...updatedCareer,
-      season: finishedSeason,
-    })
-    updatedCareer = { ...updatedCareer, seasonStatus: newStatus }
-
-    updatedCareer = addEvent(
-      'SEASON_END',
-      'Temporada finalizada',
-      'La temporada ha terminado. Consulta la clasificación para ver la tabla final.',
-      updatedCareer,
-    )
-
-    // Final objective check at season end (applies failures for uncompleted SEASON/GENERAL)
-    const prevFailedEnd = new Set(updatedCareer.objectives.filter((o) => o.failed).map((o) => o.id))
-    updatedCareer = checkObjectives(updatedCareer, updatedCareer.season)
-    const endFailed = updatedCareer.objectives.filter(
-      (o) => o.failed && !prevFailedEnd.has(o.id),
-    )
-
-    for (const obj of endFailed) {
-      if (obj.isMandatory && !obj.penaltyApplied && obj.penalty.reputation > 0) {
-        updatedTeams = updatedTeams.map((t) =>
-          t.id === updatedCareer.teamId
-            ? { ...t, reputation: Math.max(0, t.reputation - obj.penalty.reputation) }
-            : t,
-        )
-        updatedCareer = {
-          ...updatedCareer,
-          objectives: updatedCareer.objectives.map((o) =>
-            o.id === obj.id ? { ...o, penaltyApplied: true } : o,
-          ),
-        }
-        updatedCareer = addEvent(
-          'OBJECTIVE_FAILED',
-          `Objetivo fallido: ${obj.description}`,
-          `Penalización aplicada: -${obj.penalty.reputation} reputación al club.`,
-          updatedCareer,
-        )
-      } else if (!obj.isMandatory) {
-        updatedCareer = addEvent(
-          'OBJECTIVE_FAILED',
-          `Objetivo no conseguido: ${obj.description}`,
-          'Este objetivo no era obligatorio, no hay penalización.',
-          updatedCareer,
-        )
-      }
-    }
-  }
+  // Season end is deferred: NPC vs NPC matches on the same date haven't been
+  // simulated yet. advanceDay() will detect when all matches are played and
+  // call applySeasonEnd() at that point.
 
   return { career: updatedCareer, teams: updatedTeams, players: updatedPlayers }
 }
@@ -470,7 +503,7 @@ interface CareerState {
   setUIPanel(panel: 'notifications' | 'settings' | null): void
 
   // Career lifecycle
-  startNewCareer(managerName: string, teamId: number, managerAvatar?: string, difficulty?: DifficultySettings): void
+  startNewCareer(managerName: string, teamId: number, managerAvatar?: string, difficulty?: DifficultySettings, customTeamInput?: { team: Team; squadPlayerIds: number[] }): void
   loadCareer(slot: number): void
   saveCareer(slot: number, slotName: string): void
   exitToMainMenu(): void
@@ -585,7 +618,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     set({ selectedMatchId: matchId })
   },
 
-  startNewCareer(managerName, teamId, managerAvatar = '/avatars/avatar-1.svg', difficulty = DEFAULT_DIFFICULTY) {
+  startNewCareer(managerName, teamId, managerAvatar = '/avatars/avatar-1.svg', difficulty = DEFAULT_DIFFICULTY, customTeamInput?: { team: Team; squadPlayerIds: number[] }) {
     const playersCopy: Player[] = JSON.parse(JSON.stringify(seedPlayers))
       .map((p: Player) => ({ ...p, seasonMatchMinutes: 0 }))
     const teamsCopy: Team[] = JSON.parse(JSON.stringify(seedTeams))
@@ -596,7 +629,23 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
       }))
     const leaguesCopy = JSON.parse(JSON.stringify(seedLeagues))
 
-    const { career, teams: newTeams, players: newPlayers } = createCareer(managerName, teamId, teamsCopy, leaguesCopy, playersCopy, difficulty)
+    let resolvedTeamId = teamId
+    if (customTeamInput) {
+      const { team: customTeam, squadPlayerIds } = customTeamInput
+      teamsCopy.push({
+        ...customTeam,
+        scoutLevel: customTeam.scoutLevel ?? Math.max(1, Math.ceil(customTeam.reputation / 20)),
+        facilitiesLevel: customTeam.facilitiesLevel ?? Math.max(1, Math.ceil(customTeam.reputation / 20)),
+      })
+      for (let i = 0; i < playersCopy.length; i++) {
+        if (squadPlayerIds.includes(playersCopy[i].id)) {
+          playersCopy[i] = { ...playersCopy[i], teamId: customTeam.id }
+        }
+      }
+      resolvedTeamId = customTeam.id
+    }
+
+    const { career, teams: newTeams, players: newPlayers } = createCareer(managerName, resolvedTeamId, teamsCopy, leaguesCopy, playersCopy, difficulty)
     career.managerAvatar = managerAvatar
 
     set({
@@ -800,10 +849,22 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     const todayCupMatchIsToday = todayCupMatch?.date === career.season.currentDate
     if (todayLeagueMatch || todayCupMatchIsToday) return
 
-    // The new date we're advancing to
-    const nextDate = addDaysStr(career.season.currentDate, 1)
+    const currentDateStr = career.season.currentDate
+    const nextDate = addDaysStr(currentDateStr, 1)
 
-    // Simulate external matches for the new date
+    // Simulate NPC vs NPC matches in user's league for current date (before leaving it)
+    let seasonMatches = career.season.matches
+    let seasonStandings = career.season.standings
+    for (const m of seasonMatches) {
+      if (m.date === currentDateStr && !m.played &&
+          m.homeTeamId !== career.teamId && m.awayTeamId !== career.teamId) {
+        const simmed = simulateLeagueMatchFn(m, teams, players)
+        seasonMatches = seasonMatches.map((x) => x.id === m.id ? simmed : x)
+        seasonStandings = updateStandings(seasonStandings, simmed)
+      }
+    }
+
+    // Simulate external leagues for the new date
     const { allLeagueSeasons, cup } = simulateExternalForDate(
       career.allLeagueSeasons,
       career.cup,
@@ -813,13 +874,25 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
       players,
     )
 
-    const updatedSeason = advanceDayService(career.season)
+    const updatedSeason = advanceDayService({ ...career.season, matches: seasonMatches, standings: seasonStandings })
     const recoveredPlayers = recoverStaminaForDays(players, 1, career.difficulty.staminaRecoveryPerDay)
-    const advancedPlayers = recoveredPlayers.map((p) =>
-      p.career.positionChangePlan && !p.career.positionChangePlan.completed
-        ? advancePositionChange(p, 1)
-        : p,
+    const advancedPlayers = advanceInjuryCountdown(
+      recoveredPlayers.map((p) =>
+        p.career.positionChangePlan && !p.career.positionChangePlan.completed
+          ? advancePositionChange(p, 1)
+          : p,
+      ),
+      1,
     )
+
+    // Check if user's season is now fully finished (all matches played including NPC)
+    const allNowPlayed = seasonMatches.every((m) => m.played)
+    if (allNowPlayed && !career.season.finished) {
+      const base: Career = { ...career, season: updatedSeason, allLeagueSeasons, cup }
+      const finished = applySeasonEnd(base, teams, advancedPlayers, seasonMatches, seasonStandings)
+      set({ career: finished.career, players: finished.players, teams: finished.teams })
+      return
+    }
 
     const updatedCareer: Career = {
       ...career,
@@ -849,23 +922,42 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
 
     const targetDate = target.date
 
-    // Simulate external matches for every day between prevDate (exclusive) and targetDate (inclusive)
+    // Simulate external leagues + NPC vs NPC in user's league for each skipped day
     let allLeagueSeasons = career.allLeagueSeasons
     let cup = career.cup
+    let seasonMatches = career.season.matches
+    let seasonStandings = career.season.standings
     const days = daysBetween(prevDate, targetDate)
     for (let d = 1; d <= days; d++) {
+      // Simulate NPC vs NPC for the day being left (prevDate + d - 1)
+      const leavingDate = addDaysStr(prevDate, d - 1)
+      for (const m of seasonMatches) {
+        if (m.date === leavingDate && !m.played &&
+            m.homeTeamId !== career.teamId && m.awayTeamId !== career.teamId) {
+          const simmed = simulateLeagueMatchFn(m, teams, players)
+          seasonMatches = seasonMatches.map((x) => x.id === m.id ? simmed : x)
+          seasonStandings = updateStandings(seasonStandings, simmed)
+        }
+      }
+      // Simulate external leagues for the day being entered
       const date = addDaysStr(prevDate, d)
       const sim = simulateExternalForDate(allLeagueSeasons, cup, date, career.teamId, teams, players)
       allLeagueSeasons = sim.allLeagueSeasons
       cup = sim.cup
     }
 
-    const updatedSeason = advanceSeasonToDate(career.season, targetDate)
+    const updatedSeason = advanceSeasonToDate(
+      { ...career.season, matches: seasonMatches, standings: seasonStandings },
+      targetDate,
+    )
     const recoveredPlayers = recoverStaminaForDays(players, days, career.difficulty.staminaRecoveryPerDay)
-    const advancedPlayers = recoveredPlayers.map((p) =>
-      p.career.positionChangePlan && !p.career.positionChangePlan.completed
-        ? advancePositionChange(p, days)
-        : p,
+    const advancedPlayers = advanceInjuryCountdown(
+      recoveredPlayers.map((p) =>
+        p.career.positionChangePlan && !p.career.positionChangePlan.completed
+          ? advancePositionChange(p, days)
+          : p,
+      ),
+      days,
     )
 
     const updatedCareer: Career = {
