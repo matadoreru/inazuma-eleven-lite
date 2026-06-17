@@ -357,6 +357,115 @@ export function cancelNegotiation(negotiationId: string, career: Career): Career
   return updateNeg(career, negotiationId, { phase: 'cancelled' })
 }
 
+export function resolveNegotiations(
+  career: Career,
+  currentDate: string,
+  players: Player[],
+  teams: Team[],
+): { career: Career; players: Player[]; teams: Team[] } {
+  let c = career
+  let p = players
+  let t = teams
+
+  for (const neg of career.outgoingNegotiations) {
+    if (neg.phase !== 'club_pending' && neg.phase !== 'player_pending') continue
+    if (neg.phase === 'club_pending' && neg.counterAmount !== undefined) continue
+    if (neg.resolutionDate > currentDate) continue
+
+    const player = p.find((pl) => pl.id === neg.playerId)
+    const fmtAmt = (n: number) =>
+      n >= 1_000_000 ? `€${(n / 1_000_000).toFixed(1)}M` : n >= 1_000 ? `€${(n / 1_000).toFixed(0)}K` : `€${n}`
+
+    // Player no longer exists or moved to a different club
+    if (!player || (neg.targetClubId !== null && player.teamId !== neg.targetClubId)) {
+      c = updateNeg(c, neg.id, { phase: 'failed' })
+      c = pushEvent(c, makeEvent(
+        'OUTGOING_TRANSFER_CLUB_REJECTED',
+        `Negociación fallida: ${neg.playerName}`,
+        `${neg.playerName} ya no está disponible.`,
+        currentDate, { negotiationId: neg.id },
+      ))
+      continue
+    }
+
+    if (neg.phase === 'club_pending') {
+      const sellingTeam = t.find((tm) => tm.id === neg.targetClubId)
+      if (!sellingTeam) { c = updateNeg(c, neg.id, { phase: 'failed' }); continue }
+
+      const clubResult = evaluateClubOffer(neg.currentOffer, player, sellingTeam, p, t)
+
+      if (clubResult.decision === 'accept') {
+        c = updateNeg(c, neg.id, {
+          phase: 'player_pending',
+          resolutionDate: addDays(currentDate, randInt(2, 3)),
+        })
+        c = pushEvent(c, makeEvent(
+          'OUTGOING_TRANSFER_CLUB_ACCEPTED',
+          `Club acepta: ${neg.playerName}`,
+          `${sellingTeam.name} acepta tu oferta de ${fmtAmt(neg.currentOffer)} por ${neg.playerName}. El jugador decidirá en breve.`,
+          currentDate, { negotiationId: neg.id },
+        ))
+      } else if (clubResult.decision === 'counter') {
+        c = updateNeg(c, neg.id, { counterAmount: clubResult.counterAmount })
+        c = pushEvent(c, makeEvent(
+          'OUTGOING_TRANSFER_CLUB_COUNTER',
+          `Contra-oferta: ${neg.playerName}`,
+          `${sellingTeam.name} propone ${fmtAmt(clubResult.counterAmount)} por ${neg.playerName}.`,
+          currentDate, { negotiationId: neg.id, counterAmount: clubResult.counterAmount },
+        ))
+      } else {
+        c = updateNeg(c, neg.id, { phase: 'failed' })
+        c = pushEvent(c, makeEvent(
+          'OUTGOING_TRANSFER_CLUB_REJECTED',
+          `Oferta rechazada: ${neg.playerName}`,
+          `${sellingTeam.name} rechaza tu oferta por ${neg.playerName}.`,
+          currentDate, { negotiationId: neg.id },
+        ))
+      }
+    } else {
+      // player_pending
+      const buyingTeam = t.find((tm) => tm.id === career.teamId)
+      if (!buyingTeam) continue
+
+      const playerDecision = evaluatePlayerDecision(player, buyingTeam)
+
+      if (playerDecision === 'accept') {
+        if (buyingTeam.budget < neg.currentOffer) {
+          c = updateNeg(c, neg.id, { phase: 'failed' })
+          c = pushEvent(c, makeEvent(
+            'OUTGOING_TRANSFER_PLAYER_REJECTED',
+            `Sin presupuesto: ${neg.playerName}`,
+            `${neg.playerName} aceptó pero no tienes suficiente presupuesto.`,
+            currentDate, { negotiationId: neg.id },
+          ))
+          continue
+        }
+
+        const buyResult = buyPlayer(neg.playerId, career.teamId, neg.currentOffer, c, t, p)
+        c = updateNeg(buyResult.career, neg.id, { phase: 'completed' })
+        p = buyResult.players
+        t = buyResult.teams
+        c = pushEvent(c, makeEvent(
+          'OUTGOING_TRANSFER_PLAYER_ACCEPTED',
+          `¡Fichaje completado! ${neg.playerName}`,
+          `${neg.playerName} se une a tu equipo por ${fmtAmt(neg.currentOffer)}.`,
+          currentDate, { negotiationId: neg.id },
+        ))
+      } else {
+        c = updateNeg(c, neg.id, { phase: 'failed' })
+        c = pushEvent(c, makeEvent(
+          'OUTGOING_TRANSFER_PLAYER_REJECTED',
+          `Jugador rechaza: ${neg.playerName}`,
+          `${neg.playerName} ha decidido no unirse a tu equipo.`,
+          currentDate, { negotiationId: neg.id },
+        ))
+      }
+    }
+  }
+
+  return { career: c, players: p, teams: t }
+}
+
 export function respondToCounter(
   negotiationId: string,
   action: 'accept_counter' | 'reject' | 'counter',

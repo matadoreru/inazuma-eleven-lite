@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { filterPlayers, calcTransferValue, buyPlayer, sanitizeAmount, MAX_TRANSFER_VALUE, evaluateClubOffer, evaluatePlayerDecision, initiateNegotiation, cancelNegotiation, respondToCounter } from '../services/transferService'
+import { filterPlayers, calcTransferValue, buyPlayer, sanitizeAmount, MAX_TRANSFER_VALUE, evaluateClubOffer, evaluatePlayerDecision, initiateNegotiation, cancelNegotiation, respondToCounter, resolveNegotiations } from '../services/transferService'
 import type { OutgoingNegotiation } from '../types/career'
 import type { Player } from '../types/player'
 import type { Team, Formation } from '../types/team'
@@ -641,5 +641,117 @@ describe('respondToCounter', () => {
     }
     const result = respondToCounter('neg-1', 'accept_counter', career)
     expect(result).toBe(career)
+  })
+})
+
+describe('resolveNegotiations', () => {
+  const userTeam = makeTeam(1, 1_000_000, [])
+  const sellingTeam = { ...makeTeam(2, 100_000, [10, 11, 12]), reputation: 50 }
+  const player = makePlayer({
+    id: 10,
+    teamId: 2,
+    position: 'FW',
+    age: 25,
+    stats: { ...makePlayer().stats, TOT: 50 },
+    career: { ...makePlayer().career, potential: 50 },
+  })
+  const otherFW1 = makePlayer({ id: 11, teamId: 2, position: 'FW' })
+  const otherFW2 = makePlayer({ id: 12, teamId: 2, position: 'FW' })
+  const allPlayers = [player, otherFW1, otherFW2]
+
+  it('skips negotiations where resolutionDate is in the future', () => {
+    const career = {
+      ...makeCareer(1),
+      outgoingNegotiations: [makeNegotiation({ phase: 'club_pending', resolutionDate: '2026-01-05' })],
+    }
+    const result = resolveNegotiations(career, '2026-01-01', allPlayers, [userTeam, sellingTeam])
+    expect(result.career.outgoingNegotiations[0].phase).toBe('club_pending')
+  })
+
+  it('skips club_pending when counterAmount is set (waiting for user)', () => {
+    const career = {
+      ...makeCareer(1),
+      outgoingNegotiations: [makeNegotiation({ phase: 'club_pending', counterAmount: 80_000, resolutionDate: '2026-01-01' })],
+    }
+    const result = resolveNegotiations(career, '2026-01-01', allPlayers, [userTeam, sellingTeam])
+    expect(result.career.outgoingNegotiations[0].counterAmount).toBe(80_000)
+  })
+
+  it('club_pending resolves to player_pending when club accepts (high offer)', () => {
+    // Threshold = calcTransferValue(player) * (1 + 50/200) * 1.0 (3 same-pos → no penalty)
+    const marketValue = calcTransferValue(player)
+    const threshold = Math.round(marketValue * 1.25)
+    const career = {
+      ...makeCareer(1),
+      outgoingNegotiations: [makeNegotiation({ phase: 'club_pending', currentOffer: threshold, resolutionDate: '2026-01-01', playerId: 10 })],
+    }
+    const result = resolveNegotiations(career, '2026-01-01', allPlayers, [userTeam, sellingTeam])
+    const neg = result.career.outgoingNegotiations[0]
+    expect(neg.phase).toBe('player_pending')
+    expect(result.career.inbox.some((e) => e.type === 'OUTGOING_TRANSFER_CLUB_ACCEPTED')).toBe(true)
+  })
+
+  it('club_pending sets counterAmount when club makes counter-offer', () => {
+    const marketValue = calcTransferValue(player)
+    const threshold = Math.round(marketValue * 1.25)
+    const offerAt90pct = Math.round(threshold * 0.90)
+    const career = {
+      ...makeCareer(1),
+      outgoingNegotiations: [makeNegotiation({ phase: 'club_pending', currentOffer: offerAt90pct, resolutionDate: '2026-01-01', playerId: 10 })],
+    }
+    const result = resolveNegotiations(career, '2026-01-01', allPlayers, [userTeam, sellingTeam])
+    const neg = result.career.outgoingNegotiations[0]
+    expect(neg.counterAmount).toBeDefined()
+    expect(result.career.inbox.some((e) => e.type === 'OUTGOING_TRANSFER_CLUB_COUNTER')).toBe(true)
+  })
+
+  it('club_pending sets failed when club rejects (low offer)', () => {
+    const career = {
+      ...makeCareer(1),
+      outgoingNegotiations: [makeNegotiation({ phase: 'club_pending', currentOffer: 1_000, resolutionDate: '2026-01-01', playerId: 10 })],
+    }
+    const result = resolveNegotiations(career, '2026-01-01', allPlayers, [userTeam, sellingTeam])
+    expect(result.career.outgoingNegotiations[0].phase).toBe('failed')
+    expect(result.career.inbox.some((e) => e.type === 'OUTGOING_TRANSFER_CLUB_REJECTED')).toBe(true)
+  })
+
+  it('player_pending resolves to completed when player accepts (low TOT, any rep)', () => {
+    const lowTotPlayer = makePlayer({ id: 10, teamId: 2, stats: { ...makePlayer().stats, TOT: 50 } })
+    const career = {
+      ...makeCareer(1),
+      outgoingNegotiations: [makeNegotiation({ phase: 'player_pending', currentOffer: 50_000, resolutionDate: '2026-01-01', playerId: 10 })],
+    }
+    const result = resolveNegotiations(career, '2026-01-01', [lowTotPlayer, otherFW1, otherFW2], [userTeam, sellingTeam])
+    expect(result.career.outgoingNegotiations[0].phase).toBe('completed')
+    // Player moved to user team
+    const transferred = result.players.find((p) => p.id === 10)
+    expect(transferred?.teamId).toBe(1)
+    expect(result.career.inbox.some((e) => e.type === 'OUTGOING_TRANSFER_PLAYER_ACCEPTED')).toBe(true)
+  })
+
+  it('player_pending sets failed when player rejects (high TOT, low rep)', () => {
+    const starPlayer = makePlayer({ id: 10, teamId: 2, stats: { ...makePlayer().stats, TOT: 90 } })
+    const poorRepTeam = { ...userTeam, reputation: 30 } // < 70 needed for TOT 90
+    const career = {
+      ...makeCareer(1),
+      outgoingNegotiations: [makeNegotiation({ phase: 'player_pending', currentOffer: 50_000, resolutionDate: '2026-01-01', playerId: 10 })],
+    }
+    const result = resolveNegotiations(career, '2026-01-01', [starPlayer, otherFW1, otherFW2], [poorRepTeam, sellingTeam])
+    expect(result.career.outgoingNegotiations[0].phase).toBe('failed')
+    expect(result.career.inbox.some((e) => e.type === 'OUTGOING_TRANSFER_PLAYER_REJECTED')).toBe(true)
+  })
+
+  it('player_pending fails gracefully when user team has insufficient budget', () => {
+    const brokTeam = { ...userTeam, budget: 100 }
+    const lowTotPlayer = makePlayer({ id: 10, teamId: 2, stats: { ...makePlayer().stats, TOT: 50 } })
+    const career = {
+      ...makeCareer(1),
+      outgoingNegotiations: [makeNegotiation({ phase: 'player_pending', currentOffer: 500_000, resolutionDate: '2026-01-01', playerId: 10 })],
+    }
+    const result = resolveNegotiations(career, '2026-01-01', [lowTotPlayer, otherFW1, otherFW2], [brokTeam, sellingTeam])
+    expect(result.career.outgoingNegotiations[0].phase).toBe('failed')
+    // Player NOT transferred
+    const p = result.players.find((p) => p.id === 10)
+    expect(p?.teamId).toBe(2)
   })
 })
