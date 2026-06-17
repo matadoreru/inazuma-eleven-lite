@@ -66,6 +66,7 @@ function makeCareer(settings: DifficultySettings = DEFAULT_DIFFICULTY): Career {
     cup: null,
     seasonStatus: 'active',
     lastSeasonReview: null,
+    outgoingNegotiations: [],
     difficulty: settings,
     createdAt: '2026-01-01',
     lastSavedAt: '2026-01-01',

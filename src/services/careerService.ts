@@ -209,6 +209,7 @@ export function createCareer(
     cup,
     seasonStatus: 'active',
     lastSeasonReview: null,
+    outgoingNegotiations: [],
     difficulty: settings,
     createdAt: now,
     lastSavedAt: now,

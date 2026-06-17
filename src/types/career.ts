@@ -57,6 +57,11 @@ export type InboxEventType =
   | 'PLAYER_RECOVERED'
   | 'PLAYER_GROWTH'
   | 'NEWS'
+  | 'OUTGOING_TRANSFER_CLUB_ACCEPTED'
+  | 'OUTGOING_TRANSFER_CLUB_REJECTED'
+  | 'OUTGOING_TRANSFER_CLUB_COUNTER'
+  | 'OUTGOING_TRANSFER_PLAYER_ACCEPTED'
+  | 'OUTGOING_TRANSFER_PLAYER_REJECTED'
 
 export interface InboxEvent {
   id: string
@@ -77,6 +82,29 @@ export interface TransferOffer {
   amount: number
   date: string
   status: 'pending' | 'accepted' | 'rejected'
+}
+
+// ─── Transfer Negotiations ────────────────────────────────────────────────────
+
+export type NegotiationPhase =
+  | 'club_pending'    // waiting for rival club response
+  | 'player_pending'  // club accepted; waiting for player decision
+  | 'completed'       // transfer completed successfully
+  | 'failed'          // rejected definitively
+  | 'cancelled'       // cancelled by user
+
+export interface OutgoingNegotiation {
+  id: string
+  playerId: number
+  playerName: string
+  targetClubId: number | null   // null = free agent
+  targetClubName: string
+  phase: NegotiationPhase
+  currentOffer: number          // current amount offered
+  counterAmount?: number        // club counter-offer, if pending
+  offerRound: number            // 1–3 (initial + max 2 counters)
+  isFreeAgent: boolean
+  resolutionDate: string        // ISO date when this phase resolves
 }
 
 export interface CareerSeasonStats {
@@ -229,6 +257,7 @@ export interface Career {
   cup: Cup | null
   seasonStatus: SeasonStatus
   lastSeasonReview: SeasonReview | null
+  outgoingNegotiations: OutgoingNegotiation[]
   difficulty: DifficultySettings
   createdAt: string
   lastSavedAt: string

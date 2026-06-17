@@ -78,6 +78,7 @@ const makeCareer = (teamId: number = 1): Career => ({
   cup: null,
   seasonStatus: 'active',
   lastSeasonReview: null,
+  outgoingNegotiations: [],
   difficulty: DEFAULT_DIFFICULTY,
   createdAt: '2026-01-01',
   lastSavedAt: '2026-01-01',
