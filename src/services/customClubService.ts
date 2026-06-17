@@ -3,7 +3,6 @@ import type { Team, LineupSlot, CustomClubConfig } from '../types/team'
 import type { StrengthTier } from '../types/team'
 import { getPlayerStatsSummary } from '../types/player'
 import { formations } from '../data/formations'
-import { autoAssignJerseys } from './jerseyService'
 
 const TIER_REPUTATION: Record<StrengthTier, { reputation: number; tier: number }> = {
   weak:        { reputation: 30, tier: 4 },

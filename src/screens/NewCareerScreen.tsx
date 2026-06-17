@@ -567,8 +567,8 @@ export default function NewCareerScreen() {
           </div>
         )}
 
-        {/* ── STEP 3: Confirm ── */}
-        {((step === 4 && careerMode === 'existing') || (step === 6 && careerMode === 'custom')) && selectedTeam && (
+        {/* ── STEP 3: Confirm (existing team) ── */}
+        {step === 4 && careerMode === 'existing' && selectedTeam && (
           <div className="max-w-3xl mx-auto px-6 py-8 flex flex-col gap-6">
             <div>
               <h2 className="text-white text-2xl font-bold mb-1">Confirmar Carrera</h2>
@@ -665,6 +665,94 @@ export default function NewCareerScreen() {
                   ))}
                 </div>
               )}
+            </div>
+          </div>
+        )}
+        {/* ── STEP 6: Confirm (custom club) ── */}
+        {step === 6 && careerMode === 'custom' && customClubPreview && (
+          <div className="max-w-3xl mx-auto px-6 py-8 flex flex-col gap-6">
+            <div>
+              <h2 className="text-white text-2xl font-bold mb-1">Confirmar Carrera</h2>
+              <p className="text-gray-400 text-sm">Revisa los datos antes de comenzar.</p>
+            </div>
+
+            {/* Manager */}
+            <div className="bg-gray-800 rounded-2xl p-5 flex items-center gap-4 border border-gray-700">
+              <img
+                src={managerAvatar}
+                alt="Entrenador"
+                onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/avatars/avatar-1.svg' }}
+                className="w-16 h-16 rounded-full object-cover bg-gray-700 flex-shrink-0"
+              />
+              <div>
+                <p className="text-gray-400 text-xs uppercase tracking-wide mb-0.5">Entrenador</p>
+                <p className="text-white text-xl font-bold">{managerName}</p>
+              </div>
+            </div>
+
+            {/* Club */}
+            <div className="bg-gray-800 rounded-2xl p-5 border border-gray-700">
+              <div className="flex items-center gap-4 mb-4">
+                <TeamBadgeImage teamName={customClubPreview.team.name} badgeUrl={customClubPreview.team.badgeUrl} size="lg" />
+                <div>
+                  <p className="text-gray-400 text-xs uppercase tracking-wide mb-0.5">Club creado</p>
+                  <p className="text-white text-xl font-bold">{customClubPreview.team.name}</p>
+                  <p className="text-gray-400 text-sm">{LEAGUE_LABELS[customClubPreview.team.leagueId]}</p>
+                  <p className="text-gray-500 text-xs">
+                    {STRENGTH_OPTIONS.find(s => s.tier === clubStrength)?.label} · Reputación {customClubPreview.team.reputation}
+                  </p>
+                </div>
+              </div>
+              <p className="text-gray-400 text-xs font-semibold uppercase tracking-wide mb-2">
+                Plantilla inicial ({customClubPreview.squadPlayers.filter(p => customClubPreview.lineup.find(l => l.playerId === p.id && l.isStarter)).length} titulares)
+              </p>
+              <div className="flex flex-col gap-1.5">
+                {customClubPreview.squadPlayers
+                  .filter((p) => customClubPreview.lineup.find((l) => l.playerId === p.id && l.isStarter))
+                  .map((p) => (
+                    <div key={p.id} className="flex items-center gap-3 bg-gray-700/50 rounded-lg px-3 py-2">
+                      <img
+                        src={p.spriteUrl}
+                        alt={p.name}
+                        onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
+                        className="w-16 h-16 object-contain rounded flex-shrink-0"
+                      />
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-1.5">
+                          <span className="text-white text-sm font-semibold truncate">{p.name}</span>
+                          <PositionSprite position={p.position} size={25} />
+                          <ElementBadge element={p.element} size="xs" />
+                        </div>
+                        <div className="flex items-end gap-3">
+                          {STAT_KEYS.map((stat) => (
+                            <div key={stat} className="flex flex-col items-center">
+                              <span className="text-gray-500 text-[0.5625rem] uppercase leading-none mb-0.5">{stat}</span>
+                              <span className="text-gray-300 text-xs font-medium">{p.stats[stat]}</span>
+                            </div>
+                          ))}
+                          <div className="ml-auto flex flex-col items-center">
+                            <span className="text-gray-500 text-[0.5625rem] uppercase leading-none mb-0.5">Media</span>
+                            <span className="text-sm font-bold" style={{ color: statColor(getPlayerStatsSummary(p).media, 250) }}>
+                              {getPlayerStatsSummary(p).media}
+                            </span>
+                            <span className="text-gray-500 text-[0.5625rem] tabular-nums">{getPlayerStatsSummary(p).total}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            </div>
+
+            {/* Difficulty */}
+            <div className="bg-gray-800 rounded-2xl p-5 border border-gray-700">
+              <p className="text-gray-400 text-xs uppercase tracking-wide mb-3">Dificultad</p>
+              <div className="flex items-center gap-3">
+                {difficultyMode === 'easy'   && <span className="text-green-400 font-bold text-lg">Facil</span>}
+                {difficultyMode === 'normal' && <span className="text-blue-400 font-bold text-lg">Normal</span>}
+                {difficultyMode === 'hard'   && <span className="text-red-400 font-bold text-lg">Dificil</span>}
+                {difficultyMode === 'custom' && <span className="text-purple-400 font-bold text-lg">Custom</span>}
+              </div>
             </div>
           </div>
         )}
