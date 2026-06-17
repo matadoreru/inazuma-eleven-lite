@@ -53,8 +53,8 @@ function TeamBadge({
   size?: 'sm' | 'md' | 'lg'
 }) {
   const [failed, setFailed] = useState(false)
-  const wh = size === 'lg' ? 'w-10 h-10' : size === 'md' ? 'w-8 h-8' : 'w-6 h-6'
-  const fs = size === 'lg' ? 'text-xs' : size === 'md' ? 'text-[0.5625rem]' : 'text-[0.4rem]'
+  const wh = size === 'lg' ? 'w-12 h-12' : size === 'md' ? 'w-9 h-9' : 'w-7 h-7'
+  const fs = size === 'lg' ? 'text-xs' : size === 'md' ? 'text-[0.5625rem]' : 'text-[0.4375rem]'
 
   if (!team) {
     return (
@@ -158,32 +158,32 @@ function DayDetailPanel({
               {/* Teams */}
               <div className="flex items-center gap-2 min-w-0">
                 <div className="flex items-center gap-2 flex-1 min-w-0">
-                  <TeamBadge team={teamById(userMatch.homeTeamId)} size="md" />
-                  <span className="text-white text-xs font-bold truncate">
+                  <TeamBadge team={teamById(userMatch.homeTeamId)} size="lg" />
+                  <span className="text-white text-sm font-bold truncate">
                     {teamById(userMatch.homeTeamId)?.name ?? `Eq. ${userMatch.homeTeamId}`}
                   </span>
                 </div>
-                <div className="shrink-0 text-center min-w-[32px]">
+                <div className="shrink-0 text-center min-w-[36px]">
                   {userMatch.played ? (
-                    <span className="text-white font-black text-sm tabular-nums">
+                    <span className="text-white font-black text-base tabular-nums">
                       {userMatch.homeGoals}–{userMatch.awayGoals}
                     </span>
                   ) : (
-                    <span className="text-gray-600 text-[0.5rem] font-black">VS</span>
+                    <span className="text-gray-500 text-xs font-black">VS</span>
                   )}
                 </div>
                 <div className="flex items-center gap-2 flex-1 min-w-0 justify-end">
-                  <span className="text-white text-xs font-bold truncate text-right">
+                  <span className="text-white text-sm font-bold truncate text-right">
                     {teamById(userMatch.awayTeamId)?.name ?? `Eq. ${userMatch.awayTeamId}`}
                   </span>
-                  <TeamBadge team={teamById(userMatch.awayTeamId)} size="md" />
+                  <TeamBadge team={teamById(userMatch.awayTeamId)} size="lg" />
                 </div>
               </div>
               {/* Meta */}
               <div className="flex items-center gap-2 mt-2">
-                <span className="text-gray-500 text-[0.5625rem]">{matchLabel(userMatch)}</span>
+                <span className="text-gray-500 text-xs">{matchLabel(userMatch)}</span>
                 <span
-                  className={`text-[0.45rem] font-black px-1.5 py-px rounded uppercase tracking-wide
+                  className={`text-[0.5625rem] font-black px-1.5 py-px rounded uppercase tracking-wide
                     ${isHome ? 'bg-blue-900/40 text-blue-400' : 'bg-orange-900/30 text-orange-400'}`}
                 >
                   {isHome ? 'Local' : 'Visitante'}
@@ -205,27 +205,27 @@ function DayDetailPanel({
                 return (
                   <div
                     key={match.id}
-                    className={`flex items-center gap-2 px-2.5 py-2
+                    className={`flex items-center gap-2 px-2.5 py-2.5
                       ${i > 0 ? 'border-t border-gray-700/30' : ''}
                       ${isUser ? 'bg-green-900/15' : 'bg-gray-800/20'}`}
                   >
-                    <TeamBadge team={home} size="sm" />
-                    <span className="text-gray-300 text-[0.5625rem] truncate flex-1 min-w-0">
+                    <TeamBadge team={home} size="md" />
+                    <span className="text-gray-300 text-xs truncate flex-1 min-w-0">
                       {home?.name ?? `Eq. ${match.homeTeamId}`}
                     </span>
                     <div className="shrink-0 min-w-[36px] text-center">
                       {match.played ? (
-                        <span className="text-white text-xs font-bold tabular-nums">
+                        <span className="text-white text-sm font-bold tabular-nums">
                           {match.homeGoals}–{match.awayGoals}
                         </span>
                       ) : (
-                        <span className="text-gray-600 text-[0.45rem] font-black">VS</span>
+                        <span className="text-gray-500 text-[0.5625rem] font-black">VS</span>
                       )}
                     </div>
-                    <span className="text-gray-300 text-[0.5625rem] truncate flex-1 min-w-0 text-right">
+                    <span className="text-gray-300 text-xs truncate flex-1 min-w-0 text-right">
                       {away?.name ?? `Eq. ${match.awayTeamId}`}
                     </span>
-                    <TeamBadge team={away} size="sm" />
+                    <TeamBadge team={away} size="md" />
                   </div>
                 )
               })}
@@ -340,13 +340,13 @@ export default function CalendarScreen() {
                         ? 'border-blue-500/60 bg-blue-900/20'
                         : 'border-gray-700/50 bg-gray-800/40 hover:bg-gray-800 hover:border-gray-600'}`}
                   >
-                    <span className={`text-[0.5625rem] font-black tabular-nums ${isSel ? 'text-blue-300' : 'text-gray-400'}`}>
+                    <span className={`text-xs font-black tabular-nums ${isSel ? 'text-blue-300' : 'text-gray-400'}`}>
                       {fmtShort(match.date)}
                     </span>
-                    <div className="flex items-center gap-1.5">
-                      <TeamBadge team={teams.find((t) => t.id === career.teamId)} size="sm" />
-                      <span className="text-gray-600 text-[0.4rem] font-black">VS</span>
-                      <TeamBadge team={opponent} size="sm" />
+                    <div className="flex items-center gap-2">
+                      <TeamBadge team={teams.find((t) => t.id === career.teamId)} size="md" />
+                      <span className="text-gray-500 text-[0.5625rem] font-black">VS</span>
+                      <TeamBadge team={opponent} size="md" />
                     </div>
                   </button>
                 )

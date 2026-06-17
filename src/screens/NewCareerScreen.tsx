@@ -44,7 +44,7 @@ const PRESET_BADGES = [
 ]
 
 const STRENGTH_OPTIONS: Array<{ tier: StrengthTier; label: string; description: string; color: string }> = [
-  { tier: 'weak',        label: 'Débil',       description: 'Jugadores de media baja. Empieza desde abajo.',        color: 'gray' },
+  { tier: 'weak',        label: 'Débil',       description: 'Jugadores de media baja. Empieza desde abajo.',        color: 'orange' },
   { tier: 'normal',      label: 'Normal',      description: 'Plantilla equilibrada para una experiencia estándar.',  color: 'blue' },
   { tier: 'strong',      label: 'Fuerte',      description: 'Jugadores de alta media. Un equipo competitivo.',       color: 'green' },
   { tier: 'very_strong', label: 'Muy fuerte',  description: 'Los mejores agentes libres disponibles.',              color: 'purple' },
@@ -217,20 +217,20 @@ export default function NewCareerScreen() {
                 className={`text-left p-5 rounded-2xl border-2 transition-colors ${careerMode === 'existing' ? 'border-blue-500 bg-blue-900/20' : 'border-gray-700 bg-gray-800 hover:border-gray-600'}`}
               >
                 <div className="flex items-center gap-3 mb-2">
-                  <span className="material-symbols-rounded text-blue-400 text-3xl">sports_soccer</span>
+                  <span className="material-icons text-blue-400 text-3xl">sports_soccer</span>
                   <p className="text-white text-lg font-bold">Equipo existente</p>
                 </div>
-                <p className="text-gray-400 text-sm">Elige uno de los equipos del juego y empieza tu carrera.</p>
+                <p className="text-gray-400 text-sm">Elige uno de los equipos del juego y empieza tu carrera. Tendrás una plantilla ya formada y empezarás compitiendo desde el primer día.</p>
               </button>
               <button
                 onClick={() => setCareerMode('custom')}
                 className={`text-left p-5 rounded-2xl border-2 transition-colors ${careerMode === 'custom' ? 'border-purple-500 bg-purple-900/20' : 'border-gray-700 bg-gray-800 hover:border-gray-600'}`}
               >
                 <div className="flex items-center gap-3 mb-2">
-                  <span className="material-symbols-rounded text-purple-400 text-3xl">add_circle</span>
+                  <span className="material-icons text-purple-400 text-3xl">add_circle</span>
                   <p className="text-white text-lg font-bold">Crear club propio</p>
                 </div>
-                <p className="text-gray-400 text-sm">Diseña tu propio club: nombre, emblema, fuerza inicial y liga.</p>
+                <p className="text-gray-400 text-sm">Diseña tu club desde cero: ponle nombre, elige un emblema, define la fuerza de tu plantilla inicial y la liga donde debutarás.</p>
               </button>
             </div>
           </div>
@@ -338,13 +338,13 @@ export default function NewCareerScreen() {
               <div className="grid grid-cols-2 gap-3">
                 {STRENGTH_OPTIONS.map(({ tier, label, description, color }) => {
                   const colorMap: Record<string, string> = {
-                    gray: 'border-gray-500 bg-gray-700/40',
+                    orange: 'border-orange-500 bg-orange-900/20',
                     blue: 'border-blue-500 bg-blue-900/20',
                     green: 'border-green-500 bg-green-900/20',
                     purple: 'border-purple-500 bg-purple-900/20',
                   }
                   const labelColorMap: Record<string, string> = {
-                    gray: 'text-gray-300', blue: 'text-blue-400',
+                    orange: 'text-orange-400', blue: 'text-blue-400',
                     green: 'text-green-400', purple: 'text-purple-400',
                   }
                   const isSelected = clubStrength === tier

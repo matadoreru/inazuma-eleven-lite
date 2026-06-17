@@ -428,55 +428,77 @@ export default function TrainingScreen() {
       <div className="flex flex-1 overflow-hidden">
         <SideNavigation currentScreen={screen} onNavigate={navigate} />
 
-        <main className="flex-1 overflow-y-auto p-4">
-          <div className="max-w-5xl mx-auto flex flex-col gap-6 lg:flex-row lg:items-start">
+        <main className="flex-1 flex overflow-hidden">
 
-            {/* ── Left column: Plan + Player list ── */}
-            <div className="flex-1 min-w-0 flex flex-col gap-4">
-
-              {/* Header */}
-              <div className="flex items-center justify-between">
-                <div>
-                  <h1 className="text-white text-xl font-bold">Entrenamiento semanal</h1>
-                  <div className="flex items-center gap-2 mt-0.5 text-gray-500 text-xs">
-                    <span>{career.season.currentDate} ·</span>
-                    <TeamNameInline teamName={teamName} badgeUrl={userTeam?.badgeUrl} size="xs" textClassName="text-gray-500 text-xs" />
-                  </div>
-                </div>
-                <span className="text-gray-400 text-sm bg-gray-800 border border-gray-700 rounded-full px-3 py-1">
-                  {slots.length}/{MAX_TRAINING_SLOTS} slots
-                </span>
+          {/* ── Left panel: Player roster ── */}
+          <div className="flex flex-col border-r border-gray-700/60 w-72 shrink-0 overflow-hidden">
+            <div className="px-4 py-3 border-b border-gray-700/60 shrink-0">
+              <div className="flex items-center gap-2 mt-0.5 text-gray-500 text-xs">
+                <TeamNameInline teamName={teamName} badgeUrl={userTeam?.badgeUrl} size="xs" textClassName="text-gray-500 text-xs" />
+                <span>·</span>
+                <span>{career.season.currentDate}</span>
               </div>
-
-              {/* Plan slots */}
-              <div>
-                <h2 className="text-gray-400 text-xs font-semibold uppercase tracking-wider mb-2">
-                  Plan semanal
-                </h2>
-                {slots.length === 0 ? (
-                  <div className="border-2 border-dashed border-gray-700 rounded-xl p-6 text-center text-gray-600 text-sm">
-                    Selecciona jugadores de la lista para añadirlos al plan
-                  </div>
-                ) : (
-                  <div className="flex flex-col gap-2">
-                    {slots.map((slot) => {
-                      const player = playerMap.get(slot.playerId)
-                      if (!player) return null
-                      return (
-                        <SlotCard
-                          key={slot.playerId}
-                          slot={slot}
-                          player={player}
-                          onRemove={() => removeWeeklyTrainingSlot(slot.playerId)}
-                          onChange={(updated) => setWeeklyTrainingSlot(updated)}
-                        />
-                      )
-                    })}
-                  </div>
+              <h2 className="text-gray-400 text-xs font-semibold uppercase tracking-wider mt-2">
+                Plantilla
+              </h2>
+            </div>
+            <div className="flex-1 overflow-y-auto">
+              <div className="divide-y divide-gray-700/30">
+                {squadPlayers.map((player) => (
+                  <PlayerListRow
+                    key={player.id}
+                    player={player}
+                    inPlan={inPlanIds.has(player.id)}
+                    planFull={planFull && !inPlanIds.has(player.id)}
+                    onAdd={handleAddPlayer}
+                  />
+                ))}
+                {squadPlayers.length === 0 && (
+                  <p className="p-4 text-center text-gray-500 text-sm">No hay jugadores en la plantilla</p>
                 )}
               </div>
+            </div>
+          </div>
 
-              {/* Confirm button */}
+          {/* ── Centre panel: Training plan ── */}
+          <div className="flex-1 flex flex-col overflow-hidden min-w-0">
+            {/* Header */}
+            <div className="px-5 py-3 border-b border-gray-700/60 shrink-0 flex items-center justify-between">
+              <div>
+                <h1 className="text-white text-lg font-bold leading-tight">Entrenamiento semanal</h1>
+                <p className="text-gray-500 text-xs mt-0.5">Añade jugadores desde la lista y configura su entrenamiento</p>
+              </div>
+              <span className={`text-sm font-bold px-3 py-1 rounded-full border ${slots.length >= MAX_TRAINING_SLOTS ? 'border-blue-500/60 bg-blue-900/20 text-blue-300' : 'border-gray-700 bg-gray-800 text-gray-400'}`}>
+                {slots.length}/{MAX_TRAINING_SLOTS}
+              </span>
+            </div>
+
+            <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-3">
+              {slots.length === 0 ? (
+                <div className="flex-1 flex flex-col items-center justify-center text-center py-12">
+                  <span className="material-icons text-gray-700 mb-3" style={{ fontSize: 40 }}>fitness_center</span>
+                  <p className="text-gray-500 text-sm font-medium">Plan vacío</p>
+                  <p className="text-gray-600 text-xs mt-1">Pulsa el + de un jugador para añadirlo al plan</p>
+                </div>
+              ) : (
+                slots.map((slot) => {
+                  const player = playerMap.get(slot.playerId)
+                  if (!player) return null
+                  return (
+                    <SlotCard
+                      key={slot.playerId}
+                      slot={slot}
+                      player={player}
+                      onRemove={() => removeWeeklyTrainingSlot(slot.playerId)}
+                      onChange={(updated) => setWeeklyTrainingSlot(updated)}
+                    />
+                  )
+                })
+              )}
+            </div>
+
+            {/* Confirm */}
+            <div className="px-4 py-3 border-t border-gray-700/60 shrink-0">
               <button
                 onClick={commitWeeklyTraining}
                 disabled={slots.length === 0}
@@ -487,40 +509,19 @@ export default function TrainingScreen() {
               >
                 Confirmar y avanzar 7 días
               </button>
-
-              {/* Player list */}
-              <div>
-                <h2 className="text-gray-400 text-xs font-semibold uppercase tracking-wider mb-2">
-                  Plantilla
-                </h2>
-                <div className="bg-gray-800/40 border border-gray-700/50 rounded-xl overflow-hidden divide-y divide-gray-700/30">
-                  {squadPlayers.map((player) => (
-                    <PlayerListRow
-                      key={player.id}
-                      player={player}
-                      inPlan={inPlanIds.has(player.id)}
-                      planFull={planFull && !inPlanIds.has(player.id)}
-                      onAdd={handleAddPlayer}
-                    />
-                  ))}
-                  {squadPlayers.length === 0 && (
-                    <p className="p-4 text-center text-gray-500 text-sm">No hay jugadores en la plantilla</p>
-                  )}
-                </div>
-              </div>
             </div>
-
-            {/* ── Right column: Position changes ── */}
-            <div className="lg:w-72 shrink-0">
-              <PositionChangePanel
-                players={squadPlayers}
-                onStart={startPositionChange}
-                onCancel={cancelPositionChange}
-                currentDate={career.season.currentDate}
-              />
-            </div>
-
           </div>
+
+          {/* ── Right panel: Position changes ── */}
+          <div className="w-64 shrink-0 border-l border-gray-700/60 overflow-y-auto p-4">
+            <PositionChangePanel
+              players={squadPlayers}
+              onStart={startPositionChange}
+              onCancel={cancelPositionChange}
+              currentDate={career.season.currentDate}
+            />
+          </div>
+
         </main>
       </div>
     </div>

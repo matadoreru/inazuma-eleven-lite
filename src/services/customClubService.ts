@@ -26,6 +26,11 @@ function sortedFreeAgents(allPlayers: Player[]): Player[] {
     .sort((a, b) => getPlayerStatsSummary(a).media - getPlayerStatsSummary(b).media)
 }
 
+function pickRandom<T>(arr: T[], count: number): T[] {
+  const shuffled = [...arr].sort(() => Math.random() - 0.5)
+  return shuffled.slice(0, count)
+}
+
 function selectTierPool(sorted: Player[], tier: StrengthTier): Player[] {
   const n = sorted.length
   if (n === 0) return []
@@ -57,25 +62,26 @@ export function assignSquadFromFreeAgents(
     const candidates = fullPool
       .filter((p) => p.position === position && !usedIds.has(p.id))
       .sort((a, b) => getPlayerStatsSummary(b).media - getPlayerStatsSummary(a).media)
-    // Fill as many as possible from primary position; use any position as fallback
-    const picked = candidates.slice(0, count)
+    // Pick randomly from top N candidates (3x count) to ensure variety
+    const topN = candidates.slice(0, Math.max(count * 3, 9))
+    const picked = pickRandom(topN, count)
     const remaining = count - picked.length
     if (remaining > 0) {
-      const fallback = fullPool
-        .filter((p) => !usedIds.has(p.id) && !picked.includes(p))
-        .sort((a, b) => getPlayerStatsSummary(b).media - getPlayerStatsSummary(a).media)
-        .slice(0, remaining)
+      const fallback = pickRandom(
+        fullPool.filter((p) => !usedIds.has(p.id) && !picked.includes(p)),
+        remaining,
+      )
       picked.push(...fallback)
     }
     picked.forEach((p) => usedIds.add(p.id))
     selected.push(...picked)
   }
 
-  // Subs: top available from pool (not already selected)
-  const subs = fullPool
-    .filter((p) => !usedIds.has(p.id))
-    .sort((a, b) => getPlayerStatsSummary(b).media - getPlayerStatsSummary(a).media)
-    .slice(0, SUB_COUNT)
+  // Subs: random from available pool (not already selected)
+  const subs = pickRandom(
+    fullPool.filter((p) => !usedIds.has(p.id)),
+    SUB_COUNT,
+  )
 
   const squad = [...selected, ...subs]
   const lineup: LineupSlot[] = []
