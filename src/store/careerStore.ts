@@ -24,7 +24,12 @@ import { simulate } from '../services/matchSimulator'
 import { buildTeamSnapshot, applyFormation, rebalanceLineup } from '../services/formationService'
 import { updateStandings, sortStandings } from '../services/standingsService'
 import { trainPlayer as trainPlayerService, restPlayer as restPlayerService } from '../services/trainingService'
-import { buyPlayer as buyPlayerService, sellPlayer as sellPlayerService } from '../services/transferService'
+import {
+  buyPlayer as buyPlayerService,
+  sellPlayer as sellPlayerService,
+  generateAIOffers,
+  sanitizeAmount,
+} from '../services/transferService'
 import { checkObjectives, canClaimObjective } from '../services/objectiveService'
 import { markRead, markAllRead, addEvent } from '../services/inboxService'
 import { endSeason, initSeason, initLeagueSeason } from '../services/seasonService'
@@ -862,6 +867,37 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
       pendingMatch: null,
       pendingRewards: rewards,
     })
+
+    // 20% chance to generate AI transfer offers after each match
+    if (Math.random() < 0.20) {
+      const state = get()
+      if (!state.career) return
+      const offers = generateAIOffers(state.career, state.teams, state.players)
+      if (offers.length === 0) return
+
+      let updatedCareer = state.career
+      for (const offer of offers) {
+        const fmt = (n: number) =>
+          n >= 1_000_000 ? `€${(n / 1_000_000).toFixed(1)}M` :
+          n >= 1_000 ? `€${(n / 1_000).toFixed(0)}K` : `€${n}`
+
+        updatedCareer = addEvent(
+          'TRANSFER_OFFER',
+          `Oferta de ${offer.fromTeamName}`,
+          `${offer.fromTeamName} ofrece ${fmt(offer.amount)} por ${offer.playerName}.`,
+          updatedCareer,
+          {
+            offerId: offer.id,
+            fromTeamId: offer.fromTeamId,
+            fromTeamName: offer.fromTeamName,
+            playerId: offer.playerId,
+            playerName: offer.playerName,
+            amount: offer.amount,
+          },
+        )
+      }
+      set({ career: updatedCareer })
+    }
   },
 
   // --- Calendar ---
@@ -1131,14 +1167,18 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
   buyPlayer(playerId, amount) {
     const { career, teams, players } = get()
     if (!career) return
-    const result = buyPlayerService(playerId, career.teamId, amount, career, teams, players)
+    const safe = sanitizeAmount(amount)
+    if (safe === null) return
+    const result = buyPlayerService(playerId, career.teamId, safe, career, teams, players)
     set({ career: result.career, teams: result.teams, players: result.players })
   },
 
   sellPlayer(playerId, toTeamId, amount) {
     const { career, teams, players } = get()
     if (!career) return
-    const result = sellPlayerService(playerId, toTeamId, amount, career, teams, players)
+    const safe = sanitizeAmount(amount)
+    if (safe === null) return
+    const result = sellPlayerService(playerId, toTeamId, safe, career, teams, players)
     set({ career: result.career, teams: result.teams, players: result.players })
   },
 
@@ -1153,9 +1193,11 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
 
     const playerId = offerEvent.data.playerId as number
     const toTeamId = offerEvent.data.fromTeamId as number
-    const amount = offerEvent.data.amount as number
+    const rawAmount = offerEvent.data.amount as number
+    const safe = sanitizeAmount(rawAmount)
+    if (safe === null) return
 
-    get().sellPlayer(playerId, toTeamId, amount)
+    get().sellPlayer(playerId, toTeamId, safe)
 
     const { career: updatedCareer } = get()
     if (!updatedCareer) return
