@@ -8,14 +8,11 @@ import type { Team } from '../types/team'
 import type { Player, Position } from '../types/player'
 
 type Speed = 1 | 2 | 4
+type SubReason = 'halftime' | 'injury' | 'tactical'
 
-const SPEED_INTERVAL: Record<Speed, number> = {
-  1: 600,
-  2: 200,
-  4: 50,
-}
-
+const SPEED_INTERVAL: Record<Speed, number> = { 1: 600, 2: 200, 4: 50 }
 const MATCH_DURATION = 90
+const MAX_SUBS = 3
 
 const EVENT_ICON: Record<MatchEvent['type'], string> = {
   GOAL:   'sports_soccer',
@@ -39,121 +36,158 @@ const EVENT_COLOR: Record<MatchEvent['type'], string> = {
 
 const POS_LABEL: Record<Position, string> = { GK: 'PR', DF: 'DF', MD: 'MD', FW: 'DL' }
 
-// ─── Halftime substitution panel ─────────────────────────────────────────────
+// ─── Substitution panel ───────────────────────────────────────────────────────
 
-function HalftimePanel({
+function SubstitutionPanel({
+  reason,
+  injuredPlayerId,
+  swapsUsed,
+  matchExclusions,
   userTeam,
   players,
   userGoals,
   oppGoals,
+  currentMinute,
   onSwap,
   onClose,
 }: {
+  reason: SubReason
+  injuredPlayerId?: number
+  swapsUsed: number
+  matchExclusions: Set<number>
   userTeam: Team
   players: Player[]
   userGoals: number
   oppGoals: number
+  currentMinute: number
   onSwap: (starterId: number, benchId: number) => void
   onClose: () => void
 }) {
-  const [selectedId, setSelectedId] = useState<number | null>(null)
-  const [swapsUsed, setSwapsUsed] = useState(0)
-  const MAX_SUBS = 3
+  const [selectedStarterId, setSelectedStarterId] = useState<number | null>(injuredPlayerId ?? null)
 
-  const starters = userTeam.lineup.filter((s) => s.isStarter)
-  const bench = userTeam.lineup.filter((s) => !s.isStarter)
+  const starters = userTeam.lineup.filter((s) => s.isStarter && !matchExclusions.has(s.playerId))
+  const bench = userTeam.lineup.filter((s) => !s.isStarter && !matchExclusions.has(s.playerId))
 
   const byPos: Record<Position, typeof starters> = { GK: [], DF: [], MD: [], FW: [] }
-  for (const s of starters) {
-    byPos[s.assignedPosition as Position]?.push(s)
-  }
+  for (const s of starters) byPos[s.assignedPosition as Position]?.push(s)
+
+  const canMakeSub = swapsUsed < MAX_SUBS
 
   function handleSwap(benchId: number) {
-    if (!selectedId || swapsUsed >= MAX_SUBS) return
-    onSwap(selectedId, benchId)
-    setSwapsUsed((n) => n + 1)
-    setSelectedId(null)
+    if (!selectedStarterId || !canMakeSub) return
+    onSwap(selectedStarterId, benchId)
+    setSelectedStarterId(null)
   }
 
+  const isHalftime = reason === 'halftime'
+  const isInjury = reason === 'injury'
+
   return (
-    <div className="absolute inset-0 z-50 bg-gray-950/98 flex flex-col overflow-hidden">
+    <div className="fixed inset-0 z-[100] bg-gray-950 flex flex-col overflow-hidden">
       {/* Header */}
-      <div className="shrink-0 bg-gray-800 border-b border-gray-700 px-4 py-3">
-        <div className="flex items-center justify-center gap-3 mb-2">
-          <span className="text-amber-400 text-[0.6rem] font-black uppercase tracking-widest">⏸ Descanso</span>
-          <span className="text-white text-2xl font-black tabular-nums">{userGoals} – {oppGoals}</span>
-        </div>
+      <div className="shrink-0 bg-gray-900 border-b border-gray-700 px-4 py-3">
+        {/* Reason banner */}
+        {isInjury && (
+          <div className="flex items-center justify-center gap-2 mb-2 py-1.5 bg-orange-900/30 border border-orange-700/40 rounded-lg">
+            <span className="material-icons text-orange-400 leading-none" style={{ fontSize: '16px' }}>healing</span>
+            <span className="text-orange-300 text-xs font-bold">Lesión — realiza un cambio</span>
+          </div>
+        )}
+        {!isHalftime && !isInjury && (
+          <div className="flex items-center justify-center gap-2 mb-2 py-1.5 bg-blue-900/20 border border-blue-700/30 rounded-lg">
+            <span className="material-icons text-blue-400 leading-none" style={{ fontSize: '16px' }}>swap_horiz</span>
+            <span className="text-blue-300 text-xs font-bold">Cambio táctico — {currentMinute}&apos;</span>
+          </div>
+        )}
+
+        {/* Score */}
         <div className="flex items-center justify-between">
-          <p className="text-gray-400 text-xs">
-            {selectedId ? 'Selecciona un reserva para cambiar' : 'Selecciona un titular para sustituir'}
-          </p>
-          <span className={`text-xs font-bold tabular-nums ${swapsUsed >= MAX_SUBS ? 'text-red-400' : 'text-gray-400'}`}>
-            {swapsUsed} / {MAX_SUBS} cambios
-          </span>
+          <div>
+            <p className="text-gray-400 text-xs">
+              {selectedStarterId ? 'Selecciona un reserva para cambiar' : 'Selecciona un titular para sustituir'}
+            </p>
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="text-white text-xl font-black tabular-nums">{userGoals} – {oppGoals}</span>
+            <span className={`text-xs font-bold tabular-nums ${!canMakeSub ? 'text-red-400' : 'text-gray-400'}`}>
+              {swapsUsed} / {MAX_SUBS} cambios
+            </span>
+          </div>
         </div>
       </div>
 
       {/* Body */}
       <div className="flex-1 overflow-y-auto px-4 py-3 space-y-4">
-        {/* Starters by position */}
-        {(['GK', 'DF', 'MD', 'FW'] as Position[]).map((pos) => {
-          const slots = byPos[pos]
-          if (slots.length === 0) return null
-          return (
-            <div key={pos}>
-              <p className="text-gray-600 text-[0.5rem] font-black uppercase tracking-widest mb-1.5">
-                {POS_LABEL[pos]}
-              </p>
-              {slots.map((slot) => {
-                const player = players.find((p) => p.id === slot.playerId)
-                if (!player) return null
-                const isSelected = selectedId === player.id
-                return (
-                  <button
-                    key={player.id}
-                    onClick={() => setSelectedId(isSelected ? null : player.id)}
-                    className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl mb-1 transition-all
-                      ${isSelected
-                        ? 'bg-blue-600/30 border border-blue-500/70'
-                        : 'bg-gray-800/60 border border-gray-700/50 hover:border-gray-600'}`}
-                  >
-                    <div className="relative w-8 h-8 rounded-full overflow-hidden bg-gray-700 shrink-0">
-                      <img
-                        src={player.spriteUrl}
-                        alt={player.nameRomaji}
-                        className="w-full h-full object-cover"
-                        onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
-                      />
-                    </div>
-                    <span className="text-white text-sm font-medium flex-1 text-left truncate">{player.nameRomaji}</span>
-                    <PositionSprite position={player.position} size={14} />
-                    {isSelected && <Icon name="swap_horiz" size="xs" className="text-blue-400 shrink-0" />}
-                  </button>
-                )
-              })}
-            </div>
-          )
-        })}
+        {/* Starters */}
+        <div>
+          <p className="text-gray-500 text-[0.5rem] font-black uppercase tracking-widest mb-2">Titulares en campo</p>
+          {(['GK', 'DF', 'MD', 'FW'] as Position[]).map((pos) => {
+            const slots = byPos[pos]
+            if (slots.length === 0) return null
+            return (
+              <div key={pos} className="mb-2">
+                <p className="text-gray-600 text-[0.45rem] font-black uppercase tracking-widest mb-1">{POS_LABEL[pos]}</p>
+                {slots.map((slot) => {
+                  const player = players.find((p) => p.id === slot.playerId)
+                  if (!player) return null
+                  const isSelected = selectedStarterId === player.id
+                  const isInjuredTrigger = isInjury && injuredPlayerId === player.id
+                  return (
+                    <button
+                      key={player.id}
+                      onClick={() => setSelectedStarterId(isSelected ? null : player.id)}
+                      className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl mb-1 transition-all text-left
+                        ${isSelected
+                          ? 'bg-blue-600/30 border border-blue-500/70'
+                          : isInjuredTrigger
+                          ? 'bg-orange-900/25 border border-orange-700/50 hover:border-orange-600'
+                          : 'bg-gray-800/60 border border-gray-700/50 hover:border-gray-600'}`}
+                    >
+                      <div className="w-8 h-8 rounded-full overflow-hidden bg-gray-700 shrink-0">
+                        <img
+                          src={player.spriteUrl}
+                          alt={player.nameRomaji}
+                          className="w-full h-full object-cover"
+                          onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
+                        />
+                      </div>
+                      <span className="text-white text-sm font-medium flex-1 truncate">{player.nameRomaji}</span>
+                      <PositionSprite position={player.position} size={14} />
+                      {isInjuredTrigger && (
+                        <span className="material-icons text-orange-400 leading-none shrink-0" style={{ fontSize: '14px' }}>healing</span>
+                      )}
+                      {isSelected && <Icon name="swap_horiz" size="xs" className="text-blue-400 shrink-0" />}
+                    </button>
+                  )
+                })}
+              </div>
+            )
+          })}
+        </div>
 
         {/* Bench */}
         {bench.length > 0 && (
           <div>
-            <p className="text-gray-600 text-[0.5rem] font-black uppercase tracking-widest mb-1.5">Reservas</p>
+            <p className="text-gray-500 text-[0.5rem] font-black uppercase tracking-widest mb-2">Reservas disponibles</p>
             {bench.map((slot) => {
               const player = players.find((p) => p.id === slot.playerId)
               if (!player) return null
-              const canSwap = selectedId !== null && swapsUsed < MAX_SUBS
+              const isPreInjured = player.isInjured
+              const available = selectedStarterId !== null && canMakeSub && !isPreInjured
               return (
                 <button
                   key={player.id}
-                  onClick={() => handleSwap(player.id)}
-                  disabled={!canSwap}
+                  onClick={() => available && handleSwap(player.id)}
+                  disabled={!available}
+                  title={isPreInjured ? `${player.nameRomaji} está lesionado (${player.injuryDaysRemaining}d)` : undefined}
                   className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl mb-1 transition-all
-                    ${canSwap
+                    ${isPreInjured
+                      ? 'bg-orange-950/20 border border-orange-900/30 opacity-50 cursor-not-allowed'
+                      : available
                       ? 'bg-green-900/25 border border-green-700/50 hover:border-green-500/80 cursor-pointer'
                       : 'bg-gray-800/30 border border-gray-700/30 opacity-45 cursor-default'}`}
                 >
-                  <div className="relative w-8 h-8 rounded-full overflow-hidden bg-gray-700 shrink-0">
+                  <div className="w-8 h-8 rounded-full overflow-hidden bg-gray-700 shrink-0">
                     <img
                       src={player.spriteUrl}
                       alt={player.nameRomaji}
@@ -161,9 +195,16 @@ function HalftimePanel({
                       onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
                     />
                   </div>
-                  <span className="text-white text-sm font-medium flex-1 text-left truncate">{player.nameRomaji}</span>
+                  <span className={`text-sm font-medium flex-1 truncate ${isPreInjured ? 'text-orange-400/70' : 'text-white'}`}>
+                    {player.nameRomaji}
+                  </span>
                   <PositionSprite position={player.position} size={14} />
-                  {canSwap && <Icon name="arrow_upward" size="xs" className="text-green-400 shrink-0" />}
+                  {isPreInjured && (
+                    <span className="material-icons text-orange-500 leading-none shrink-0" style={{ fontSize: '13px' }}>healing</span>
+                  )}
+                  {available && !isPreInjured && (
+                    <Icon name="arrow_upward" size="xs" className="text-green-400 shrink-0" />
+                  )}
                 </button>
               )
             })}
@@ -178,7 +219,7 @@ function HalftimePanel({
           className="w-full flex items-center justify-center gap-2 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold text-base transition-colors"
         >
           <Icon name="play_arrow" size="sm" />
-          Continuar 2ª parte
+          {isHalftime ? 'Continuar 2ª parte' : 'Volver al partido'}
         </button>
       </div>
     </div>
@@ -188,20 +229,28 @@ function HalftimePanel({
 // ─── Main screen ──────────────────────────────────────────────────────────────
 
 export default function LiveMatchScreen() {
-  const career       = useCareerStore((s) => s.career)
-  const teams        = useCareerStore((s) => s.teams)
-  const players      = useCareerStore((s) => s.players)
-  const pendingMatch = useCareerStore((s) => s.pendingMatch)
-  const commitLiveMatch    = useCareerStore((s) => s.commitLiveMatch)
-  const swapLineupPlayers  = useCareerStore((s) => s.swapLineupPlayers)
-  const navigate     = useCareerStore((s) => s.navigate)
+  const career           = useCareerStore((s) => s.career)
+  const teams            = useCareerStore((s) => s.teams)
+  const players          = useCareerStore((s) => s.players)
+  const pendingMatch     = useCareerStore((s) => s.pendingMatch)
+  const commitLiveMatch  = useCareerStore((s) => s.commitLiveMatch)
+  const swapLineupPlayers = useCareerStore((s) => s.swapLineupPlayers)
+  const navigate         = useCareerStore((s) => s.navigate)
 
-  const [currentMinute, setCurrentMinute]     = useState(0)
-  const [isPlaying, setIsPlaying]             = useState(true)
-  const [speed, setSpeed]                     = useState<Speed>(1)
-  const [halftimeDone, setHalftimeDone]       = useState(false)
-  const [halftimeOpen, setHalftimeOpen]       = useState(false)
-  const eventListRef = useRef<HTMLDivElement>(null)
+  const [currentMinute, setCurrentMinute] = useState(0)
+  const [isPlaying, setIsPlaying]         = useState(true)
+  const [speed, setSpeed]                 = useState<Speed>(1)
+  const [halftimeDone, setHalftimeDone]   = useState(false)
+
+  // Substitution state (lifted from panel)
+  const [subPanelOpen, setSubPanelOpen]     = useState(false)
+  const [subReason, setSubReason]           = useState<SubReason>('halftime')
+  const [injuredForSub, setInjuredForSub]   = useState<number | undefined>(undefined)
+  const [swapsUsed, setSwapsUsed]           = useState(0)
+  const [matchExclusions, setMatchExclusions] = useState<Set<number>>(new Set())
+
+  const handledInjuries = useRef<Set<string>>(new Set())
+  const eventListRef    = useRef<HTMLDivElement>(null)
 
   const result   = pendingMatch?.result
   const events   = result?.events ?? []
@@ -221,7 +270,9 @@ export default function LiveMatchScreen() {
     if (currentMinute >= 45 && currentMinute < MATCH_DURATION && !halftimeDone) {
       setIsPlaying(false)
       setHalftimeDone(true)
-      setHalftimeOpen(true)
+      setSubReason('halftime')
+      setInjuredForSub(undefined)
+      setSubPanelOpen(true)
     }
   }, [currentMinute, halftimeDone])
 
@@ -233,6 +284,40 @@ export default function LiveMatchScreen() {
       eventListRef.current.scrollTop = eventListRef.current.scrollHeight
     }
     prevCount.current = processedEvents.length
+  }, [processedEvents.length])
+
+  // Injury event detection for user team
+  useEffect(() => {
+    if (!career) return
+    for (const e of processedEvents) {
+      if (e.type !== 'INJURY' || e.teamId !== career.teamId || e.playerId === undefined) continue
+      const key = `${e.minute}-${e.playerId}`
+      if (handledInjuries.current.has(key)) continue
+      handledInjuries.current.add(key)
+      setIsPlaying(false)
+      setSubReason('injury')
+      setInjuredForSub(e.playerId)
+      setSubPanelOpen(true)
+      break
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [processedEvents.length])
+
+  // Red card: auto-exclude the expelled player
+  useEffect(() => {
+    if (!career) return
+    const newExclusions = new Set(matchExclusions)
+    let changed = false
+    for (const e of processedEvents) {
+      if (e.type === 'RED' && e.teamId === career.teamId && e.playerId !== undefined) {
+        if (!newExclusions.has(e.playerId)) {
+          newExclusions.add(e.playerId)
+          changed = true
+        }
+      }
+    }
+    if (changed) setMatchExclusions(newExclusions)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [processedEvents.length])
 
   if (!career || !pendingMatch || !result) {
@@ -258,12 +343,30 @@ export default function LiveMatchScreen() {
     setCurrentMinute(MATCH_DURATION)
     setIsPlaying(false)
     setHalftimeDone(true)
-    setHalftimeOpen(false)
+    setSubPanelOpen(false)
   }
 
   function handleFinish() {
     commitLiveMatch()
     navigate('match')
+  }
+
+  function handleOpenTactical() {
+    setIsPlaying(false)
+    setSubReason('tactical')
+    setInjuredForSub(undefined)
+    setSubPanelOpen(true)
+  }
+
+  function handleSwap(starterId: number, benchId: number) {
+    swapLineupPlayers(starterId, benchId)
+    setSwapsUsed((n) => n + 1)
+    setMatchExclusions((prev) => new Set([...prev, starterId]))
+  }
+
+  function handleClosePanel() {
+    setSubPanelOpen(false)
+    if (subReason !== 'halftime' || !isFinished) setIsPlaying(true)
   }
 
   return (
@@ -315,9 +418,7 @@ export default function LiveMatchScreen() {
             return (
               <div key={`${event.minute}-${i}`} className="flex items-center gap-2 my-3">
                 <div className="flex-1 h-px bg-gray-700/50" />
-                <span className="text-gray-500 text-[0.5625rem] font-black uppercase tracking-widest px-1">
-                  {event.text}
-                </span>
+                <span className="text-gray-500 text-[0.5625rem] font-black uppercase tracking-widest px-1">{event.text}</span>
                 <div className="flex-1 h-px bg-gray-700/50" />
               </div>
             )
@@ -328,15 +429,12 @@ export default function LiveMatchScreen() {
               key={`${event.minute}-${event.type}-${i}`}
               className="flex items-center gap-2.5 py-1.5 animate-in fade-in duration-300"
             >
-              <span className="text-gray-600 text-[0.5625rem] w-6 shrink-0 tabular-nums text-right">
-                {event.minute}&apos;
-              </span>
+              <span className="text-gray-600 text-[0.5625rem] w-6 shrink-0 tabular-nums text-right">{event.minute}&apos;</span>
 
               {event.playerSpriteUrl ? (
                 <div className={`w-7 h-7 rounded-full overflow-hidden bg-gray-800 shrink-0 ring-1 ${
                   event.type === 'GOAL' ? 'ring-yellow-500/60' :
-                  event.type === 'RED'  ? 'ring-red-500/60' :
-                  'ring-gray-700'
+                  event.type === 'RED'  ? 'ring-red-500/60' : 'ring-gray-700'
                 }`}>
                   <img
                     src={event.playerSpriteUrl}
@@ -401,6 +499,21 @@ export default function LiveMatchScreen() {
               ))}
             </div>
 
+            {/* Tactical sub button */}
+            <button
+              onClick={handleOpenTactical}
+              disabled={swapsUsed >= MAX_SUBS}
+              title={swapsUsed >= MAX_SUBS ? 'No quedan cambios' : `Realizar cambio (${swapsUsed}/${MAX_SUBS})`}
+              className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                swapsUsed >= MAX_SUBS
+                  ? 'bg-gray-800 text-gray-600 cursor-not-allowed'
+                  : 'bg-gray-700 hover:bg-gray-600 text-gray-300'
+              }`}
+            >
+              <Icon name="swap_horiz" size="sm" />
+              <span className="tabular-nums">{swapsUsed}/{MAX_SUBS}</span>
+            </button>
+
             <button
               onClick={handleSkip}
               className="ml-auto flex items-center gap-1.5 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-gray-300 rounded-lg text-sm font-medium transition-colors"
@@ -420,18 +533,20 @@ export default function LiveMatchScreen() {
         )}
       </div>
 
-      {/* Halftime substitution overlay */}
-      {halftimeOpen && userTeam && (
-        <HalftimePanel
+      {/* Substitution overlay */}
+      {subPanelOpen && userTeam && (
+        <SubstitutionPanel
+          reason={subReason}
+          injuredPlayerId={injuredForSub}
+          swapsUsed={swapsUsed}
+          matchExclusions={matchExclusions}
           userTeam={userTeam}
           players={players}
           userGoals={userGoals}
           oppGoals={oppGoals}
-          onSwap={(starterId, benchId) => swapLineupPlayers(starterId, benchId)}
-          onClose={() => {
-            setHalftimeOpen(false)
-            setIsPlaying(true)
-          }}
+          currentMinute={currentMinute}
+          onSwap={handleSwap}
+          onClose={handleClosePanel}
         />
       )}
     </div>

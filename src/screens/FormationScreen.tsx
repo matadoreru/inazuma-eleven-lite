@@ -154,7 +154,7 @@ function BenchPlayerRow({
       {/* Name + position + element */}
       <div className="flex-1 min-w-0">
         <p className="text-white text-xs font-medium truncate leading-tight">{player.nameRomaji}</p>
-        <div className="mt-0.5 flex items-center gap-1.5">
+        <div className="mt-0.5 flex items-center gap-1.5 flex-wrap">
           <PositionSprite position={player.position} size={16} />
           {player.element && (
             <span
@@ -165,6 +165,12 @@ function BenchPlayerRow({
               }}
             >
               {ELEMENT_SHORT[player.element]}
+            </span>
+          )}
+          {player.isInjured && (
+            <span className="text-[0.45rem] font-bold px-1 py-px rounded leading-none bg-orange-900/40 text-orange-400 border border-orange-700/50 flex items-center gap-px">
+              <span className="material-icons leading-none" style={{ fontSize: '7px' }}>healing</span>
+              {player.injuryDaysRemaining}d
             </span>
           )}
         </div>

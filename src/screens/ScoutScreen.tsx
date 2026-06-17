@@ -89,17 +89,13 @@ export default function ScoutScreen() {
               <div className="bg-gray-800 rounded-xl overflow-hidden border border-gray-700">
                 <table className="w-full">
                   <thead>
-                    <tr className="bg-gray-900 text-gray-400 text-xs uppercase tracking-wide">
-                      <th className="py-2 px-3 text-left w-8">#</th>
-                      <th className="py-2 px-3 text-left w-10"></th>
-                      <th className="py-2 px-3 text-left">Nombre</th>
-                      <th className="py-2 px-3 text-left">Pos</th>
-                      <th className="py-2 px-3 text-left">Elem</th>
-                      <th className="py-2 px-3 text-left">TOT</th>
-                      <th className="py-2 px-3 text-left">PRE</th>
-                      <th className="py-2 px-3 text-left">AGI</th>
-                      <th className="py-2 px-3 text-left">Valor</th>
-                      <th className="py-2 px-3 text-left">Acción</th>
+                    <tr className="bg-gray-900/80 text-gray-500 text-xs border-b border-gray-700">
+                      <th className="py-2 px-2 w-12" />
+                      <th className="py-2 px-3 text-left">Jugador</th>
+                      <th className="py-2 px-3 text-right w-14">TOT</th>
+                      <th className="py-2 px-3 text-left w-32">Equipo</th>
+                      <th className="py-2 px-3 text-right w-20">Valor</th>
+                      <th className="py-2 px-3 w-20" />
                     </tr>
                   </thead>
                   <tbody>
@@ -109,9 +105,9 @@ export default function ScoutScreen() {
                         <TransferPlayerRow
                           key={player.id}
                           player={player}
-                          teamName={playerTeam?.name ?? 'Sin equipo'}
+                          teamName={playerTeam?.name ?? ''}
+                          isFreeAgent={player.teamId === null}
                           onBuy={() => buyPlayer(player.id, Math.round(calcTransferValue(player) * (career?.difficulty.transferCostMultiplier ?? 1)))}
-                          isWatchlisted={true}
                         />
                       )
                     })}

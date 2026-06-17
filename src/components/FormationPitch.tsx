@@ -125,6 +125,17 @@ function PlayerToken({
             <span className="material-icons text-amber-400 drop-shadow select-none leading-none" style={{ fontSize: '14px' }}>warning</span>
           </div>
         )}
+
+        {/* Injury indicator */}
+        {player.isInjured && (
+          <div
+            className="absolute -top-1 left-1/2 -translate-x-1/2 z-10 flex items-center gap-px bg-orange-900/90 border border-orange-600/70 rounded-full px-1 py-px shadow"
+            title={`Lesionado: ${player.injuryDaysRemaining} días restantes`}
+          >
+            <span className="material-icons text-orange-400 leading-none select-none" style={{ fontSize: '9px' }}>healing</span>
+            <span className="text-orange-300 font-black leading-none" style={{ fontSize: '8px' }}>{player.injuryDaysRemaining}d</span>
+          </div>
+        )}
       </div>
     </div>
   )

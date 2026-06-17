@@ -56,6 +56,11 @@ export default function PlayerRow({ player, status, isSelected, onClick, actions
         <div className="flex items-center gap-1 mt-0.5">
           <PositionSprite position={player.position} size={25} />
           <ElementBadge element={player.element} size="sm" />
+          {player.isInjured && (
+            <span className="text-[0.55rem] font-bold px-1 py-px rounded bg-orange-900/40 text-orange-400 border border-orange-700/50 leading-none">
+              LES {player.injuryDaysRemaining}d
+            </span>
+          )}
         </div>
       </td>
       <td className="py-1.5 px-3 text-right tabular-nums w-16">
