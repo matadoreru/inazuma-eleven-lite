@@ -291,7 +291,7 @@ export default function NewCareerScreen() {
                     onClick={() => badgeFileRef.current?.click()}
                     className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 text-sm font-semibold transition-colors ${clubBadgeIsCustom ? 'border-purple-500 bg-purple-900/20 text-purple-300' : 'border-gray-700 bg-gray-800 text-gray-300 hover:border-gray-500'}`}
                   >
-                    <span className="material-symbols-rounded text-lg">upload</span>
+                    <span className="material-icons text-lg">upload</span>
                     {clubBadgeIsCustom ? 'Imagen personalizada seleccionada' : 'Subir imagen propia'}
                   </button>
                   <input

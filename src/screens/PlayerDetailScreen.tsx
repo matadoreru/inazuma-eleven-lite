@@ -23,6 +23,8 @@ import {
 import type { EquipmentSlot, EquipmentItem } from '../types/equipment'
 import { EQUIPMENT_SLOT_LABELS, EQUIPMENT_SLOT_ICONS, EMPTY_EQUIPMENT } from '../types/equipment'
 import { calcTransferValue } from '../services/transferService'
+import { getNormalTechniques, getImprovementTechniques, MAX_NORMAL_TECHNIQUES, MAX_IMPROVEMENT_TECHNIQUES } from '../services/techniqueService'
+import type { TechniqueBook } from '../types/inventory'
 
 // ─── helpers ────────────────────────────────────────────────────────────────
 
@@ -594,11 +596,13 @@ export default function PlayerDetailScreen() {
   const analyzePlayerPotential = useCareerStore((s) => s.analyzePlayerPotential)
   const equipItemAction = useCareerStore((s) => s.equipItem)
   const unequipItemAction = useCareerStore((s) => s.unequipItem)
+  const teachTechnique = useCareerStore((s) => s.teachTechnique)
 
   const [showSellModal, setShowSellModal] = useState(false)
   const [showJerseyModal, setShowJerseyModal] = useState(false)
   const [showSwapCallup, setShowSwapCallup] = useState(false)
   const [showPotentialModal, setShowPotentialModal] = useState(false)
+  const [techModal, setTechModal] = useState<{ kind: 'normal' | 'improvement'; slotIndex: number } | null>(null)
 
   if (!career) {
     return (
@@ -821,16 +825,101 @@ export default function PlayerDetailScreen() {
                     </div>
 
                     {/* Techniques */}
-                    {player.techniques.length > 0 && (
-                      <div className="bg-gray-800 rounded-xl p-4 border border-gray-700">
-                        <h2 className="text-white text-sm font-semibold mb-3">Técnicas</h2>
-                        <div className="flex flex-wrap gap-2">
-                          {player.techniques.map((tech) => (
-                            <TechniqueBadge key={tech.id} technique={tech} />
-                          ))}
+                    {(() => {
+                      const normalTechs = getNormalTechniques(player)
+                      const improveTechs = getImprovementTechniques(player)
+                      const allBooks = Object.entries(career.inventory.techniqueBooks)
+                        .filter(([, qty]) => qty > 0)
+                        .map(([bookId]) => career.inventory.generatedBooks[bookId])
+                        .filter((b): b is TechniqueBook => b !== undefined)
+                      const hasAnyBooks = allBooks.length > 0
+                      return (
+                        <div className="bg-gray-800 rounded-xl p-4 border border-gray-700">
+                          <div className="flex items-center justify-between mb-3">
+                            <h2 className="text-white text-sm font-semibold">Supertécnicas</h2>
+                            {hasAnyBooks && (
+                              <span className="text-xs text-blue-400 font-medium">{allBooks.length} libro{allBooks.length !== 1 ? 's' : ''} en inventario</span>
+                            )}
+                          </div>
+
+                          {/* Normal technique slots (max 3) */}
+                          <div className="mb-3">
+                            <p className="text-gray-500 text-[0.625rem] font-semibold uppercase tracking-wider mb-2">Habilidad ({normalTechs.length}/{MAX_NORMAL_TECHNIQUES})</p>
+                            <div className="flex flex-col gap-1.5">
+                              {Array.from({ length: MAX_NORMAL_TECHNIQUES }, (_, i) => {
+                                const tech = normalTechs[i]
+                                return (
+                                  <div key={i} className={`flex items-center gap-2 px-3 py-2 rounded-lg border ${tech ? 'border-gray-700 bg-gray-700/40' : 'border-dashed border-gray-700 bg-transparent'}`}>
+                                    {tech ? (
+                                      <>
+                                        <TechniqueBadge technique={tech} />
+                                        <div className="flex-1 min-w-0" />
+                                        {isInUserTeam && (
+                                          <button
+                                            onClick={() => setTechModal({ kind: 'normal', slotIndex: i })}
+                                            className="text-gray-500 hover:text-blue-400 transition-colors shrink-0"
+                                            title="Cambiar técnica"
+                                          >
+                                            <span className="material-icons leading-none" style={{ fontSize: 14 }}>swap_horiz</span>
+                                          </button>
+                                        )}
+                                      </>
+                                    ) : (
+                                      <button
+                                        onClick={() => isInUserTeam && setTechModal({ kind: 'normal', slotIndex: i })}
+                                        disabled={!isInUserTeam}
+                                        className="flex items-center gap-2 w-full text-gray-600 hover:text-gray-400 transition-colors disabled:cursor-default"
+                                      >
+                                        <span className="material-icons leading-none" style={{ fontSize: 14 }}>add</span>
+                                        <span className="text-xs">Ranura vacía</span>
+                                      </button>
+                                    )}
+                                  </div>
+                                )
+                              })}
+                            </div>
+                          </div>
+
+                          {/* Improvement technique slots (max 2) */}
+                          <div>
+                            <p className="text-gray-500 text-[0.625rem] font-semibold uppercase tracking-wider mb-2">Pasiva ({improveTechs.length}/{MAX_IMPROVEMENT_TECHNIQUES})</p>
+                            <div className="flex flex-col gap-1.5">
+                              {Array.from({ length: MAX_IMPROVEMENT_TECHNIQUES }, (_, i) => {
+                                const tech = improveTechs[i]
+                                return (
+                                  <div key={i} className={`flex items-center gap-2 px-3 py-2 rounded-lg border ${tech ? 'border-gray-700 bg-gray-700/40' : 'border-dashed border-gray-700 bg-transparent'}`}>
+                                    {tech ? (
+                                      <>
+                                        <TechniqueBadge technique={tech} />
+                                        <div className="flex-1 min-w-0" />
+                                        {isInUserTeam && (
+                                          <button
+                                            onClick={() => setTechModal({ kind: 'improvement', slotIndex: i })}
+                                            className="text-gray-500 hover:text-blue-400 transition-colors shrink-0"
+                                            title="Cambiar técnica"
+                                          >
+                                            <span className="material-icons leading-none" style={{ fontSize: 14 }}>swap_horiz</span>
+                                          </button>
+                                        )}
+                                      </>
+                                    ) : (
+                                      <button
+                                        onClick={() => isInUserTeam && setTechModal({ kind: 'improvement', slotIndex: i })}
+                                        disabled={!isInUserTeam}
+                                        className="flex items-center gap-2 w-full text-gray-600 hover:text-gray-400 transition-colors disabled:cursor-default"
+                                      >
+                                        <span className="material-icons leading-none" style={{ fontSize: 14 }}>add</span>
+                                        <span className="text-xs">Ranura vacía</span>
+                                      </button>
+                                    )}
+                                  </div>
+                                )
+                              })}
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    )}
+                      )
+                    })()}
 
                     {/* Equipment */}
                     {isInUserTeam && (
@@ -1006,6 +1095,81 @@ export default function PlayerDetailScreen() {
             >
               Cancelar
             </button>
+          </div>
+        </div>
+      )}
+
+      {/* ── Technique book selection modal ── */}
+      {techModal && player && (
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
+          <div className="bg-gray-800 rounded-xl w-full max-w-sm border border-gray-700">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-gray-700">
+              <div>
+                <h2 className="text-white text-sm font-bold">
+                  {techModal.kind === 'normal' ? 'Técnica de habilidad' : 'Técnica pasiva'}
+                </h2>
+                <p className="text-gray-500 text-xs mt-0.5">
+                  {techModal.kind === 'normal' ? `Ranura ${techModal.slotIndex + 1} / ${MAX_NORMAL_TECHNIQUES}` : `Ranura ${techModal.slotIndex + 1} / ${MAX_IMPROVEMENT_TECHNIQUES}`}
+                </p>
+              </div>
+              <button onClick={() => setTechModal(null)} className="text-gray-500 hover:text-white transition-colors">
+                <span className="material-icons leading-none" style={{ fontSize: 18 }}>close</span>
+              </button>
+            </div>
+
+            <div className="p-3 max-h-80 overflow-y-auto flex flex-col gap-2">
+              {(() => {
+                const normalTechs = getNormalTechniques(player)
+                const improveTechs = getImprovementTechniques(player)
+                const knownIds = new Set([...player.techniques, ...(player.improvementTechniques ?? [])].map((t) => t.id))
+                const books = Object.entries(career.inventory.techniqueBooks)
+                  .filter(([, qty]) => qty > 0)
+                  .map(([bookId]) => career.inventory.generatedBooks[bookId])
+                  .filter((b): b is TechniqueBook => b !== undefined)
+                  .filter((b) => {
+                    if (knownIds.has(b.technique.id)) return false
+                    const isImprove = b.isImprovement || b.technique.type === 'Mejora'
+                    return techModal.kind === 'improvement' ? isImprove : !isImprove
+                  })
+
+                if (books.length === 0) {
+                  return (
+                    <div className="text-center py-8">
+                      <span className="material-icons text-gray-700 mb-2" style={{ fontSize: 32 }}>menu_book</span>
+                      <p className="text-gray-500 text-sm">Sin libros disponibles</p>
+                      <p className="text-gray-600 text-xs mt-1">Consigue libros de técnicas en las recompensas de partido</p>
+                    </div>
+                  )
+                }
+
+                return books.map((book) => {
+                  const isReplacing = techModal.kind === 'normal'
+                    ? normalTechs[techModal.slotIndex] !== undefined
+                    : improveTechs[techModal.slotIndex] !== undefined
+                  return (
+                    <button
+                      key={book.id}
+                      onClick={() => {
+                        teachTechnique(player.id, book.id, techModal.slotIndex)
+                        setTechModal(null)
+                      }}
+                      className="flex items-center gap-3 px-3 py-2.5 rounded-lg border border-gray-700 bg-gray-700/30 hover:bg-gray-700 transition-colors text-left"
+                    >
+                      <TechniqueBadge technique={book.technique} />
+                      <div className="flex-1 min-w-0">
+                        <p className="text-white text-xs font-semibold truncate">{book.technique.name}</p>
+                        <p className="text-gray-500 text-[0.5625rem]">
+                          {book.technique.type} · POT {book.technique.POT} · PP {book.technique.PP}
+                        </p>
+                      </div>
+                      <span className="text-blue-400 text-[0.5625rem] font-bold shrink-0">
+                        {isReplacing ? 'Reemplazar' : 'Enseñar'}
+                      </span>
+                    </button>
+                  )
+                })
+              })()}
+            </div>
           </div>
         </div>
       )}

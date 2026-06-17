@@ -213,20 +213,22 @@ function RewardCard({ reward, onClaim, player }: { reward: MatchReward; onClaim:
   const iconCol = RARITY_ICON_COLOR[reward.rarity]
   const lblCol  = RARITY_LABEL_COLOR[reward.rarity]
 
-  const baseClass = `w-full h-full flex flex-col items-center justify-center gap-3 p-4 rounded-xl border transition-all text-center ${border} ${bg} ${hover} ${glow}`
+  const baseClass = `w-full flex items-center gap-3 p-3 rounded-xl border transition-all ${border} ${bg} ${hover} ${glow}`
 
   if (reward.type === 'money' && reward.moneyAmount) {
     return (
       <button onClick={onClaim} className={baseClass}>
-        <div className={`w-16 h-16 rounded-2xl ${iconBg} flex items-center justify-center shrink-0`}>
-          <Icon name="payments" size="lg" className={iconCol} />
+        <div className={`w-10 h-10 rounded-xl ${iconBg} flex items-center justify-center shrink-0`}>
+          <Icon name="payments" size="sm" className={iconCol} />
         </div>
-        <div>
-          <p className={`text-[0.625rem] font-bold uppercase tracking-wider mb-1 ${lblCol}`}>
+        <div className="flex-1 min-w-0 text-left">
+          <p className={`text-[0.5625rem] font-bold uppercase tracking-wider ${lblCol}`}>
             {REWARD_RARITY_LABELS[reward.rarity]} · {REWARD_TYPE_LABELS[reward.type]}
           </p>
-          <p className="text-white font-black text-2xl leading-none">{fmtMoney(reward.moneyAmount)}</p>
+          <p className="text-white font-black text-xl leading-tight tabular-nums">{fmtMoney(reward.moneyAmount)}</p>
+          <p className="text-gray-500 text-[0.5625rem] mt-0.5">Ingreso inmediato al presupuesto del club</p>
         </div>
+        <Icon name="chevron_right" size="xs" className="text-gray-600 shrink-0" />
       </button>
     )
   }
@@ -236,7 +238,7 @@ function RewardCard({ reward, onClaim, player }: { reward: MatchReward; onClaim:
     const displayName = player?.nameRomaji ?? playerName
     return (
       <button onClick={onClaim} className={baseClass}>
-        <div className={`w-16 h-16 rounded-2xl ${iconBg} flex items-center justify-center shrink-0 overflow-hidden`}>
+        <div className={`w-10 h-10 rounded-xl ${iconBg} flex items-center justify-center shrink-0 overflow-hidden`}>
           {player ? (
             <img
               src={player.spriteUrl}
@@ -245,36 +247,38 @@ function RewardCard({ reward, onClaim, player }: { reward: MatchReward; onClaim:
               onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
             />
           ) : (
-            <Icon name="trending_up" size="lg" className={iconCol} />
+            <Icon name="trending_up" size="sm" className={iconCol} />
           )}
         </div>
-        <div>
-          <p className={`text-[0.625rem] font-bold uppercase tracking-wider mb-1 ${lblCol}`}>
+        <div className="flex-1 min-w-0 text-left">
+          <p className={`text-[0.5625rem] font-bold uppercase tracking-wider ${lblCol}`}>
             {REWARD_RARITY_LABELS[reward.rarity]} · {REWARD_TYPE_LABELS[reward.type]}
           </p>
-          <p className="text-white font-semibold text-sm leading-tight break-words">{displayName}</p>
-          <p className="text-gray-400 text-sm mt-1">{stat} <span className="text-green-400 font-bold">+{amount}</span></p>
+          <p className="text-white font-semibold text-sm leading-tight truncate">{displayName}</p>
+          <p className="text-gray-400 text-xs mt-0.5">{stat} <span className="text-green-400 font-bold">+{amount}</span> · Mejora permanente de estadística</p>
         </div>
+        <Icon name="chevron_right" size="xs" className="text-gray-600 shrink-0" />
       </button>
     )
   }
 
   if (reward.type === 'technique_book' && reward.techniqueBook) {
     const { technique } = reward.techniqueBook
-    const typeLabel = TECHNIQUE_TYPE_LABELS[technique.type]
-    const typeIcon  = TECHNIQUE_TYPE_ICONS[technique.type]
+    const typeLabel = TECHNIQUE_TYPE_LABELS[technique.type as keyof typeof TECHNIQUE_TYPE_LABELS] ?? technique.type
+    const typeIcon  = TECHNIQUE_TYPE_ICONS[technique.type as keyof typeof TECHNIQUE_TYPE_ICONS] ?? 'star'
     return (
       <button onClick={onClaim} className={baseClass}>
-        <div className={`w-16 h-16 rounded-2xl ${iconBg} flex items-center justify-center shrink-0`}>
-          <Icon name={typeIcon} size="lg" className={iconCol} />
+        <div className={`w-10 h-10 rounded-xl ${iconBg} flex items-center justify-center shrink-0`}>
+          <Icon name={typeIcon} size="sm" className={iconCol} />
         </div>
-        <div>
-          <p className={`text-[0.625rem] font-bold uppercase tracking-wider mb-1 ${lblCol}`}>
+        <div className="flex-1 min-w-0 text-left">
+          <p className={`text-[0.5625rem] font-bold uppercase tracking-wider ${lblCol}`}>
             {REWARD_RARITY_LABELS[reward.rarity]} · {REWARD_TYPE_LABELS[reward.type]}
           </p>
-          <p className="text-white font-bold text-sm leading-tight line-clamp-2">{technique.name}</p>
-          <p className="text-gray-500 text-xs mt-1">{typeLabel} · POT {technique.POT}</p>
+          <p className="text-white font-bold text-sm leading-tight truncate">{technique.name}</p>
+          <p className="text-gray-500 text-[0.5625rem] mt-0.5">{typeLabel} · POT {technique.POT} · PP {technique.PP} · Se añade al inventario del club</p>
         </div>
+        <Icon name="chevron_right" size="xs" className="text-gray-600 shrink-0" />
       </button>
     )
   }
@@ -286,17 +290,17 @@ function RewardCard({ reward, onClaim, player }: { reward: MatchReward; onClaim:
     const bonuses   = Object.entries(statBonuses) as [string, number][]
     return (
       <button onClick={onClaim} className={baseClass}>
-        <div className={`w-16 h-16 rounded-2xl ${iconBg} flex items-center justify-center shrink-0`}>
-          <Icon name={slotIcon} size="lg" className={iconCol} />
+        <div className={`w-10 h-10 rounded-xl ${iconBg} flex items-center justify-center shrink-0`}>
+          <Icon name={slotIcon} size="sm" className={iconCol} />
         </div>
-        <div>
-          <p className={`text-[0.625rem] font-bold uppercase tracking-wider mb-1 ${lblCol}`}>
+        <div className="flex-1 min-w-0 text-left">
+          <p className={`text-[0.5625rem] font-bold uppercase tracking-wider ${lblCol}`}>
             {REWARD_RARITY_LABELS[reward.rarity]} · {REWARD_TYPE_LABELS[reward.type]}
           </p>
-          <p className="text-white font-bold text-sm leading-tight line-clamp-1">{name}</p>
-          <p className="text-gray-500 text-xs mt-0.5">{slotLabel}</p>
-          <p className="text-gray-600 text-[0.5625rem] mt-0.5">{bonuses.map(([k, v]) => `${k}+${v}`).join('  ')}</p>
+          <p className="text-white font-bold text-sm leading-tight truncate">{name}</p>
+          <p className="text-gray-400 text-[0.5625rem] mt-0.5">{slotLabel} · {bonuses.map(([k, v]) => `${k}+${v}`).join(' · ')}</p>
         </div>
+        <Icon name="chevron_right" size="xs" className="text-gray-600 shrink-0" />
       </button>
     )
   }
@@ -406,44 +410,42 @@ export default function MatchScreen() {
         </div>
       </div>
 
-      {/* ── RECOMPENSA (top, full-width, primary) ── */}
-      <div className="shrink-0 border-b border-gray-700/50" style={{ height: '52%' }}>
+      {/* ── RECOMPENSA ── */}
+      <div className="shrink-0 border-b border-gray-700/50">
         <div className="flex items-center gap-2 px-4 py-2 border-b border-gray-700/40">
           <Icon name="redeem" size="xs" className={hasRewards ? 'text-amber-400' : 'text-gray-500'} />
           <h2 className={`text-[0.625rem] font-black uppercase tracking-widest ${hasRewards ? 'text-amber-300' : 'text-gray-500'}`}>
             Recompensa
           </h2>
           {hasRewards && (
-            <span className="ml-auto text-gray-500 text-[0.5rem] font-semibold">Elige 1</span>
+            <span className="ml-auto text-gray-500 text-xs font-semibold">Elige 1 para reclamar</span>
           )}
         </div>
 
         {hasRewards ? (
-          <div className="flex gap-3 px-4 py-3 h-[calc(100%-36px)]">
+          <div className="flex flex-col gap-2 px-4 py-3">
             {pendingRewards.map((reward, i) => {
               const statBoost    = reward.statBoost
               const rewardPlayer = statBoost ? players.find((p) => p.id === statBoost.playerId) : undefined
               return (
-                <div key={i} className="flex-1 min-w-0">
-                  <RewardCard
-                    reward={reward}
-                    player={rewardPlayer}
-                    onClaim={() => {
-                      claimReward(reward)
-                      navigate('career_home')
-                    }}
-                  />
-                </div>
+                <RewardCard
+                  key={i}
+                  reward={reward}
+                  player={rewardPlayer}
+                  onClaim={() => {
+                    claimReward(reward)
+                    navigate('career_home')
+                  }}
+                />
               )
             })}
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center h-[calc(100%-36px)] gap-3">
-            <Icon name="check_circle" size="lg" className="text-gray-700" />
+          <div className="flex items-center justify-between px-4 py-3">
             <p className="text-gray-600 text-xs">Sin recompensas pendientes</p>
             <button
               onClick={() => navigate('career_home')}
-              className="px-8 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold text-sm transition-colors"
+              className="px-6 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold text-sm transition-colors"
             >
               Continuar
             </button>

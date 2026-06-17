@@ -68,7 +68,8 @@ function PlayerToken({
   })
 
   const { media } = getPlayerStatsSummary(player)
-  const ringColor = isCaptain ? 'ring-yellow-400' : 'ring-white/25'
+  const effectiveMedia = player.isInjured ? Math.round(media * 0.70) : media
+  const ringColor = player.isInjured ? 'ring-orange-500/80' : isCaptain ? 'ring-yellow-400' : 'ring-white/25'
 
   return (
     <div
@@ -85,7 +86,7 @@ function PlayerToken({
     >
       <div className="relative">
         {/* Face circle */}
-        <div className={`w-10 h-10 rounded-full overflow-hidden ring-2 shadow-lg bg-gray-700 ${ringColor}`}>
+        <div className={`w-10 h-10 rounded-full overflow-hidden ring-2 shadow-lg bg-gray-700 ${ringColor} ${player.isInjured ? 'opacity-75' : ''}`}>
           <img
             src={player.spriteUrl}
             alt={player.nameRomaji}
@@ -95,10 +96,17 @@ function PlayerToken({
           />
         </div>
 
-        {/* TOT badge */}
-        <div className="absolute -top-1.5 -right-1.5 min-w-[1.125rem] h-[1.125rem] bg-gray-900/90 rounded-full flex items-center justify-center px-0.5 shadow border border-gray-700/60 z-10">
-          <span className="text-[0.45rem] font-black leading-none tabular-nums" style={{ color: statColor(media, 250) }}>
-            {media}
+        {/* TOT badge — shows effective rating (penalised when injured) */}
+        <div
+          className="absolute -top-1.5 -right-1.5 min-w-[1.125rem] h-[1.125rem] rounded-full flex items-center justify-center px-0.5 shadow z-10"
+          style={{
+            background: player.isInjured ? 'rgba(154,52,18,0.95)' : 'rgba(17,24,39,0.9)',
+            borderWidth: 1,
+            borderColor: player.isInjured ? 'rgba(249,115,22,0.8)' : 'rgba(75,85,99,0.6)',
+          }}
+        >
+          <span className="text-[0.45rem] font-black leading-none tabular-nums" style={{ color: player.isInjured ? '#fb923c' : statColor(media, 250) }}>
+            {effectiveMedia}
           </span>
         </div>
 
