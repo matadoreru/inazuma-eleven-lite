@@ -367,20 +367,24 @@ export function resolveNegotiations(
   let p = players
   let t = teams
 
+  const fmtAmt = (n: number) =>
+    n >= 1_000_000 ? `€${(n / 1_000_000).toFixed(1)}M` : n >= 1_000 ? `€${(n / 1_000).toFixed(0)}K` : `€${n}`
+
   for (const neg of career.outgoingNegotiations) {
     if (neg.phase !== 'club_pending' && neg.phase !== 'player_pending') continue
     if (neg.phase === 'club_pending' && neg.counterAmount !== undefined) continue
     if (neg.resolutionDate > currentDate) continue
 
     const player = p.find((pl) => pl.id === neg.playerId)
-    const fmtAmt = (n: number) =>
-      n >= 1_000_000 ? `€${(n / 1_000_000).toFixed(1)}M` : n >= 1_000 ? `€${(n / 1_000).toFixed(0)}K` : `€${n}`
 
     // Player no longer exists or moved to a different club
-    if (!player || (neg.targetClubId !== null && player.teamId !== neg.targetClubId)) {
+    if (!player || (neg.targetClubId !== null && player.teamId !== neg.targetClubId) || (neg.targetClubId === null && player.teamId !== null)) {
       c = updateNeg(c, neg.id, { phase: 'failed' })
+      const eventType = neg.phase === 'player_pending'
+        ? 'OUTGOING_TRANSFER_PLAYER_REJECTED' as const
+        : 'OUTGOING_TRANSFER_CLUB_REJECTED' as const
       c = pushEvent(c, makeEvent(
-        'OUTGOING_TRANSFER_CLUB_REJECTED',
+        eventType,
         `Negociación fallida: ${neg.playerName}`,
         `${neg.playerName} ya no está disponible.`,
         currentDate, { negotiationId: neg.id },
