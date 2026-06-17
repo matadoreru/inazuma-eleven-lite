@@ -40,7 +40,7 @@ export function calcGrowthIncrement(
     const potentialFactor = calcPotentialGrowthFactor(
       analysis,
       player.career.potential,
-      player.seasonMatchMinutes ?? 0,
+      player.seasonStats.minutesPlayed,
       true,  // training-based growth
     )
     effectiveGrowthRate = player.career.growthRate * potentialFactor
@@ -88,11 +88,11 @@ export function applySeasonGrowth(
 
     // Match-based bonus: if player has minutes and good matchAffinity, boost growth
     let matchMultiplier = 1.0
-    if (analysis && (p.seasonMatchMinutes ?? 0) > 0) {
+    if (analysis && p.seasonStats.minutesPlayed > 0) {
       const matchFactor = calcPotentialGrowthFactor(
         analysis,
         p.career.potential,
-        p.seasonMatchMinutes ?? 0,
+        p.seasonStats.minutesPlayed,
         false,  // match-based growth
       )
       // Blend: training increment * (1 + match bonus)
@@ -117,7 +117,7 @@ export function applySeasonGrowth(
     const grownPlayer: Player = {
       ...p,
       stats: newStats,
-      seasonMatchMinutes: 0,  // reset at season end
+      seasonStats: { goals: 0, assists: 0, cleanSheets: 0, matchesPlayed: 0, minutesPlayed: 0 },  // reset at season end
     }
 
     return levelUpCheck(grownPlayer)

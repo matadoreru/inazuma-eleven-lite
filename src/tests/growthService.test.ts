@@ -175,10 +175,14 @@ describe('calcGrowthIncrement with potential analysis', () => {
     expect(nonZeroCount).toBeLessThan(15)
   })
 
-  it('resets seasonMatchMinutes to 0 after applySeasonGrowth', () => {
-    const player = makePlayer({ seasonMatchMinutes: 900 })
+  it('resets seasonStats to zeros after applySeasonGrowth', () => {
+    const player = makePlayer({
+      seasonStats: { goals: 3, assists: 2, cleanSheets: 1, matchesPlayed: 10, minutesPlayed: 900 },
+    })
     const [grown] = applySeasonGrowth([player])
-    expect(grown.seasonMatchMinutes).toBe(0)
+    expect(grown.seasonStats).toEqual({
+      goals: 0, assists: 0, cleanSheets: 0, matchesPlayed: 0, minutesPlayed: 0,
+    })
   })
 
   it('accepts potentials record and uses it for growth', () => {

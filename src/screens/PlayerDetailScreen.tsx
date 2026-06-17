@@ -855,7 +855,7 @@ export default function PlayerDetailScreen() {
                       <PotentialSection
                         analysis={analysis}
                         budget={userTeam?.budget ?? 0}
-                        playerMinutes={player.seasonMatchMinutes ?? 0}
+                        playerMinutes={player.seasonStats.minutesPlayed}
                         team={userTeam}
                         player={player}
                         difficulty={career.difficulty}
@@ -901,7 +901,7 @@ export default function PlayerDetailScreen() {
           nextTier={nextTier}
           cost={analysisCost}
           canAfford={(userTeam.budget ?? 0) >= analysisCost}
-          playerMinutes={player.seasonMatchMinutes ?? 0}
+          playerMinutes={player.seasonStats.minutesPlayed}
           team={userTeam}
           onClose={() => setShowPotentialModal(false)}
           onConfirm={() => analyzePlayerPotential(player.id, analysisCost)}

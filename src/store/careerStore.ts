@@ -323,11 +323,11 @@ function commitMatchResult(
     let updatedPlayers = drainStaminaAfterMatch(players, starterIds, benchIds, career.difficulty)
     updatedPlayers = updatedPlayers.map((p) => ({
       ...p,
-      seasonMatchMinutes: starterIds.has(p.id)
-        ? (p.seasonMatchMinutes ?? 0) + 90
-        : benchIds.has(p.id)
-        ? (p.seasonMatchMinutes ?? 0) + 45
-        : p.seasonMatchMinutes ?? 0,
+      seasonStats: {
+        ...p.seasonStats,
+        minutesPlayed: p.seasonStats.minutesPlayed + (starterIds.has(p.id) ? 90 : benchIds.has(p.id) ? 45 : 0),
+        matchesPlayed: p.seasonStats.matchesPlayed + (starterIds.has(p.id) || benchIds.has(p.id) ? 1 : 0),
+      },
     }))
     updatedPlayers = applyMatchInjuries(result.events, career.teamId, updatedPlayers)
 
@@ -380,14 +380,46 @@ function commitMatchResult(
   const isUserMatch = match.homeTeamId === career.teamId || match.awayTeamId === career.teamId
   let updatedPlayers = isUserMatch
     ? players.map((p) => {
-        if (starterIds.has(p.id)) return { ...p, seasonMatchMinutes: (p.seasonMatchMinutes ?? 0) + 90 }
-        if (benchIds.has(p.id)) return { ...p, seasonMatchMinutes: (p.seasonMatchMinutes ?? 0) + 45 }
-        return p
+        if (!starterIds.has(p.id) && !benchIds.has(p.id)) return p
+        return {
+          ...p,
+          seasonStats: {
+            ...p.seasonStats,
+            minutesPlayed: p.seasonStats.minutesPlayed + (starterIds.has(p.id) ? 90 : 45),
+            matchesPlayed: p.seasonStats.matchesPlayed + 1,
+          },
+        }
       })
     : players
   if (isUserMatch) {
     updatedPlayers = drainStaminaAfterMatch(updatedPlayers, starterIds, benchIds, career.difficulty)
     updatedPlayers = applyMatchInjuries(result.events, career.teamId, updatedPlayers)
+
+    const isHome = match.homeTeamId === career.teamId
+    const goalsConceded = isHome ? result.awayGoals : result.homeGoals
+    const isCleanSheet = goalsConceded === 0
+
+    const goalsByPlayer: Record<number, number> = {}
+    for (const e of result.events) {
+      if (e.type === 'GOAL' && e.teamId === career.teamId && e.playerId != null) {
+        goalsByPlayer[e.playerId] = (goalsByPlayer[e.playerId] ?? 0) + 1
+      }
+    }
+
+    updatedPlayers = updatedPlayers.map((p) => {
+      if (!starterIds.has(p.id)) return p
+      const goalsDelta = goalsByPlayer[p.id] ?? 0
+      const cleanSheetDelta =
+        isCleanSheet && (p.position === 'GK' || p.position === 'DF') ? 1 : 0
+      return {
+        ...p,
+        seasonStats: {
+          ...p.seasonStats,
+          goals: p.seasonStats.goals + goalsDelta,
+          cleanSheets: p.seasonStats.cleanSheets + cleanSheetDelta,
+        },
+      }
+    })
   }
   const updatedStandings = updateStandings(career.season.standings, playedMatch)
 
@@ -620,7 +652,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
 
   startNewCareer(managerName, teamId, managerAvatar = '/avatars/avatar-1.svg', difficulty = DEFAULT_DIFFICULTY, customTeamInput?: { team: Team; squadPlayerIds: number[] }) {
     const playersCopy: Player[] = JSON.parse(JSON.stringify(seedPlayers))
-      .map((p: Player) => ({ ...p, seasonMatchMinutes: 0 }))
+      .map((p: Player) => ({ ...p, seasonStats: p.seasonStats ?? { goals: 0, assists: 0, cleanSheets: 0, matchesPlayed: 0, minutesPlayed: 0 } }))
     const teamsCopy: Team[] = JSON.parse(JSON.stringify(seedTeams))
       .map((t: Team) => ({
         ...t,
@@ -667,7 +699,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     // Normalize fields that may be missing in older saves
     const players = data.players.map((p: Player) => ({
       ...p,
-      seasonMatchMinutes: p.seasonMatchMinutes ?? 0,
+      seasonStats: p.seasonStats ?? { goals: 0, assists: 0, cleanSheets: 0, matchesPlayed: 0, minutesPlayed: 0 },
       improvementTechniques: p.improvementTechniques ?? [],
       career: {
         ...p.career,
@@ -1324,7 +1356,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
       nextTier,
       userTeam,
       player,
-      player.seasonMatchMinutes ?? 0,
+      player.seasonStats.minutesPlayed,
       career.difficulty,
     )
     set({
@@ -1610,7 +1642,10 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     const newObjectives = league && userTeam ? getObjectivesForTeam(userTeam, league) : career.objectives
 
     // Reset player season stats
-    const resetPlayers = players.map((p) => ({ ...p, seasonMatchMinutes: 0 }))
+    const resetPlayers = players.map((p) => ({
+      ...p,
+      seasonStats: { goals: 0, assists: 0, cleanSheets: 0, matchesPlayed: 0, minutesPlayed: 0 },
+    }))
 
     let updatedCareer: Career = {
       ...career,
