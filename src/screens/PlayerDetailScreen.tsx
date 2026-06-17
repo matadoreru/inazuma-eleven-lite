@@ -597,12 +597,18 @@ export default function PlayerDetailScreen() {
   const equipItemAction = useCareerStore((s) => s.equipItem)
   const unequipItemAction = useCareerStore((s) => s.unequipItem)
   const teachTechnique = useCareerStore((s) => s.teachTechnique)
+  const initiateTransferNegotiation = useCareerStore((s) => s.initiateTransferNegotiation)
+  const respondToCounterOffer = useCareerStore((s) => s.respondToCounterOffer)
+  const cancelNegotiationAction = useCareerStore((s) => s.cancelNegotiation)
 
   const [showSellModal, setShowSellModal] = useState(false)
   const [showJerseyModal, setShowJerseyModal] = useState(false)
   const [showSwapCallup, setShowSwapCallup] = useState(false)
   const [showPotentialModal, setShowPotentialModal] = useState(false)
   const [techModal, setTechModal] = useState<{ kind: 'normal' | 'improvement'; slotIndex: number } | null>(null)
+  const [showOfferModal, setShowOfferModal] = useState(false)
+  const [offerInput, setOfferInput] = useState('')
+  const [counterInput, setCounterInput] = useState('')
 
   if (!career) {
     return (
@@ -645,7 +651,6 @@ export default function PlayerDetailScreen() {
   const calledUpIds = new Set(userTeam?.lineup.map((s) => s.playerId) ?? [])
   const isStarter = starterIds.has(player.id)
   const isBench = benchIds.has(player.id)
-  const isCalledUp = calledUpIds.has(player.id)
   const isAtLimit = calledUpIds.size >= MAX_CALLUP
   const benchPlayers = players.filter((p) => benchIds.has(p.id))
 
@@ -655,6 +660,23 @@ export default function PlayerDetailScreen() {
   const analysisCost = (analysis && nextTier && userTeam)
     ? calcAnalysisCost(nextTier, analysis, userTeam, player, career.difficulty)
     : 0
+
+  const activeNegotiation = !isInUserTeam
+    ? career.outgoingNegotiations.find(
+        (n) => n.playerId === player.id && (n.phase === 'club_pending' || n.phase === 'player_pending'),
+      ) ?? null
+    : null
+
+  const recentNegotiation = !isInUserTeam && !activeNegotiation
+    ? (() => {
+        const arr = career.outgoingNegotiations.filter(
+          (n) => n.playerId === player.id && (n.phase === 'failed' || n.phase === 'cancelled' || n.phase === 'completed'),
+        )
+        return arr.length > 0 ? arr[arr.length - 1] : null
+      })()
+    : null
+
+  const marketValueForOffer = Math.round(calcTransferValue(player) * (career.difficulty.transferCostMultiplier ?? 1))
 
   function handleCallUp() {
     const success = callUpPlayer(player!.id)
@@ -694,291 +716,389 @@ export default function PlayerDetailScreen() {
     ? 'bg-gray-700 text-gray-400 border border-gray-600'
     : 'bg-gray-800 text-gray-600 border border-gray-700'
 
+  const { total, media } = getPlayerStatsSummary(player)
+
   return (
     <div className="h-full flex flex-col">
       <TopNavigation title="Jugador" />
       <div className="flex flex-1 overflow-hidden">
         <SideNavigation currentScreen={screen} onNavigate={navigate} />
 
-        <main className="flex-1 overflow-y-auto p-4">
-          {(() => {
-            const { total, media } = getPlayerStatsSummary(player)
-            return (
-              <>
-                <button onClick={() => navigate(previousScreen ?? 'squad')} className="text-gray-400 hover:text-white text-sm mb-4 transition-colors flex items-center gap-1">
-                  <Icon name="arrow_back" size="xs" />
-                  {previousScreen === 'formation' ? 'Volver a Formación' : 'Volver a Plantilla'}
+        <main className="flex-1 flex flex-col overflow-hidden bg-gray-900">
+
+          {/* ── Hero strip ── */}
+          <div className="shrink-0 flex items-center gap-3 px-3 py-2.5 border-b border-gray-700/60">
+            <button
+              onClick={() => navigate(previousScreen ?? 'squad')}
+              className="text-gray-500 hover:text-white transition-colors shrink-0 p-1"
+            >
+              <Icon name="arrow_back" size="xs" />
+            </button>
+
+            {/* Face + position sprite */}
+            <div className="relative shrink-0">
+              <img
+                src={player.spriteUrl}
+                alt={player.nameRomaji}
+                className="w-14 h-14 object-contain rounded-lg bg-gray-800"
+                onError={(e) => {
+                  ;(e.currentTarget as HTMLImageElement).src =
+                    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56'%3E%3Crect width='56' height='56' rx='8' fill='%234b5563'/%3E%3C/svg%3E"
+                }}
+              />
+              <div className="absolute -bottom-1 -right-1 bg-gray-900 rounded-md p-0.5 border border-gray-700">
+                <PositionSprite position={player.position} size={20} />
+              </div>
+            </div>
+
+            {/* Identity */}
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <h1 className="text-white text-base font-bold leading-tight">{player.nameRomaji}</h1>
+                <span className={`text-[0.625rem] font-bold px-1.5 py-0.5 rounded shrink-0 ${statusStyle}`}>{statusLabel}</span>
+                <ElementBadge element={player.element} size="sm" />
+                {player.jerseyNumber > 0 && (
+                  <span className="text-gray-500 text-xs shrink-0">#{player.jerseyNumber}</span>
+                )}
+                {player.isInjured && (
+                  <span className="bg-red-800 text-red-200 text-[0.625rem] px-1.5 py-0.5 rounded font-semibold shrink-0">Lesionado</span>
+                )}
+                {player.isSuspended && (
+                  <span className="bg-yellow-800 text-yellow-200 text-[0.625rem] px-1.5 py-0.5 rounded font-semibold shrink-0">Sancionado</span>
+                )}
+              </div>
+              <p className="text-gray-600 text-[0.625rem] truncate leading-tight">{player.name}</p>
+              <span className="text-gray-500 text-xs">Stamina <span className="text-cyan-400">{player.stamina}%</span></span>
+            </div>
+
+            {/* Rating */}
+            <div className="shrink-0 text-right px-2">
+              <p className="text-3xl font-extrabold leading-none tabular-nums" style={{ color: statColor(media, 250) }}>{media}</p>
+              <p className="text-gray-600 text-[0.5rem]">Media</p>
+              <p className="text-gray-400 text-sm font-semibold tabular-nums">{total}</p>
+              <p className="text-gray-600 text-[0.5rem]">Total</p>
+            </div>
+
+            {/* Action buttons */}
+            {isInUserTeam && (
+              <div className="shrink-0 flex flex-col gap-1">
+                {!isStarter && !isBench && (
+                  <button
+                    onClick={handleCallUp}
+                    disabled={isAtLimit}
+                    className="flex items-center gap-1 px-2 py-1 bg-green-700 hover:bg-green-600 disabled:opacity-40 disabled:cursor-not-allowed text-white rounded text-xs font-semibold transition-colors"
+                  >
+                    <Icon name="person_add" size="xs" />
+                    Convocar
+                  </button>
+                )}
+                {isBench && (
+                  <button
+                    onClick={() => removeCallupPlayer(player.id)}
+                    className="flex items-center gap-1 px-2 py-1 bg-orange-700 hover:bg-orange-600 text-white rounded text-xs font-semibold transition-colors"
+                  >
+                    <Icon name="person_remove" size="xs" />
+                    Desconvocar
+                  </button>
+                )}
+                <button
+                  onClick={() => setShowJerseyModal(true)}
+                  className="flex items-center gap-1 px-2 py-1 bg-blue-700 hover:bg-blue-600 text-white rounded text-xs font-semibold transition-colors"
+                >
+                  <Icon name="tag" size="xs" />
+                  Dorsal
                 </button>
+                <button
+                  onClick={() => setShowSellModal(true)}
+                  className="flex items-center gap-1 px-2 py-1 bg-red-700 hover:bg-red-600 text-white rounded text-xs font-semibold transition-colors"
+                >
+                  <Icon name="sell" size="xs" />
+                  Vender
+                </button>
+              </div>
+            )}
 
-                <div className="grid grid-cols-2 gap-4">
+            {/* Negotiation block for non-owned players */}
+            {!isInUserTeam && (
+              <div className="shrink-0 flex flex-col gap-1">
+                {!activeNegotiation && !recentNegotiation && (
+                  <button
+                    onClick={() => { setOfferInput(String(marketValueForOffer)); setShowOfferModal(true) }}
+                    className="flex items-center gap-1 px-2 py-1 bg-blue-700 hover:bg-blue-600 text-white rounded text-xs font-semibold transition-colors"
+                  >
+                    <span className="material-icons leading-none" style={{ fontSize: '14px' }}>
+                      {player.teamId === null ? 'handshake' : 'send'}
+                    </span>
+                    {player.teamId === null ? 'Contactar agente' : 'Contactar club'}
+                  </button>
+                )}
 
-                  {/* ── Left column ── */}
-                  <div className="flex flex-col gap-4">
-
-                    {/* Header card */}
-                    <div className="bg-gray-800 rounded-xl p-4 border border-gray-700">
-                      <div className="flex gap-4 items-start">
-                        <div className="shrink-0 relative">
-                          <img
-                            src={player.spriteUrl}
-                            alt={player.nameRomaji}
-                            className="w-20 h-20 object-contain rounded-lg bg-gray-700"
-                            onError={(e) => {
-                              ;(e.currentTarget as HTMLImageElement).src =
-                                "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect width='80' height='80' rx='8' fill='%234b5563'/%3E%3C/svg%3E"
-                            }}
-                          />
-                          <div className="absolute -bottom-1 -right-1 bg-gray-900 rounded-md p-0.5 border border-gray-700">
-                            <PositionSprite position={player.position} size={25} />
-                          </div>
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-start justify-between gap-2">
-                            <div>
-                              <h1 className="text-white text-xl font-bold leading-tight">{player.nameRomaji}</h1>
-                              <p className="text-gray-500 text-xs mt-0.5">{player.name}</p>
-                            </div>
-                            <div className="text-right shrink-0">
-                              <p className="text-3xl font-extrabold leading-none" style={{ color: statColor(media, 250) }}>{media}</p>
-                              <p className="text-gray-500 text-xs mt-0.5">Media</p>
-                              <p className="text-gray-400 text-sm font-semibold tabular-nums mt-1">{total}</p>
-                              <p className="text-gray-600 text-[0.625rem]">Total</p>
-                            </div>
-                          </div>
-                          <div className="flex items-center gap-2 mt-2 flex-wrap">
-                            <span className={`text-[0.625rem] font-bold px-1.5 py-0.5 rounded ${statusStyle}`}>{statusLabel}</span>
-                            <ElementBadge element={player.element} size="sm" />
-                            {player.jerseyNumber > 0 && (
-                              <span className="text-gray-400 text-xs">#{player.jerseyNumber}</span>
-                            )}
-                            {player.isInjured && (
-                              <span className="bg-red-800 text-red-200 text-xs px-2 py-0.5 rounded font-semibold">Lesionado</span>
-                            )}
-                            {player.isSuspended && (
-                              <span className="bg-yellow-800 text-yellow-200 text-xs px-2 py-0.5 rounded font-semibold">Sancionado</span>
-                            )}
-                          </div>
-                          <div className="mt-2 flex gap-3 text-xs text-gray-500">
-                            <span>Stamina <span className="text-cyan-400">{player.stamina}%</span></span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Actions */}
-                    {isInUserTeam && (
-                      <div className="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden">
-                        <div className="px-4 py-3 border-b border-gray-700">
-                          <h2 className="text-white text-sm font-semibold">Acciones</h2>
-                        </div>
-                        <div className="p-3 flex flex-wrap gap-2">
-                          {!isStarter && !isBench && (
-                            <button
-                              onClick={handleCallUp}
-                              disabled={isAtLimit}
-                              className="flex items-center gap-1.5 px-3 py-2 bg-green-700 hover:bg-green-600 disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-lg text-sm font-semibold transition-colors"
-                            >
-                              <Icon name="person_add" size="xs" />
-                              Convocar
-                            </button>
-                          )}
-                          {isBench && (
-                            <button
-                              onClick={() => removeCallupPlayer(player.id)}
-                              className="flex items-center gap-1.5 px-3 py-2 bg-orange-700 hover:bg-orange-600 text-white rounded-lg text-sm font-semibold transition-colors"
-                            >
-                              <Icon name="person_remove" size="xs" />
-                              Desconvocar
-                            </button>
-                          )}
-                          <button
-                            onClick={() => setShowJerseyModal(true)}
-                            className="flex items-center gap-1.5 px-3 py-2 bg-blue-700 hover:bg-blue-600 text-white rounded-lg text-sm font-semibold transition-colors"
-                          >
-                            <Icon name="tag" size="xs" />
-                            Cambiar dorsal
-                          </button>
-                          <button
-                            onClick={() => setShowSellModal(true)}
-                            className="flex items-center gap-1.5 px-3 py-2 bg-red-700 hover:bg-red-600 text-white rounded-lg text-sm font-semibold transition-colors"
-                          >
-                            <Icon name="sell" size="xs" />
-                            Vender
-                          </button>
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Career info */}
-                    <div className="bg-gray-800 rounded-xl p-4 border border-gray-700">
-                      <h2 className="text-white text-sm font-semibold mb-3">Información de carrera</h2>
-                      <div className="grid grid-cols-2 gap-3 text-sm">
-                        <div>
-                          <p className="text-gray-500 text-xs">Potencial base</p>
-                          <p className="text-purple-400 font-bold">{player.career.potential}</p>
-                        </div>
-                        <div>
-                          <p className="text-gray-500 text-xs">Valor de mercado</p>
-                          <p className="text-green-400 font-bold">{fmt(player.career.marketValue)}</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Techniques */}
-                    {(() => {
-                      const normalTechs = getNormalTechniques(player)
-                      const improveTechs = getImprovementTechniques(player)
-                      const allBooks = Object.entries(career.inventory.techniqueBooks)
-                        .filter(([, qty]) => qty > 0)
-                        .map(([bookId]) => career.inventory.generatedBooks[bookId])
-                        .filter((b): b is TechniqueBook => b !== undefined)
-                      const hasAnyBooks = allBooks.length > 0
-                      return (
-                        <div className="bg-gray-800 rounded-xl p-4 border border-gray-700">
-                          <div className="flex items-center justify-between mb-3">
-                            <h2 className="text-white text-sm font-semibold">Supertécnicas</h2>
-                            {hasAnyBooks && (
-                              <span className="text-xs text-blue-400 font-medium">{allBooks.length} libro{allBooks.length !== 1 ? 's' : ''} en inventario</span>
-                            )}
-                          </div>
-
-                          {/* Normal technique slots (max 3) */}
-                          <div className="mb-3">
-                            <p className="text-gray-500 text-[0.625rem] font-semibold uppercase tracking-wider mb-2">Habilidad ({normalTechs.length}/{MAX_NORMAL_TECHNIQUES})</p>
-                            <div className="flex flex-col gap-1.5">
-                              {Array.from({ length: MAX_NORMAL_TECHNIQUES }, (_, i) => {
-                                const tech = normalTechs[i]
-                                return (
-                                  <div key={i} className={`flex items-center gap-2 px-3 py-2 rounded-lg border ${tech ? 'border-gray-700 bg-gray-700/40' : 'border-dashed border-gray-700 bg-transparent'}`}>
-                                    {tech ? (
-                                      <>
-                                        <TechniqueBadge technique={tech} />
-                                        <div className="flex-1 min-w-0" />
-                                        {isInUserTeam && (
-                                          <button
-                                            onClick={() => setTechModal({ kind: 'normal', slotIndex: i })}
-                                            className="text-gray-500 hover:text-blue-400 transition-colors shrink-0"
-                                            title="Cambiar técnica"
-                                          >
-                                            <span className="material-icons leading-none" style={{ fontSize: 14 }}>swap_horiz</span>
-                                          </button>
-                                        )}
-                                      </>
-                                    ) : (
-                                      <button
-                                        onClick={() => isInUserTeam && setTechModal({ kind: 'normal', slotIndex: i })}
-                                        disabled={!isInUserTeam}
-                                        className="flex items-center gap-2 w-full text-gray-600 hover:text-gray-400 transition-colors disabled:cursor-default"
-                                      >
-                                        <span className="material-icons leading-none" style={{ fontSize: 14 }}>add</span>
-                                        <span className="text-xs">Ranura vacía</span>
-                                      </button>
-                                    )}
-                                  </div>
-                                )
-                              })}
-                            </div>
-                          </div>
-
-                          {/* Improvement technique slots (max 2) */}
-                          <div>
-                            <p className="text-gray-500 text-[0.625rem] font-semibold uppercase tracking-wider mb-2">Pasiva ({improveTechs.length}/{MAX_IMPROVEMENT_TECHNIQUES})</p>
-                            <div className="flex flex-col gap-1.5">
-                              {Array.from({ length: MAX_IMPROVEMENT_TECHNIQUES }, (_, i) => {
-                                const tech = improveTechs[i]
-                                return (
-                                  <div key={i} className={`flex items-center gap-2 px-3 py-2 rounded-lg border ${tech ? 'border-gray-700 bg-gray-700/40' : 'border-dashed border-gray-700 bg-transparent'}`}>
-                                    {tech ? (
-                                      <>
-                                        <TechniqueBadge technique={tech} />
-                                        <div className="flex-1 min-w-0" />
-                                        {isInUserTeam && (
-                                          <button
-                                            onClick={() => setTechModal({ kind: 'improvement', slotIndex: i })}
-                                            className="text-gray-500 hover:text-blue-400 transition-colors shrink-0"
-                                            title="Cambiar técnica"
-                                          >
-                                            <span className="material-icons leading-none" style={{ fontSize: 14 }}>swap_horiz</span>
-                                          </button>
-                                        )}
-                                      </>
-                                    ) : (
-                                      <button
-                                        onClick={() => isInUserTeam && setTechModal({ kind: 'improvement', slotIndex: i })}
-                                        disabled={!isInUserTeam}
-                                        className="flex items-center gap-2 w-full text-gray-600 hover:text-gray-400 transition-colors disabled:cursor-default"
-                                      >
-                                        <span className="material-icons leading-none" style={{ fontSize: 14 }}>add</span>
-                                        <span className="text-xs">Ranura vacía</span>
-                                      </button>
-                                    )}
-                                  </div>
-                                )
-                              })}
-                            </div>
-                          </div>
-                        </div>
-                      )
-                    })()}
-
-                    {/* Equipment */}
-                    {isInUserTeam && (
-                      <EquipmentSection
-                        player={player}
-                        inventoryItems={career.inventory.equipmentItems}
-                        onEquip={(itemId) => equipItemAction(player.id, itemId)}
-                        onUnequip={(slot) => unequipItemAction(player.id, slot)}
-                      />
-                    )}
-
+                {activeNegotiation && activeNegotiation.phase === 'club_pending' && !activeNegotiation.counterAmount && (
+                  <div className="flex flex-col gap-1">
+                    <span className="text-gray-400 text-[0.625rem] leading-tight">Esperando respuesta del club</span>
+                    <span className="text-gray-500 text-[0.5rem]">Est. {activeNegotiation.resolutionDate}</span>
+                    <button
+                      onClick={() => cancelNegotiationAction(activeNegotiation.id)}
+                      className="flex items-center gap-1 px-2 py-1 bg-gray-700 hover:bg-gray-600 text-gray-300 rounded text-xs font-semibold transition-colors"
+                    >
+                      <span className="material-icons leading-none" style={{ fontSize: '12px' }}>cancel</span>
+                      Cancelar
+                    </button>
                   </div>
+                )}
 
-                  {/* ── Right column ── */}
-                  <div className="flex flex-col gap-4">
-
-                    {/* Stats */}
-                    <div className="bg-gray-800 rounded-xl p-4 border border-gray-700">
-                      <div className="flex items-center justify-between mb-3">
-                        <h2 className="text-white text-sm font-semibold">Estadísticas</h2>
-                        <div className="flex items-center gap-2">
-                          <PositionSprite position={player.position} size={22} />
-                          <span className="text-gray-400 text-xs">{player.position}</span>
-                        </div>
-                      </div>
-                      <div className="flex flex-col gap-2">
-                        {STAT_KEYS.map((stat) => (
-                          <StatBar key={stat} label={stat} value={player.stats[stat]} max={250} />
-                        ))}
-                      </div>
-                      <div className="mt-3 pt-3 border-t border-gray-700 flex justify-between text-sm">
-                        <span className="text-gray-500">Total</span>
-                        <span className="text-gray-300 font-semibold tabular-nums">{total}</span>
-                      </div>
-                      <div className="flex justify-between text-sm mt-1">
-                        <span className="text-gray-500">Media</span>
-                        <span className="font-bold tabular-nums" style={{ color: statColor(media, 250) }}>{media}</span>
-                      </div>
-                    </div>
-
-                    {/* Potential analysis */}
-                    {isInUserTeam && (
-                      <PotentialSection
-                        analysis={analysis}
-                        budget={userTeam?.budget ?? 0}
-                        playerMinutes={player.seasonStats.minutesPlayed}
-                        team={userTeam}
-                        player={player}
-                        difficulty={career.difficulty}
-                        onAnalyze={() => setShowPotentialModal(true)}
-                      />
+                {activeNegotiation && activeNegotiation.phase === 'club_pending' && activeNegotiation.counterAmount && (
+                  <div className="flex flex-col gap-1.5">
+                    <span className="text-yellow-400 text-[0.625rem] font-semibold">
+                      Contra: {activeNegotiation.counterAmount >= 1_000_000
+                        ? `€${(activeNegotiation.counterAmount / 1_000_000).toFixed(1)}M`
+                        : `€${(activeNegotiation.counterAmount / 1_000).toFixed(0)}K`}
+                    </span>
+                    <button
+                      onClick={() => respondToCounterOffer(activeNegotiation.id, 'accept_counter')}
+                      className="flex items-center gap-1 px-2 py-1 bg-green-700 hover:bg-green-600 text-white rounded text-xs font-semibold transition-colors"
+                    >
+                      Aceptar
+                    </button>
+                    {activeNegotiation.offerRound < 3 && (
+                      <button
+                        onClick={() => { setCounterInput(String(activeNegotiation.currentOffer)); setShowOfferModal(true) }}
+                        className="flex items-center gap-1 px-2 py-1 bg-yellow-700 hover:bg-yellow-600 text-white rounded text-xs font-semibold transition-colors"
+                      >
+                        Contra-ofrecer
+                      </button>
                     )}
-
+                    <button
+                      onClick={() => respondToCounterOffer(activeNegotiation.id, 'reject')}
+                      className="flex items-center gap-1 px-2 py-1 bg-gray-700 hover:bg-gray-600 text-gray-300 rounded text-xs font-semibold transition-colors"
+                    >
+                      Rechazar
+                    </button>
                   </div>
+                )}
 
+                {activeNegotiation && activeNegotiation.phase === 'player_pending' && (
+                  <div className="flex flex-col gap-1">
+                    <span className="text-blue-400 text-[0.625rem] leading-tight">Jugador valorando oferta</span>
+                    <span className="text-gray-500 text-[0.5rem]">Est. {activeNegotiation.resolutionDate}</span>
+                    <button
+                      onClick={() => cancelNegotiationAction(activeNegotiation.id)}
+                      className="flex items-center gap-1 px-2 py-1 bg-gray-700 hover:bg-gray-600 text-gray-300 rounded text-xs font-semibold transition-colors"
+                    >
+                      <span className="material-icons leading-none" style={{ fontSize: '12px' }}>cancel</span>
+                      Cancelar
+                    </button>
+                  </div>
+                )}
+
+                {recentNegotiation && recentNegotiation.phase === 'failed' && (
+                  <div className="flex flex-col gap-1">
+                    <span className="text-red-400 text-[0.625rem]">Negociación fallida</span>
+                    <button
+                      onClick={() => { setOfferInput(String(marketValueForOffer)); setShowOfferModal(true) }}
+                      className="flex items-center gap-1 px-2 py-1 bg-blue-700 hover:bg-blue-600 text-white rounded text-xs font-semibold transition-colors"
+                    >
+                      Reintentar
+                    </button>
+                  </div>
+                )}
+
+                {recentNegotiation && recentNegotiation.phase === 'cancelled' && (
+                  <div className="flex flex-col gap-1">
+                    <span className="text-gray-500 text-[0.625rem]">Cancelada</span>
+                    <button
+                      onClick={() => { setOfferInput(String(marketValueForOffer)); setShowOfferModal(true) }}
+                      className="flex items-center gap-1 px-2 py-1 bg-blue-700 hover:bg-blue-600 text-white rounded text-xs font-semibold transition-colors"
+                    >
+                      Nueva oferta
+                    </button>
+                  </div>
+                )}
+
+                {recentNegotiation && recentNegotiation.phase === 'completed' && (
+                  <span className="text-green-400 text-[0.625rem] font-semibold">Fichaje completado</span>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* ── 3-column body ── */}
+          <div className="flex flex-1 overflow-hidden">
+
+            {/* Left: Stats + Season */}
+            <div className="w-52 shrink-0 border-r border-gray-700/60 overflow-y-auto p-3 flex flex-col gap-3">
+              <div>
+                <p className="text-[0.5rem] font-black uppercase tracking-widest text-gray-600 mb-2">Estadísticas</p>
+                <div className="flex flex-col gap-1.5">
+                  {STAT_KEYS.map((stat) => (
+                    <StatBar key={stat} label={stat} value={player.stats[stat]} max={250} />
+                  ))}
                 </div>
-              </>
-            )
-          })()}
+                <div className="mt-2 pt-2 border-t border-gray-700/50 grid grid-cols-2 gap-x-2 text-xs">
+                  <span className="text-gray-500">Total</span>
+                  <span className="text-gray-300 font-semibold tabular-nums text-right">{total}</span>
+                  <span className="text-gray-500">Media</span>
+                  <span className="font-bold tabular-nums text-right" style={{ color: statColor(media, 250) }}>{media}</span>
+                </div>
+              </div>
+
+              <div>
+                <p className="text-[0.5rem] font-black uppercase tracking-widest text-gray-600 mb-2">Temporada</p>
+                <div className="grid grid-cols-2 gap-1.5">
+                  <div className="bg-gray-800 rounded-lg px-2 py-1.5 text-center">
+                    <p className="text-white text-base font-black tabular-nums">{player.seasonStats.goals}</p>
+                    <p className="text-gray-600 text-[0.5rem]">Goles</p>
+                  </div>
+                  <div className="bg-gray-800 rounded-lg px-2 py-1.5 text-center">
+                    <p className="text-white text-base font-black tabular-nums">{player.seasonStats.assists}</p>
+                    <p className="text-gray-600 text-[0.5rem]">Asist.</p>
+                  </div>
+                  {player.position === 'GK' && (
+                    <div className="bg-gray-800 rounded-lg px-2 py-1.5 text-center">
+                      <p className="text-white text-base font-black tabular-nums">{player.seasonStats.cleanSheets}</p>
+                      <p className="text-gray-600 text-[0.5rem]">P. en cero</p>
+                    </div>
+                  )}
+                  <div className="bg-gray-800 rounded-lg px-2 py-1.5 text-center">
+                    <p className="text-white text-base font-black tabular-nums">{player.seasonStats.matchesPlayed}</p>
+                    <p className="text-gray-600 text-[0.5rem]">Partidos</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Center: Techniques + Equipment */}
+            <div className="flex-1 overflow-y-auto p-3 flex flex-col gap-3 min-w-0">
+              {(() => {
+                const normalTechs = getNormalTechniques(player)
+                const improveTechs = getImprovementTechniques(player)
+                const allBooks = Object.entries(career.inventory.techniqueBooks)
+                  .filter(([, qty]) => qty > 0)
+                  .map(([bookId]) => career.inventory.generatedBooks[bookId])
+                  .filter((b): b is TechniqueBook => b !== undefined)
+                const hasAnyBooks = allBooks.length > 0
+                return (
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <p className="text-[0.5rem] font-black uppercase tracking-widest text-gray-600">Supertécnicas</p>
+                      {hasAnyBooks && (
+                        <span className="text-[0.5rem] text-blue-400 font-medium">{allBooks.length} libro{allBooks.length !== 1 ? 's' : ''}</span>
+                      )}
+                    </div>
+
+                    <p className="text-gray-600 text-[0.5rem] mb-1">HABILIDAD ({normalTechs.length}/{MAX_NORMAL_TECHNIQUES})</p>
+                    <div className="flex flex-col gap-1 mb-3">
+                      {Array.from({ length: MAX_NORMAL_TECHNIQUES }, (_, i) => {
+                        const tech = normalTechs[i]
+                        return (
+                          <div key={i} className={`flex items-center gap-2 px-2 py-1.5 rounded-lg border ${tech ? 'border-gray-700 bg-gray-800/60' : 'border-dashed border-gray-700/60 bg-transparent'}`}>
+                            {tech ? (
+                              <>
+                                <TechniqueBadge technique={tech} />
+                                <div className="flex-1 min-w-0" />
+                                {isInUserTeam && (
+                                  <button
+                                    onClick={() => setTechModal({ kind: 'normal', slotIndex: i })}
+                                    className="text-gray-500 hover:text-blue-400 transition-colors shrink-0"
+                                    title="Cambiar técnica"
+                                  >
+                                    <span className="material-icons leading-none" style={{ fontSize: 13 }}>swap_horiz</span>
+                                  </button>
+                                )}
+                              </>
+                            ) : (
+                              <button
+                                onClick={() => isInUserTeam && setTechModal({ kind: 'normal', slotIndex: i })}
+                                disabled={!isInUserTeam}
+                                className="flex items-center gap-2 w-full text-gray-600 hover:text-gray-400 transition-colors disabled:cursor-default"
+                              >
+                                <span className="material-icons leading-none" style={{ fontSize: 13 }}>add</span>
+                                <span className="text-xs">Ranura vacía</span>
+                              </button>
+                            )}
+                          </div>
+                        )
+                      })}
+                    </div>
+
+                    <p className="text-gray-600 text-[0.5rem] mb-1">PASIVA ({improveTechs.length}/{MAX_IMPROVEMENT_TECHNIQUES})</p>
+                    <div className="flex flex-col gap-1">
+                      {Array.from({ length: MAX_IMPROVEMENT_TECHNIQUES }, (_, i) => {
+                        const tech = improveTechs[i]
+                        return (
+                          <div key={i} className={`flex items-center gap-2 px-2 py-1.5 rounded-lg border ${tech ? 'border-gray-700 bg-gray-800/60' : 'border-dashed border-gray-700/60 bg-transparent'}`}>
+                            {tech ? (
+                              <>
+                                <TechniqueBadge technique={tech} />
+                                <div className="flex-1 min-w-0" />
+                                {isInUserTeam && (
+                                  <button
+                                    onClick={() => setTechModal({ kind: 'improvement', slotIndex: i })}
+                                    className="text-gray-500 hover:text-blue-400 transition-colors shrink-0"
+                                    title="Cambiar técnica"
+                                  >
+                                    <span className="material-icons leading-none" style={{ fontSize: 13 }}>swap_horiz</span>
+                                  </button>
+                                )}
+                              </>
+                            ) : (
+                              <button
+                                onClick={() => isInUserTeam && setTechModal({ kind: 'improvement', slotIndex: i })}
+                                disabled={!isInUserTeam}
+                                className="flex items-center gap-2 w-full text-gray-600 hover:text-gray-400 transition-colors disabled:cursor-default"
+                              >
+                                <span className="material-icons leading-none" style={{ fontSize: 13 }}>add</span>
+                                <span className="text-xs">Ranura vacía</span>
+                              </button>
+                            )}
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </div>
+                )
+              })()}
+
+              {isInUserTeam && (
+                <EquipmentSection
+                  player={player}
+                  inventoryItems={career.inventory.equipmentItems}
+                  onEquip={(itemId) => equipItemAction(player.id, itemId)}
+                  onUnequip={(slot) => unequipItemAction(player.id, slot)}
+                />
+              )}
+            </div>
+
+            {/* Right: Career info + Potential */}
+            <div className="w-56 shrink-0 border-l border-gray-700/60 overflow-y-auto p-3 flex flex-col gap-3">
+              <div>
+                <p className="text-[0.5rem] font-black uppercase tracking-widest text-gray-600 mb-2">Carrera</p>
+                <div className="grid grid-cols-2 gap-1.5">
+                  <div className="bg-gray-800 rounded-lg px-2 py-1.5">
+                    <p className="text-gray-500 text-[0.5625rem]">Potencial base</p>
+                    <p className="text-purple-400 font-bold text-sm">{player.career.potential}</p>
+                  </div>
+                  <div className="bg-gray-800 rounded-lg px-2 py-1.5">
+                    <p className="text-gray-500 text-[0.5625rem]">Valor</p>
+                    <p className="text-green-400 font-bold text-xs truncate">{fmt(player.career.marketValue)}</p>
+                  </div>
+                </div>
+              </div>
+
+              {isInUserTeam && (
+                <PotentialSection
+                  analysis={analysis}
+                  budget={userTeam?.budget ?? 0}
+                  playerMinutes={player.seasonStats.minutesPlayed}
+                  team={userTeam}
+                  player={player}
+                  difficulty={career.difficulty}
+                  onAnalyze={() => setShowPotentialModal(true)}
+                />
+              )}
+            </div>
+
+          </div>
         </main>
       </div>
 
@@ -1016,6 +1136,63 @@ export default function PlayerDetailScreen() {
           onClose={() => setShowPotentialModal(false)}
           onConfirm={() => analyzePlayerPotential(player.id, analysisCost)}
         />
+      )}
+
+      {/* ── Offer modal (initiate negotiation / counter-offer) ── */}
+      {showOfferModal && (
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
+          <div className="bg-gray-800 rounded-xl p-5 w-full max-w-sm border border-gray-700 space-y-4">
+            <div>
+              <h2 className="text-white text-base font-bold">
+                {activeNegotiation?.counterAmount ? 'Contra-oferta' : (player.teamId === null ? 'Contactar agente' : 'Enviar oferta al club')}
+              </h2>
+              <p className="text-gray-400 text-xs mt-0.5">{player.nameRomaji}</p>
+            </div>
+
+            <div className="flex items-center justify-between py-2 border-b border-gray-700">
+              <span className="text-gray-400 text-xs">Valor de mercado</span>
+              <span className="text-white text-sm font-bold tabular-nums">
+                {calcTransferValue(player) >= 1_000_000
+                  ? `€${(calcTransferValue(player) / 1_000_000).toFixed(1)}M`
+                  : `€${(calcTransferValue(player) / 1_000).toFixed(0)}K`}
+              </span>
+            </div>
+
+            <div className="space-y-1.5">
+              <label className="text-gray-400 text-xs">Tu oferta (€)</label>
+              <input
+                type="number"
+                value={activeNegotiation?.counterAmount ? counterInput : offerInput}
+                onChange={(e) => activeNegotiation?.counterAmount ? setCounterInput(e.target.value) : setOfferInput(e.target.value)}
+                className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-blue-500"
+                min={1}
+              />
+            </div>
+
+            <button
+              onClick={() => {
+                const raw = activeNegotiation?.counterAmount ? parseInt(counterInput) : parseInt(offerInput)
+                if (isNaN(raw) || raw <= 0) return
+                if (activeNegotiation?.counterAmount) {
+                  respondToCounterOffer(activeNegotiation.id, 'counter', raw)
+                } else {
+                  initiateTransferNegotiation(player.id, raw)
+                }
+                setShowOfferModal(false)
+              }}
+              className="w-full py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-semibold text-sm transition-colors"
+            >
+              Enviar oferta
+            </button>
+
+            <button
+              onClick={() => setShowOfferModal(false)}
+              className="w-full py-2 bg-gray-700 hover:bg-gray-600 text-gray-300 rounded-lg font-semibold text-sm transition-colors"
+            >
+              Cancelar
+            </button>
+          </div>
+        </div>
       )}
 
       {/* ── Sell modal ── */}
