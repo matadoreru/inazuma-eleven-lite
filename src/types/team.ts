@@ -67,3 +67,13 @@ export interface TeamSnapshot {
   goalkeeperScore: number
   starters?: SnapshotPlayer[]
 }
+
+export type StrengthTier = 'weak' | 'normal' | 'strong' | 'very_strong'
+
+export interface CustomClubConfig {
+  name: string
+  badgeUrl: string
+  badgeIsCustom: boolean
+  strengthTier: StrengthTier
+  leagueId: string
+}
