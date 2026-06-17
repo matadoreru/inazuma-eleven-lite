@@ -67,7 +67,7 @@ export default function TransfersScreen() {
   const navigate = useCareerStore((s) => s.navigate)
   const activeTransferFilter = useCareerStore((s) => s.activeTransferFilter)
   const setTransferFilter = useCareerStore((s) => s.setTransferFilter)
-  const buyPlayer = useCareerStore((s) => s.buyPlayer)
+  const selectPlayer = useCareerStore((s) => s.selectPlayer)
 
   const [sortKey, setSortKey] = useState<SortKey>('TOT')
   const [sortDir, setSortDir] = useState<SortDir>('desc')
@@ -100,13 +100,6 @@ export default function TransfersScreen() {
       setSortDir(col === 'TOT' || col === 'valor' ? 'desc' : 'asc')
     }
     setTransferFilter({ page: 0 })
-  }
-
-  function handleBuy(playerId: number) {
-    const player = players.find((p) => p.id === playerId)
-    if (!player || !career) return
-    const marketValue = Math.round(calcTransferValue(player) * (career.difficulty.transferCostMultiplier ?? 1))
-    buyPlayer(playerId, marketValue)
   }
 
   return (
@@ -210,7 +203,7 @@ export default function TransfersScreen() {
                         player={player}
                         teamName={playerTeam?.name ?? ''}
                         isFreeAgent={isFreeAgent}
-                        onBuy={() => handleBuy(player.id)}
+                        onView={() => { selectPlayer(player.id); navigate('player_detail') }}
                       />
                     )
                   })}

@@ -3,7 +3,6 @@ import TopNavigation from '../components/TopNavigation'
 import SideNavigation from '../components/SideNavigation'
 import TransferPlayerRow from '../components/TransferPlayerRow'
 import InboxEventCard from '../components/InboxEventCard'
-import { calcTransferValue } from '../services/transferService'
 
 export default function ScoutScreen() {
   const career = useCareerStore((s) => s.career)
@@ -11,7 +10,7 @@ export default function ScoutScreen() {
   const players = useCareerStore((s) => s.players)
   const screen = useCareerStore((s) => s.screen)
   const navigate = useCareerStore((s) => s.navigate)
-  const buyPlayer = useCareerStore((s) => s.buyPlayer)
+  const selectPlayer = useCareerStore((s) => s.selectPlayer)
   const acceptTransferOffer = useCareerStore((s) => s.acceptTransferOffer)
   const rejectTransferOffer = useCareerStore((s) => s.rejectTransferOffer)
   const markInboxRead = useCareerStore((s) => s.markInboxRead)
@@ -107,7 +106,7 @@ export default function ScoutScreen() {
                           player={player}
                           teamName={playerTeam?.name ?? ''}
                           isFreeAgent={player.teamId === null}
-                          onBuy={() => buyPlayer(player.id, Math.round(calcTransferValue(player) * (career?.difficulty.transferCostMultiplier ?? 1)))}
+                          onView={() => { selectPlayer(player.id); navigate('player_detail') }}
                         />
                       )
                     })}

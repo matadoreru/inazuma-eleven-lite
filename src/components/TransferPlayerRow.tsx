@@ -15,16 +15,15 @@ interface Props {
   player: Player
   teamName: string
   isFreeAgent: boolean
-  onBuy?: () => void
+  onView?: () => void
 }
 
-export default function TransferPlayerRow({ player, teamName, isFreeAgent, onBuy }: Props) {
+export default function TransferPlayerRow({ player, teamName, isFreeAgent, onView }: Props) {
   const { media } = getPlayerStatsSummary(player)
   const value = calcTransferValue(player)
 
   return (
     <tr className="border-b border-gray-700 hover:bg-gray-700/40 transition-colors">
-      {/* Avatar */}
       <td className="py-1.5 px-2 w-12">
         <img
           src={player.spriteUrl}
@@ -36,8 +35,6 @@ export default function TransferPlayerRow({ player, teamName, isFreeAgent, onBuy
           }}
         />
       </td>
-
-      {/* Name + pos + element */}
       <td className="py-1.5 px-3">
         <span className="text-white text-sm font-medium block leading-tight truncate max-w-[140px]">
           {player.nameRomaji}
@@ -47,13 +44,9 @@ export default function TransferPlayerRow({ player, teamName, isFreeAgent, onBuy
           <ElementBadge element={player.element} size="sm" />
         </div>
       </td>
-
-      {/* Media */}
       <td className="py-1.5 px-3 text-right tabular-nums w-14">
         <span className="text-sm font-bold" style={{ color: statColor(media, 250) }}>{media}</span>
       </td>
-
-      {/* Equipo / Libre */}
       <td className="py-1.5 px-3 w-32">
         {isFreeAgent ? (
           <span className="text-[0.625rem] font-bold px-1.5 py-0.5 rounded bg-green-900/40 text-green-400 border border-green-700/50">
@@ -63,20 +56,16 @@ export default function TransferPlayerRow({ player, teamName, isFreeAgent, onBuy
           <span className="text-gray-400 text-xs truncate block max-w-[110px]">{teamName}</span>
         )}
       </td>
-
-      {/* Valor */}
       <td className="py-1.5 px-3 text-right tabular-nums w-20">
         <span className="text-gray-300 text-xs font-medium">{fmt(value)}</span>
       </td>
-
-      {/* Acción */}
       <td className="py-1.5 px-3 w-20 text-center">
-        {onBuy && (
+        {onView && (
           <button
-            onClick={onBuy}
-            className="text-xs px-2.5 py-1 rounded-lg bg-blue-600 text-white hover:bg-blue-500 transition-colors font-semibold"
+            onClick={onView}
+            className="text-xs px-2.5 py-1 rounded-lg bg-blue-700 text-white hover:bg-blue-600 transition-colors font-semibold"
           >
-            Fichar
+            Ver ficha
           </button>
         )}
       </td>
