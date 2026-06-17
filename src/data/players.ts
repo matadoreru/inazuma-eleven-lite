@@ -37,7 +37,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 6,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 2,
@@ -75,7 +83,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 6,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 5,
@@ -113,7 +129,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 6,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 6,
@@ -151,7 +175,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 6,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 7,
@@ -189,7 +221,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 6,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 8,
@@ -227,7 +267,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 6,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 9,
@@ -265,7 +313,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 6,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10,
@@ -303,7 +359,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 6,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 11,
@@ -341,7 +405,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 6,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 12,
@@ -379,7 +451,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 6,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 13,
@@ -417,7 +497,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 6,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 14,
@@ -455,7 +543,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 6,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 15,
@@ -493,7 +589,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 6,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 16,
@@ -531,7 +635,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 6,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 20,
@@ -569,7 +681,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 8,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 21,
@@ -607,7 +727,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 8,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 22,
@@ -645,7 +773,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 8,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 23,
@@ -683,7 +819,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 8,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 24,
@@ -721,7 +865,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 8,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 25,
@@ -759,7 +911,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 8,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 26,
@@ -797,7 +957,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 8,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 27,
@@ -835,7 +1003,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 8,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 28,
@@ -873,7 +1049,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 8,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 29,
@@ -911,7 +1095,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 8,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 30,
@@ -949,7 +1141,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 8,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 31,
@@ -987,7 +1187,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 8,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 32,
@@ -1025,7 +1233,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 8,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 33,
@@ -1063,7 +1279,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 8,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 34,
@@ -1101,7 +1325,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 8,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 35,
@@ -1139,7 +1371,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 8,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 38,
@@ -1177,7 +1417,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 4,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 39,
@@ -1215,7 +1463,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 4,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 40,
@@ -1253,7 +1509,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 4,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 41,
@@ -1291,7 +1555,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 4,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 42,
@@ -1329,7 +1601,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 4,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 43,
@@ -1367,7 +1647,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 4,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 44,
@@ -1405,7 +1693,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 4,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 45,
@@ -1443,7 +1739,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 4,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 46,
@@ -1481,7 +1785,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 4,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 47,
@@ -1519,7 +1831,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 4,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 48,
@@ -1557,7 +1877,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 4,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 49,
@@ -1595,7 +1923,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 4,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 50,
@@ -1633,7 +1969,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 4,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 51,
@@ -1671,7 +2015,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 4,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 52,
@@ -1709,7 +2061,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 4,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 53,
@@ -1747,7 +2107,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 4,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 57,
@@ -1785,7 +2153,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 12,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 58,
@@ -1823,7 +2199,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 12,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 59,
@@ -1861,7 +2245,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 12,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 60,
@@ -1899,7 +2291,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 12,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 61,
@@ -1937,7 +2337,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 12,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 62,
@@ -1975,7 +2383,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 12,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 63,
@@ -2013,7 +2429,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 12,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 64,
@@ -2051,7 +2475,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 12,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 65,
@@ -2089,7 +2521,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 12,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 66,
@@ -2127,7 +2567,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 12,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 67,
@@ -2165,7 +2613,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 12,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 68,
@@ -2203,7 +2659,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 12,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 69,
@@ -2241,7 +2705,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 12,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 70,
@@ -2279,7 +2751,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 12,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 71,
@@ -2317,7 +2797,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 12,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 72,
@@ -2355,7 +2843,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 12,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 75,
@@ -2393,7 +2889,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 77,
@@ -2431,7 +2935,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 79,
@@ -2469,7 +2981,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 81,
@@ -2507,7 +3027,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 83,
@@ -2545,7 +3073,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 85,
@@ -2583,7 +3119,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 87,
@@ -2621,7 +3165,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 89,
@@ -2659,7 +3211,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 91,
@@ -2697,7 +3257,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 93,
@@ -2735,7 +3303,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 95,
@@ -2773,7 +3349,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 96,
@@ -2811,7 +3395,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 97,
@@ -2849,7 +3441,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 99,
@@ -2887,7 +3487,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 101,
@@ -2925,7 +3533,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 103,
@@ -2963,7 +3579,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 104,
@@ -3001,7 +3625,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 107,
@@ -3039,7 +3671,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 5,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 108,
@@ -3077,7 +3717,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 5,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 109,
@@ -3115,7 +3763,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 5,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 110,
@@ -3153,7 +3809,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 5,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 111,
@@ -3191,7 +3855,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 5,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 112,
@@ -3229,7 +3901,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 5,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 113,
@@ -3267,7 +3947,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 5,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 114,
@@ -3305,7 +3993,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 5,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 115,
@@ -3343,7 +4039,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 5,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 116,
@@ -3381,7 +4085,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 5,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 117,
@@ -3419,7 +4131,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 5,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 118,
@@ -3457,7 +4177,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 5,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 119,
@@ -3495,7 +4223,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 5,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 120,
@@ -3533,7 +4269,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 5,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 121,
@@ -3571,7 +4315,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 5,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 122,
@@ -3609,7 +4361,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 5,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 125,
@@ -3647,7 +4407,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 9,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 126,
@@ -3685,7 +4453,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 9,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 127,
@@ -3723,7 +4499,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 9,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 128,
@@ -3761,7 +4545,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 9,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 129,
@@ -3799,7 +4591,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 9,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 130,
@@ -3837,7 +4637,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 9,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 131,
@@ -3875,7 +4683,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 9,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 132,
@@ -3913,7 +4729,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 9,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 133,
@@ -3951,7 +4775,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 9,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 134,
@@ -3989,7 +4821,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 9,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 135,
@@ -4027,7 +4867,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 9,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 136,
@@ -4065,7 +4913,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 9,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 137,
@@ -4103,7 +4959,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 9,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 138,
@@ -4141,7 +5005,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 9,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 139,
@@ -4179,7 +5051,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 9,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 140,
@@ -4217,7 +5097,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 9,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 142,
@@ -4255,7 +5143,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 1,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 143,
@@ -4293,7 +5189,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 1,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 144,
@@ -4331,7 +5235,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 1,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 145,
@@ -4369,7 +5281,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 1,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 146,
@@ -4407,7 +5327,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 1,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 147,
@@ -4445,7 +5373,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 1,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 148,
@@ -4483,7 +5419,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 1,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 149,
@@ -4521,7 +5465,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 1,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 150,
@@ -4559,7 +5511,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 1,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 151,
@@ -4597,7 +5557,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 1,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 152,
@@ -4635,7 +5603,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 1,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 153,
@@ -4673,7 +5649,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 1,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 154,
@@ -4711,7 +5695,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 1,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 155,
@@ -4749,7 +5741,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 1,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 156,
@@ -4787,7 +5787,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 1,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 157,
@@ -4825,7 +5833,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 1,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 159,
@@ -4863,7 +5879,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 3,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 160,
@@ -4901,7 +5925,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 3,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 161,
@@ -4939,7 +5971,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 3,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 162,
@@ -4977,7 +6017,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 3,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 163,
@@ -5015,7 +6063,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 3,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 164,
@@ -5053,7 +6109,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 3,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 165,
@@ -5091,7 +6155,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 3,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 166,
@@ -5129,7 +6201,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 3,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 167,
@@ -5167,7 +6247,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 3,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 168,
@@ -5205,7 +6293,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 3,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 169,
@@ -5243,7 +6339,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 3,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 170,
@@ -5281,7 +6385,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 3,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 171,
@@ -5319,7 +6431,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 3,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 172,
@@ -5357,7 +6477,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 3,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 173,
@@ -5395,7 +6523,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 3,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 174,
@@ -5433,7 +6569,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 3,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 176,
@@ -5471,7 +6615,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 13,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 177,
@@ -5509,7 +6661,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 13,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 178,
@@ -5547,7 +6707,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 13,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 179,
@@ -5585,7 +6753,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 13,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 180,
@@ -5623,7 +6799,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 13,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 181,
@@ -5661,7 +6845,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 13,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 182,
@@ -5699,7 +6891,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 13,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 183,
@@ -5737,7 +6937,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 13,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 184,
@@ -5775,7 +6983,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 13,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 185,
@@ -5813,7 +7029,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 13,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 186,
@@ -5851,7 +7075,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 13,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 187,
@@ -5889,7 +7121,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 13,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 188,
@@ -5927,7 +7167,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 13,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 189,
@@ -5965,7 +7213,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 13,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 190,
@@ -6003,7 +7259,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 13,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 191,
@@ -6041,7 +7305,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 13,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 192,
@@ -6079,7 +7351,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 2,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 193,
@@ -6117,7 +7397,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 2,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 194,
@@ -6155,7 +7443,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 2,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 195,
@@ -6193,7 +7489,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 2,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 196,
@@ -6231,7 +7535,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 2,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 197,
@@ -6269,7 +7581,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 2,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 198,
@@ -6307,7 +7627,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 2,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 199,
@@ -6345,7 +7673,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 2,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 200,
@@ -6383,7 +7719,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 2,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 201,
@@ -6421,7 +7765,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 2,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 202,
@@ -6459,7 +7811,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 2,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 203,
@@ -6497,7 +7857,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 2,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 204,
@@ -6535,7 +7903,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 2,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 205,
@@ -6573,7 +7949,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 2,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 206,
@@ -6611,7 +7995,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 2,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 207,
@@ -6649,7 +8041,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 2,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 209,
@@ -6687,7 +8087,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 7,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 210,
@@ -6725,7 +8133,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 7,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 211,
@@ -6763,7 +8179,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 7,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 212,
@@ -6801,7 +8225,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 7,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 213,
@@ -6839,7 +8271,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 7,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 214,
@@ -6877,7 +8317,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 7,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 215,
@@ -6915,7 +8363,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 7,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 216,
@@ -6953,7 +8409,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 7,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 217,
@@ -6991,7 +8455,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 7,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 218,
@@ -7029,7 +8501,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 7,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 219,
@@ -7067,7 +8547,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 7,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 220,
@@ -7105,7 +8593,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 7,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 221,
@@ -7143,7 +8639,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 7,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 222,
@@ -7181,7 +8685,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 7,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 223,
@@ -7219,7 +8731,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 7,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 224,
@@ -7257,7 +8777,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 11,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 225,
@@ -7295,7 +8823,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 11,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 226,
@@ -7333,7 +8869,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 11,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 227,
@@ -7371,7 +8915,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 11,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 228,
@@ -7409,7 +8961,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 11,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 229,
@@ -7447,7 +9007,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 11,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 230,
@@ -7485,7 +9053,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 11,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 231,
@@ -7523,7 +9099,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 11,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 232,
@@ -7561,7 +9145,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 11,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 233,
@@ -7599,7 +9191,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 11,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 234,
@@ -7637,7 +9237,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 11,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 235,
@@ -7675,7 +9283,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 11,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 236,
@@ -7713,7 +9329,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 11,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 237,
@@ -7751,7 +9375,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 11,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 238,
@@ -7789,7 +9421,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 11,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 239,
@@ -7827,7 +9467,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 11,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 241,
@@ -7865,7 +9513,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 10,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 242,
@@ -7903,7 +9559,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 10,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 243,
@@ -7941,7 +9605,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 10,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 244,
@@ -7979,7 +9651,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 10,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 245,
@@ -8017,7 +9697,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 10,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 246,
@@ -8055,7 +9743,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 10,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 247,
@@ -8093,7 +9789,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 10,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 248,
@@ -8131,7 +9835,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 10,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 249,
@@ -8169,7 +9881,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 10,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 250,
@@ -8207,7 +9927,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 10,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 251,
@@ -8245,7 +9973,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 10,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 252,
@@ -8283,7 +10019,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 10,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 253,
@@ -8321,7 +10065,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 10,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 254,
@@ -8359,7 +10111,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 10,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 255,
@@ -8397,7 +10157,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 10,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 256,
@@ -8435,7 +10203,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 10,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1050,
@@ -8473,7 +10249,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 6,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1051,
@@ -8511,7 +10295,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 6,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10001,
@@ -8549,7 +10341,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 14,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10002,
@@ -8587,7 +10387,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 14,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10003,
@@ -8625,7 +10433,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 14,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10004,
@@ -8663,7 +10479,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 14,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10005,
@@ -8701,7 +10525,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 14,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10006,
@@ -8739,7 +10571,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 14,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10007,
@@ -8777,7 +10617,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 14,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10008,
@@ -8815,7 +10663,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 14,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10009,
@@ -8853,7 +10709,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 14,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10010,
@@ -8891,7 +10755,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 14,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10011,
@@ -8929,7 +10801,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 14,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10017,
@@ -8967,7 +10847,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 15,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10018,
@@ -9005,7 +10893,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 15,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10019,
@@ -9043,7 +10939,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 15,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10020,
@@ -9081,7 +10985,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 15,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10021,
@@ -9119,7 +11031,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 15,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10022,
@@ -9157,7 +11077,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 15,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10023,
@@ -9195,7 +11123,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 15,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10024,
@@ -9233,7 +11169,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 15,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10025,
@@ -9271,7 +11215,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 15,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10026,
@@ -9309,7 +11261,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 15,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10027,
@@ -9347,7 +11307,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 15,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10028,
@@ -9385,7 +11353,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 16,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10029,
@@ -9423,7 +11399,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 16,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10030,
@@ -9461,7 +11445,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 16,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10031,
@@ -9499,7 +11491,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 16,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10032,
@@ -9537,7 +11537,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 16,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10033,
@@ -9575,7 +11583,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 16,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10034,
@@ -9613,7 +11629,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 16,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10035,
@@ -9651,7 +11675,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 16,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10036,
@@ -9689,7 +11721,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 16,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10037,
@@ -9727,7 +11767,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 16,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10038,
@@ -9765,7 +11813,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 20,
     teamId: 16,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   }
 ,
   {
@@ -9804,7 +11860,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 678,
@@ -9842,7 +11906,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1037,
@@ -9880,7 +11952,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1045,
@@ -9918,7 +11998,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 871,
@@ -9956,7 +12044,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 507,
@@ -9994,7 +12090,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 317,
@@ -10032,7 +12136,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 663,
@@ -10070,7 +12182,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 617,
@@ -10108,7 +12228,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 601,
@@ -10146,7 +12274,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 427,
@@ -10184,7 +12320,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 588,
@@ -10222,7 +12366,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 938,
@@ -10260,7 +12412,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 367,
@@ -10298,7 +12458,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 806,
@@ -10336,7 +12504,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 900,
@@ -10374,7 +12550,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 946,
@@ -10412,7 +12596,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 955,
@@ -10450,7 +12642,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 691,
@@ -10488,7 +12688,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 649,
@@ -10526,7 +12734,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 679,
@@ -10564,7 +12780,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 982,
@@ -10602,7 +12826,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 558,
@@ -10640,7 +12872,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 385,
@@ -10678,7 +12918,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 849,
@@ -10716,7 +12964,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 382,
@@ -10754,7 +13010,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 460,
@@ -10792,7 +13056,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 293,
@@ -10830,7 +13102,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 407,
@@ -10868,7 +13148,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 816,
@@ -10906,7 +13194,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 532,
@@ -10944,7 +13240,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 280,
@@ -10982,7 +13286,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 435,
@@ -11020,7 +13332,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 262,
@@ -11058,7 +13378,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1020,
@@ -11096,7 +13424,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 696,
@@ -11134,7 +13470,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 644,
@@ -11172,7 +13516,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 800,
@@ -11210,7 +13562,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 885,
@@ -11248,7 +13608,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 552,
@@ -11286,7 +13654,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 425,
@@ -11324,7 +13700,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 416,
@@ -11362,7 +13746,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 677,
@@ -11400,7 +13792,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 351,
@@ -11438,7 +13838,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 913,
@@ -11476,7 +13884,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 888,
@@ -11514,7 +13930,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 734,
@@ -11552,7 +13976,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 312,
@@ -11590,7 +14022,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 638,
@@ -11628,7 +14068,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 539,
@@ -11666,7 +14114,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1003,
@@ -11704,7 +14160,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 657,
@@ -11742,7 +14206,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 645,
@@ -11780,7 +14252,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 545,
@@ -11818,7 +14298,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 798,
@@ -11856,7 +14344,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 873,
@@ -11894,7 +14390,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 960,
@@ -11932,7 +14436,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 263,
@@ -11970,7 +14482,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1007,
@@ -12008,7 +14528,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 331,
@@ -12046,7 +14574,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 765,
@@ -12084,7 +14620,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 580,
@@ -12122,7 +14666,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 846,
@@ -12160,7 +14712,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 692,
@@ -12198,7 +14758,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 733,
@@ -12236,7 +14804,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 776,
@@ -12274,7 +14850,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 943,
@@ -12312,7 +14896,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 343,
@@ -12350,7 +14942,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 584,
@@ -12388,7 +14988,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 561,
@@ -12426,7 +15034,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 988,
@@ -12464,7 +15080,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 750,
@@ -12502,7 +15126,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 666,
@@ -12540,7 +15172,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 325,
@@ -12578,7 +15218,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 987,
@@ -12616,7 +15264,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 516,
@@ -12654,7 +15310,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 795,
@@ -12692,7 +15356,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 306,
@@ -12730,7 +15402,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 373,
@@ -12768,7 +15448,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 302,
@@ -12806,7 +15494,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 447,
@@ -12844,7 +15540,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 794,
@@ -12882,7 +15586,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 840,
@@ -12920,7 +15632,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 346,
@@ -12958,7 +15678,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 639,
@@ -12996,7 +15724,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 660,
@@ -13034,7 +15770,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 607,
@@ -13072,7 +15816,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 289,
@@ -13110,7 +15862,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 748,
@@ -13148,7 +15908,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 858,
@@ -13186,7 +15954,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 353,
@@ -13224,7 +16000,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 290,
@@ -13262,7 +16046,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 854,
@@ -13300,7 +16092,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 323,
@@ -13338,7 +16138,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 745,
@@ -13376,7 +16184,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 574,
@@ -13414,7 +16230,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 789,
@@ -13452,7 +16276,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 687,
@@ -13490,7 +16322,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 784,
@@ -13528,7 +16368,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1005,
@@ -13566,7 +16414,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 305,
@@ -13604,7 +16460,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 716,
@@ -13642,7 +16506,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 344,
@@ -13680,7 +16552,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1044,
@@ -13718,7 +16598,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 697,
@@ -13756,7 +16644,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 925,
@@ -13794,7 +16690,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 431,
@@ -13832,7 +16736,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 974,
@@ -13870,7 +16782,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 880,
@@ -13908,7 +16828,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 596,
@@ -13946,7 +16874,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 384,
@@ -13984,7 +16920,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 411,
@@ -14022,7 +16966,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 404,
@@ -14060,7 +17012,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 586,
@@ -14098,7 +17058,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 362,
@@ -14136,7 +17104,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 823,
@@ -14174,7 +17150,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 866,
@@ -14212,7 +17196,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 669,
@@ -14250,7 +17242,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 347,
@@ -14288,7 +17288,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 747,
@@ -14326,7 +17334,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 513,
@@ -14364,7 +17380,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 527,
@@ -14402,7 +17426,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 632,
@@ -14440,7 +17472,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 472,
@@ -14478,7 +17518,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 989,
@@ -14516,7 +17564,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 809,
@@ -14554,7 +17610,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 533,
@@ -14592,7 +17656,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 845,
@@ -14630,7 +17702,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 963,
@@ -14668,7 +17748,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 704,
@@ -14706,7 +17794,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 693,
@@ -14744,7 +17840,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 998,
@@ -14782,7 +17886,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 712,
@@ -14820,7 +17932,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 671,
@@ -14858,7 +17978,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 741,
@@ -14896,7 +18024,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 294,
@@ -14934,7 +18070,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 703,
@@ -14972,7 +18116,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1041,
@@ -15010,7 +18162,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 520,
@@ -15048,7 +18208,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 735,
@@ -15086,7 +18254,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 449,
@@ -15124,7 +18300,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 891,
@@ -15162,7 +18346,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 791,
@@ -15200,7 +18392,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 301,
@@ -15238,7 +18438,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 835,
@@ -15276,7 +18484,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1014,
@@ -15314,7 +18530,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 511,
@@ -15352,7 +18576,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 595,
@@ -15390,7 +18622,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 521,
@@ -15428,7 +18668,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 387,
@@ -15466,7 +18714,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 18,
@@ -15504,7 +18760,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 720,
@@ -15542,7 +18806,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 941,
@@ -15580,7 +18852,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 954,
@@ -15618,7 +18898,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 831,
@@ -15656,7 +18944,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 314,
@@ -15694,7 +18990,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 550,
@@ -15732,7 +19036,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 257,
@@ -15770,7 +19082,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 813,
@@ -15808,7 +19128,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1043,
@@ -15846,7 +19174,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 281,
@@ -15884,7 +19220,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 951,
@@ -15922,7 +19266,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 300,
@@ -15960,7 +19312,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 603,
@@ -15998,7 +19358,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 695,
@@ -16036,7 +19404,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 930,
@@ -16074,7 +19450,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 284,
@@ -16112,7 +19496,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 324,
@@ -16150,7 +19542,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 330,
@@ -16188,7 +19588,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 597,
@@ -16226,7 +19634,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 570,
@@ -16264,7 +19680,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 842,
@@ -16302,7 +19726,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1038,
@@ -16340,7 +19772,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 557,
@@ -16378,7 +19818,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 710,
@@ -16416,7 +19864,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 609,
@@ -16454,7 +19910,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 240,
@@ -16492,7 +19956,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1025,
@@ -16530,7 +20002,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 783,
@@ -16568,7 +20048,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 542,
@@ -16606,7 +20094,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 440,
@@ -16644,7 +20140,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 997,
@@ -16682,7 +20186,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 894,
@@ -16720,7 +20232,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 403,
@@ -16758,7 +20278,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 283,
@@ -16796,7 +20324,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 286,
@@ -16834,7 +20370,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 680,
@@ -16872,7 +20416,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 952,
@@ -16910,7 +20462,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 366,
@@ -16948,7 +20508,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 388,
@@ -16986,7 +20554,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 673,
@@ -17024,7 +20600,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 780,
@@ -17062,7 +20646,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 354,
@@ -17100,7 +20692,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 829,
@@ -17138,7 +20738,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 543,
@@ -17176,7 +20784,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 725,
@@ -17214,7 +20830,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 572,
@@ -17252,7 +20876,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1015,
@@ -17290,7 +20922,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 297,
@@ -17328,7 +20968,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 345,
@@ -17366,7 +21014,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 277,
@@ -17404,7 +21060,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 778,
@@ -17442,7 +21106,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 841,
@@ -17480,7 +21152,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 266,
@@ -17518,7 +21198,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 811,
@@ -17556,7 +21244,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 523,
@@ -17594,7 +21290,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 444,
@@ -17632,7 +21336,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1048,
@@ -17670,7 +21382,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 352,
@@ -17708,7 +21428,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 698,
@@ -17746,7 +21474,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 737,
@@ -17784,7 +21520,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 430,
@@ -17822,7 +21566,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 755,
@@ -17860,7 +21612,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 965,
@@ -17898,7 +21658,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 981,
@@ -17936,7 +21704,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 623,
@@ -17974,7 +21750,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 269,
@@ -18012,7 +21796,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 662,
@@ -18050,7 +21842,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 931,
@@ -18088,7 +21888,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 531,
@@ -18126,7 +21934,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 619,
@@ -18164,7 +21980,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 933,
@@ -18202,7 +22026,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 566,
@@ -18240,7 +22072,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 348,
@@ -18278,7 +22118,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1016,
@@ -18316,7 +22164,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1011,
@@ -18354,7 +22210,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 986,
@@ -18392,7 +22256,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 860,
@@ -18430,7 +22302,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 763,
@@ -18468,7 +22348,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 313,
@@ -18506,7 +22394,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 295,
@@ -18544,7 +22440,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 504,
@@ -18582,7 +22486,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 340,
@@ -18620,7 +22532,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 428,
@@ -18658,7 +22578,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 298,
@@ -18696,7 +22624,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 850,
@@ -18734,7 +22670,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 332,
@@ -18772,7 +22716,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 996,
@@ -18810,7 +22762,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1018,
@@ -18848,7 +22808,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 443,
@@ -18886,7 +22854,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 653,
@@ -18924,7 +22900,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 417,
@@ -18962,7 +22946,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 309,
@@ -19000,7 +22992,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 406,
@@ -19038,7 +23038,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 626,
@@ -19076,7 +23084,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 948,
@@ -19114,7 +23130,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 917,
@@ -19152,7 +23176,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 564,
@@ -19190,7 +23222,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 919,
@@ -19228,7 +23268,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 836,
@@ -19266,7 +23314,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 991,
@@ -19304,7 +23360,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 476,
@@ -19342,7 +23406,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 429,
@@ -19380,7 +23452,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 908,
@@ -19418,7 +23498,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 512,
@@ -19456,7 +23544,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 414,
@@ -19494,7 +23590,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 341,
@@ -19532,7 +23636,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 468,
@@ -19570,7 +23682,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 827,
@@ -19608,7 +23728,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 868,
@@ -19646,7 +23774,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 641,
@@ -19684,7 +23820,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 461,
@@ -19722,7 +23866,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 633,
@@ -19760,7 +23912,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 973,
@@ -19798,7 +23958,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 409,
@@ -19836,7 +24004,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 336,
@@ -19874,7 +24050,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 471,
@@ -19912,7 +24096,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 338,
@@ -19950,7 +24142,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 363,
@@ -19988,7 +24188,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 541,
@@ -20026,7 +24234,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 878,
@@ -20064,7 +24280,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 715,
@@ -20102,7 +24326,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 74,
@@ -20140,7 +24372,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 599,
@@ -20178,7 +24418,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 714,
@@ -20216,7 +24464,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 437,
@@ -20254,7 +24510,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 608,
@@ -20292,7 +24556,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 830,
@@ -20330,7 +24602,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 360,
@@ -20368,7 +24648,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 299,
@@ -20406,7 +24694,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 926,
@@ -20444,7 +24740,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 685,
@@ -20482,7 +24786,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 634,
@@ -20520,7 +24832,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 576,
@@ -20558,7 +24878,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 569,
@@ -20596,7 +24924,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 853,
@@ -20634,7 +24970,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 736,
@@ -20672,7 +25016,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 980,
@@ -20710,7 +25062,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 436,
@@ -20748,7 +25108,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 724,
@@ -20786,7 +25154,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 753,
@@ -20824,7 +25200,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 419,
@@ -20862,7 +25246,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1049,
@@ -20900,7 +25292,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 268,
@@ -20938,7 +25338,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 616,
@@ -20976,7 +25384,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 565,
@@ -21014,7 +25430,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1017,
@@ -21052,7 +25476,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 445,
@@ -21090,7 +25522,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 674,
@@ -21128,7 +25568,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 857,
@@ -21166,7 +25614,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 787,
@@ -21204,7 +25660,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1029,
@@ -21242,7 +25706,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 423,
@@ -21280,7 +25752,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 589,
@@ -21318,7 +25798,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 628,
@@ -21356,7 +25844,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10000,
@@ -21394,7 +25890,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 907,
@@ -21432,7 +25936,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 361,
@@ -21470,7 +25982,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 799,
@@ -21508,7 +26028,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1040,
@@ -21546,7 +26074,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 400,
@@ -21584,7 +26120,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 376,
@@ -21622,7 +26166,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1004,
@@ -21660,7 +26212,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 465,
@@ -21698,7 +26258,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 453,
@@ -21736,7 +26304,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 899,
@@ -21774,7 +26350,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 538,
@@ -21812,7 +26396,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 505,
@@ -21850,7 +26442,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 805,
@@ -21888,7 +26488,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 401,
@@ -21926,7 +26534,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 478,
@@ -21964,7 +26580,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 656,
@@ -22002,7 +26626,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 380,
@@ -22040,7 +26672,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 909,
@@ -22078,7 +26718,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 828,
@@ -22116,7 +26764,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 621,
@@ -22154,7 +26810,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 655,
@@ -22192,7 +26856,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 820,
@@ -22230,7 +26902,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 291,
@@ -22268,7 +26948,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 559,
@@ -22306,7 +26994,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 912,
@@ -22344,7 +27040,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 356,
@@ -22382,7 +27086,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 73,
@@ -22420,7 +27132,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 739,
@@ -22458,7 +27178,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 911,
@@ -22496,7 +27224,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 426,
@@ -22534,7 +27270,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 681,
@@ -22572,7 +27316,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 936,
@@ -22610,7 +27362,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 320,
@@ -22648,7 +27408,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 54,
@@ -22686,7 +27454,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 499,
@@ -22724,7 +27500,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 879,
@@ -22762,7 +27546,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 415,
@@ -22800,7 +27592,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 375,
@@ -22838,7 +27638,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 463,
@@ -22876,7 +27684,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 500,
@@ -22914,7 +27730,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 620,
@@ -22952,7 +27776,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 486,
@@ -22990,7 +27822,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 318,
@@ -23028,7 +27868,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 573,
@@ -23066,7 +27914,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 790,
@@ -23104,7 +27960,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 743,
@@ -23142,7 +28006,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 553,
@@ -23180,7 +28052,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 467,
@@ -23218,7 +28098,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 285,
@@ -23256,7 +28144,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 684,
@@ -23294,7 +28190,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 587,
@@ -23332,7 +28236,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 509,
@@ -23370,7 +28282,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 726,
@@ -23408,7 +28328,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 642,
@@ -23446,7 +28374,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 506,
@@ -23484,7 +28420,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 896,
@@ -23522,7 +28466,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 327,
@@ -23560,7 +28512,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 992,
@@ -23598,7 +28558,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 371,
@@ -23636,7 +28604,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 970,
@@ -23674,7 +28650,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 713,
@@ -23712,7 +28696,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 869,
@@ -23750,7 +28742,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 377,
@@ -23788,7 +28788,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 851,
@@ -23826,7 +28834,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 994,
@@ -23864,7 +28880,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 928,
@@ -23902,7 +28926,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 322,
@@ -23940,7 +28972,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 889,
@@ -23978,7 +29018,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 792,
@@ -24016,7 +29064,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 276,
@@ -24054,7 +29110,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 803,
@@ -24092,7 +29156,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 777,
@@ -24130,7 +29202,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 381,
@@ -24168,7 +29248,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 814,
@@ -24206,7 +29294,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 399,
@@ -24244,7 +29340,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 905,
@@ -24282,7 +29386,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 874,
@@ -24320,7 +29432,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 464,
@@ -24358,7 +29478,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 439,
@@ -24396,7 +29524,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 264,
@@ -24434,7 +29570,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 275,
@@ -24472,7 +29616,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 563,
@@ -24510,7 +29662,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 972,
@@ -24548,7 +29708,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 554,
@@ -24586,7 +29754,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 902,
@@ -24624,7 +29800,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 271,
@@ -24662,7 +29846,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 944,
@@ -24700,7 +29892,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 995,
@@ -24738,7 +29938,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 378,
@@ -24776,7 +29984,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 861,
@@ -24814,7 +30030,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1042,
@@ -24852,7 +30076,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 722,
@@ -24890,7 +30122,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 839,
@@ -24928,7 +30168,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 890,
@@ -24966,7 +30214,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 761,
@@ -25004,7 +30260,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1033,
@@ -25042,7 +30306,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 821,
@@ -25080,7 +30352,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 258,
@@ -25118,7 +30398,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 793,
@@ -25156,7 +30444,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1021,
@@ -25194,7 +30490,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 859,
@@ -25232,7 +30536,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 510,
@@ -25270,7 +30582,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 706,
@@ -25308,7 +30628,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 927,
@@ -25346,7 +30674,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 984,
@@ -25384,7 +30720,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 579,
@@ -25422,7 +30766,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1019,
@@ -25460,7 +30812,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 454,
@@ -25498,7 +30858,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 321,
@@ -25536,7 +30904,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 746,
@@ -25574,7 +30950,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 568,
@@ -25612,7 +30996,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 594,
@@ -25650,7 +31042,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 832,
@@ -25688,7 +31088,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 740,
@@ -25726,7 +31134,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 977,
@@ -25764,7 +31180,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 872,
@@ -25802,7 +31226,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 56,
@@ -25840,7 +31272,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 328,
@@ -25878,7 +31318,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 762,
@@ -25916,7 +31364,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 485,
@@ -25954,7 +31410,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 915,
@@ -25992,7 +31456,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 661,
@@ -26030,7 +31502,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 391,
@@ -26068,7 +31548,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 489,
@@ -26106,7 +31594,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 462,
@@ -26144,7 +31640,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1001,
@@ -26182,7 +31686,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 438,
@@ -26220,7 +31732,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1031,
@@ -26258,7 +31778,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 968,
@@ -26296,7 +31824,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 365,
@@ -26334,7 +31870,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 961,
@@ -26372,7 +31916,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 494,
@@ -26410,7 +31962,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 770,
@@ -26448,7 +32008,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 359,
@@ -26486,7 +32054,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 605,
@@ -26524,7 +32100,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 303,
@@ -26562,7 +32146,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 676,
@@ -26600,7 +32192,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 629,
@@ -26638,7 +32238,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 418,
@@ -26676,7 +32284,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 640,
@@ -26714,7 +32330,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 546,
@@ -26752,7 +32376,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 598,
@@ -26790,7 +32422,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 818,
@@ -26828,7 +32468,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 779,
@@ -26866,7 +32514,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 682,
@@ -26904,7 +32560,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 451,
@@ -26942,7 +32606,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 496,
@@ -26980,7 +32652,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 398,
@@ -27018,7 +32698,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 123,
@@ -27056,7 +32744,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 606,
@@ -27094,7 +32790,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 648,
@@ -27132,7 +32836,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 932,
@@ -27170,7 +32882,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 812,
@@ -27208,7 +32928,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 369,
@@ -27246,7 +32974,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 389,
@@ -27284,7 +33020,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 904,
@@ -27322,7 +33066,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 923,
@@ -27360,7 +33112,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1034,
@@ -27398,7 +33158,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 591,
@@ -27436,7 +33204,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 622,
@@ -27474,7 +33250,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 273,
@@ -27512,7 +33296,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 887,
@@ -27550,7 +33342,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 292,
@@ -27588,7 +33388,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 788,
@@ -27626,7 +33434,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 304,
@@ -27664,7 +33480,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 611,
@@ -27702,7 +33526,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 458,
@@ -27740,7 +33572,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 852,
@@ -27778,7 +33618,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 897,
@@ -27816,7 +33664,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 659,
@@ -27854,7 +33710,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1010,
@@ -27892,7 +33756,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 760,
@@ -27930,7 +33802,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 124,
@@ -27968,7 +33848,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 664,
@@ -28006,7 +33894,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 767,
@@ -28044,7 +33940,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 939,
@@ -28082,7 +33986,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 372,
@@ -28120,7 +34032,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 804,
@@ -28158,7 +34078,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 683,
@@ -28196,7 +34124,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 518,
@@ -28234,7 +34170,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 881,
@@ -28272,7 +34216,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 517,
@@ -28310,7 +34262,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 694,
@@ -28348,7 +34308,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 749,
@@ -28386,7 +34354,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 882,
@@ -28424,7 +34400,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 723,
@@ -28462,7 +34446,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 490,
@@ -28500,7 +34492,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 329,
@@ -28538,7 +34538,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 983,
@@ -28576,7 +34584,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 593,
@@ -28614,7 +34630,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 819,
@@ -28652,7 +34676,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 956,
@@ -28690,7 +34722,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 433,
@@ -28728,7 +34768,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 19,
@@ -28766,7 +34814,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 487,
@@ -28804,7 +34860,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 498,
@@ -28842,7 +34906,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 386,
@@ -28880,7 +34952,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 914,
@@ -28918,7 +34998,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 106,
@@ -28956,7 +35044,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 895,
@@ -28994,7 +35090,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 625,
@@ -29032,7 +35136,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 432,
@@ -29070,7 +35182,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 758,
@@ -29108,7 +35228,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 537,
@@ -29146,7 +35274,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 808,
@@ -29184,7 +35320,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 903,
@@ -29222,7 +35366,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 863,
@@ -29260,7 +35412,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 397,
@@ -29298,7 +35458,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 379,
@@ -29336,7 +35504,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 893,
@@ -29374,7 +35550,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 524,
@@ -29412,7 +35596,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 838,
@@ -29450,7 +35642,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 976,
@@ -29488,7 +35688,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 675,
@@ -29526,7 +35734,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 497,
@@ -29564,7 +35780,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 718,
@@ -29602,7 +35826,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 488,
@@ -29640,7 +35872,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1028,
@@ -29678,7 +35918,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 575,
@@ -29716,7 +35964,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 937,
@@ -29754,7 +36010,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 773,
@@ -29792,7 +36056,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 481,
@@ -29830,7 +36102,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 707,
@@ -29868,7 +36148,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 709,
@@ -29906,7 +36194,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 614,
@@ -29944,7 +36240,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 514,
@@ -29982,7 +36286,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 940,
@@ -30020,7 +36332,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 833,
@@ -30058,7 +36378,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 947,
@@ -30096,7 +36424,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 410,
@@ -30134,7 +36470,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 405,
@@ -30172,7 +36516,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 834,
@@ -30210,7 +36562,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 775,
@@ -30248,7 +36608,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 752,
@@ -30286,7 +36654,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 477,
@@ -30324,7 +36700,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 469,
@@ -30362,7 +36746,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 560,
@@ -30400,7 +36792,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 825,
@@ -30438,7 +36838,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 529,
@@ -30476,7 +36884,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 966,
@@ -30514,7 +36930,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 555,
@@ -30552,7 +36976,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 971,
@@ -30590,7 +37022,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 637,
@@ -30628,7 +37068,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 771,
@@ -30666,7 +37114,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 884,
@@ -30704,7 +37160,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 522,
@@ -30742,7 +37206,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 392,
@@ -30780,7 +37252,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1039,
@@ -30818,7 +37298,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 450,
@@ -30856,7 +37344,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 667,
@@ -30894,7 +37390,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 446,
@@ -30932,7 +37436,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 491,
@@ -30970,7 +37482,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 390,
@@ -31008,7 +37528,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 308,
@@ -31046,7 +37574,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 311,
@@ -31084,7 +37620,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1046,
@@ -31122,7 +37666,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 759,
@@ -31160,7 +37712,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 690,
@@ -31198,7 +37758,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 368,
@@ -31236,7 +37804,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 412,
@@ -31274,7 +37850,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1026,
@@ -31312,7 +37896,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1012,
@@ -31350,7 +37942,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 949,
@@ -31388,7 +37988,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 402,
@@ -31426,7 +38034,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 652,
@@ -31464,7 +38080,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 337,
@@ -31502,7 +38126,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1000,
@@ -31540,7 +38172,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 686,
@@ -31578,7 +38218,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 801,
@@ -31616,7 +38264,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 892,
@@ -31654,7 +38310,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 355,
@@ -31692,7 +38356,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 459,
@@ -31730,7 +38402,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 319,
@@ -31768,7 +38448,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 785,
@@ -31806,7 +38494,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 979,
@@ -31844,7 +38540,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 837,
@@ -31882,7 +38586,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 764,
@@ -31920,7 +38632,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 810,
@@ -31958,7 +38678,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 408,
@@ -31996,7 +38724,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 815,
@@ -32034,7 +38770,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 751,
@@ -32072,7 +38816,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 728,
@@ -32110,7 +38862,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 701,
@@ -32148,7 +38908,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 434,
@@ -32186,7 +38954,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 602,
@@ -32224,7 +39000,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 335,
@@ -32262,7 +39046,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 526,
@@ -32300,7 +39092,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 420,
@@ -32338,7 +39138,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 781,
@@ -32376,7 +39184,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 36,
@@ -32414,7 +39230,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 350,
@@ -32452,7 +39276,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 700,
@@ -32490,7 +39322,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 717,
@@ -32528,7 +39368,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 797,
@@ -32566,7 +39414,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 824,
@@ -32604,7 +39460,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 867,
@@ -32642,7 +39506,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 540,
@@ -32680,7 +39552,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1032,
@@ -32718,7 +39598,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 562,
@@ -32756,7 +39644,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1047,
@@ -32794,7 +39690,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 473,
@@ -32832,7 +39736,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 953,
@@ -32870,7 +39782,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 646,
@@ -32908,7 +39828,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 730,
@@ -32946,7 +39874,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 422,
@@ -32984,7 +39920,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1009,
@@ -33022,7 +39966,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 964,
@@ -33060,7 +40012,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 274,
@@ -33098,7 +40058,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 456,
@@ -33136,7 +40104,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 665,
@@ -33174,7 +40150,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 383,
@@ -33212,7 +40196,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1036,
@@ -33250,7 +40242,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 929,
@@ -33288,7 +40288,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 501,
@@ -33326,7 +40334,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 711,
@@ -33364,7 +40380,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 901,
@@ -33402,7 +40426,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 479,
@@ -33440,7 +40472,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 590,
@@ -33478,7 +40518,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1022,
@@ -33516,7 +40564,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 934,
@@ -33554,7 +40610,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 310,
@@ -33592,7 +40656,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 855,
@@ -33630,7 +40702,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 635,
@@ -33668,7 +40748,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 651,
@@ -33706,7 +40794,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 288,
@@ -33744,7 +40840,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 592,
@@ -33782,7 +40886,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 796,
@@ -33820,7 +40932,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 442,
@@ -33858,7 +40978,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 421,
@@ -33896,7 +41024,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1030,
@@ -33934,7 +41070,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 822,
@@ -33972,7 +41116,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 898,
@@ -34010,7 +41162,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 278,
@@ -34048,7 +41208,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 942,
@@ -34086,7 +41254,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 688,
@@ -34124,7 +41300,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 802,
@@ -34162,7 +41346,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 536,
@@ -34200,7 +41392,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 870,
@@ -34238,7 +41438,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 272,
@@ -34276,7 +41484,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 650,
@@ -34314,7 +41530,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1024,
@@ -34352,7 +41576,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 732,
@@ -34390,7 +41622,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 967,
@@ -34428,7 +41668,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 484,
@@ -34466,7 +41714,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 768,
@@ -34504,7 +41760,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1056,
@@ -34542,7 +41806,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 862,
@@ -34580,7 +41852,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 395,
@@ -34618,7 +41898,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 844,
@@ -34656,7 +41944,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 583,
@@ -34694,7 +41990,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1013,
@@ -34732,7 +42036,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 483,
@@ -34770,7 +42082,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 990,
@@ -34808,7 +42128,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 549,
@@ -34846,7 +42174,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 916,
@@ -34884,7 +42220,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 141,
@@ -34922,7 +42266,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 571,
@@ -34960,7 +42312,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 756,
@@ -34998,7 +42358,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 708,
@@ -35036,7 +42404,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 627,
@@ -35074,7 +42450,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 786,
@@ -35112,7 +42496,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 567,
@@ -35150,7 +42542,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 615,
@@ -35188,7 +42588,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 519,
@@ -35226,7 +42634,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 600,
@@ -35264,7 +42680,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 624,
@@ -35302,7 +42726,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 807,
@@ -35340,7 +42772,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 985,
@@ -35378,7 +42818,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 502,
@@ -35416,7 +42864,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 883,
@@ -35454,7 +42910,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 766,
@@ -35492,7 +42956,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 316,
@@ -35530,7 +43002,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 578,
@@ -35568,7 +43048,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 175,
@@ -35606,7 +43094,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 208,
@@ -35644,7 +43140,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 877,
@@ -35682,7 +43186,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 334,
@@ -35720,7 +43232,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 772,
@@ -35758,7 +43278,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 270,
@@ -35796,7 +43324,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 935,
@@ -35834,7 +43370,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 424,
@@ -35872,7 +43416,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 672,
@@ -35910,7 +43462,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 727,
@@ -35948,7 +43508,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 604,
@@ -35986,7 +43554,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 918,
@@ -36024,7 +43600,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 782,
@@ -36062,7 +43646,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 413,
@@ -36100,7 +43692,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 475,
@@ -36138,7 +43738,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 922,
@@ -36176,7 +43784,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 396,
@@ -36214,7 +43830,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 17,
@@ -36252,7 +43876,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 962,
@@ -36290,7 +43922,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 721,
@@ -36328,7 +43968,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 957,
@@ -36366,7 +44014,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 455,
@@ -36404,7 +44060,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 610,
@@ -36442,7 +44106,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 339,
@@ -36480,7 +44152,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 315,
@@ -36518,7 +44198,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 581,
@@ -36556,7 +44244,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 307,
@@ -36594,7 +44290,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 618,
@@ -36632,7 +44336,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 886,
@@ -36670,7 +44382,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 978,
@@ -36708,7 +44428,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 296,
@@ -36746,7 +44474,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 670,
@@ -36784,7 +44520,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 357,
@@ -36822,7 +44566,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1006,
@@ -36860,7 +44612,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 287,
@@ -36898,7 +44658,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 466,
@@ -36936,7 +44704,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 508,
@@ -36974,7 +44750,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 493,
@@ -37012,7 +44796,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 658,
@@ -37050,7 +44842,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 333,
@@ -37088,7 +44888,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 37,
@@ -37126,7 +44934,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 864,
@@ -37164,7 +44980,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 441,
@@ -37202,7 +45026,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 342,
@@ -37240,7 +45072,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 547,
@@ -37278,7 +45118,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 544,
@@ -37316,7 +45164,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 457,
@@ -37354,7 +45210,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 769,
@@ -37392,7 +45256,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 921,
@@ -37430,7 +45302,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 826,
@@ -37468,7 +45348,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 585,
@@ -37506,7 +45394,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 738,
@@ -37544,7 +45440,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 647,
@@ -37582,7 +45486,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 731,
@@ -37620,7 +45532,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 556,
@@ -37658,7 +45578,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 495,
@@ -37696,7 +45624,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 358,
@@ -37734,7 +45670,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 719,
@@ -37772,7 +45716,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 582,
@@ -37810,7 +45762,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 924,
@@ -37848,7 +45808,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 548,
@@ -37886,7 +45854,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 535,
@@ -37924,7 +45900,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 689,
@@ -37962,7 +45946,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 482,
@@ -38000,7 +45992,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 920,
@@ -38038,7 +46038,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 525,
@@ -38076,7 +46084,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 875,
@@ -38114,7 +46130,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 492,
@@ -38152,7 +46176,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 959,
@@ -38190,7 +46222,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 282,
@@ -38228,7 +46268,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 999,
@@ -38266,7 +46314,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 817,
@@ -38304,7 +46360,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 969,
@@ -38342,7 +46406,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 843,
@@ -38380,7 +46452,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 705,
@@ -38418,7 +46498,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 636,
@@ -38456,7 +46544,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 279,
@@ -38494,7 +46590,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 702,
@@ -38532,7 +46636,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 856,
@@ -38570,7 +46682,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 993,
@@ -38608,7 +46728,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 534,
@@ -38646,7 +46774,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1008,
@@ -38684,7 +46820,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1052,
@@ -38722,7 +46866,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 265,
@@ -38760,7 +46912,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 448,
@@ -38798,7 +46958,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1023,
@@ -38836,7 +47004,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 612,
@@ -38874,7 +47050,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 654,
@@ -38912,7 +47096,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 370,
@@ -38950,7 +47142,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 480,
@@ -38988,7 +47188,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 374,
@@ -39026,7 +47234,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 950,
@@ -39064,7 +47280,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 452,
@@ -39102,7 +47326,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 393,
@@ -39140,7 +47372,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 158,
@@ -39178,7 +47418,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 757,
@@ -39216,7 +47464,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 774,
@@ -39254,7 +47510,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 945,
@@ -39292,7 +47556,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 744,
@@ -39330,7 +47602,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 865,
@@ -39368,7 +47648,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1002,
@@ -39406,7 +47694,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1035,
@@ -39444,7 +47740,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 551,
@@ -39482,7 +47786,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 699,
@@ -39520,7 +47832,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 267,
@@ -39558,7 +47878,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 906,
@@ -39596,7 +47924,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 528,
@@ -39634,7 +47970,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 349,
@@ -39672,7 +48016,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 613,
@@ -39710,7 +48062,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 975,
@@ -39748,7 +48108,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 503,
@@ -39786,7 +48154,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 515,
@@ -39824,7 +48200,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 577,
@@ -39862,7 +48246,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 530,
@@ -39900,7 +48292,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 364,
@@ -39938,7 +48338,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 668,
@@ -39976,7 +48384,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 643,
@@ -40014,7 +48430,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 394,
@@ -40052,7 +48476,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 474,
@@ -40090,7 +48522,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 876,
@@ -40128,7 +48568,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 848,
@@ -40166,7 +48614,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 958,
@@ -40204,7 +48660,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 326,
@@ -40242,7 +48706,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 1027,
@@ -40280,7 +48752,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 742,
@@ -40318,7 +48798,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 470,
@@ -40356,7 +48844,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 630,
@@ -40394,7 +48890,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 631,
@@ -40432,7 +48936,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 729,
@@ -40470,7 +48982,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 754,
@@ -40508,7 +49028,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 847,
@@ -40546,7 +49074,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10012,
@@ -40584,7 +49120,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10013,
@@ -40622,7 +49166,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10014,
@@ -40660,7 +49212,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10015,
@@ -40698,7 +49258,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10016,
@@ -40736,7 +49304,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10039,
@@ -40774,7 +49350,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10040,
@@ -40812,7 +49396,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10041,
@@ -40850,7 +49442,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10042,
@@ -40888,7 +49488,15 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   },
   {
     id: 10043,
@@ -40926,6 +49534,14 @@ export const players: Player[] = [
     suspensionMatches: 0,
     age: 17,
     teamId: 0,
-    jerseyNumber: 0
+    jerseyNumber: 0,
+    canonTier: "common",
+    seasonStats: {
+      goals: 0,
+      assists: 0,
+      cleanSheets: 0,
+      matchesPlayed: 0,
+      minutesPlayed: 0
+    }
   }
 ]

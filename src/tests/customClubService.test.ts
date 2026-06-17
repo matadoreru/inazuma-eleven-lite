@@ -28,6 +28,8 @@ function makeFreeAgent(id: number, position: Player['position'], media: number):
     age: 17,
     teamId: 0,
     jerseyNumber: 0,
+    canonTier: 'common',
+    seasonStats: { goals: 0, assists: 0, cleanSheets: 0, matchesPlayed: 0, minutesPlayed: 0 },
   }
 }
 

@@ -37,6 +37,8 @@ function makePlayer(id: number): Player {
     age: 22,
     teamId: 1,
     jerseyNumber: 1,
+    canonTier: "common",
+    seasonStats: { goals: 0, assists: 0, cleanSheets: 0, matchesPlayed: 0, minutesPlayed: 0 },
   } as Player
 }
 

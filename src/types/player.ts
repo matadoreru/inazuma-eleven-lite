@@ -5,6 +5,7 @@ export type Position = 'GK' | 'DF' | 'MD' | 'FW'
 export type Element = 'FIRE' | 'WOOD' | 'WIND' | 'MOUNTAIN'
 export type Gender = 'Masculino' | 'Femenino'
 export type GrowthType = 'early' | 'normal' | 'late'
+export type CanonTier = 'common' | 'rare' | 'epic' | 'legendary'
 
 export interface Stats {
   POT: number
@@ -49,6 +50,14 @@ export function getPlayerStatsSummary(player: Player): { total: number; media: n
   return { total, media: Math.round(total / 7) }
 }
 
+export interface PlayerSeasonStats {
+  goals: number
+  assists: number
+  cleanSheets: number
+  matchesPlayed: number
+  minutesPlayed: number
+}
+
 export interface Player {
   id: number
   name: string
@@ -72,5 +81,6 @@ export interface Player {
   age: number
   teamId: number | null
   jerseyNumber: number
-  seasonMatchMinutes?: number
+  canonTier: CanonTier
+  seasonStats: PlayerSeasonStats
 }

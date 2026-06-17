@@ -18,6 +18,8 @@ function makeFreeAgent(id: number, pos: Player['position'], med: number): Player
     techniques: [], spriteUrl: '', stamina: 100, morale: 100,
     isInjured: false, injuryDaysRemaining: 0, isSuspended: false, suspensionMatches: 0,
     age: 17, teamId: 0, jerseyNumber: 0,
+    canonTier: 'common',
+    seasonStats: { goals: 0, assists: 0, cleanSheets: 0, matchesPlayed: 0, minutesPlayed: 0 }
   }
 }
 

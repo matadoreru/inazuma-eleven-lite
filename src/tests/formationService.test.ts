@@ -43,6 +43,8 @@ const makePlayer = (overrides: Partial<Player> = {}): Player => ({
   age: 20,
   teamId: 1,
   jerseyNumber: 10,
+  canonTier: 'common',
+  seasonStats: { goals: 0, assists: 0, cleanSheets: 0, matchesPlayed: 0, minutesPlayed: 0 },
   ...overrides,
 })
 

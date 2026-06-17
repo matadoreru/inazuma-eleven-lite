@@ -47,6 +47,8 @@ const makePlayer = (id: number, position: Player['position'], overrides: Partial
   age: 22,
   teamId: 1,
   jerseyNumber: id,
+  canonTier: 'common',
+  seasonStats: { goals: 0, assists: 0, cleanSheets: 0, matchesPlayed: 0, minutesPlayed: 0 },
   ...overrides,
 })
 

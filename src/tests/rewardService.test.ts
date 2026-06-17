@@ -68,6 +68,8 @@ function makePlayer(id: number, position: Player['position'] = 'FW'): Player {
     age: 20,
     teamId: 1,
     jerseyNumber: id,
+    canonTier: 'common',
+    seasonStats: { goals: 0, assists: 0, cleanSheets: 0, matchesPlayed: 0, minutesPlayed: 0 },
   }
 }
 
