@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo, useRef } from 'react'
 import { useCareerStore } from '../store/careerStore'
 import { teams } from '../data/teams'
 import { players } from '../data/players'
@@ -14,13 +14,41 @@ import { getPlayerStatsSummary } from '../types/player'
 import { statColor } from '../components/StatBar'
 import { DIFFICULTY_PRESETS, DEFAULT_DIFFICULTY } from '../types/career'
 import type { DifficultySettings } from '../types/career'
+import { assignSquadFromFreeAgents, buildCustomTeam } from '../services/customClubService'
+import type { CustomClubConfig, StrengthTier } from '../types/team'
 
 const STAT_KEYS: (keyof Stats)[] = ['POT', 'CON', 'TEC', 'PRE', 'FIS', 'AGI', 'INT']
 
-type Step = 0 | 1 | 2 | 3
+type CareerMode = 'existing' | 'custom' | null
 type DifficultyMode = 'easy' | 'normal' | 'hard' | 'custom'
 
-const STEPS = ['Entrenador', 'Equipo', 'Dificultad', 'Confirmar']
+const STEPS_EXISTING = ['Entrenador', 'Modo', 'Equipo', 'Dificultad', 'Confirmar']
+const STEPS_CUSTOM   = ['Entrenador', 'Modo', 'Nombre', 'Emblema', 'Fuerza', 'Dificultad', 'Confirmar']
+
+const PRESET_BADGES = [
+  '/teams/Raimon.webp',
+  '/teams/brain.webp',
+  '/teams/farm.webp',
+  '/teams/Inazuma Kids FC.webp',
+  '/teams/Kirkwood.webp',
+  '/teams/Occult.webp',
+  '/teams/Otaku.webp',
+  '/teams/Raimon Veterans.webp',
+  '/teams/Royal Academy.webp',
+  '/teams/Shuriken.webp',
+  "/teams/Street Sally's.webp",
+  '/teams/Umbrellla MS.webp',
+  '/teams/Wild.webp',
+  '/teams/Zeus.png',
+  '/teams/default_team_icon.png',
+]
+
+const STRENGTH_OPTIONS: Array<{ tier: StrengthTier; label: string; description: string; color: string }> = [
+  { tier: 'weak',        label: 'Débil',       description: 'Jugadores de media baja. Empieza desde abajo.',        color: 'gray' },
+  { tier: 'normal',      label: 'Normal',      description: 'Plantilla equilibrada para una experiencia estándar.',  color: 'blue' },
+  { tier: 'strong',      label: 'Fuerte',      description: 'Jugadores de alta media. Un equipo competitivo.',       color: 'green' },
+  { tier: 'very_strong', label: 'Muy fuerte',  description: 'Los mejores agentes libres disponibles.',              color: 'purple' },
+]
 
 const LEAGUE_LABELS: Record<string, string> = {
   first_division: 'Primera División',
@@ -71,12 +99,36 @@ export default function NewCareerScreen() {
   const navigate = useCareerStore((s) => s.navigate)
   const startNewCareer = useCareerStore((s) => s.startNewCareer)
 
-  const [step, setStep] = useState<Step>(0)
+  const [step, setStep] = useState(0)
   const [managerName, setManagerName] = useState('')
   const [managerAvatar, setManagerAvatar] = useState('/avatars/avatar-1.svg')
   const [selectedTeamId, setSelectedTeamId] = useState<number | null>(null)
   const [difficultyMode, setDifficultyMode] = useState<DifficultyMode>('normal')
   const [difficulty, setDifficulty] = useState<DifficultySettings>(DEFAULT_DIFFICULTY)
+  const [careerMode, setCareerMode] = useState<CareerMode>(null)
+  const [clubName, setClubName] = useState('')
+  const [clubBadgeUrl, setClubBadgeUrl] = useState('/teams/default_team_icon.png')
+  const [clubBadgeIsCustom, setClubBadgeIsCustom] = useState(false)
+  const [clubStrength, setClubStrength] = useState<StrengthTier | null>(null)
+  const [clubLeagueId, setClubLeagueId] = useState<string | null>(null)
+  const badgeFileRef = useRef<HTMLInputElement>(null)
+
+  const steps = careerMode === 'custom' ? STEPS_CUSTOM : STEPS_EXISTING
+
+  const customClubPreview = useMemo(() => {
+    if (careerMode !== 'custom' || !clubStrength || !clubLeagueId) return null
+    const config: CustomClubConfig = {
+      name: clubName.trim() || 'Mi Club',
+      badgeUrl: clubBadgeUrl,
+      badgeIsCustom: clubBadgeIsCustom,
+      strengthTier: clubStrength,
+      leagueId: clubLeagueId,
+    }
+    const { playerIds, lineup } = assignSquadFromFreeAgents(config, players)
+    const team = buildCustomTeam(config, teams, playerIds, lineup)
+    const squadPlayers = players.filter((p) => playerIds.includes(p.id))
+    return { team, playerIds, lineup, squadPlayers }
+  }, [careerMode, clubName, clubBadgeUrl, clubBadgeIsCustom, clubStrength, clubLeagueId])
 
   const selectedTeam: Team | undefined = teams.find((t) => t.id === selectedTeamId)
   const squadPlayers = selectedTeam
@@ -87,14 +139,38 @@ export default function NewCareerScreen() {
     return slot?.isStarter
   })
 
+  function canProceed(): boolean {
+    if (step === 0) return managerName.trim().length > 0
+    if (step === 1) return careerMode !== null
+    if (careerMode === 'existing') {
+      if (step === 2) return selectedTeamId !== null
+    } else {
+      if (step === 2) return clubName.trim().length > 0
+      if (step === 3) return true   // badge has default
+      if (step === 4) return clubStrength !== null && clubLeagueId !== null
+    }
+    return true
+  }
+
   function handleCreate() {
-    if (!managerName.trim() || selectedTeamId === null) return
-    startNewCareer(managerName.trim(), selectedTeamId, managerAvatar, difficulty)
+    if (!managerName.trim()) return
+    if (careerMode === 'existing') {
+      if (selectedTeamId === null) return
+      startNewCareer(managerName.trim(), selectedTeamId, managerAvatar, difficulty)
+    } else if (customClubPreview) {
+      startNewCareer(
+        managerName.trim(),
+        customClubPreview.team.id,
+        managerAvatar,
+        difficulty,
+        { team: customClubPreview.team, squadPlayerIds: customClubPreview.playerIds },
+      )
+    }
   }
 
   return (
     <div className="h-full flex flex-col bg-gray-900">
-      <StepperBar steps={STEPS} current={step} />
+      <StepperBar steps={steps} current={step} />
 
       <div className="flex-1 overflow-y-auto">
         {/* ── STEP 0: Coach ── */}
@@ -128,8 +204,66 @@ export default function NewCareerScreen() {
           </div>
         )}
 
-        {/* ── STEP 1: Team ── */}
+        {/* ── STEP 1: Mode selection ── */}
         {step === 1 && (
+          <div className="max-w-lg mx-auto px-6 py-8 flex flex-col gap-6">
+            <div>
+              <h2 className="text-white text-2xl font-bold mb-1">Elige tu camino</h2>
+              <p className="text-gray-400 text-sm">¿Gestionas un equipo existente o creas tu propio club?</p>
+            </div>
+            <div className="flex flex-col gap-4">
+              <button
+                onClick={() => setCareerMode('existing')}
+                className={`text-left p-5 rounded-2xl border-2 transition-colors ${careerMode === 'existing' ? 'border-blue-500 bg-blue-900/20' : 'border-gray-700 bg-gray-800 hover:border-gray-600'}`}
+              >
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="material-symbols-rounded text-blue-400 text-3xl">sports_soccer</span>
+                  <p className="text-white text-lg font-bold">Equipo existente</p>
+                </div>
+                <p className="text-gray-400 text-sm">Elige uno de los equipos del juego y empieza tu carrera.</p>
+              </button>
+              <button
+                onClick={() => setCareerMode('custom')}
+                className={`text-left p-5 rounded-2xl border-2 transition-colors ${careerMode === 'custom' ? 'border-purple-500 bg-purple-900/20' : 'border-gray-700 bg-gray-800 hover:border-gray-600'}`}
+              >
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="material-symbols-rounded text-purple-400 text-3xl">add_circle</span>
+                  <p className="text-white text-lg font-bold">Crear club propio</p>
+                </div>
+                <p className="text-gray-400 text-sm">Diseña tu propio club: nombre, emblema, fuerza inicial y liga.</p>
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* ── STEP 2b: Club name ── */}
+        {step === 2 && careerMode === 'custom' && (
+          <div className="max-w-lg mx-auto px-6 py-8 flex flex-col gap-6">
+            <div>
+              <h2 className="text-white text-2xl font-bold mb-1">Nombre del club</h2>
+              <p className="text-gray-400 text-sm">¿Cómo se llamará tu club?</p>
+            </div>
+            <div>
+              <label className="block text-gray-300 text-sm font-semibold mb-2">
+                Nombre del club
+              </label>
+              <input
+                type="text"
+                value={clubName}
+                onChange={(e) => setClubName(e.target.value)}
+                placeholder="Nombre del club..."
+                maxLength={25}
+                className="w-full bg-gray-800 border border-gray-600 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors text-lg"
+              />
+              <p className={`text-xs mt-1 text-right ${clubName.length >= 25 ? 'text-red-400' : 'text-gray-500'}`}>
+                {clubName.length}/25
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* ── STEP 2: Team ── */}
+        {step === 2 && careerMode === 'existing' && (
           <div className="flex h-full">
             <div className="w-80 flex-shrink-0 border-r border-gray-800 overflow-y-auto px-4 py-6 flex flex-col gap-2">
               <p className="text-gray-400 text-xs font-semibold uppercase tracking-wide mb-2">
@@ -205,7 +339,7 @@ export default function NewCareerScreen() {
         )}
 
         {/* ── STEP 2: Difficulty ── */}
-        {step === 2 && (
+        {((step === 3 && careerMode === 'existing') || (step === 5 && careerMode === 'custom')) && (
           <div className="max-w-2xl mx-auto px-6 py-8 flex flex-col gap-6">
             <div>
               <h2 className="text-white text-2xl font-bold mb-1">Dificultad</h2>
@@ -312,7 +446,7 @@ export default function NewCareerScreen() {
         )}
 
         {/* ── STEP 3: Confirm ── */}
-        {step === 3 && selectedTeam && (
+        {((step === 4 && careerMode === 'existing') || (step === 6 && careerMode === 'custom')) && selectedTeam && (
           <div className="max-w-3xl mx-auto px-6 py-8 flex flex-col gap-6">
             <div>
               <h2 className="text-white text-2xl font-bold mb-1">Confirmar Carrera</h2>
@@ -419,26 +553,19 @@ export default function NewCareerScreen() {
         <button
           onClick={() => {
             if (step === 0) navigate('main_menu')
-            else setStep((s) => (s - 1) as Step)
+            else setStep((s) => s - 1)
           }}
           className="px-6 py-2.5 bg-gray-700 hover:bg-gray-600 text-white rounded-xl font-semibold transition-colors"
         >
-          ← Atrás
+          Atras
         </button>
-        {step < 3 ? (
+        {step < steps.length - 1 ? (
           <button
-            onClick={() => {
-              if (step === 0 && !managerName.trim()) return
-              if (step === 1 && selectedTeamId === null) return
-              setStep((s) => (s + 1) as Step)
-            }}
-            disabled={
-              (step === 0 && !managerName.trim()) ||
-              (step === 1 && selectedTeamId === null)
-            }
+            onClick={() => { if (canProceed()) setStep((s) => s + 1) }}
+            disabled={!canProceed()}
             className="ml-auto px-8 py-2.5 bg-blue-600 hover:bg-blue-500 disabled:bg-gray-600 disabled:cursor-not-allowed text-white rounded-xl font-bold transition-colors"
           >
-            Continuar →
+            Continuar
           </button>
         ) : (
           <button
