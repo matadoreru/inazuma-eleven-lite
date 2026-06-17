@@ -22,6 +22,7 @@ import {
 } from '../services/potentialService'
 import type { EquipmentSlot, EquipmentItem } from '../types/equipment'
 import { EQUIPMENT_SLOT_LABELS, EQUIPMENT_SLOT_ICONS, EMPTY_EQUIPMENT } from '../types/equipment'
+import { calcTransferValue } from '../services/transferService'
 
 // ─── helpers ────────────────────────────────────────────────────────────────
 
@@ -583,6 +584,8 @@ export default function PlayerDetailScreen() {
   const navigate = useCareerStore((s) => s.navigate)
   const selectedPlayerId = useCareerStore((s) => s.selectedPlayerId)
   const sellPlayer = useCareerStore((s) => s.sellPlayer)
+  const acceptTransferOffer = useCareerStore((s) => s.acceptTransferOffer)
+  const rejectTransferOffer = useCareerStore((s) => s.rejectTransferOffer)
   const callUpPlayer = useCareerStore((s) => s.callUpPlayer)
   const removeCallupPlayer = useCareerStore((s) => s.removeCallupPlayer)
   const swapCallup = useCareerStore((s) => s.swapCallup)
@@ -593,7 +596,6 @@ export default function PlayerDetailScreen() {
   const unequipItemAction = useCareerStore((s) => s.unequipItem)
 
   const [showSellModal, setShowSellModal] = useState(false)
-  const [sellAmount, setSellAmount] = useState('')
   const [showJerseyModal, setShowJerseyModal] = useState(false)
   const [showSwapCallup, setShowSwapCallup] = useState(false)
   const [showPotentialModal, setShowPotentialModal] = useState(false)
@@ -625,6 +627,14 @@ export default function PlayerDetailScreen() {
   const userTeam = teams.find((t) => t.id === career.teamId)
   const isInUserTeam = player.teamId === career.teamId
 
+  // Pending transfer offer for this player
+  const pendingOffer = career.inbox.find(
+    (e) => e.type === 'TRANSFER_OFFER' && e.data?.playerId === player.id,
+  ) ?? null
+  const offerAmount = pendingOffer ? (pendingOffer.data?.amount as number) : null
+  const offerTeamName = pendingOffer ? (pendingOffer.data?.fromTeamName as string) : null
+  const offerOfferId = pendingOffer ? (pendingOffer.data?.offerId as string) : null
+
   // Callup status
   const starterIds = new Set(userTeam?.lineup.filter((s) => s.isStarter).map((s) => s.playerId) ?? [])
   const benchIds = new Set(userTeam?.lineup.filter((s) => !s.isStarter).map((s) => s.playerId) ?? [])
@@ -652,14 +662,25 @@ export default function PlayerDetailScreen() {
     setShowSwapCallup(false)
   }
 
-  function handleSell() {
-    const amount = parseInt(sellAmount, 10)
-    if (isNaN(amount) || amount <= 0) return
+  function handleQuickSell() {
     const targetTeam = teams.find((t) => t.id !== career!.teamId)
     if (!targetTeam) return
-    sellPlayer(player!.id, targetTeam.id, amount)
+    sellPlayer(player!.id, targetTeam.id, calcTransferValue(player!))
     setShowSellModal(false)
     navigate('squad')
+  }
+
+  function handleAcceptOffer() {
+    if (!offerOfferId) return
+    acceptTransferOffer(offerOfferId)
+    setShowSellModal(false)
+    navigate('squad')
+  }
+
+  function handleRejectOffer() {
+    if (!offerOfferId) return
+    rejectTransferOffer(offerOfferId)
+    setShowSellModal(false)
   }
 
   const statusLabel = isStarter ? 'TIT' : isBench ? 'SUP' : 'NC'
@@ -911,20 +932,80 @@ export default function PlayerDetailScreen() {
       {/* ── Sell modal ── */}
       {showSellModal && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
-          <div className="bg-gray-800 rounded-xl p-6 w-full max-w-sm border border-gray-600">
-            <h2 className="text-white text-lg font-bold mb-1">Vender Jugador</h2>
-            <p className="text-gray-400 text-sm mb-4">Valor de mercado: {fmt(player.career.marketValue)}</p>
-            <input
-              type="number"
-              value={sellAmount}
-              onChange={(e) => setSellAmount(e.target.value)}
-              placeholder="Precio de venta (€)"
-              className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 mb-4"
-            />
-            <div className="flex gap-3">
-              <button onClick={() => setShowSellModal(false)} className="flex-1 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-semibold text-sm transition-colors">Cancelar</button>
-              <button onClick={handleSell} className="flex-1 py-2 bg-red-600 hover:bg-red-500 text-white rounded-lg font-semibold text-sm transition-colors">Vender</button>
+          <div className="bg-gray-800 rounded-xl p-5 w-full max-w-sm border border-gray-700 space-y-4">
+            <div>
+              <h2 className="text-white text-base font-bold">Vender jugador</h2>
+              <p className="text-gray-400 text-xs mt-0.5">{player.nameRomaji}</p>
             </div>
+
+            {/* Market value */}
+            <div className="flex items-center justify-between py-2 border-b border-gray-700">
+              <span className="text-gray-400 text-xs">Valor de mercado</span>
+              <span className="text-white text-sm font-bold tabular-nums">
+                {fmt(calcTransferValue(player))}
+              </span>
+            </div>
+
+            {/* Quick sell */}
+            <div className="bg-gray-700/50 rounded-xl p-3 border border-gray-600/50 space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-gray-300 text-xs font-semibold">Venta rápida</span>
+                <span className="text-white text-sm font-bold tabular-nums">
+                  {fmt(calcTransferValue(player))}
+                </span>
+              </div>
+              <button
+                onClick={handleQuickSell}
+                className="w-full flex items-center justify-center gap-2 py-2 bg-red-600 hover:bg-red-500 text-white rounded-lg font-semibold text-sm transition-colors"
+              >
+                <span className="material-icons leading-none" style={{ fontSize: '16px' }}>sell</span>
+                Vender ahora
+              </button>
+            </div>
+
+            {/* AI offer (only if pending) */}
+            {pendingOffer && offerAmount !== null && offerTeamName && (
+              <div className="bg-yellow-900/20 rounded-xl p-3 border border-yellow-700/40 space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-yellow-300 text-xs font-semibold">{offerTeamName}</span>
+                  <div className="text-right">
+                    <span className="text-white text-sm font-bold tabular-nums block">{fmt(offerAmount)}</span>
+                    {(() => {
+                      const diff = offerAmount - calcTransferValue(player)
+                      const pct = Math.round((diff / calcTransferValue(player)) * 100)
+                      return (
+                        <span className={`text-[0.625rem] font-medium ${diff >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+                          {diff >= 0 ? '+' : ''}{fmt(diff)} ({diff >= 0 ? '+' : ''}{pct}%)
+                        </span>
+                      )
+                    })()}
+                  </div>
+                </div>
+                <div className="flex gap-2">
+                  <button
+                    onClick={handleAcceptOffer}
+                    className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-green-600 hover:bg-green-500 text-white rounded-lg font-semibold text-xs transition-colors"
+                  >
+                    <span className="material-icons leading-none" style={{ fontSize: '14px' }}>check</span>
+                    Aceptar
+                  </button>
+                  <button
+                    onClick={handleRejectOffer}
+                    className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-gray-600 hover:bg-gray-500 text-white rounded-lg font-semibold text-xs transition-colors"
+                  >
+                    <span className="material-icons leading-none" style={{ fontSize: '14px' }}>close</span>
+                    Rechazar
+                  </button>
+                </div>
+              </div>
+            )}
+
+            <button
+              onClick={() => setShowSellModal(false)}
+              className="w-full py-2 bg-gray-700 hover:bg-gray-600 text-gray-300 rounded-lg font-semibold text-sm transition-colors"
+            >
+              Cancelar
+            </button>
           </div>
         </div>
       )}
