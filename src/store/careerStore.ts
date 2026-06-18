@@ -592,7 +592,7 @@ interface CareerState {
 
   // Season lifecycle
   closeSeason(): void
-  startNewSeason(): void
+  startNewSeason(objectiveDifficulty?: 'easy' | 'normal' | 'hard' | 'very_hard'): void
   simulateAllRemainingAndClose(): void
 
   // Training (legacy — kept for backward compatibility)
@@ -768,6 +768,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
         outgoingNegotiations: data.career.outgoingNegotiations ?? [],
         incomingOffers: data.career.incomingOffers ?? [],
         nameStyle: data.career.nameStyle ?? 'western',
+        objectiveDifficulty: data.career.objectiveDifficulty ?? 'normal',
       },
       players,
       teams,
@@ -822,6 +823,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
           ...data.career,
           difficulty: data.career.difficulty ?? DEFAULT_DIFFICULTY,
           nameStyle: data.career.nameStyle ?? 'western',
+          objectiveDifficulty: data.career.objectiveDifficulty ?? 'normal',
           playerPotential: data.career.playerPotential ?? {},
           weeklyTrainingPlan: data.career.weeklyTrainingPlan ?? null,
           inventory: data.career.inventory ?? { ...EMPTY_INVENTORY },
@@ -1802,7 +1804,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     set({ career: updatedCareer, teams: updatedTeams, screen: 'season_review' })
   },
 
-  startNewSeason() {
+  startNewSeason(objectiveDifficulty: 'easy' | 'normal' | 'hard' | 'very_hard' = 'normal') {
     const { career, players, teams } = get()
     if (!career || career.seasonStatus !== 'review') return
 
@@ -1832,8 +1834,10 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     ]
     const newCup = deconflictCupSchedule(initCup(teams, newYear, newSeason.startDate), newAllLeagueMatches)
 
-    // New objectives
-    const newObjectives = league && userTeam ? getObjectivesForTeam(userTeam, league) : career.objectives
+    // New objectives (scaled by chosen difficulty)
+    const newObjectives = league && userTeam
+      ? getObjectivesForTeam(userTeam, league, objectiveDifficulty)
+      : career.objectives
 
     // Reset player season stats
     const resetPlayers = players.map((p) => ({
@@ -1852,6 +1856,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
       seasonStatus: 'active',
       lastSeasonReview: null,
       objectives: newObjectives,
+      objectiveDifficulty,
       weeklyTrainingPlan: null,
       incomingOffers: cleanedIncoming,
     }

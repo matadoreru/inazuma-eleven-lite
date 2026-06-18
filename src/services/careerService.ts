@@ -4,6 +4,7 @@ import type {
   ObjectiveType,
   ObjectiveCategory,
   ObjectiveDifficulty,
+  ObjectiveGroupType,
   ObjectiveReward,
   ObjectivePenalty,
   DifficultySettings,
@@ -32,6 +33,7 @@ function obj(
   category: ObjectiveCategory,
   difficulty: ObjectiveDifficulty,
   exclusionGroup?: string,
+  groupType?: ObjectiveGroupType,
 ): Objective {
   return {
     id: crypto.randomUUID(),
@@ -39,6 +41,7 @@ function obj(
     category,
     difficulty,
     exclusionGroup,
+    groupType,
     description,
     target,
     current: 0,
@@ -52,97 +55,86 @@ function obj(
   }
 }
 
-function buildObjectives(team: Team, league: League): Objective[] {
-  const objectives: Objective[] = []
+const DIFFICULTY_MULTIPLIERS = {
+  easy: 0.65,
+  normal: 1.0,
+  hard: 1.35,
+  very_hard: 1.7,
+}
 
-  // --- SEASON objectives (mandatory main goal) ---
+// Goals-per-match expectation by tier
+const GOALS_PER_MATCH_BY_TIER: Record<number, number> = { 1: 2.0, 2: 1.6 }
+const defaultGoalsPerMatch = 1.2
+
+// Win rate expectation by tier
+const WIN_RATE_BY_TIER: Record<number, number> = { 1: 0.60, 2: 0.45 }
+const defaultWinRate = 0.35
+
+function buildObjectives(
+  team: Team,
+  league: League,
+  difficulty: 'easy' | 'normal' | 'hard' | 'very_hard' = 'normal',
+): Objective[] {
+  const objectives: Objective[] = []
+  const mult = DIFFICULTY_MULTIPLIERS[difficulty]
+  const totalMatches = league.rounds
+
+  // --- Mandatory SEASON_END: main goal ---
   if (team.tier <= 2) {
-    objectives.push(obj(
-      'WIN_LEAGUE',
-      'Ganar el título de liga',
-      1,
-      { money: 500_000, reputation: 15 },
-      { reputation: 12 },
-      true,
-      'SEASON', 'HARD', 'main_goal',
-    ))
+    objectives.push(obj('WIN_LEAGUE', 'Ganar el título de liga', 1,
+      { money: 500_000, reputation: 15 }, { reputation: 12 },
+      true, 'SEASON', 'HARD', 'main_goal', 'season_end'))
   } else if (league.relegationSlots > 0) {
-    objectives.push(obj(
-      'AVOID_RELEGATION',
-      'Evitar el descenso esta temporada',
-      1,
-      { money: 100_000, reputation: 5 },
-      { reputation: 10 },
-      true,
-      'SEASON', 'EASY', 'main_goal',
-    ))
+    objectives.push(obj('AVOID_RELEGATION', 'Evitar el descenso esta temporada', 1,
+      { money: 100_000, reputation: 5 }, { reputation: 10 },
+      true, 'SEASON', 'EASY', 'main_goal', 'season_end'))
   } else {
-    // League has no relegation — objective is to avoid the bottom positions
     const safeZone = Math.max(1, league.teamsCount - 2)
-    objectives.push(obj(
-      'TOP_N',
-      `Terminar entre los ${safeZone} primeros`,
-      safeZone,
-      { money: 100_000, reputation: 5 },
-      { reputation: 10 },
-      true,
-      'SEASON', 'EASY', 'main_goal',
-    ))
+    objectives.push(obj('TOP_N', `Terminar entre los ${safeZone} primeros`, safeZone,
+      { money: 100_000, reputation: 5 }, { reputation: 10 },
+      true, 'SEASON', 'EASY', 'main_goal', 'season_end'))
   }
 
-  // --- SEASON objectives (secondary) ---
-  const pointsTarget = team.tier <= 2 ? 70 : team.tier === 3 ? 50 : 40
-  objectives.push(obj(
-    'EARN_POINTS',
-    `Conseguir al menos ${pointsTarget} puntos`,
-    pointsTarget,
-    { money: 50_000, reputation: 3 },
-    { reputation: 0 },
-    false,
-    'SEASON', 'NORMAL',
-  ))
-
-  const winTarget = Math.ceil(league.rounds * 0.45)
-  objectives.push(obj(
-    'WIN_MATCHES',
-    `Ganar al menos ${winTarget} partidos`,
-    winTarget,
-    { money: 75_000, reputation: 3 },
-    { reputation: 0 },
-    false,
-    'SEASON', 'NORMAL',
-  ))
-
+  // --- Optional SEASON_END: position ---
   const topN = team.tier <= 2 ? 3 : 5
-  objectives.push(obj(
-    'TOP_N',
-    `Terminar entre los ${topN} primeros`,
-    topN,
-    { money: 200_000, reputation: 8 },
-    { reputation: 0 },
-    false,
-    'SEASON', 'HARD', 'finish_position',
-  ))
+  objectives.push(obj('TOP_N', `Terminar entre los ${topN} primeros`, topN,
+    { money: 200_000, reputation: 8 }, { reputation: 0 },
+    false, 'SEASON', 'HARD', 'finish_position', 'season_end'))
 
-  // --- GENERAL objectives ---
-  objectives.push(obj(
-    'SCORE_GOALS',
-    'Marcar al menos 30 goles en la temporada',
-    30,
-    { money: 40_000, reputation: 2 },
-    { reputation: 0 },
-    false,
-    'GENERAL', 'NORMAL',
+  // --- Optional CONTINUOUS: wins ---
+  const winRate = WIN_RATE_BY_TIER[team.tier] ?? defaultWinRate
+  const winTarget = Math.max(3, Math.min(
+    Math.ceil(totalMatches * 0.90),
+    Math.ceil(totalMatches * winRate * mult),
   ))
-  objectives.push(obj(
-    'CONCEDE_FEW',
-    'Recibir menos de 25 goles en la temporada',
-    25,
-    { money: 60_000, reputation: 2 },
-    { reputation: 0 },
-    false,
-    'GENERAL', 'NORMAL',
+  objectives.push(obj('WIN_MATCHES', `Ganar al menos ${winTarget} partidos`, winTarget,
+    { money: 75_000, reputation: 3 }, { reputation: 0 },
+    false, 'SEASON', 'NORMAL', undefined, 'continuous'))
+
+  // --- Optional CONTINUOUS: points ---
+  const pointsTarget = Math.max(6, Math.min(
+    Math.ceil(totalMatches * 3 * 0.90),
+    Math.ceil(totalMatches * winRate * 3 * mult),
   ))
+  objectives.push(obj('EARN_POINTS', `Conseguir al menos ${pointsTarget} puntos`, pointsTarget,
+    { money: 50_000, reputation: 3 }, { reputation: 0 },
+    false, 'SEASON', 'NORMAL', undefined, 'continuous'))
+
+  // --- Optional CONTINUOUS: goals ---
+  const gpm = GOALS_PER_MATCH_BY_TIER[team.tier] ?? defaultGoalsPerMatch
+  const goalsTarget = Math.max(5, Math.min(
+    Math.ceil(totalMatches * gpm * 0.90),
+    Math.ceil(totalMatches * gpm * mult),
+  ))
+  objectives.push(obj('SCORE_GOALS', `Marcar al menos ${goalsTarget} goles`, goalsTarget,
+    { money: 40_000, reputation: 2 }, { reputation: 0 },
+    false, 'GENERAL', 'NORMAL', undefined, 'continuous'))
+
+  // --- Optional SEASON_END: concede few ---
+  const concedeTarget = Math.max(5, Math.round(totalMatches * 1.2 / mult))
+  objectives.push(obj('CONCEDE_FEW', `Recibir menos de ${concedeTarget} goles`, concedeTarget,
+    { money: 60_000, reputation: 2 }, { reputation: 0 },
+    false, 'GENERAL', 'NORMAL', undefined, 'season_end'))
 
   return objectives
 }
@@ -153,8 +145,12 @@ export function chooseTeam(teamId: number, teams: Team[]): Team {
   return team
 }
 
-export function getObjectivesForTeam(team: Team, league: League): Objective[] {
-  return buildObjectives(team, league)
+export function getObjectivesForTeam(
+  team: Team,
+  league: League,
+  difficulty: 'easy' | 'normal' | 'hard' | 'very_hard' = 'normal',
+): Objective[] {
+  return buildObjectives(team, league, difficulty)
 }
 
 export function createCareer(

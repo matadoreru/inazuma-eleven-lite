@@ -1,8 +1,11 @@
 import { describe, it, expect } from 'vitest'
 import { checkObjectives, completeObjective, failObjective } from '../services/objectiveService'
+import { getObjectivesForTeam } from '../services/careerService'
 import type { Career, Objective } from '../types/career'
 import { DEFAULT_DIFFICULTY } from '../types/career'
 import type { Season, StandingRow } from '../types/competition'
+import type { Team } from '../types/team'
+import type { League } from '../types/competition'
 
 const makeStandingRow = (teamId: number, overrides: Partial<StandingRow> = {}): StandingRow => ({
   teamId,
@@ -81,6 +84,16 @@ const makeCareer = (overrides: Partial<Career> = {}): Career => ({
   createdAt: '2026-01-01',
   lastSavedAt: '2026-01-01',
   ...overrides,
+})
+
+const makeLeague = (rounds: number, teamsCount: number): League => ({
+  id: 'test', name: 'Liga Test', level: 2, promotionTo: null, relegationTo: null,
+  promotionSlots: 0, relegationSlots: 2, teamsCount, rounds,
+})
+
+const makeTeam = (tier: number): Team => ({
+  id: 1, name: 'Test FC', tier, reputation: 50, budget: 1_000_000,
+  leagueId: 'test', captainId: 1, formation: {} as any, lineup: [], playerIds: [],
 })
 
 describe('checkObjectives', () => {
@@ -318,5 +331,39 @@ describe('failObjective', () => {
     })
     failObjective('obj-a', career)
     expect(career.objectives[0].failed).toBe(false)
+  })
+})
+
+describe('getObjectivesForTeam — scaled targets', () => {
+  it('score goals target scales with league rounds', () => {
+    const short = getObjectivesForTeam(makeTeam(3), makeLeague(14, 8))
+    const long  = getObjectivesForTeam(makeTeam(3), makeLeague(38, 20))
+    const shortGoals = short.find(o => o.type === 'SCORE_GOALS')!.target
+    const longGoals  = long.find(o => o.type === 'SCORE_GOALS')!.target
+    expect(shortGoals).toBeLessThan(longGoals)
+    // Short league (14 rounds) should never demand 30 goals
+    expect(shortGoals).toBeLessThan(25)
+  })
+
+  it('hard difficulty produces higher targets than easy', () => {
+    const easy = getObjectivesForTeam(makeTeam(3), makeLeague(20, 10), 'easy')
+    const hard = getObjectivesForTeam(makeTeam(3), makeLeague(20, 10), 'hard')
+    const easyWins = easy.find(o => o.type === 'WIN_MATCHES')!.target
+    const hardWins = hard.find(o => o.type === 'WIN_MATCHES')!.target
+    expect(hardWins).toBeGreaterThan(easyWins)
+  })
+
+  it('no target exceeds the mathematical maximum for the season', () => {
+    const objs = getObjectivesForTeam(makeTeam(3), makeLeague(14, 8), 'very_hard')
+    const wins = objs.find(o => o.type === 'WIN_MATCHES')!.target
+    expect(wins).toBeLessThanOrEqual(14)
+  })
+
+  it('objectives have correct groupType', () => {
+    const objs = getObjectivesForTeam(makeTeam(3), makeLeague(20, 10))
+    const seasonEnd  = objs.filter(o => o.groupType === 'season_end')
+    const continuous = objs.filter(o => o.groupType === 'continuous')
+    expect(seasonEnd.length).toBeGreaterThan(0)
+    expect(continuous.length).toBeGreaterThan(0)
   })
 })

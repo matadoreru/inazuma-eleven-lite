@@ -3,6 +3,8 @@ import type { WeeklyTrainingPlan } from './training'
 import type { ClubInventory } from './inventory'
 import type { LeagueSeason, Cup, SeasonStatus, SeasonReview } from './season'
 
+export type ObjectiveGroupType = 'season_end' | 'continuous' | 'match'
+
 export type ObjectiveType =
   | 'WIN_LEAGUE'
   | 'TOP_N'
@@ -32,6 +34,7 @@ export interface Objective {
   category?: ObjectiveCategory
   difficulty?: ObjectiveDifficulty
   exclusionGroup?: string
+  groupType?: ObjectiveGroupType
   description: string
   target: number
   current: number
@@ -276,6 +279,7 @@ export interface Career {
   outgoingNegotiations: OutgoingNegotiation[]
   incomingOffers: IncomingOffer[]
   difficulty: DifficultySettings
+  objectiveDifficulty?: 'easy' | 'normal' | 'hard' | 'very_hard'
   nameStyle: 'western' | 'japanese'
   createdAt: string
   lastSavedAt: string

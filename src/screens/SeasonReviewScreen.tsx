@@ -10,13 +10,13 @@ function formatOutcome(outcome: UserSeasonOutcome): { label: string; color: stri
   switch (outcome) {
     case 'promoted':  return { label: 'ASCENSO', color: 'text-green-400', icon: 'arrow_upward' }
     case 'relegated': return { label: 'DESCENSO', color: 'text-red-400',   icon: 'arrow_downward' }
-    case 'stayed':    return { label: 'PERMANENCIA', color: 'text-blue-400', icon: 'remove' }
+    case 'stayed':    return { label: 'PERMANENCIA', color: 'text-gold-500', icon: 'remove' }
   }
 }
 
 function StatCard({ label, value, sub }: { label: string; value: string; sub?: string }) {
   return (
-    <div className="bg-gray-800 rounded-xl p-4 border border-gray-700 flex flex-col gap-1">
+    <div className="bg-dark-800/80 rounded-xl border border-gold-600/15 p-4 border border-gold-600/20 flex flex-col gap-1">
       <p className="text-gray-400 text-xs">{label}</p>
       <p className="text-white text-xl font-bold">{value}</p>
       {sub && <p className="text-gray-500 text-xs">{sub}</p>}
@@ -29,7 +29,7 @@ function CupResult({ review, teams }: { review: SeasonReview; teams: import('../
 
   if (review.cupWinnerId === null) {
     return (
-      <div className="bg-gray-800 rounded-xl p-4 border border-gray-700">
+      <div className="bg-dark-800/80 rounded-xl border border-gold-600/15 p-4 border border-gold-600/20">
         <p className="text-gray-400 text-xs mb-1">Copa</p>
         <p className="text-gray-500 text-sm">Copa no finalizada</p>
       </div>
@@ -45,7 +45,7 @@ function CupResult({ review, teams }: { review: SeasonReview; teams: import('../
     : `Eliminado en ${roundNames[userRounds] ?? `ronda ${userRounds}`}`
 
   return (
-    <div className="bg-gray-800 rounded-xl p-4 border border-gray-700 space-y-2">
+    <div className="bg-dark-800/80 rounded-xl border border-gold-600/15 p-4 border border-gold-600/20 space-y-2">
       <div className="flex items-center gap-2">
         <Icon name="emoji_events" size="sm" className="text-yellow-400" />
         <p className="text-gray-300 text-sm font-semibold">Copa</p>
@@ -64,6 +64,13 @@ function CupResult({ review, teams }: { review: SeasonReview; teams: import('../
   )
 }
 
+const DIFFICULTY_OPTIONS = [
+  { key: 'easy' as const,      label: 'Fácil',       desc: 'Objetivos asequibles, recompensas reducidas.',  color: 'text-green-400',  border: 'border-green-600/40' },
+  { key: 'normal' as const,    label: 'Normal',      desc: 'Equilibrio estándar.',                           color: 'text-blue-400',   border: 'border-blue-600/40'  },
+  { key: 'hard' as const,      label: 'Difícil',     desc: 'Objetivos exigentes, mejores recompensas.',     color: 'text-orange-400', border: 'border-orange-600/40'},
+  { key: 'very_hard' as const, label: 'Muy difícil', desc: 'Objetivos ambiciosos, penalizaciones mayores.', color: 'text-red-400',    border: 'border-red-600/40'   },
+]
+
 export default function SeasonReviewScreen() {
   const career = useCareerStore((s) => s.career)
   const teams = useCareerStore((s) => s.teams)
@@ -72,6 +79,7 @@ export default function SeasonReviewScreen() {
   // ── All hooks BEFORE early returns ──
   const [showReveal, setShowReveal] = useState(true)
   const [fading, setFading] = useState(false)
+  const [showDifficultyModal, setShowDifficultyModal] = useState(false)
 
   const review = career?.lastSeasonReview ?? null
 
@@ -103,8 +111,9 @@ export default function SeasonReviewScreen() {
 
   if (!review) {
     return (
-      <div className="h-full flex items-center justify-center bg-gray-900">
-        <p className="text-gray-400">No hay resumen de temporada disponible.</p>
+      <div className="h-full flex items-center justify-center bg-game">
+        <div className="absolute inset-0 bg-dark-900/70" />
+        <p className="relative text-gray-400">No hay resumen de temporada disponible.</p>
       </div>
     )
   }
@@ -114,7 +123,7 @@ export default function SeasonReviewScreen() {
   const relegatedTeams = review.relegatedTeamIds.map((id) => teams.find((t) => t.id === id)).filter(Boolean)
 
   return (
-    <div className="h-full flex flex-col bg-gray-900 overflow-y-auto">
+    <div className="h-full flex flex-col bg-game overflow-y-auto">
       {showReveal && (
         <div
           className={`fixed inset-0 z-50 bg-gradient-to-b ${overlayConfig.bg} flex flex-col items-center justify-center gap-6 transition-opacity duration-700`}
@@ -135,7 +144,7 @@ export default function SeasonReviewScreen() {
         </div>
       )}
       {/* Header */}
-      <div className="bg-gray-800 border-b border-gray-700 px-6 py-5">
+      <div className="bg-dark-800/80 border-b border-gold-600/20 px-6 py-5">
         <p className="text-gray-400 text-sm">Temporada {review.seasonNumber} · {review.year}</p>
         <h1 className="text-white text-2xl font-bold mt-0.5">{review.leagueName}</h1>
       </div>
@@ -184,7 +193,7 @@ export default function SeasonReviewScreen() {
 
         {/* Movimientos */}
         {(promotedTeams.length > 0 || relegatedTeams.length > 0) && (
-          <div className="bg-gray-800 rounded-xl p-4 border border-gray-700 space-y-3">
+          <div className="bg-dark-800/80 rounded-xl border border-gold-600/15 p-4 border border-gold-600/20 space-y-3">
             <p className="text-gray-300 text-sm font-semibold">Movimientos de liga</p>
 
             {promotedTeams.length > 0 && (
@@ -219,13 +228,41 @@ export default function SeasonReviewScreen() {
 
         {/* Start next season button */}
         <button
-          onClick={startNewSeason}
+          onClick={() => setShowDifficultyModal(true)}
           className="w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold py-4 rounded-xl flex items-center justify-center gap-2 transition-colors"
         >
           <Icon name="play_arrow" size="sm" />
           Iniciar Temporada {review.seasonNumber + 1}
         </button>
       </div>
+
+      {/* Difficulty modal */}
+      {showDifficultyModal && (
+        <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4">
+          <div className="bg-dark-800 border border-gold-600/30 rounded-2xl p-6 w-full max-w-sm space-y-4">
+            <h2 className="text-white font-bold text-lg">Dificultad de objetivos</h2>
+            <p className="text-gray-400 text-sm">Elige la dificultad de los objetivos para la temporada {review.seasonNumber + 1}.</p>
+            <div className="space-y-2">
+              {DIFFICULTY_OPTIONS.map(opt => (
+                <button
+                  key={opt.key}
+                  onClick={() => { startNewSeason(opt.key); setShowDifficultyModal(false) }}
+                  className={`w-full text-left p-3 rounded-xl border ${opt.border} bg-dark-700/60 hover:bg-dark-600/60 transition-colors`}
+                >
+                  <p className={`font-semibold text-sm ${opt.color}`}>{opt.label}</p>
+                  <p className="text-gray-500 text-xs mt-0.5">{opt.desc}</p>
+                </button>
+              ))}
+            </div>
+            <button
+              onClick={() => setShowDifficultyModal(false)}
+              className="w-full py-2 text-gray-500 hover:text-gray-300 text-sm transition-colors"
+            >
+              Cancelar
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

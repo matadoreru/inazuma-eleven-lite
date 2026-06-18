@@ -30,21 +30,21 @@ function difficultyLabel(d?: string): string {
 function difficultyColor(d?: string): string {
   switch (d) {
     case 'EASY': return 'text-green-400'
-    case 'NORMAL': return 'text-blue-400'
+    case 'NORMAL': return 'text-gold-400'
     case 'HARD': return 'text-orange-400'
     case 'VERY_HARD': return 'text-red-400'
     default: return 'text-gray-500'
   }
 }
 
-function ObjectiveRow({ obj, onClaim }: { obj: Objective; onClaim?: () => void }) {
+function ObjectiveRow({ obj, onClaim, seasonFinished }: { obj: Objective; onClaim?: () => void; seasonFinished?: boolean }) {
   const progress = Math.min(obj.current / obj.target, 1)
   const isClaimable = canClaimObjective(obj)
   const isClaimed = obj.claimed
   const isFailed = obj.failed
 
   return (
-    <div className={`px-4 py-3 border-b border-gray-800/60 last:border-0 transition-colors ${
+    <div className={`px-4 py-3 border-b border-gold-600/10 last:border-0 transition-colors ${
       isClaimable ? 'bg-green-950/20' : isFailed ? 'bg-red-950/10' : ''
     }`}>
       <div className="flex items-start justify-between gap-3">
@@ -64,6 +64,11 @@ function ObjectiveRow({ obj, onClaim }: { obj: Objective; onClaim?: () => void }
             {obj.isMandatory && (
               <span className="text-[0.625rem] font-semibold text-red-400 uppercase tracking-wide">Obligatorio</span>
             )}
+            {obj.groupType === 'season_end' && !seasonFinished && (
+              <span className="text-[10px] bg-blue-900/40 text-blue-400 border border-blue-700/40 rounded px-1.5 py-0.5">
+                Solo al final
+              </span>
+            )}
           </div>
 
           {/* Progress bar */}
@@ -75,10 +80,10 @@ function ObjectiveRow({ obj, onClaim }: { obj: Objective; onClaim?: () => void }
                   <span className="text-gray-500 text-xs">{formatRewardLabel(obj)}</span>
                 )}
               </div>
-              <div className="h-1.5 bg-gray-700 rounded-full overflow-hidden">
+              <div className="h-1.5 bg-dark-600/80 rounded-full overflow-hidden">
                 <div
                   className={`h-full rounded-full transition-all duration-500 ${
-                    obj.completed ? 'bg-green-500' : 'bg-blue-500'
+                      obj.completed ? 'bg-green-500' : 'bg-gold-500'
                   }`}
                   style={{ width: `${progress * 100}%` }}
                 />
@@ -137,7 +142,7 @@ function Section({
     <div className="mb-2">
       <button
         onClick={() => setOpen((o) => !o)}
-        className="w-full flex items-center justify-between px-4 py-2 text-left hover:bg-gray-800/40 transition-colors"
+        className="w-full flex items-center justify-between px-4 py-2 text-left hover:bg-dark-700/30 transition-colors"
       >
         <div className="flex items-center gap-2">
           <Icon name={icon} size="xs" className={iconClass} />
@@ -151,6 +156,15 @@ function Section({
   )
 }
 
+function GroupHeader({ label, sub }: { label: string; sub?: string }) {
+  return (
+    <div className="flex items-baseline gap-2 mb-2 mt-4 first:mt-0 px-4">
+      <h3 className="text-gray-400 text-xs font-bold uppercase tracking-widest">{label}</h3>
+      {sub && <span className="text-gray-600 text-[10px]">{sub}</span>}
+    </div>
+  )
+}
+
 export default function ObjectivesPanel() {
   const [expanded, setExpanded] = useState(true)
   const career = useCareerStore((s) => s.career)
@@ -159,6 +173,7 @@ export default function ObjectivesPanel() {
   if (!career) return null
 
   const objectives = career.objectives
+  const seasonFinished = career.season.finished
   const claimable = objectives.filter((o) => o.completed && !o.claimed && !o.failed)
   const active = objectives.filter((o) => !o.completed && !o.failed && !o.claimed)
   const claimed = objectives.filter((o) => o.claimed)
@@ -166,51 +181,85 @@ export default function ObjectivesPanel() {
 
   const total = objectives.length
 
+  // Group active objectives by groupType
+  const seasonEndObjs  = active.filter(o => o.groupType === 'season_end' || (!o.groupType && o.category === 'SEASON'))
+  const continuousObjs = active.filter(o => o.groupType === 'continuous' || (!o.groupType && o.category === 'GENERAL'))
+  const matchObjs      = active.filter(o => o.groupType === 'match' || (!o.groupType && o.category === 'MATCH'))
+  const ungroupedObjs  = active.filter(o => !o.groupType && !o.category)
+
   return (
-    <div className="bg-gray-900 rounded-xl border border-gray-700 overflow-hidden">
+    <div className="panel overflow-hidden">
       {/* Header */}
       <button
         onClick={() => setExpanded((e) => !e)}
-        className="w-full flex items-center justify-between px-4 py-3 hover:bg-gray-800/40 transition-colors"
+        className="w-full flex items-center justify-between px-3 py-2 hover:bg-dark-700/40 transition-colors border-b border-gold-600/30"
       >
         <div className="flex items-center gap-2">
-          <Icon name="flag" size="sm" className="text-yellow-400" />
-          <span className="text-white font-semibold text-sm">Objetivos</span>
+          <Icon name="flag" size="sm" className="text-gold-400" />
+          <span className="text-gold-400 font-pixel text-[0.4rem] uppercase tracking-widest">Objetivos</span>
           {claimable.length > 0 && (
-            <span className="bg-green-700 text-white text-[0.625rem] font-bold px-1.5 py-0.5 rounded-full leading-none">
+            <span className="bg-green-700/80 text-green-200 text-[0.45rem] font-bold px-1.5 py-0.5 rounded-full border border-green-600/40 leading-none">
               {claimable.length}
             </span>
           )}
-          <span className="text-gray-600 text-xs ml-1">{total} total</span>
+          <span className="text-gray-600 text-[0.5rem] ml-1">{total} total</span>
         </div>
-        <Icon name={expanded ? 'expand_less' : 'expand_more'} size="sm" className="text-gray-500" />
+        <Icon name={expanded ? 'expand_less' : 'expand_more'} size="sm" className="text-gray-600" />
       </button>
 
       {/* Body */}
       {expanded && (
-        <div className="border-t border-gray-700/60">
+        <div className="border-t border-gold-600/15">
           {total === 0 ? (
             <p className="text-gray-600 text-sm text-center py-8">No hay objetivos</p>
           ) : (
             <>
               <Section title="Para reclamar" icon="redeem" iconClass="text-green-400" count={claimable.length}>
                 {claimable.map((obj) => (
-                  <ObjectiveRow key={obj.id} obj={obj} onClaim={() => claimObjective(obj.id)} />
+                  <ObjectiveRow key={obj.id} obj={obj} seasonFinished={seasonFinished} onClaim={() => claimObjective(obj.id)} />
                 ))}
               </Section>
-              <Section title="Activos" icon="pending" iconClass="text-blue-400" count={active.length}>
-                {active.map((obj) => (
-                  <ObjectiveRow key={obj.id} obj={obj} />
-                ))}
-              </Section>
+
+              {active.length > 0 && (
+                <Section title="Activos" icon="pending" iconClass="text-gold-400" count={active.length}>
+                  {seasonEndObjs.length > 0 && (
+                    <>
+                      <GroupHeader label="Fin de temporada" sub="Se evalúan al cerrar la temporada" />
+                      {seasonEndObjs.map((obj) => (
+                        <ObjectiveRow key={obj.id} obj={obj} seasonFinished={seasonFinished} />
+                      ))}
+                    </>
+                  )}
+                  {continuousObjs.length > 0 && (
+                    <>
+                      <GroupHeader label="Continuos" />
+                      {continuousObjs.map((obj) => (
+                        <ObjectiveRow key={obj.id} obj={obj} seasonFinished={seasonFinished} />
+                      ))}
+                    </>
+                  )}
+                  {matchObjs.length > 0 && (
+                    <>
+                      <GroupHeader label="De partido" />
+                      {matchObjs.map((obj) => (
+                        <ObjectiveRow key={obj.id} obj={obj} seasonFinished={seasonFinished} />
+                      ))}
+                    </>
+                  )}
+                  {ungroupedObjs.map((obj) => (
+                    <ObjectiveRow key={obj.id} obj={obj} seasonFinished={seasonFinished} />
+                  ))}
+                </Section>
+              )}
+
               <Section title="Completados" icon="check_circle" iconClass="text-gray-500" count={claimed.length}>
                 {claimed.map((obj) => (
-                  <ObjectiveRow key={obj.id} obj={obj} />
+                  <ObjectiveRow key={obj.id} obj={obj} seasonFinished={seasonFinished} />
                 ))}
               </Section>
               <Section title="Fallidos" icon="cancel" iconClass="text-red-500" count={failed.length}>
                 {failed.map((obj) => (
-                  <ObjectiveRow key={obj.id} obj={obj} />
+                  <ObjectiveRow key={obj.id} obj={obj} seasonFinished={seasonFinished} />
                 ))}
               </Section>
             </>
