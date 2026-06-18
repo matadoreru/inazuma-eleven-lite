@@ -22,8 +22,8 @@ function sortPlayers(players: Player[], key: SortKey, dir: SortDir, teamById: Ma
       case 'TOT': return b.stats.TOT - a.stats.TOT
       case 'valor': return calcTransferValue(b) - calcTransferValue(a)
       case 'equipo': {
-        const ta = a.teamId !== null ? (teamById.get(a.teamId)?.name ?? '') : '~Libre'
-        const tb = b.teamId !== null ? (teamById.get(b.teamId)?.name ?? '') : '~Libre'
+        const ta = (a.teamId !== null && a.teamId !== 0) ? (teamById.get(a.teamId)?.name ?? '') : '~Libre'
+        const tb = (b.teamId !== null && b.teamId !== 0) ? (teamById.get(b.teamId)?.name ?? '') : '~Libre'
         return ta.localeCompare(tb)
       }
       case 'name': default:
@@ -195,13 +195,14 @@ export default function TransfersScreen() {
                 </thead>
                 <tbody>
                   {paginated.map((player) => {
-                    const isFreeAgent = player.teamId === null
-                    const playerTeam = player.teamId !== null ? teamById.get(player.teamId) : null
+                    const isFreeAgent = player.teamId === null || player.teamId === 0
+                    const playerTeam = isFreeAgent ? null : teamById.get(player.teamId!)
                     return (
                       <TransferPlayerRow
                         key={player.id}
                         player={player}
                         teamName={playerTeam?.name ?? ''}
+                        teamBadgeUrl={playerTeam?.badgeUrl}
                         isFreeAgent={isFreeAgent}
                         onView={() => { selectPlayer(player.id); navigate('player_detail') }}
                       />

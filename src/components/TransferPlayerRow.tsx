@@ -14,11 +14,12 @@ function fmt(n: number): string {
 interface Props {
   player: Player
   teamName: string
+  teamBadgeUrl?: string
   isFreeAgent: boolean
   onView?: () => void
 }
 
-export default function TransferPlayerRow({ player, teamName, isFreeAgent, onView }: Props) {
+export default function TransferPlayerRow({ player, teamName, teamBadgeUrl, isFreeAgent, onView }: Props) {
   const { media } = getPlayerStatsSummary(player)
   const value = calcTransferValue(player)
 
@@ -53,7 +54,17 @@ export default function TransferPlayerRow({ player, teamName, isFreeAgent, onVie
             Libre
           </span>
         ) : (
-          <span className="text-gray-400 text-xs truncate block max-w-[110px]">{teamName}</span>
+          <div className="flex items-center gap-1.5 min-w-0">
+            {teamBadgeUrl && (
+              <img
+                src={teamBadgeUrl}
+                alt=""
+                className="w-5 h-5 object-contain shrink-0"
+                onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
+              />
+            )}
+            <span className="text-gray-400 text-xs truncate">{teamName}</span>
+          </div>
         )}
       </td>
       <td className="py-1.5 px-3 text-right tabular-nums w-20">

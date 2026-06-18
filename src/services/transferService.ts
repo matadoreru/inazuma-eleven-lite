@@ -334,14 +334,14 @@ export function initiateNegotiation(
   const safe = sanitizeAmount(amount)
   if (safe === null) return null
 
-  const isFreeAgent = player.teamId === null
-  const targetClub = player.teamId !== null ? teams.find((t) => t.id === player.teamId) : null
+  const isFreeAgent = player.teamId === null || player.teamId === 0
+  const targetClub = isFreeAgent ? null : teams.find((t) => t.id === player.teamId)
 
   const negotiation: OutgoingNegotiation = {
     id: crypto.randomUUID(),
     playerId,
     playerName: player.nameRomaji,
-    targetClubId: player.teamId ?? null,
+    targetClubId: isFreeAgent ? null : player.teamId,
     targetClubName: isFreeAgent ? 'Agente Libre' : (targetClub?.name ?? 'Desconocido'),
     phase: isFreeAgent ? 'player_pending' : 'club_pending',
     currentOffer: safe,
@@ -378,7 +378,7 @@ export function resolveNegotiations(
     const player = p.find((pl) => pl.id === neg.playerId)
 
     // Player no longer exists or moved to a different club
-    if (!player || (neg.targetClubId !== null && player.teamId !== neg.targetClubId) || (neg.targetClubId === null && player.teamId !== null)) {
+    if (!player || (neg.targetClubId !== null && player.teamId !== neg.targetClubId) || (neg.targetClubId === null && player.teamId !== null && player.teamId !== 0)) {
       c = updateNeg(c, neg.id, { phase: 'failed' })
       const eventType = neg.phase === 'player_pending'
         ? 'OUTGOING_TRANSFER_PLAYER_REJECTED' as const

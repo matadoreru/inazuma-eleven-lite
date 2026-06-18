@@ -173,13 +173,15 @@ export default function ScoutScreen() {
                   </thead>
                   <tbody>
                     {watchlistPlayers.map((player) => {
-                      const playerTeam = player.teamId !== null ? teamById.get(player.teamId) : null
+                      const isFreeAgentWl = player.teamId === null || player.teamId === 0
+                      const playerTeam = isFreeAgentWl ? null : teamById.get(player.teamId!)
                       return (
                         <TransferPlayerRow
                           key={player.id}
                           player={player}
                           teamName={playerTeam?.name ?? ''}
-                          isFreeAgent={player.teamId === null}
+                          teamBadgeUrl={playerTeam?.badgeUrl}
+                          isFreeAgent={isFreeAgentWl}
                           onView={() => { selectPlayer(player.id); navigate('player_detail') }}
                         />
                       )
