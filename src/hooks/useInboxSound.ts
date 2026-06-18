@@ -1,5 +1,20 @@
 import { useEffect, useRef } from 'react'
 import { useCareerStore } from '../store/careerStore'
+import { DEFAULT_PREFS } from './useNotificationPreferences'
+import type { InboxEventType } from '../types/career'
+
+const STORAGE_KEY = 'ie_notif_prefs_v1'
+
+function isTypeEnabled(type: InboxEventType): boolean {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY)
+    if (raw) {
+      const stored = JSON.parse(raw) as Partial<Record<InboxEventType, boolean>>
+      return stored[type] ?? DEFAULT_PREFS[type]
+    }
+  } catch { /* ignore */ }
+  return DEFAULT_PREFS[type]
+}
 
 function playNotificationSound() {
   try {
@@ -9,26 +24,27 @@ function playNotificationSound() {
     osc.connect(gain)
     gain.connect(ctx.destination)
     osc.type = 'sine'
-    // Two-tone ascending ding: 660 Hz → 880 Hz
     osc.frequency.setValueAtTime(660, ctx.currentTime)
     osc.frequency.setValueAtTime(880, ctx.currentTime + 0.1)
     gain.gain.setValueAtTime(0.35, ctx.currentTime)
     gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.45)
     osc.start(ctx.currentTime)
     osc.stop(ctx.currentTime + 0.45)
-  } catch {
-    // Audio not available — silently ignore
-  }
+  } catch { /* Audio not available */ }
 }
 
 export function useInboxSound() {
-  const inboxLength = useCareerStore((s) => s.career?.inbox.length ?? 0)
-  const prevLengthRef = useRef(inboxLength)
+  const inbox = useCareerStore((s) => s.career?.inbox ?? [])
+  const prevLengthRef = useRef(inbox.length)
 
   useEffect(() => {
-    if (inboxLength > prevLengthRef.current) {
-      playNotificationSound()
+    if (inbox.length > prevLengthRef.current) {
+      // inbox[0] is the newest event (prepended)
+      const newestType = inbox[0]?.type
+      if (newestType && isTypeEnabled(newestType)) {
+        playNotificationSound()
+      }
     }
-    prevLengthRef.current = inboxLength
-  }, [inboxLength])
+    prevLengthRef.current = inbox.length
+  }, [inbox.length])
 }

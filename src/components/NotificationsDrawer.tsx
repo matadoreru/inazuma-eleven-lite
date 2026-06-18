@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import { useCareerStore } from '../store/careerStore'
+import { useNotificationPreferences, NOTIFICATION_GROUPS } from '../hooks/useNotificationPreferences'
 import Drawer from './Drawer'
 import Icon from './Icon'
 import type { InboxEvent, InboxEventType } from '../types/career'
@@ -103,33 +105,83 @@ export default function NotificationsDrawer() {
   const deleteInboxEvent = useCareerStore((s) => s.deleteInboxEvent)
   const deleteAllInboxEvents = useCareerStore((s) => s.deleteAllInboxEvents)
 
-  const inbox = career ? [...career.inbox].reverse() : []
+  const { prefs, isGroupEnabled, toggleGroup } = useNotificationPreferences()
+  const [showFilter, setShowFilter] = useState(false)
+
+  const allEvents = career ? [...career.inbox].reverse() : []
+  const inbox = allEvents.filter((e) => prefs[e.type])
   const unreadCount = inbox.filter((e) => !e.read).length
 
   return (
     <Drawer
       isOpen={uiPanel === 'notifications'}
-      onClose={() => setUIPanel(null)}
+      onClose={() => { setUIPanel(null); setShowFilter(false) }}
       title="Notificaciones"
       subtitle={unreadCount > 0 ? `${unreadCount} sin leer` : 'Todo al día'}
     >
       {/* Actions bar */}
-      {inbox.length > 0 && (
-        <div className="flex items-center justify-between px-5 py-2.5 border-b border-gray-800 shrink-0">
-          <button
-            onClick={markAllInboxRead}
-            className="text-xs text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1"
-          >
-            <Icon name="done_all" size="xs" />
-            Marcar todo leído
-          </button>
-          <button
-            onClick={deleteAllInboxEvents}
-            className="text-xs text-gray-500 hover:text-red-400 transition-colors flex items-center gap-1"
-          >
-            <Icon name="delete_sweep" size="xs" />
-            Eliminar todo
-          </button>
+      <div className="flex items-center justify-between px-5 py-2.5 border-b border-gray-800 shrink-0">
+        <div className="flex items-center gap-3">
+          {inbox.length > 0 && (
+            <>
+              <button
+                onClick={markAllInboxRead}
+                className="text-xs text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1"
+              >
+                <Icon name="done_all" size="xs" />
+                Marcar todo leído
+              </button>
+              <button
+                onClick={deleteAllInboxEvents}
+                className="text-xs text-gray-500 hover:text-red-400 transition-colors flex items-center gap-1"
+              >
+                <Icon name="delete_sweep" size="xs" />
+                Eliminar todo
+              </button>
+            </>
+          )}
+        </div>
+        <button
+          onClick={() => setShowFilter((v) => !v)}
+          className={`p-1 rounded transition-colors ${showFilter ? 'text-white bg-gray-700' : 'text-gray-500 hover:text-gray-300'}`}
+          aria-label="Filtrar notificaciones"
+        >
+          <Icon name="settings" size="xs" />
+        </button>
+      </div>
+
+      {/* Filter panel */}
+      {showFilter && (
+        <div className="px-5 py-3 border-b border-gray-800 bg-gray-900/60 shrink-0">
+          <p className="text-gray-500 text-[0.625rem] uppercase tracking-widest font-bold mb-2">
+            Mostrar notificaciones
+          </p>
+          <div className="flex flex-col gap-1.5">
+            {NOTIFICATION_GROUPS.map((group) => {
+              const enabled = isGroupEnabled(group)
+              return (
+                <label key={group.label} className="flex items-center gap-2.5 cursor-pointer group">
+                  <button
+                    role="switch"
+                    aria-checked={enabled}
+                    onClick={() => toggleGroup(group)}
+                    className={`relative w-8 h-4 rounded-full transition-colors shrink-0 ${
+                      enabled ? 'bg-blue-600' : 'bg-gray-600'
+                    }`}
+                  >
+                    <span
+                      className={`absolute top-0.5 left-0.5 w-3 h-3 bg-white rounded-full shadow transition-transform ${
+                        enabled ? 'translate-x-4' : 'translate-x-0'
+                      }`}
+                    />
+                  </button>
+                  <span className={`text-xs transition-colors ${enabled ? 'text-gray-300' : 'text-gray-600'}`}>
+                    {group.label}
+                  </span>
+                </label>
+              )
+            })}
+          </div>
         </div>
       )}
 
@@ -137,7 +189,9 @@ export default function NotificationsDrawer() {
       {inbox.length === 0 ? (
         <div className="flex flex-col items-center justify-center gap-3 py-16 px-6 text-center">
           <Icon name="notifications_none" size="xl" className="text-gray-700" />
-          <p className="text-gray-500 text-sm">No hay notificaciones</p>
+          <p className="text-gray-500 text-sm">
+            {allEvents.length > 0 ? 'Todos los tipos están ocultos' : 'No hay notificaciones'}
+          </p>
         </div>
       ) : (
         <div>
