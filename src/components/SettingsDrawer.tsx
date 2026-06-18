@@ -38,6 +38,7 @@ export default function SettingsDrawer() {
   const teams = useCareerStore((s) => s.teams)
   const navigate = useCareerStore((s) => s.navigate)
   const saveCareer = useCareerStore((s) => s.saveCareer)
+  const exitToMainMenu = useCareerStore((s) => s.exitToMainMenu)
 
   const [lang, setLang] = useState('es')
   const [saveSlot, setSaveSlot] = useState(0)
@@ -138,6 +139,13 @@ export default function SettingsDrawer() {
             >
               <Icon name="folder_open" size="xs" />
               Gestionar guardados
+            </button>
+            <button
+              onClick={() => exitToMainMenu()}
+              className="w-full mt-1 flex items-center justify-center gap-2 py-2 rounded-lg text-red-500 hover:text-red-400 text-sm transition-colors"
+            >
+              <Icon name="logout" size="xs" />
+              Volver al menú principal
             </button>
           </section>
         )}

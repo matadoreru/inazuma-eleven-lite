@@ -96,3 +96,36 @@ export function listSaves(): SaveSlot[] {
 export function deleteSave(slot: number): void {
   localStorage.removeItem(getKey(slot))
 }
+
+// ─── Auto-save (session persistence) ─────────────────────────────────────────
+
+const AUTOSAVE_KEY = 'iel_autosave'
+
+interface AutoSaveData {
+  career: Career
+  players: Player[]
+  teams: Team[]
+}
+
+export function autoSave(career: Career, players: Player[], teams: Team[]): void {
+  try {
+    const data: AutoSaveData = { career, players, teams }
+    localStorage.setItem(AUTOSAVE_KEY, JSON.stringify(data))
+  } catch { /* storage full or unavailable */ }
+}
+
+export function loadAutoSave(): AutoSaveData | null {
+  try {
+    const raw = localStorage.getItem(AUTOSAVE_KEY)
+    if (!raw) return null
+    const data = JSON.parse(raw) as AutoSaveData
+    if (!data.career || !data.players || !data.teams) return null
+    return data
+  } catch {
+    return null
+  }
+}
+
+export function clearAutoSave(): void {
+  try { localStorage.removeItem(AUTOSAVE_KEY) } catch { /* ignore */ }
+}

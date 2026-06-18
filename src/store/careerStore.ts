@@ -19,7 +19,7 @@ import { formations as seedFormations, getFormationSlots } from '../data/formati
 
 // Services
 import { createCareer, getObjectivesForTeam } from '../services/careerService'
-import { save as saveSlot, load as loadSlot } from '../services/saveService'
+import { save as saveSlot, load as loadSlot, loadAutoSave, clearAutoSave } from '../services/saveService'
 import { simulate } from '../services/matchSimulator'
 import { buildTeamSnapshot, applyFormation, rebalanceLineup } from '../services/formationService'
 import { updateStandings, sortStandings } from '../services/standingsService'
@@ -549,6 +549,7 @@ interface CareerState {
   loadCareer(slot: number): void
   saveCareer(slot: number, slotName: string): void
   exitToMainMenu(): void
+  restoreAutoSave(): boolean
 
   // Match — quick simulation
   simulateMatch(matchId: string): void
@@ -756,6 +757,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
   },
 
   exitToMainMenu() {
+    clearAutoSave()
     set({
       career: null,
       players: [],
@@ -768,6 +770,44 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
       selectedMatchId: null,
       uiPanel: null,
     })
+  },
+
+  restoreAutoSave() {
+    const data = loadAutoSave()
+    if (!data) return false
+    const players = data.players.map((p: Player) => ({
+      ...p,
+      seasonStats: p.seasonStats ?? { goals: 0, assists: 0, cleanSheets: 0, matchesPlayed: 0, minutesPlayed: 0 },
+      improvementTechniques: p.improvementTechniques ?? [],
+      career: { ...p.career, positionChangePlan: p.career.positionChangePlan ?? null },
+    }))
+    const teams = data.teams.map((t: Team) => ({
+      ...t,
+      scoutLevel: t.scoutLevel ?? Math.max(1, Math.ceil(t.reputation / 20)),
+      facilitiesLevel: t.facilitiesLevel ?? Math.max(1, Math.ceil(t.reputation / 20)),
+    }))
+    set({
+      career: {
+        ...data.career,
+        playerPotential: data.career.playerPotential ?? {},
+        weeklyTrainingPlan: data.career.weeklyTrainingPlan ?? null,
+        inventory: data.career.inventory ?? { ...EMPTY_INVENTORY },
+        allLeagueSeasons: data.career.allLeagueSeasons ?? {},
+        cup: data.career.cup ?? null,
+        seasonStatus: data.career.seasonStatus ?? 'active',
+        lastSeasonReview: data.career.lastSeasonReview ?? null,
+        outgoingNegotiations: data.career.outgoingNegotiations ?? [],
+      },
+      players,
+      teams,
+      screen: 'career_home',
+      lastMatchResult: null,
+      pendingMatch: null,
+      selectedPlayerId: null,
+      selectedMatchId: null,
+      activeTransferFilter: { ...DEFAULT_TRANSFER_FILTER },
+    })
+    return true
   },
 
   // --- Quick simulation ---
