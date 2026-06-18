@@ -71,6 +71,8 @@ export interface InboxEvent {
   date: string
   read: boolean
   data?: Record<string, unknown>
+  targetScreen?: string      // Screen name to navigate to on click
+  targetEntityId?: string    // e.g. playerId or matchId as string
 }
 
 export interface TransferOffer {
@@ -89,6 +91,7 @@ export interface TransferOffer {
 export type NegotiationPhase =
   | 'club_pending'      // waiting for rival club response
   | 'player_pending'    // club accepted; waiting for player decision
+  | 'player_counter'    // free agent made a counter-offer; waiting for user response
   | 'player_accepted'   // player said yes; waiting for user to confirm
   | 'completed'         // transfer completed successfully
   | 'failed'            // rejected definitively

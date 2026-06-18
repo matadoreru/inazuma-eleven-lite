@@ -261,8 +261,10 @@ function makeEvent(
   body: string,
   date: string,
   data?: Record<string, unknown>,
+  targetScreen?: string,
+  targetEntityId?: string,
 ): InboxEvent {
-  return { id: crypto.randomUUID(), type, title, body, date, read: false, data }
+  return { id: crypto.randomUUID(), type, title, body, date, read: false, data, targetScreen, targetEntityId }
 }
 
 function pushEvent(career: Career, event: InboxEvent): Career {
@@ -307,7 +309,40 @@ export function evaluateClubOffer(
   return { decision: 'reject' }
 }
 
-export function evaluatePlayerDecision(player: Player, buyingTeam: Team): 'accept' | 'reject' {
+export function evaluatePlayerDecision(
+  player: Player,
+  buyingTeam: Team,
+  offerAmount: number,
+  isFreeAgent: boolean,
+): 'accept' | 'counter' | 'reject' {
+  if (isFreeAgent) {
+    const marketValue = Math.max(1, calcTransferValue(player))
+    const ratio = offerAmount / marketValue
+
+    // Base probabilities by offer ratio
+    let pAccept: number
+    let pCounter: number
+    if (ratio >= 1.0) {
+      pAccept = 0.90; pCounter = 0.07
+    } else if (ratio >= 0.85) {
+      pAccept = 0.60; pCounter = 0.28
+    } else if (ratio >= 0.70) {
+      pAccept = 0.25; pCounter = 0.40
+    } else {
+      pAccept = 0.05; pCounter = 0.15
+    }
+
+    // Prestigious club bonus / weak club penalty (capped ±10%)
+    const repBonus = Math.max(-0.10, Math.min(0.10, (buyingTeam.reputation - 50) / 100))
+    pAccept = Math.max(0, Math.min(1, pAccept + repBonus))
+
+    const r = Math.random()
+    if (r < pAccept) return 'accept'
+    if (r < pAccept + pCounter) return 'counter'
+    return 'reject'
+  }
+
+  // Non-free-agent: reputation-only check (money settled in club phase)
   const tot = player.stats.TOT
   if (tot < 65) return 'accept'
   if (tot < 75) return buyingTeam.reputation >= 30 ? 'accept' : 'reject'
@@ -390,6 +425,7 @@ export function resolveNegotiations(
         `Negociación fallida: ${neg.playerName}`,
         `${neg.playerName} ya no está disponible.`,
         currentDate, { negotiationId: neg.id },
+        'transfers',
       ))
       continue
     }
@@ -410,6 +446,7 @@ export function resolveNegotiations(
           `Club acepta: ${neg.playerName}`,
           `${sellingTeam.name} acepta tu oferta de ${fmtAmt(neg.currentOffer)} por ${neg.playerName}. El jugador decidirá en breve.`,
           currentDate, { negotiationId: neg.id },
+          'transfers',
         ))
       } else if (clubResult.decision === 'counter') {
         c = updateNeg(c, neg.id, { counterAmount: clubResult.counterAmount })
@@ -418,6 +455,7 @@ export function resolveNegotiations(
           `Contra-oferta: ${neg.playerName}`,
           `${sellingTeam.name} propone ${fmtAmt(clubResult.counterAmount)} por ${neg.playerName}.`,
           currentDate, { negotiationId: neg.id, counterAmount: clubResult.counterAmount },
+          'transfers',
         ))
       } else {
         c = updateNeg(c, neg.id, { phase: 'failed' })
@@ -426,6 +464,7 @@ export function resolveNegotiations(
           `Oferta rechazada: ${neg.playerName}`,
           `${sellingTeam.name} rechaza tu oferta por ${neg.playerName}.`,
           currentDate, { negotiationId: neg.id },
+          'transfers',
         ))
       }
     } else {
@@ -433,7 +472,7 @@ export function resolveNegotiations(
       const buyingTeam = t.find((tm) => tm.id === career.teamId)
       if (!buyingTeam) continue
 
-      const playerDecision = evaluatePlayerDecision(player, buyingTeam)
+      const playerDecision = evaluatePlayerDecision(player, buyingTeam, neg.currentOffer, neg.isFreeAgent)
 
       if (playerDecision === 'accept') {
         if (buyingTeam.budget < neg.currentOffer) {
@@ -443,6 +482,7 @@ export function resolveNegotiations(
             `Sin presupuesto: ${neg.playerName}`,
             `${neg.playerName} aceptó pero no tienes suficiente presupuesto.`,
             currentDate, { negotiationId: neg.id },
+            'transfers',
           ))
           continue
         }
@@ -453,6 +493,19 @@ export function resolveNegotiations(
           `¡El jugador acepta! ${neg.playerName}`,
           `${neg.playerName} ha aceptado tu oferta de ${fmtAmt(neg.currentOffer)}. Ve al ojeador para confirmar el fichaje.`,
           currentDate, { negotiationId: neg.id },
+          'transfers',
+        ))
+      } else if (playerDecision === 'counter') {
+        // Player asks for market value (or a bit above if offer was very low)
+        const marketValue = calcTransferValue(player)
+        const counterAmount = Math.round(marketValue * (neg.currentOffer < marketValue * 0.85 ? 1.0 : 1.05))
+        c = updateNeg(c, neg.id, { phase: 'player_counter', counterAmount })
+        c = pushEvent(c, makeEvent(
+          'OUTGOING_TRANSFER_CLUB_COUNTER',
+          `Contraoferta del jugador: ${neg.playerName}`,
+          `${neg.playerName} propone ${fmtAmt(counterAmount)} para unirse a tu equipo.`,
+          currentDate, { negotiationId: neg.id, counterAmount },
+          'transfers',
         ))
       } else {
         c = updateNeg(c, neg.id, { phase: 'failed' })
@@ -461,6 +514,7 @@ export function resolveNegotiations(
           `Jugador rechaza: ${neg.playerName}`,
           `${neg.playerName} ha decidido no unirse a tu equipo.`,
           currentDate, { negotiationId: neg.id },
+          'transfers',
         ))
       }
     }
@@ -501,6 +555,25 @@ export function respondToCounter(
     offerRound: neg.offerRound + 1,
     resolutionDate: addDays(career.season.currentDate, randInt(2, 3)),
   })
+}
+
+// Accept or reject a free agent's counter-offer.
+export function respondToPlayerCounter(
+  negotiationId: string,
+  action: 'accept' | 'reject',
+  career: Career,
+): Career {
+  const neg = career.outgoingNegotiations.find((n) => n.id === negotiationId)
+  if (!neg || neg.phase !== 'player_counter' || neg.counterAmount === undefined) return career
+
+  if (action === 'accept') {
+    return updateNeg(career, negotiationId, {
+      currentOffer: neg.counterAmount,
+      counterAmount: undefined,
+      phase: 'player_accepted',
+    })
+  }
+  return updateNeg(career, negotiationId, { phase: 'failed' })
 }
 
 export function confirmTransfer(

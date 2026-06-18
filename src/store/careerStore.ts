@@ -367,7 +367,7 @@ function commitMatchResult(
     }
     updatedCareer = addEvent('MATCH_RESULT', matchTitle, `Copa — ${matchTitle}`, updatedCareer, {
       matchId, homeGoals: result.homeGoals, awayGoals: result.awayGoals,
-    })
+    }, 'match', matchId)
     return { career: updatedCareer, teams, players: updatedPlayers }
   }
   const match = career.season.matches.find((m) => m.id === matchId)
@@ -452,7 +452,25 @@ function commitMatchResult(
     matchId,
     homeGoals: result.homeGoals,
     awayGoals: result.awayGoals,
-  })
+  }, 'match', matchId)
+
+  // Add inbox events for newly injured players (user team only)
+  if (isUserMatch) {
+    const newlyInjured = result.events.filter(
+      (e) => e.type === 'INJURY' && e.teamId === career.teamId && e.playerId != null,
+    )
+    for (const injEvent of newlyInjured) {
+      updatedCareer = addEvent(
+        'PLAYER_INJURED',
+        `Lesión: ${injEvent.playerName ?? 'Jugador'}`,
+        `${injEvent.playerName ?? 'Un jugador'} ha salido lesionado del partido.`,
+        updatedCareer,
+        { playerId: injEvent.playerId },
+        'squad',
+        String(injEvent.playerId),
+      )
+    }
+  }
 
   // Track state before objective check
   const prevCompleted = new Set(updatedCareer.objectives.filter((o) => o.completed).map((o) => o.id))
@@ -478,6 +496,8 @@ function commitMatchResult(
       `Objetivo completado: ${obj.description}`,
       `Reclama tu recompensa (${moneyStr}${repStr}) en el panel de objetivos.`,
       updatedCareer,
+      undefined,
+      'career_home',
     )
   }
 
@@ -958,6 +978,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
             playerName: offer.playerName,
             amount: offer.amount,
           },
+          'transfers',
         )
       }
       set({ career: updatedCareer })

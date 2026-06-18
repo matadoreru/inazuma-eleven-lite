@@ -45,47 +45,50 @@ const typeColor: Record<InboxEventType, string> = {
   OUTGOING_TRANSFER_PLAYER_REJECTED: 'text-red-400',
 }
 
-function NotificationItem({ event, onRead, onDelete }: {
+function NotificationItem({ event, onRead, onDelete, onNavigate }: {
   event: InboxEvent
   onRead: () => void
   onDelete: () => void
+  onNavigate?: () => void
 }) {
+  const isNavigable = !!event.targetScreen
+
+  function handleClick() {
+    onRead()
+    if (isNavigable && onNavigate) onNavigate()
+  }
+
   return (
-    <div className={`px-5 py-3 border-b border-gray-800 transition-colors hover:bg-gray-800/50 ${
-      !event.read ? 'bg-blue-950/20' : ''
-    }`}>
+    <div
+      className={`px-5 py-3 border-b border-gold-600/15 transition-colors ${
+        isNavigable ? 'cursor-pointer hover:bg-dark-700/40' : 'hover:bg-dark-700/30'
+      } ${!event.read ? 'bg-blue-950/20' : ''}`}
+      onClick={isNavigable ? handleClick : undefined}
+    >
       <div className="flex items-start gap-3">
-        <Icon
-          name={typeIcon[event.type]}
-          size="sm"
-          className={`shrink-0 mt-0.5 ${typeColor[event.type]}`}
-        />
+        <Icon name={typeIcon[event.type]} size="sm" className={`shrink-0 mt-0.5 ${typeColor[event.type]}`} />
         <div className="flex-1 min-w-0">
           <div className="flex items-start justify-between gap-2">
             <span className={`text-sm font-semibold leading-tight ${event.read ? 'text-gray-300' : 'text-white'}`}>
               {event.title}
             </span>
-            {!event.read && (
-              <div className="w-2 h-2 rounded-full bg-blue-500 shrink-0 mt-1" />
-            )}
+            <div className="flex items-center gap-1 shrink-0">
+              {!event.read && <div className="w-2 h-2 rounded-full bg-blue-500" />}
+              {isNavigable && <Icon name="chevron_right" size="xs" className="text-gray-500" />}
+            </div>
           </div>
           <p className="text-gray-400 text-xs mt-1 leading-snug">{event.body}</p>
           <div className="flex items-center justify-between mt-2">
             <span className="text-gray-600 text-xs">{event.date}</span>
             <div className="flex items-center gap-2">
-              {!event.read && (
-                <button
-                  onClick={onRead}
-                  className="text-xs text-blue-400 hover:text-blue-300 transition-colors"
-                >
+              {!event.read && !isNavigable && (
+                <button onClick={(e) => { e.stopPropagation(); onRead() }}
+                  className="text-xs text-blue-400 hover:text-blue-300 transition-colors">
                   Marcar leído
                 </button>
               )}
-              <button
-                onClick={onDelete}
-                className="text-gray-600 hover:text-red-400 transition-colors"
-                aria-label="Eliminar"
-              >
+              <button onClick={(e) => { e.stopPropagation(); onDelete() }}
+                className="text-gray-600 hover:text-red-400 transition-colors" aria-label="Eliminar">
                 <Icon name="delete" size="xs" />
               </button>
             </div>
@@ -104,6 +107,7 @@ export default function NotificationsDrawer() {
   const markAllInboxRead = useCareerStore((s) => s.markAllInboxRead)
   const deleteInboxEvent = useCareerStore((s) => s.deleteInboxEvent)
   const deleteAllInboxEvents = useCareerStore((s) => s.deleteAllInboxEvents)
+  const navigate = useCareerStore((s) => s.navigate)
 
   const { prefs, isGroupEnabled, toggleGroup } = useNotificationPreferences()
   const [showFilter, setShowFilter] = useState(false)
@@ -115,7 +119,7 @@ export default function NotificationsDrawer() {
   const gearButton = (
     <button
       onClick={() => setShowFilter((v) => !v)}
-      className={`p-1.5 rounded-lg transition-colors ${showFilter ? 'text-white bg-gray-700' : 'text-gray-400 hover:text-white hover:bg-gray-700'}`}
+      className={`p-1.5 rounded-lg transition-colors ${showFilter ? 'text-white bg-dark-700/60' : 'text-gray-400 hover:text-white hover:bg-dark-700/60'}`}
       aria-label="Filtrar notificaciones"
     >
       <Icon name="tune" size="sm" />
@@ -152,7 +156,7 @@ export default function NotificationsDrawer() {
 
       {/* Filter panel */}
       {showFilter && (
-        <div className="px-5 py-3 border-b border-gray-800 bg-gray-900/60 shrink-0">
+        <div className="px-5 py-3 border-b border-gray-800 bg-dark-900/60 shrink-0">
           <p className="text-gray-500 text-[0.625rem] uppercase tracking-widest font-bold mb-2">
             Mostrar notificaciones
           </p>
@@ -166,7 +170,7 @@ export default function NotificationsDrawer() {
                     aria-checked={enabled}
                     onClick={() => toggleGroup(group)}
                     className={`relative w-8 h-4 rounded-full transition-colors shrink-0 ${
-                      enabled ? 'bg-blue-600' : 'bg-gray-600'
+                      enabled ? 'bg-gold-600' : 'bg-dark-600/80'
                     }`}
                   >
                     <span
@@ -199,6 +203,10 @@ export default function NotificationsDrawer() {
               event={event}
               onRead={() => markInboxRead(event.id)}
               onDelete={() => deleteInboxEvent(event.id)}
+              onNavigate={event.targetScreen ? () => {
+                setUIPanel(null)
+                navigate(event.targetScreen as any)
+              } : undefined}
             />
           ))}
         </div>

@@ -6,6 +6,8 @@ export function addEvent(
   body: string,
   career: Career,
   data?: Record<string, unknown>,
+  targetScreen?: string,
+  targetEntityId?: string,
 ): Career {
   const event: InboxEvent = {
     id: crypto.randomUUID(),
@@ -15,6 +17,8 @@ export function addEvent(
     date: new Date().toISOString().split('T')[0],
     read: false,
     data,
+    targetScreen,
+    targetEntityId,
   }
 
   return {
