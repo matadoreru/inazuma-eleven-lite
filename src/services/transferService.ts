@@ -306,8 +306,8 @@ export function resolveIncomingCounters(
   teams: Team[],
 ): { career: Career; players: Player[]; teams: Team[] } {
   let c = career
-  const p = players
-  const t = teams
+  let p = players
+  let t = teams
 
   for (const offer of (career.incomingOffers ?? [])) {
     if (offer.status !== 'counter_sent') continue
@@ -319,7 +319,7 @@ export function resolveIncomingCounters(
       continue
     }
 
-    const marketValue = Math.max(1, calcTransferValue(players.find((pl) => pl.id === offer.playerId) ?? { stats: { TOT: 70 } } as any))
+    const marketValue = Math.max(1, calcTransferValue(p.find((pl) => pl.id === offer.playerId) ?? { stats: { TOT: 70 } } as any))
     const ratio = (offer.counterAmount ?? offer.amount) / marketValue
     const pAccept = ratio <= 1.0 ? 0.65 : ratio <= 1.2 ? 0.40 : ratio <= 1.5 ? 0.15 : 0.03
 
@@ -329,6 +329,8 @@ export function resolveIncomingCounters(
         { ...c, incomingOffers: (c.incomingOffers ?? []).map((o) => o.id === offer.id ? { ...o, amount: offer.counterAmount!, status: 'pending' } : o) },
         p, t)
       c = acceptResult.career
+      p = acceptResult.players
+      t = acceptResult.teams
     } else {
       c = { ...c, incomingOffers: (c.incomingOffers ?? []).map((o) => o.id === offer.id ? { ...o, status: 'counter_rejected' } : o) }
     }

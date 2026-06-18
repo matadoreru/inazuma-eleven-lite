@@ -970,10 +970,11 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
           n >= 1_000_000 ? `€${(n / 1_000_000).toFixed(1)}M` :
           n >= 1_000 ? `€${(n / 1_000).toFixed(0)}K` : `€${n}`
 
+        const playerName = state.players.find((p) => p.id === offer.playerId)?.name ?? 'un jugador'
         updatedCareer = addEvent(
           'TRANSFER_OFFER',
           `Oferta de ${offer.fromTeamName}`,
-          `${offer.fromTeamName} ofrece ${fmt(offer.amount)} por un jugador.`,
+          `${offer.fromTeamName} ofrece ${fmt(offer.amount)} por ${playerName}.`,
           updatedCareer,
           {
             offerId: offer.id,
@@ -1294,7 +1295,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
       updatedCareer = addEvent('TRANSFER_ACCEPTED',
         `Venta confirmada`,
         `Has vendido al jugador por ${fmt(offer.amount)}.`,
-        result.career, undefined, 'transfers')
+        updatedCareer, undefined, 'transfers')
     }
     set({ career: updatedCareer, players: result.players, teams: result.teams })
   },
