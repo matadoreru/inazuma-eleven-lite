@@ -1,6 +1,5 @@
 import { useCareerStore } from '../store/careerStore'
-import TopNavigation from '../components/TopNavigation'
-import SideNavigation from '../components/SideNavigation'
+import GameLayout from '../components/GameLayout'
 import ObjectivesPanel from '../components/ObjectivesPanel'
 import MatchPreviewPanel from '../components/MatchPreviewPanel'
 import DayAdvancePanel from '../components/DayAdvancePanel'
@@ -18,82 +17,67 @@ function formatBudget(n: number): string {
   return `€${n}`
 }
 
-// ─── Season phase banners ──────────────────────────────────────────────────────
-
-function UserFinishedBanner({ onAdvanceDay, onAdvanceToNextMatch }: {
+function UserFinishedBanner({ onAdvanceDay, onAdvanceToNextMatch, onSimulateAll }: {
   onAdvanceDay: () => void
   onAdvanceToNextMatch: () => void
+  onSimulateAll: () => void
 }) {
   return (
-    <div className="bg-blue-900/30 border border-blue-700/40 rounded-xl p-4 flex flex-col gap-3">
+    <div className="panel p-4 flex flex-col gap-3 border-blue-500/40">
       <div className="flex items-center gap-2">
-        <Icon name="schedule" size="sm" className="text-blue-400" />
-        <p className="text-blue-300 font-semibold text-sm">Tu liga ha terminado</p>
+        <Icon name="schedule" size="sm" className="text-gold-500" />
+        <p className="text-gold-400 font-semibold text-sm">Tu liga ha terminado</p>
       </div>
       <p className="text-gray-400 text-xs">
-        Otras competiciones siguen en curso. Avanza días para simularlas.
+        Otras competiciones siguen en curso. Avanza días para simularlas o simúlalas todas de golpe.
       </p>
       <div className="flex gap-2">
-        <button
-          onClick={onAdvanceDay}
-          className="flex-1 bg-gray-700 hover:bg-gray-600 text-white text-xs font-medium py-2 rounded-lg transition-colors"
-        >
+        <button onClick={onAdvanceDay} className="btn-secondary flex-1 py-2">
           +1 día
         </button>
-        <button
-          onClick={onAdvanceToNextMatch}
-          className="flex-1 bg-blue-700 hover:bg-blue-600 text-white text-xs font-medium py-2 rounded-lg transition-colors"
-        >
-          Avanzar al siguiente evento
+        <button onClick={onAdvanceToNextMatch} className="flex-1 py-2 bg-blue-800/60 hover:bg-blue-700/70 text-gold-400 text-xs font-semibold rounded border border-blue-600/40 hover:border-blue-500 transition-colors uppercase tracking-wide">
+          Sig. evento
         </button>
       </div>
+      <button
+        onClick={onSimulateAll}
+        className="w-full py-2.5 bg-green-800/60 hover:bg-green-700/70 text-green-300 text-xs font-semibold rounded border border-green-600/40 hover:border-green-500 transition-colors uppercase tracking-wide flex items-center justify-center gap-1.5"
+      >
+        <Icon name="fast_forward" size="xs" />
+        Simular todo y cerrar temporada
+      </button>
     </div>
   )
 }
 
 function AllFinishedBanner({ onCloseSeason }: { onCloseSeason: () => void }) {
   return (
-    <div className="bg-green-900/30 border border-green-700/40 rounded-xl p-5 flex flex-col gap-4">
+    <div className="panel p-5 flex flex-col gap-4 border-green-600/40">
       <div className="flex items-center gap-3">
-        <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
+        <div className="w-9 h-9 rounded-full bg-green-500/20 border border-green-600/40 flex items-center justify-center">
           <Icon name="check_circle" size="md" className="text-green-400" />
         </div>
         <div>
-          <p className="text-green-300 font-bold">Todas las competiciones han terminado</p>
+          <p className="text-green-300 font-bold text-sm">Todas las competiciones han terminado</p>
           <p className="text-gray-400 text-xs mt-0.5">La temporada está lista para cerrarse</p>
         </div>
       </div>
       <button
         onClick={onCloseSeason}
-        className="w-full bg-green-600 hover:bg-green-500 text-white font-semibold py-3 rounded-xl flex items-center justify-center gap-2 transition-colors"
+        className="w-full bg-green-800/60 hover:bg-green-700/70 text-green-300 text-xs font-semibold py-3 rounded border border-green-600/40 hover:border-green-500 flex items-center justify-center gap-2 transition-colors uppercase tracking-wide"
       >
         <Icon name="done_all" size="sm" />
-        Cerrar temporada y ver resumen
+        Cerrar temporada · Ver resumen
       </button>
     </div>
   )
 }
 
-// ─── Next match panel (league or cup) ─────────────────────────────────────────
-
 function NextMatchSection({
-  match,
-  isCupMatch,
-  teams,
-  currentDate,
-  userTeamId,
-  isSimulating,
-  onQuickSim,
-  onLiveSim,
+  match, isCupMatch, teams, currentDate, userTeamId, isSimulating, onQuickSim, onLiveSim,
 }: {
-  match: Match
-  isCupMatch: boolean
-  teams: Team[]
-  currentDate: string
-  userTeamId: number
-  isSimulating: boolean
-  onQuickSim: () => void
-  onLiveSim: () => void
+  match: Match; isCupMatch: boolean; teams: Team[]; currentDate: string
+  userTeamId: number; isSimulating: boolean; onQuickSim: () => void; onLiveSim: () => void
 }) {
   const homeTeam = teams.find((t) => t.id === match.homeTeamId)
   const awayTeam = teams.find((t) => t.id === match.awayTeamId)
@@ -118,13 +102,9 @@ function NextMatchSection({
   )
 }
 
-// ─── Screen ────────────────────────────────────────────────────────────────────
-
 export default function CareerHomeScreen() {
   const career = useCareerStore((s) => s.career)
   const teams = useCareerStore((s) => s.teams)
-  const screen = useCareerStore((s) => s.screen)
-  const navigate = useCareerStore((s) => s.navigate)
   const simulateMatch = useCareerStore((s) => s.simulateMatch)
   const simulateCupMatch = useCareerStore((s) => s.simulateCupMatch)
   const startLiveMatch = useCareerStore((s) => s.startLiveMatch)
@@ -132,18 +112,21 @@ export default function CareerHomeScreen() {
   const advanceDay = useCareerStore((s) => s.advanceDay)
   const advanceToNextMatch = useCareerStore((s) => s.advanceToNextMatch)
   const closeSeason = useCareerStore((s) => s.closeSeason)
+  const simulateAllRemainingAndClose = useCareerStore((s) => s.simulateAllRemainingAndClose)
+  const navigate = useCareerStore((s) => s.navigate)
   const isSimulating = useCareerStore((s) => s.isSimulating)
 
   if (!career) {
     return (
-      <div className="h-full flex items-center justify-center bg-gray-900">
-        <p className="text-gray-400">No hay carrera activa.</p>
-      </div>
+      <GameLayout>
+        <div className="h-full flex items-center justify-center">
+          <p className="text-gray-400">No hay carrera activa.</p>
+        </div>
+      </GameLayout>
     )
   }
 
   const userTeam = teams.find((t) => t.id === career.teamId)
-  const teamName = userTeam?.name ?? 'Equipo'
   const budget = userTeam?.budget ?? 0
 
   const sortedStandings = sortStandings(career.season.standings)
@@ -152,7 +135,6 @@ export default function CareerHomeScreen() {
 
   const seasonStatus = career.seasonStatus
 
-  // Find next user match: league OR cup, whichever is earlier
   const nextLeagueMatch = getNextMatch(career.season, career.teamId)
   const nextCupMatch = getNextUserCupMatch(career.cup, career.teamId, '9999-12-31')
   const nextMatch: { match: Match; isCup: boolean } | null = (() => {
@@ -168,119 +150,78 @@ export default function CareerHomeScreen() {
 
   function handleQuickSim() {
     if (!nextMatch) return
-    if (nextMatch.isCup) {
-      simulateCupMatch(nextMatch.match.id)
-      navigate('match')
-    } else {
-      simulateMatch(nextMatch.match.id)
-      navigate('match')
-    }
+    if (nextMatch.isCup) { simulateCupMatch(nextMatch.match.id); navigate('match') }
+    else { simulateMatch(nextMatch.match.id); navigate('match') }
   }
 
   function handleLiveSim() {
     if (!nextMatch) return
-    if (nextMatch.isCup) {
-      startLiveCupMatch(nextMatch.match.id)
-      navigate('match_live')
-    } else {
-      startLiveMatch(nextMatch.match.id)
-      navigate('match_live')
-    }
+    if (nextMatch.isCup) { startLiveCupMatch(nextMatch.match.id); navigate('match_live') }
+    else { startLiveMatch(nextMatch.match.id); navigate('match_live') }
   }
 
-  const hasNextMatch = !!nextMatch
-
   return (
-    <div className="h-full flex flex-col">
-      <TopNavigation title={teamName} badgeUrl={userTeam?.badgeUrl} />
-      <div className="flex flex-1 overflow-hidden">
-        <SideNavigation currentScreen={screen} onNavigate={navigate} />
+    <GameLayout>
+      <main className="h-full overflow-y-auto p-4 space-y-4">
 
-        <main className="flex-1 overflow-y-auto p-4 space-y-4">
+        {/* Stats bar */}
+        <div className="grid grid-cols-4 gap-3">
+          {[
+            { label: 'Temporada', value: String(career.seasonNumber), color: 'text-white' },
+            { label: 'Posición', value: leaguePosition > 0 ? `#${leaguePosition}` : '--', color: 'text-gold-400' },
+            { label: 'Puntos', value: String(teamRow?.points ?? 0), color: 'text-white' },
+            { label: 'Presupuesto', value: formatBudget(budget), color: 'text-green-400' },
+          ].map(({ label, value, color }) => (
+            <div key={label} className="panel px-4 py-3">
+              <p className="label-muted mb-1">{label}</p>
+              <p className={`text-lg font-extrabold ${color}`}>{value}</p>
+            </div>
+          ))}
+        </div>
 
-          {/* Season stats bar */}
-          <div className="grid grid-cols-4 gap-3">
-            <div className="bg-gray-800 rounded-xl p-3 border border-gray-700">
-              <p className="text-gray-400 text-xs mb-1">Temporada</p>
-              <p className="text-white font-bold">{career.seasonNumber}</p>
-            </div>
-            <div className="bg-gray-800 rounded-xl p-3 border border-gray-700">
-              <div className="flex items-center gap-1 text-gray-400 text-xs mb-1">
-                <Icon name="leaderboard" size="xs" />
-                Posición
+        {/* Season banners */}
+        {seasonStatus === 'all_finished' && <AllFinishedBanner onCloseSeason={closeSeason} />}
+        {seasonStatus === 'user_finished' && (
+          <UserFinishedBanner onAdvanceDay={advanceDay} onAdvanceToNextMatch={advanceToNextMatch} onSimulateAll={simulateAllRemainingAndClose} />
+        )}
+
+        {/* Main panels */}
+        {(seasonStatus === 'active' || seasonStatus === 'user_finished') && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {seasonStatus === 'active' && (
+              <DayAdvancePanel
+                currentDate={career.season.currentDate}
+                teamId={career.teamId}
+                matches={career.season.matches}
+                onAdvanceDay={advanceDay}
+                onAdvanceToNextMatch={advanceToNextMatch}
+                hasNextMatch={!!nextMatch}
+              />
+            )}
+
+            {nextMatch ? (
+              <NextMatchSection
+                match={nextMatch.match}
+                isCupMatch={nextMatch.isCup}
+                teams={teams}
+                currentDate={career.season.currentDate}
+                userTeamId={career.teamId}
+                isSimulating={isSimulating}
+                onQuickSim={handleQuickSim}
+                onLiveSim={handleLiveSim}
+              />
+            ) : seasonStatus === 'active' ? (
+              <div className="panel p-6 flex flex-col items-center justify-center gap-2 text-center">
+                <Icon name="sports_soccer" size="lg" className="text-gray-600" />
+                <p className="text-gray-500 text-sm">No hay partidos pendientes</p>
               </div>
-              <p className="text-yellow-400 text-xl font-extrabold">
-                {leaguePosition > 0 ? `#${leaguePosition}` : '--'}
-              </p>
-            </div>
-            <div className="bg-gray-800 rounded-xl p-3 border border-gray-700">
-              <div className="flex items-center gap-1 text-gray-400 text-xs mb-1">
-                <Icon name="emoji_events" size="xs" />
-                Puntos
-              </div>
-              <p className="text-white font-bold">{teamRow?.points ?? 0}</p>
-            </div>
-            <div className="bg-gray-800 rounded-xl p-3 border border-gray-700">
-              <div className="flex items-center gap-1 text-gray-400 text-xs mb-1">
-                <Icon name="payments" size="xs" />
-                Presupuesto
-              </div>
-              <p className="text-green-400 font-bold">{formatBudget(budget)}</p>
-            </div>
+            ) : null}
           </div>
+        )}
 
-          {/* Season phase banners */}
-          {seasonStatus === 'all_finished' && (
-            <AllFinishedBanner onCloseSeason={closeSeason} />
-          )}
-
-          {seasonStatus === 'user_finished' && (
-            <UserFinishedBanner
-              onAdvanceDay={advanceDay}
-              onAdvanceToNextMatch={advanceToNextMatch}
-            />
-          )}
-
-          {/* Main panels (only shown when season is active or user_finished) */}
-          {(seasonStatus === 'active' || seasonStatus === 'user_finished') && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {/* Day advance — only when season is active */}
-              {seasonStatus === 'active' && (
-                <DayAdvancePanel
-                  currentDate={career.season.currentDate}
-                  teamId={career.teamId}
-                  matches={career.season.matches}
-                  onAdvanceDay={advanceDay}
-                  onAdvanceToNextMatch={advanceToNextMatch}
-                  hasNextMatch={hasNextMatch}
-                />
-              )}
-
-              {/* Next match */}
-              {nextMatch ? (
-                <NextMatchSection
-                  match={nextMatch.match}
-                  isCupMatch={nextMatch.isCup}
-                  teams={teams}
-                  currentDate={career.season.currentDate}
-                  userTeamId={career.teamId}
-                  isSimulating={isSimulating}
-                  onQuickSim={handleQuickSim}
-                  onLiveSim={handleLiveSim}
-                />
-              ) : seasonStatus === 'active' ? (
-                <div className="bg-gray-800 rounded-xl border border-gray-700 p-6 flex flex-col items-center justify-center gap-2 text-center">
-                  <Icon name="sports_soccer" size="lg" className="text-gray-600" />
-                  <p className="text-gray-400 text-sm">No hay partidos pendientes</p>
-                </div>
-              ) : null}
-            </div>
-          )}
-
-          {/* Objectives */}
-          <ObjectivesPanel />
-        </main>
-      </div>
-    </div>
+        {/* Objectives */}
+        <ObjectivesPanel />
+      </main>
+    </GameLayout>
   )
 }

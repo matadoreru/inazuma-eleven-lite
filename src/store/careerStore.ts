@@ -32,6 +32,7 @@ import {
   initiateNegotiation as initiateNegotiationService,
   cancelNegotiation as cancelNegotiationService,
   respondToCounter as respondToCounterService,
+  respondToPlayerCounter as respondToPlayerCounterService,
   resolveNegotiations as resolveNegotiationsService,
   confirmTransfer as confirmTransferService,
 } from '../services/transferService'
@@ -189,7 +190,7 @@ function simulateExternalForDate(
   return { allLeagueSeasons: updatedLeagues, cup: updatedCup }
 }
 
-function computeSeasonStatus(
+export function computeSeasonStatus(
   career: Pick<Career, 'season' | 'allLeagueSeasons' | 'cup' | 'seasonStatus'>,
 ): SeasonStatus {
   if (career.seasonStatus === 'review') return 'review'
@@ -570,6 +571,7 @@ interface CareerState {
   // Season lifecycle
   closeSeason(): void
   startNewSeason(): void
+  simulateAllRemainingAndClose(): void
 
   // Training (legacy — kept for backward compatibility)
   trainPlayer(playerId: number, stat: keyof import('../types/player').Stats): void
@@ -595,6 +597,7 @@ interface CareerState {
   rejectTransferOffer(offerId: string): void
   initiateTransferNegotiation(playerId: number, amount: number): void
   respondToCounterOffer(negotiationId: string, action: 'accept_counter' | 'reject' | 'counter', newAmount?: number): void
+  respondToPlayerCounterOffer(negotiationId: string, action: 'accept' | 'reject'): void
   cancelNegotiation(negotiationId: string): void
   confirmTransfer(negotiationId: string): void
   dismissNegotiation(negotiationId: string): void
@@ -975,7 +978,8 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     )
     // Block if today has an unplayed user cup match
     const todayCupMatch = getNextUserCupMatch(career.cup, career.teamId, career.season.currentDate)
-    const todayCupMatchIsToday = todayCupMatch?.date === career.season.currentDate
+    // Only block on cup when user's league is still active — once league is done, let days advance freely
+    const todayCupMatchIsToday = !career.season.finished && todayCupMatch?.date === career.season.currentDate
     if (todayLeagueMatch || todayCupMatchIsToday) return
 
     const currentDateStr = career.season.currentDate
@@ -1288,6 +1292,13 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     const { career } = get()
     if (!career) return
     const updated = respondToCounterService(negotiationId, action, career, newAmount)
+    set({ career: updated })
+  },
+
+  respondToPlayerCounterOffer(negotiationId, action) {
+    const { career } = get()
+    if (!career) return
+    const updated = respondToPlayerCounterService(negotiationId, action, career)
     set({ career: updated })
   },
 
@@ -1816,5 +1827,21 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     )
 
     set({ career: updatedCareer, players: resetPlayers, screen: 'career_home' })
+  },
+
+  simulateAllRemainingAndClose() {
+    const MAX_ITER = 200
+    for (let i = 0; i < MAX_ITER; i++) {
+      const { career } = get()
+      if (!career) break
+      const status = computeSeasonStatus(career)
+      if (status === 'all_finished' || status === 'review') break
+      get().advanceDay()
+    }
+    // After loop, close if ready
+    const { career } = get()
+    if (career && computeSeasonStatus(career) === 'all_finished') {
+      get().closeSeason()
+    }
   },
 }))
