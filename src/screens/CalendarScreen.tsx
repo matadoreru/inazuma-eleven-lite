@@ -131,9 +131,19 @@ function DayDetailPanel({
       <div className="shrink-0 px-4 py-4 border-b border-gray-700/50">
         <h2 className="text-white font-black text-xl leading-tight">{fmtLong(selectedDate)}</h2>
         {userMatch ? (
-          <p className="text-blue-400 text-xs mt-0.5 font-medium">
-            Jornada {userMatch.round} · {matchLabel(userMatch)}
-          </p>
+          <div className="flex items-center gap-1.5 mt-0.5 flex-wrap">
+            <span className={`text-[0.6rem] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide
+              ${userMatch.type === 'cup'
+                ? 'bg-yellow-500/20 text-yellow-400'
+                : 'bg-blue-500/20 text-blue-400'}`}
+            >
+              {userMatch.type === 'cup' ? 'Copa' : 'Liga'}
+            </span>
+            <p className="text-gray-400 text-xs font-medium">
+              {matchLabel(userMatch)}
+              {userMatch.type !== 'cup' && ` · J${userMatch.round}`}
+            </p>
+          </div>
         ) : (
           <p className="text-gray-600 text-xs mt-0.5">Día libre</p>
         )}
@@ -260,7 +270,9 @@ export default function CalendarScreen() {
   const [yearStr, monthStr] = viewMonth.split('-')
   const year = parseInt(yearStr, 10)
   const month = parseInt(monthStr, 10)
-  const allMatches = career.season.matches
+  const leagueMatches = career.season.matches
+  const cupMatches = career.cup?.rounds.flatMap((r) => r.matches) ?? []
+  const allMatches = [...leagueMatches, ...cupMatches]
 
   const upcoming = allMatches
     .filter(
@@ -340,9 +352,14 @@ export default function CalendarScreen() {
                         ? 'border-blue-500/60 bg-blue-900/20'
                         : 'border-gray-700/50 bg-gray-800/40 hover:bg-gray-800 hover:border-gray-600'}`}
                   >
-                    <span className={`text-xs font-black tabular-nums ${isSel ? 'text-blue-300' : 'text-gray-400'}`}>
-                      {fmtShort(match.date)}
-                    </span>
+                    <div className="flex flex-col items-center gap-0.5">
+                      <span className={`text-xs font-black tabular-nums ${isSel ? 'text-blue-300' : 'text-gray-400'}`}>
+                        {fmtShort(match.date)}
+                      </span>
+                      {match.type === 'cup' && (
+                        <span className="text-[0.4rem] font-black uppercase tracking-widest text-yellow-500/80">Copa</span>
+                      )}
+                    </div>
                     <div className="flex items-center gap-2">
                       <TeamBadge team={teams.find((t) => t.id === career.teamId)} size="md" />
                       <span className="text-gray-500 text-[0.5625rem] font-black">VS</span>
