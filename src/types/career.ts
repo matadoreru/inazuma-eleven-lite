@@ -86,6 +86,18 @@ export interface TransferOffer {
   status: 'pending' | 'accepted' | 'rejected'
 }
 
+export interface IncomingOffer {
+  id: string
+  fromTeamId: number
+  fromTeamName: string
+  playerId: number
+  amount: number
+  date: string
+  status: 'pending' | 'accepted' | 'rejected' | 'budget_failed' | 'counter_sent' | 'counter_accepted' | 'counter_rejected'
+  counterAmount?: number
+  counterResolutionDate?: string
+}
+
 // ─── Transfer Negotiations ────────────────────────────────────────────────────
 
 export type NegotiationPhase =
@@ -262,6 +274,7 @@ export interface Career {
   seasonStatus: SeasonStatus
   lastSeasonReview: SeasonReview | null
   outgoingNegotiations: OutgoingNegotiation[]
+  incomingOffers: IncomingOffer[]
   difficulty: DifficultySettings
   nameStyle: 'western' | 'japanese'
   createdAt: string

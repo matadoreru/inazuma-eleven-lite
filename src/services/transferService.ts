@@ -1,7 +1,7 @@
 import type { Player } from '../types/player'
 import { getPlayerStatsSummary } from '../types/player'
 import type { Team } from '../types/team'
-import type { Career, TransferOffer, OutgoingNegotiation, NegotiationPhase, InboxEventType, InboxEvent } from '../types/career'
+import type { Career, TransferOffer, OutgoingNegotiation, NegotiationPhase, InboxEventType, InboxEvent, IncomingOffer } from '../types/career'
 import type { TransferFilter } from '../types/transfer'
 
 export const MAX_TRANSFER_VALUE = 10_000_000
@@ -144,10 +144,12 @@ export function sellPlayer(
 ): { career: Career; teams: Team[]; players: Player[] } {
   const safe = sanitizeAmount(amount)
   const player = players.find((p) => p.id === playerId)
-  const sellingTeamId = player?.teamId ?? null
+  // Guard: player must belong to the selling career's team
+  if (!player || player.teamId !== career.teamId) return { career, teams, players }
+  const sellingTeamId = player.teamId
   const buyingTeam = teams.find((t) => t.id === toTeamId)
 
-  if (safe === null || !player || !buyingTeam || sellingTeamId === null) return { career, teams, players }
+  if (safe === null || !buyingTeam) return { career, teams, players }
 
   const now = new Date().toISOString().split('T')[0]
 
@@ -198,24 +200,23 @@ export function generateAIOffers(
   career: Career,
   teams: Team[],
   players: Player[],
-): TransferOffer[] {
+): { offers: IncomingOffer[]; career: Career } {
   const myTeam = teams.find((t) => t.id === career.teamId)
-  if (!myTeam) return []
+  if (!myTeam) return { offers: [], career }
 
   const myPlayers = players.filter((p) => p.teamId === career.teamId)
   const aiTeams = teams.filter((t) => t.id !== career.teamId)
   const now = new Date().toISOString().split('T')[0]
 
-  const offers: TransferOffer[] = []
+  const offers: IncomingOffer[] = []
 
-  // Each AI team may bid on a random player from the manager's squad
   for (const aiTeam of aiTeams) {
-    if (Math.random() > 0.05) continue // 5% chance per AI team
+    if (Math.random() > 0.05) continue
     if (myPlayers.length === 0) break
 
     const target = myPlayers[Math.floor(Math.random() * myPlayers.length)]
     const value = calcTransferValue(target)
-    const offerAmount = Math.round(value * (0.8 + Math.random() * 0.5)) // 80–130% of value
+    const offerAmount = Math.round(value * (0.8 + Math.random() * 0.5))
 
     if (aiTeam.budget < offerAmount) continue
 
@@ -224,14 +225,116 @@ export function generateAIOffers(
       fromTeamId: aiTeam.id,
       fromTeamName: aiTeam.name,
       playerId: target.id,
-      playerName: target.name,
       amount: offerAmount,
       date: now,
       status: 'pending',
     })
   }
 
-  return offers
+  const updatedCareer: Career = {
+    ...career,
+    incomingOffers: [...(career.incomingOffers ?? []), ...offers],
+  }
+
+  return { offers, career: updatedCareer }
+}
+
+export function respondToIncomingOffer(
+  offerId: string,
+  action: 'accept' | 'reject' | 'counter',
+  career: Career,
+  players: Player[],
+  teams: Team[],
+  counterAmount?: number,
+): { career: Career; players: Player[]; teams: Team[]; error?: string } {
+  const offer = (career.incomingOffers ?? []).find((o) => o.id === offerId)
+  if (!offer || offer.status !== 'pending') return { career, players, teams }
+
+  const updateOffer = (updates: Partial<IncomingOffer>): Career => ({
+    ...career,
+    incomingOffers: (career.incomingOffers ?? []).map((o) => o.id === offerId ? { ...o, ...updates } : o),
+  })
+
+  if (action === 'reject') {
+    return { career: updateOffer({ status: 'rejected' }), players, teams }
+  }
+
+  if (action === 'counter') {
+    const safe = counterAmount !== undefined ? sanitizeAmount(counterAmount) : null
+    if (safe === null) return { career, players, teams, error: 'invalid_amount' }
+
+    const d = new Date(career.season.currentDate)
+    d.setDate(d.getDate() + Math.floor(Math.random() * 2) + 1)
+    const counterResolutionDate = d.toISOString().split('T')[0]
+
+    return {
+      career: updateOffer({ status: 'counter_sent', counterAmount: safe, counterResolutionDate }),
+      players,
+      teams,
+    }
+  }
+
+  // accept
+  const buyingTeam = teams.find((t) => t.id === offer.fromTeamId)
+  if (!buyingTeam || buyingTeam.budget < offer.amount) {
+    const updatedCareer = updateOffer({ status: 'budget_failed' })
+    return { career: updatedCareer, players, teams, error: 'insufficient_budget' }
+  }
+
+  const player = players.find((p) => p.id === offer.playerId)
+  if (!player || player.teamId !== career.teamId) {
+    return { career: updateOffer({ status: 'rejected' }), players, teams, error: 'player_unavailable' }
+  }
+
+  const sold = sellPlayer(offer.playerId, offer.fromTeamId, offer.amount, career, teams, players)
+  return {
+    career: {
+      ...sold.career,
+      incomingOffers: (sold.career.incomingOffers ?? []).map((o) =>
+        o.id === offerId ? { ...o, status: 'accepted' } : o,
+      ),
+    },
+    players: sold.players,
+    teams: sold.teams,
+  }
+}
+
+export function resolveIncomingCounters(
+  career: Career,
+  currentDate: string,
+  players: Player[],
+  teams: Team[],
+): { career: Career; players: Player[]; teams: Team[] } {
+  let c = career
+  const p = players
+  const t = teams
+
+  for (const offer of (career.incomingOffers ?? [])) {
+    if (offer.status !== 'counter_sent') continue
+    if (!offer.counterResolutionDate || offer.counterResolutionDate > currentDate) continue
+
+    const buyingTeam = teams.find((tm) => tm.id === offer.fromTeamId)
+    if (!buyingTeam) {
+      c = { ...c, incomingOffers: (c.incomingOffers ?? []).map((o) => o.id === offer.id ? { ...o, status: 'counter_rejected' } : o) }
+      continue
+    }
+
+    const marketValue = Math.max(1, calcTransferValue(players.find((pl) => pl.id === offer.playerId) ?? { stats: { TOT: 70 } } as any))
+    const ratio = (offer.counterAmount ?? offer.amount) / marketValue
+    const pAccept = ratio <= 1.0 ? 0.65 : ratio <= 1.2 ? 0.40 : ratio <= 1.5 ? 0.15 : 0.03
+
+    if (Math.random() < pAccept) {
+      // AI accepts counter — set the offer back to pending with the counter amount so respondToIncomingOffer can process it
+      const acceptResult = respondToIncomingOffer(offer.id, 'accept',
+        { ...c, incomingOffers: (c.incomingOffers ?? []).map((o) => o.id === offer.id ? { ...o, amount: offer.counterAmount!, status: 'pending' } : o) },
+        p, t)
+      c = acceptResult.career
+    } else {
+      c = { ...c, incomingOffers: (c.incomingOffers ?? []).map((o) => o.id === offer.id ? { ...o, status: 'counter_rejected' } : o) }
+    }
+  }
+
+  return { career: c, players: p, teams: t }
 }
 
 // ─── Private helpers ─────────────────────────────────────────────────────────

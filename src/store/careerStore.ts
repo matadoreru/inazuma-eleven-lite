@@ -35,6 +35,8 @@ import {
   respondToPlayerCounter as respondToPlayerCounterService,
   resolveNegotiations as resolveNegotiationsService,
   confirmTransfer as confirmTransferService,
+  respondToIncomingOffer,
+  resolveIncomingCounters,
 } from '../services/transferService'
 import { checkObjectives, canClaimObjective } from '../services/objectiveService'
 import { markRead, markAllRead, addEvent } from '../services/inboxService'
@@ -615,6 +617,7 @@ interface CareerState {
   sellPlayer(playerId: number, toTeamId: number, amount: number): void
   acceptTransferOffer(offerId: string): void
   rejectTransferOffer(offerId: string): void
+  counterIncomingOffer(offerId: string, counterAmount: number): void
   initiateTransferNegotiation(playerId: number, amount: number): void
   respondToCounterOffer(negotiationId: string, action: 'accept_counter' | 'reject' | 'counter', newAmount?: number): void
   respondToPlayerCounterOffer(negotiationId: string, action: 'accept' | 'reject'): void
@@ -763,6 +766,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
         seasonStatus: data.career.seasonStatus ?? 'active',
         lastSeasonReview: data.career.lastSeasonReview ?? null,
         outgoingNegotiations: data.career.outgoingNegotiations ?? [],
+        incomingOffers: data.career.incomingOffers ?? [],
         nameStyle: data.career.nameStyle ?? 'western',
       },
       players,
@@ -826,6 +830,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
           seasonStatus: data.career.seasonStatus ?? 'active',
           lastSeasonReview: data.career.lastSeasonReview ?? null,
           outgoingNegotiations: data.career.outgoingNegotiations ?? [],
+          incomingOffers: data.career.incomingOffers ?? [],
         },
         players,
         teams,
@@ -956,10 +961,10 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     if (Math.random() < 0.20) {
       const state = get()
       if (!state.career) return
-      const offers = generateAIOffers(state.career, state.teams, state.players)
+      const { offers, career: careerWithOffers } = generateAIOffers(state.career, state.teams, state.players)
       if (offers.length === 0) return
 
-      let updatedCareer = state.career
+      let updatedCareer = careerWithOffers
       for (const offer of offers) {
         const fmt = (n: number) =>
           n >= 1_000_000 ? `€${(n / 1_000_000).toFixed(1)}M` :
@@ -968,14 +973,13 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
         updatedCareer = addEvent(
           'TRANSFER_OFFER',
           `Oferta de ${offer.fromTeamName}`,
-          `${offer.fromTeamName} ofrece ${fmt(offer.amount)} por ${offer.playerName}.`,
+          `${offer.fromTeamName} ofrece ${fmt(offer.amount)} por un jugador.`,
           updatedCareer,
           {
             offerId: offer.id,
             fromTeamId: offer.fromTeamId,
             fromTeamName: offer.fromTeamName,
             playerId: offer.playerId,
-            playerName: offer.playerName,
             amount: offer.amount,
           },
           'transfers',
@@ -1056,7 +1060,8 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
       seasonStatus: computeSeasonStatus({ ...career, season: updatedSeason, allLeagueSeasons, cup }),
     }
     const negResult = resolveNegotiationsService(preNegCareer, nextDate, advancedPlayers, teams)
-    set({ career: negResult.career, players: negResult.players, teams: negResult.teams })
+    const counterResult = resolveIncomingCounters(negResult.career, nextDate, negResult.players, negResult.teams)
+    set({ career: counterResult.career, players: counterResult.players, teams: counterResult.teams })
   },
 
   advanceToNextMatch() {
@@ -1271,35 +1276,41 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
   },
 
   acceptTransferOffer(offerId) {
-    const { career } = get()
+    const { career, players, teams } = get()
     if (!career) return
 
-    const offerEvent = career.inbox.find(
-      (e) => e.type === 'TRANSFER_OFFER' && e.data?.offerId === offerId,
-    )
-    if (!offerEvent || !offerEvent.data) return
+    const offer = (career.incomingOffers ?? []).find((o) => o.id === offerId && o.status === 'pending')
+    if (!offer) return
 
-    const playerId = offerEvent.data.playerId as number
-    const toTeamId = offerEvent.data.fromTeamId as number
-    const rawAmount = offerEvent.data.amount as number
-    const safe = sanitizeAmount(rawAmount)
-    if (safe === null) return
+    const result = respondToIncomingOffer(offerId, 'accept', career, players, teams)
 
-    get().sellPlayer(playerId, toTeamId, safe)
-
-    const { career: updatedCareer } = get()
-    if (!updatedCareer) return
-    set({ career: markRead(offerEvent.id, updatedCareer) })
+    let updatedCareer = result.career
+    const fmt = (n: number) => n >= 1_000_000 ? `€${(n/1_000_000).toFixed(1)}M` : n >= 1_000 ? `€${(n/1_000).toFixed(0)}K` : `€${n}`
+    if (result.error === 'insufficient_budget') {
+      updatedCareer = addEvent('NEWS', 'Oferta caducada',
+        `${offer.fromTeamName} ya no tiene presupuesto para comprar a este jugador.`,
+        updatedCareer, undefined, 'transfers')
+    } else if (!result.error) {
+      updatedCareer = addEvent('TRANSFER_ACCEPTED',
+        `Venta confirmada`,
+        `Has vendido al jugador por ${fmt(offer.amount)}.`,
+        result.career, undefined, 'transfers')
+    }
+    set({ career: updatedCareer, players: result.players, teams: result.teams })
   },
 
   rejectTransferOffer(offerId) {
-    const { career } = get()
+    const { career, players, teams } = get()
     if (!career) return
-    const offerEvent = career.inbox.find(
-      (e) => e.type === 'TRANSFER_OFFER' && e.data?.offerId === offerId,
-    )
-    if (!offerEvent) return
-    set({ career: markRead(offerEvent.id, career) })
+    const result = respondToIncomingOffer(offerId, 'reject', career, players, teams)
+    set({ career: result.career })
+  },
+
+  counterIncomingOffer(offerId, counterAmount) {
+    const { career, players, teams } = get()
+    if (!career) return
+    const result = respondToIncomingOffer(offerId, 'counter', career, players, teams, counterAmount)
+    if (!result.error) set({ career: result.career })
   },
 
   initiateTransferNegotiation(playerId, amount) {
@@ -1829,6 +1840,8 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
       seasonStats: { goals: 0, assists: 0, cleanSheets: 0, matchesPlayed: 0, minutesPlayed: 0 },
     }))
 
+    const cleanedIncoming = (career.incomingOffers ?? []).filter(o => o.status === 'pending')
+
     let updatedCareer: Career = {
       ...career,
       season: newSeason,
@@ -1839,6 +1852,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
       lastSeasonReview: null,
       objectives: newObjectives,
       weeklyTrainingPlan: null,
+      incomingOffers: cleanedIncoming,
     }
     updatedCareer = addEvent(
       'SEASON_START',

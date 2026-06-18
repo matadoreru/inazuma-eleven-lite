@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
-import { filterPlayers, calcTransferValue, calcFreeAgentRecommendedOffer, buyPlayer, sanitizeAmount, MAX_TRANSFER_VALUE, evaluateClubOffer, evaluatePlayerDecision, initiateNegotiation, cancelNegotiation, respondToCounter, resolveNegotiations } from '../services/transferService'
-import type { OutgoingNegotiation } from '../types/career'
+import { filterPlayers, calcTransferValue, calcFreeAgentRecommendedOffer, buyPlayer, sanitizeAmount, MAX_TRANSFER_VALUE, evaluateClubOffer, evaluatePlayerDecision, initiateNegotiation, cancelNegotiation, respondToCounter, resolveNegotiations, respondToIncomingOffer } from '../services/transferService'
+import type { OutgoingNegotiation, IncomingOffer } from '../types/career'
 import type { Player } from '../types/player'
 import type { Team, Formation } from '../types/team'
 import type { Career } from '../types/career'
@@ -101,6 +101,7 @@ const makeCareer = (teamId: number): Career => ({
   seasonStatus: 'active',
   lastSeasonReview: null,
   outgoingNegotiations: [],
+  incomingOffers: [],
   difficulty: DEFAULT_DIFFICULTY,
   nameStyle: 'western' as const,
   createdAt: '2026-01-01',
@@ -831,5 +832,39 @@ describe('resolveNegotiations', () => {
     // Player NOT transferred
     const p = result.players.find((p) => p.id === 10)
     expect(p?.teamId).toBe(2)
+  })
+})
+
+// ─── respondToIncomingOffer ──────────────────────────────────────────────────
+
+describe('respondToIncomingOffer', () => {
+  const player = makePlayer({ id: 5, teamId: 1 })
+  const buyingTeam = makeTeam(2, 2_000_000)
+  const userTeamIncoming = makeTeam(1, 500_000)
+  const offer: IncomingOffer = {
+    id: 'o1', fromTeamId: 2, fromTeamName: 'Buyers FC', playerId: 5,
+    amount: 300_000, date: '2026-01-01', status: 'pending',
+  }
+  const baseCareer = { ...makeCareer(1), teamId: 1, incomingOffers: [offer] }
+
+  it('reject marks offer as rejected', () => {
+    const result = respondToIncomingOffer('o1', 'reject', baseCareer, [player], [userTeamIncoming, buyingTeam])
+    expect(result.career.incomingOffers[0].status).toBe('rejected')
+  })
+
+  it('accept transfers player and deducts from buying team budget', () => {
+    const result = respondToIncomingOffer('o1', 'accept', baseCareer, [player], [userTeamIncoming, buyingTeam])
+    const updatedBuyer = result.teams.find(t => t.id === 2)
+    expect(result.career.incomingOffers[0].status).toBe('accepted')
+    expect(updatedBuyer?.budget).toBe(2_000_000 - 300_000)
+    const updatedPlayer = result.players.find(p => p.id === 5)
+    expect(updatedPlayer?.teamId).toBe(2)
+  })
+
+  it('fails gracefully when buyer has insufficient budget', () => {
+    const brokeBuyer = makeTeam(2, 100)
+    const result = respondToIncomingOffer('o1', 'accept', baseCareer, [player], [userTeamIncoming, brokeBuyer])
+    expect(result.error).toBe('insufficient_budget')
+    expect(result.career.incomingOffers[0].status).toBe('budget_failed')
   })
 })

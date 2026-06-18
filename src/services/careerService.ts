@@ -226,6 +226,7 @@ export function createCareer(
     seasonStatus: 'active',
     lastSeasonReview: null,
     outgoingNegotiations: [],
+    incomingOffers: [],
     difficulty: settings,
     nameStyle: 'western',
     createdAt: now,
