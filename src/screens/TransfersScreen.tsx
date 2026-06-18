@@ -84,7 +84,15 @@ export default function TransfersScreen() {
 
   // Available players: not in user team
   const availablePlayers = players.filter((p) => p.teamId !== career.teamId)
-  const filtered = filterPlayers(availablePlayers, activeTransferFilter)
+  const baseFiltered = filterPlayers(availablePlayers, activeTransferFilter)
+  const teamSearchLower = activeTransferFilter.teamSearch.toLowerCase()
+  const filtered = teamSearchLower
+    ? baseFiltered.filter((p) => {
+        const isFree = p.teamId === null || p.teamId === 0
+        const name = isFree ? 'libre' : (teamById.get(p.teamId!)?.name ?? '')
+        return name.toLowerCase().includes(teamSearchLower)
+      })
+    : baseFiltered
   const sorted = sortPlayers(filtered, sortKey, sortDir, teamById)
   const paginated = sorted.slice(
     activeTransferFilter.page * activeTransferFilter.pageSize,
@@ -146,30 +154,47 @@ export default function TransfersScreen() {
                 ))}
               </div>
 
-              {/* TOT min */}
+              {/* Media min */}
               <div className="flex items-center gap-1.5">
-                <span className="text-gray-500 text-xs">TOT ≥</span>
+                <span className="text-gray-500 text-xs">Media ≥</span>
                 <input
                   type="number"
-                  value={activeTransferFilter.minOverall || ''}
-                  onChange={(e) => setTransferFilter({ minOverall: parseInt(e.target.value) || 0, page: 0 })}
+                  value={activeTransferFilter.minMedia || ''}
+                  onChange={(e) => setTransferFilter({ minMedia: parseInt(e.target.value) || 0, page: 0 })}
                   placeholder="0"
                   className="bg-gray-800 border border-gray-700 rounded-lg px-2 py-1.5 text-white text-xs w-16 focus:outline-none focus:border-gray-500"
                 />
               </div>
 
               {/* Name search */}
-              <div className="relative flex-1 min-w-32">
+              <div className="relative min-w-28">
                 <Icon name="search" size="xs" className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" />
                 <input
                   type="text"
                   value={activeTransferFilter.nameSearch}
                   onChange={(e) => setTransferFilter({ nameSearch: e.target.value, page: 0 })}
-                  placeholder="Buscar jugador..."
+                  placeholder="Jugador..."
                   className="w-full bg-gray-800 border border-gray-700 rounded-lg pl-8 pr-8 py-1.5 text-white text-xs placeholder-gray-600 focus:outline-none focus:border-gray-500"
                 />
                 {activeTransferFilter.nameSearch && (
                   <button onClick={() => setTransferFilter({ nameSearch: '', page: 0 })} className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300">
+                    <Icon name="close" size="xs" />
+                  </button>
+                )}
+              </div>
+
+              {/* Team search */}
+              <div className="relative min-w-28">
+                <Icon name="shield" size="xs" className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" />
+                <input
+                  type="text"
+                  value={activeTransferFilter.teamSearch}
+                  onChange={(e) => setTransferFilter({ teamSearch: e.target.value, page: 0 })}
+                  placeholder="Equipo..."
+                  className="w-full bg-gray-800 border border-gray-700 rounded-lg pl-8 pr-8 py-1.5 text-white text-xs placeholder-gray-600 focus:outline-none focus:border-gray-500"
+                />
+                {activeTransferFilter.teamSearch && (
+                  <button onClick={() => setTransferFilter({ teamSearch: '', page: 0 })} className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300">
                     <Icon name="close" size="xs" />
                   </button>
                 )}

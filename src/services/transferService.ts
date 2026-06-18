@@ -1,4 +1,5 @@
 import type { Player } from '../types/player'
+import { getPlayerStatsSummary } from '../types/player'
 import type { Team } from '../types/team'
 import type { Career, TransferOffer, OutgoingNegotiation, NegotiationPhase, InboxEventType, InboxEvent } from '../types/career'
 import type { TransferFilter } from '../types/transfer'
@@ -61,7 +62,7 @@ export function filterPlayers(players: Player[], filter: TransferFilter): Player
   return players.filter((p) => {
     if (filter.position !== 'ALL' && p.position !== filter.position) return false
     if (filter.element !== 'ALL' && p.element !== filter.element) return false
-    if (p.stats.TOT < filter.minOverall) return false
+    if (getPlayerStatsSummary(p).media < filter.minMedia) return false
     if (calcTransferValue(p) > filter.maxPrice) return false
     if (
       filter.nameSearch &&

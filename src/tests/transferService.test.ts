@@ -109,9 +109,10 @@ const makeCareer = (teamId: number): Career => ({
 const makeFilter = (overrides: Partial<TransferFilter> = {}): TransferFilter => ({
   position: 'ALL',
   element: 'ALL',
-  minOverall: 0,
+  minMedia: 0,
   maxPrice: 9_999_999,
   nameSearch: '',
+  teamSearch: '',
   page: 0,
   pageSize: 15,
   ...overrides,
@@ -167,10 +168,12 @@ describe('filterPlayers', () => {
     expect(result).toHaveLength(2)
   })
 
-  it('filters by minOverall', () => {
-    const result = filterPlayers(players, makeFilter({ minOverall: 75 }))
-    expect(result.every((p) => p.stats.TOT >= 75)).toBe(true)
-    expect(result).toHaveLength(2)
+  it('filters by minMedia', () => {
+    const result = filterPlayers(players, makeFilter({ minMedia: 75 }))
+    expect(result.every((p) => {
+      const total = Object.values(p.stats).reduce((a, b) => a + b, 0)
+      return Math.round(total / 7) >= 75
+    })).toBe(true)
   })
 
   it('filters by maxPrice (excludes players whose transfer value exceeds limit)', () => {
