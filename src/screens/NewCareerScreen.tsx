@@ -332,9 +332,9 @@ export default function NewCareerScreen() {
                 <p className="text-white font-bold text-center text-sm leading-tight">{clubName || 'Mi Club'}</p>
               </div>
             </div>
-              </div>
-            </div>
           </div>
+        </div>
+      </div>
         )}
 
         {/* ── STEP 4b: Strength + League ── */}
@@ -567,11 +567,6 @@ export default function NewCareerScreen() {
                     </div>
 
                     <div>
-                      <p className="text-gray-400 text-xs font-semibold uppercase tracking-wide mb-3">Ojeadores</p>
-                      <DiffSlider label="Coste de análisis" value={difficulty.scoutCostMultiplier} min={0.5} max={2.0} step={0.05} format={(v) => `×${v.toFixed(2)}`} onChange={(v) => setDifficulty((d) => ({ ...d, scoutCostMultiplier: v }))} />
-                    </div>
-
-                    <div>
                       <p className="text-gray-400 text-xs font-semibold uppercase tracking-wide mb-3">Recompensas por partido</p>
                       <div className="flex gap-2">
                         {([1, 2, 3] as const).map((n) => (
@@ -614,103 +609,106 @@ export default function NewCareerScreen() {
         {/* ── STEP 3: Confirm (existing team) ── */}
         {step === 4 && careerMode === 'existing' && selectedTeam && (
           <div className="max-w-3xl w-full h-full mx-auto px-6 py-8 flex items-center justify-center">
-            <div className="w-full flex flex-col gap-6">
-            <div>
-              <h2 className="text-white text-2xl font-bold mb-1">Confirmar Carrera</h2>
-              <p className="text-gray-400 text-sm">Revisa los datos antes de comenzar.</p>
-            </div>
-
-            <div className="bg-dark-800/80 rounded-2xl border border-gold-600/20 p-5 flex items-center gap-4 border border-gold-600/20">
-              <img
-                src={managerAvatar}
-                alt="Entrenador"
-                onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/avatars/avatar-1.svg' }}
-                className="w-16 h-16 rounded-full object-cover bg-dark-700/60 flex-shrink-0"
-              />
-              <div>
-                <p className="text-gray-400 text-xs uppercase tracking-wide mb-0.5">Entrenador</p>
-                <p className="text-white text-xl font-bold">{managerName}</p>
-              </div>
-            </div>
-
-            <div className="bg-dark-800/80 rounded-2xl border border-gold-600/20 p-5">
-              <div className="flex items-center gap-4 mb-4">
-                <TeamBadgeImage teamName={selectedTeam.name} badgeUrl={selectedTeam.badgeUrl} size="lg" />
-                <div>
-                  <p className="text-gray-400 text-xs uppercase tracking-wide mb-0.5">Equipo</p>
-                  <p className="text-white text-xl font-bold">{selectedTeam.name}</p>
-                  <p className="text-gray-400 text-sm">{LEAGUE_LABELS[selectedTeam.leagueId]}</p>
-                </div>
-              </div>
-              <p className="text-gray-400 text-xs font-semibold uppercase tracking-wide mb-2">
-                Titular ({starters.length} jugadores)
-              </p>
-              <div className="flex flex-col gap-1.5">
-                {starters.map((p) => (
-                  <div key={p.id} className="flex items-center gap-3 bg-dark-700/40 rounded-lg px-3 py-2">
-                    <img
-                      src={p.spriteUrl}
-                      alt={p.name}
-                      onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
-                      className="w-16 h-16 object-contain rounded flex-shrink-0"
-                    />
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-1.5">
-                        <span className="text-white text-sm font-semibold truncate">{p.name}</span>
-                        <PositionSprite position={p.position} size={25} />
-                        <ElementBadge element={p.element} size="xs" />
-                      </div>
-                      <div className="flex items-end gap-3">
-                        {STAT_KEYS.map((stat) => (
-                          <div key={stat} className="flex flex-col items-center">
-                            <span className="text-gray-500 text-[0.5625rem] uppercase leading-none mb-0.5">{stat}</span>
-                            <span className="text-gray-300 text-xs font-medium">{p.stats[stat]}</span>
+            <div className="panel overflow-hidden w-full max-w-5xl">
+              <div className="panel-header text-[0.48rem] md:text-[0.52rem] leading-relaxed">Confirmar</div>
+              <div className="p-4 space-y-4">
+                <div className="grid grid-cols-[minmax(0,1fr)_18rem] gap-4">
+                  <div className="bg-dark-900/40 rounded-xl border border-gold-600/20 overflow-hidden">
+                    <div className="panel-header flex items-center justify-between border-b border-gold-600/20">
+                      <span>Plantilla titular</span>
+                      <span className="text-gray-500">{starters.length}</span>
+                    </div>
+                    <div className="p-3 space-y-2 max-h-[29rem] overflow-y-auto">
+                      {starters.map((p) => (
+                        <div key={p.id} className="bg-dark-800/40 rounded-xl border border-gold-600/15 px-3 py-2 flex items-center gap-3">
+                          <img
+                            src={p.spriteUrl}
+                            alt={p.name}
+                            onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
+                            className="w-14 h-14 object-contain rounded shrink-0"
+                          />
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2 mb-1">
+                              <span className="text-white text-sm font-semibold truncate">{p.name}</span>
+                              <PositionSprite position={p.position} size={25} />
+                              <ElementBadge element={p.element} size="xs" />
+                            </div>
+                            <div className="flex items-end gap-3">
+                              {STAT_KEYS.map((stat) => (
+                                <div key={stat} className="flex flex-col items-center">
+                                  <span className="text-gray-500 text-[0.5625rem] uppercase leading-none mb-0.5">{stat}</span>
+                                  <span className="text-gray-300 text-xs font-medium">{p.stats[stat]}</span>
+                                </div>
+                              ))}
+                              <div className="ml-auto flex flex-col items-center">
+                                <span className="text-gray-500 text-[0.5625rem] uppercase leading-none mb-0.5">Media</span>
+                                <span className="text-sm font-bold" style={{ color: statColor(getPlayerStatsSummary(p).media, 250) }}>{getPlayerStatsSummary(p).media}</span>
+                                <span className="text-gray-500 text-[0.5625rem] tabular-nums">{getPlayerStatsSummary(p).total}</span>
+                              </div>
+                            </div>
                           </div>
-                        ))}
-                        <div className="ml-auto flex flex-col items-center">
-                          <span className="text-gray-500 text-[0.5625rem] uppercase leading-none mb-0.5">Media</span>
-                          <span className="text-sm font-bold" style={{ color: statColor(getPlayerStatsSummary(p).media, 250) }}>{getPlayerStatsSummary(p).media}</span>
-                          <span className="text-gray-500 text-[0.5625rem] tabular-nums">{getPlayerStatsSummary(p).total}</span>
                         </div>
-                      </div>
+                      ))}
                     </div>
                   </div>
-                ))}
-              </div>
-            </div>
 
-            {/* Difficulty summary */}
-            <div className="bg-dark-800/80 rounded-2xl border border-gold-600/20 p-5">
-              <p className="text-gray-400 text-xs uppercase tracking-wide mb-3">Dificultad</p>
-              <div className="flex items-center gap-3">
-                {difficultyMode === 'easy' && <span className="text-green-400 font-bold text-lg">Fácil</span>}
-                {difficultyMode === 'normal' && <span className="text-gold-500 font-bold text-lg">Normal</span>}
-                {difficultyMode === 'hard' && <span className="text-red-400 font-bold text-lg">Difícil</span>}
-                {difficultyMode === 'custom' && <span className="text-purple-400 font-bold text-lg">Custom</span>}
-              </div>
-              {difficultyMode === 'custom' && (
-                <div className="mt-3 grid grid-cols-2 gap-x-6 gap-y-1">
-                  {[
-                    ['Fuerza rivales', `×${difficulty.aiStrengthMultiplier.toFixed(2)}`],
-                    ['Stamina/día', `${difficulty.staminaRecoveryPerDay} pts`],
-                    ['Desgaste titular', `${difficulty.starterStaminaDrain} pts`],
-                    ['Desgaste banquillo', `${difficulty.benchStaminaDrain} pts`],
-                    ['Entrenamiento', `×${difficulty.trainingGainMultiplier.toFixed(2)}`],
-                    ['Crecimiento temporal', `×${difficulty.seasonGrowthMultiplier.toFixed(2)}`],
-                    ['Cambio posición', `×${difficulty.positionChangeDaysMultiplier.toFixed(2)}`],
-                    ['Coste fichajes', `×${difficulty.transferCostMultiplier.toFixed(2)}`],
-                    ['Presupuesto inicial', `×${difficulty.budgetMultiplier.toFixed(2)}`],
-                    ['Coste ojeadores', `×${difficulty.scoutCostMultiplier.toFixed(2)}`],
-                    ['Recompensas/partido', `${difficulty.rewardChoices}`],
-                  ].map(([key, val]) => (
-                    <div key={key} className="flex justify-between text-xs py-0.5">
-                      <span className="text-gray-500">{key}</span>
-                      <span className="text-gray-300 font-medium tabular-nums">{val}</span>
+                  <div className="space-y-3">
+                    <div className="bg-dark-900/40 rounded-xl border border-gold-600/20 p-4 flex items-center gap-3">
+                      <img
+                        src={managerAvatar}
+                        alt="Entrenador"
+                        onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/avatars/avatar-1.svg' }}
+                        className="w-14 h-14 rounded-full object-cover bg-dark-700/60 shrink-0"
+                      />
+                      <div className="min-w-0">
+                        <p className="text-gray-400 text-xs uppercase tracking-wide mb-0.5">Entrenador</p>
+                        <p className="text-white text-lg font-bold truncate">{managerName}</p>
+                      </div>
                     </div>
-                  ))}
+
+                    <div className="bg-dark-900/40 rounded-xl border border-gold-600/20 p-4 flex items-center gap-3">
+                      <TeamBadgeImage teamName={selectedTeam.name} badgeUrl={selectedTeam.badgeUrl} size="md" />
+                      <div className="min-w-0">
+                        <p className="text-gray-400 text-xs uppercase tracking-wide mb-0.5">Equipo</p>
+                        <p className="text-white text-lg font-bold truncate">{selectedTeam.name}</p>
+                        <p className="text-gray-400 text-xs">{LEAGUE_LABELS[selectedTeam.leagueId]}</p>
+                        <p className="text-gray-500 text-xs truncate">Tier {selectedTeam.tier} · Reputación {selectedTeam.reputation}</p>
+                      </div>
+                    </div>
+
+                    <div className="bg-dark-900/40 rounded-xl border border-gold-600/20 p-4">
+                      <p className="text-gray-400 text-xs uppercase tracking-wide mb-2">Dificultad</p>
+                      <div className="flex items-center gap-3 flex-wrap">
+                        {difficultyMode === 'easy' && <span className="text-green-400 font-bold text-lg">Fácil</span>}
+                        {difficultyMode === 'normal' && <span className="text-gold-500 font-bold text-lg">Normal</span>}
+                        {difficultyMode === 'hard' && <span className="text-red-400 font-bold text-lg">Difícil</span>}
+                        {difficultyMode === 'custom' && <span className="text-purple-400 font-bold text-lg">Custom</span>}
+                      </div>
+                      {difficultyMode === 'custom' && (
+                        <div className="mt-3 space-y-1">
+                          {[
+                            ['Fuerza rivales', `×${difficulty.aiStrengthMultiplier.toFixed(2)}`],
+                            ['Stamina/día', `${difficulty.staminaRecoveryPerDay} pts`],
+                            ['Desgaste titular', `${difficulty.starterStaminaDrain} pts`],
+                            ['Desgaste banquillo', `${difficulty.benchStaminaDrain} pts`],
+                            ['Entrenamiento', `×${difficulty.trainingGainMultiplier.toFixed(2)}`],
+                            ['Crecimiento temporal', `×${difficulty.seasonGrowthMultiplier.toFixed(2)}`],
+                            ['Cambio posición', `×${difficulty.positionChangeDaysMultiplier.toFixed(2)}`],
+                            ['Coste fichajes', `×${difficulty.transferCostMultiplier.toFixed(2)}`],
+                            ['Presupuesto inicial', `×${difficulty.budgetMultiplier.toFixed(2)}`],
+                            ['Recompensas/partido', `${difficulty.rewardChoices}`],
+                          ].map(([key, val]) => (
+                            <div key={key} className="flex justify-between text-xs py-0.5 gap-3">
+                              <span className="text-gray-500">{key}</span>
+                              <span className="text-gray-300 font-medium tabular-nums text-right">{val}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
                 </div>
-              )}
-            </div>
+              </div>
             </div>
           </div>
         )}
@@ -726,7 +724,7 @@ export default function NewCareerScreen() {
                       <span>Plantilla inicial</span>
                       <span className="text-gray-500">{customClubPreview.squadPlayers.filter(p => customClubPreview.lineup.find(l => l.playerId === p.id && l.isStarter)).length}</span>
                     </div>
-                    <div className="p-3 space-y-2 max-h-[20rem] overflow-y-auto">
+                    <div className="p-3 space-y-2 max-h-[29rem] overflow-y-auto">
                       {customClubPreview.squadPlayers
                         .filter((p) => customClubPreview.lineup.find((l) => l.playerId === p.id && l.isStarter))
                         .map((p) => (
@@ -800,7 +798,6 @@ export default function NewCareerScreen() {
               </div>
             </div>
             </div>
-          </div>
         )}
       </div>
 

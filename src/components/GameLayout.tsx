@@ -4,6 +4,7 @@ import { useNotificationPreferences } from '../hooks/useNotificationPreferences'
 import Icon from './Icon'
 import TeamBadgeImage from './TeamBadgeImage'
 import type { Screen } from '../App'
+import { formatMoney } from '../utils/formatMoney'
 
 interface NavItem {
   screen: Screen
@@ -20,14 +21,7 @@ const NAV_ITEMS: NavItem[] = [
   { screen: 'calendar', label: 'Calendario', icon: 'calendar_month' },
   { screen: 'standings', label: 'Clasificación', icon: 'leaderboard' },
   { screen: 'transfers', label: 'Fichajes', icon: 'swap_horiz' },
-  { screen: 'scout', label: 'Ojeador', icon: 'search' },
 ]
-
-function formatBudget(n: number): string {
-  if (n >= 1_000_000) return `€${(n / 1_000_000).toFixed(1)}M`
-  if (n >= 1_000) return `€${(n / 1_000).toFixed(0)}K`
-  return `€${n}`
-}
 
 function formatDate(d: string): string {
   const [y, m, day] = d.split('-')
@@ -89,7 +83,7 @@ export default function GameLayout({ children, bg = 'career', noNav = false }: P
               {/* Right: budget + actions */}
               <div className="flex items-center gap-3">
                 <span className="text-gold-400 font-pixel text-[0.45rem] uppercase tracking-wide">
-                  {formatBudget(teams.find((t) => t.id === career.teamId)?.budget ?? 0)}
+                  {formatMoney(teams.find((t) => t.id === career.teamId)?.budget ?? 0)}
                 </span>
 
                 {/* Bell */}

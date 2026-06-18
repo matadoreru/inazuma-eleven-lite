@@ -3,12 +3,7 @@ import { useCareerStore } from '../store/careerStore'
 import { canClaimObjective } from '../services/objectiveService'
 import Icon from './Icon'
 import type { Objective } from '../types/career'
-
-function formatMoney(n: number): string {
-  if (n >= 1_000_000) return `€${(n / 1_000_000).toFixed(1)}M`
-  if (n >= 1_000) return `€${(n / 1_000).toFixed(0)}K`
-  return `€${n}`
-}
+import { formatMoney } from '../utils/formatMoney'
 
 function formatRewardLabel(obj: Objective): string {
   const parts: string[] = []
@@ -66,7 +61,7 @@ function ObjectiveRow({ obj, onClaim, seasonFinished }: { obj: Objective; onClai
             )}
             {obj.groupType === 'season_end' && !seasonFinished && (
               <span className="text-[10px] bg-blue-900/40 text-blue-400 border border-blue-700/40 rounded px-1.5 py-0.5">
-                Solo al final
+                Se consigue al final de temporada
               </span>
             )}
           </div>

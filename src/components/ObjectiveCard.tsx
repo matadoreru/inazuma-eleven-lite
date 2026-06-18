@@ -1,15 +1,10 @@
 import type { Objective, ObjectiveCategory, ObjectiveDifficulty } from '../types/career'
 import StatBar from './StatBar'
 import Icon from './Icon'
+import { formatMoney } from '../utils/formatMoney'
 
 interface Props {
   objective: Objective
-}
-
-function formatMoney(n: number): string {
-  if (n >= 1_000_000) return `€${(n / 1_000_000).toFixed(1)}M`
-  if (n >= 1_000) return `€${(n / 1_000).toFixed(0)}K`
-  return `€${n}`
 }
 
 const categoryLabel: Record<ObjectiveCategory, string> = {

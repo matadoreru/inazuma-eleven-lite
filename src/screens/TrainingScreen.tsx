@@ -434,11 +434,6 @@ export default function TrainingScreen() {
           {/* ── Left panel: Player roster ── */}
           <div className="flex flex-col border-r border-gold-600/20 w-72 shrink-0 overflow-hidden">
             <div className="px-4 py-3 border-b border-gold-600/20 shrink-0">
-              <div className="flex items-center gap-2 mt-0.5 text-gray-500 text-xs">
-                <TeamNameInline teamName={teamName} badgeUrl={userTeam?.badgeUrl} size="xs" textClassName="text-gray-500 text-xs" />
-                <span>·</span>
-                <span>{career.season.currentDate}</span>
-              </div>
               <h2 className="text-gray-400 text-xs font-semibold uppercase tracking-wider mt-2">
                 Plantilla
               </h2>

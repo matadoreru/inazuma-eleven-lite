@@ -3,6 +3,7 @@ import { getPlayerStatsSummary } from '../types/player'
 import type { Team } from '../types/team'
 import type { Career, TransferOffer, OutgoingNegotiation, NegotiationPhase, InboxEventType, InboxEvent, IncomingOffer } from '../types/career'
 import type { TransferFilter } from '../types/transfer'
+import { formatMoney } from '../utils/formatMoney'
 
 export const MAX_TRANSFER_VALUE = 10_000_000
 
@@ -514,8 +515,7 @@ export function resolveNegotiations(
   let p = players
   let t = teams
 
-  const fmtAmt = (n: number) =>
-    n >= 1_000_000 ? `€${(n / 1_000_000).toFixed(1)}M` : n >= 1_000 ? `€${(n / 1_000).toFixed(0)}K` : `€${n}`
+  const fmtAmt = formatMoney
 
   for (const neg of career.outgoingNegotiations) {
     if (neg.phase !== 'club_pending' && neg.phase !== 'player_pending') continue
@@ -601,7 +601,7 @@ export function resolveNegotiations(
         c = pushEvent(c, makeEvent(
           'OUTGOING_TRANSFER_PLAYER_ACCEPTED',
           `¡El jugador acepta! ${neg.playerName}`,
-          `${neg.playerName} ha aceptado tu oferta de ${fmtAmt(neg.currentOffer)}. Ve al ojeador para confirmar el fichaje.`,
+          `${neg.playerName} ha aceptado tu oferta de ${fmtAmt(neg.currentOffer)}. Ve a Ofertas enviadas para confirmar el fichaje.`,
           currentDate, { negotiationId: neg.id },
           'transfers',
         ))

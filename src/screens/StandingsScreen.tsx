@@ -148,10 +148,6 @@ export default function StandingsScreen() {
               <CupBracket cup={career.cup ?? null} teams={teams} userTeamId={career.teamId} />
             ) : (
               <div className="p-4">
-                <h1 className="screen-title mb-4">
-                  {leagues.find((l) => l.id === activeTab)?.name ?? activeTab}
-                </h1>
-
                 {activeStandings.length === 0 ? (
                   <div className="panel py-8 text-center text-gray-500 text-sm">
                     Sin datos de clasificación disponibles

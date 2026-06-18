@@ -7,11 +7,7 @@ import { getPlayerStatsSummary } from '../types/player'
 import { calcTransferValue, calcFreeAgentRecommendedOffer } from '../services/transferService'
 import { useNameStyle } from '../hooks/useNameStyle'
 
-function fmt(n: number): string {
-  if (n >= 1_000_000) return `€${(n / 1_000_000).toFixed(1)}M`
-  if (n >= 1_000) return `€${(n / 1_000).toFixed(0)}K`
-  return `€${n}`
-}
+import { formatMoney as fmt } from '../utils/formatMoney'
 
 function StatCell({ value }: { value: number }) {
   return (

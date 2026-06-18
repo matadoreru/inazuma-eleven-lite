@@ -21,7 +21,6 @@ const NAV_ITEMS: NavItem[] = [
   { screen: 'calendar', label: 'Calendario', icon: 'calendar_month' },
   { screen: 'standings', label: 'Clasificación', icon: 'leaderboard' },
   { screen: 'transfers', label: 'Fichajes', icon: 'swap_horiz' },
-  { screen: 'scout', label: 'Ojeador', icon: 'search' },
 ]
 
 export default function SideNavigation({ currentScreen, onNavigate }: Props) {

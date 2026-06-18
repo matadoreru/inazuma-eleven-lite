@@ -3,14 +3,11 @@ import { useState, useEffect } from 'react'
 import { useCareerStore } from '../store/careerStore'
 import TeamNameInline from '../components/TeamNameInline'
 import { listSaves, deleteSave } from '../services/saveService'
+import { formatMoney } from '../utils/formatMoney'
 import { MAX_SAVE_SLOTS } from '../types/save'
 import type { SaveSlot } from '../types/save'
 
-function fmt(n: number): string {
-  if (n >= 1_000_000) return `€${(n / 1_000_000).toFixed(1)}M`
-  if (n >= 1_000) return `€${(n / 1_000).toFixed(0)}K`
-  return `€${n}`
-}
+const fmt = formatMoney
 
 function formatDate(unix: number): string {
   return new Date(unix).toLocaleDateString('es-ES', {

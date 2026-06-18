@@ -1,6 +1,7 @@
 import { useCareerStore } from '../store/careerStore'
 import GameLayout from '../components/GameLayout'
 import ObjectivesPanel from '../components/ObjectivesPanel'
+import { formatMoney } from '../utils/formatMoney'
 import MatchPreviewPanel from '../components/MatchPreviewPanel'
 import DayAdvancePanel from '../components/DayAdvancePanel'
 import Icon from '../components/Icon'
@@ -11,11 +12,6 @@ import { leagues } from '../data/leagues'
 import type { Match } from '../types/competition'
 import type { Team } from '../types/team'
 
-function formatBudget(n: number): string {
-  if (n >= 1_000_000) return `€${(n / 1_000_000).toFixed(1)}M`
-  if (n >= 1_000) return `€${(n / 1_000).toFixed(0)}K`
-  return `€${n}`
-}
 
 function UserFinishedBanner({ onAdvanceDay, onAdvanceToNextMatch, onSimulateAll }: {
   onAdvanceDay: () => void
@@ -163,22 +159,6 @@ export default function CareerHomeScreen() {
   return (
     <GameLayout>
       <main className="h-full overflow-y-auto p-4 space-y-4">
-
-        {/* Stats bar */}
-        <div className="grid grid-cols-4 gap-3">
-          {[
-            { label: 'Temporada', value: String(career.seasonNumber), color: 'text-white' },
-            { label: 'Posición', value: leaguePosition > 0 ? `#${leaguePosition}` : '--', color: 'text-gold-400' },
-            { label: 'Puntos', value: String(teamRow?.points ?? 0), color: 'text-white' },
-            { label: 'Presupuesto', value: formatBudget(budget), color: 'text-green-400' },
-          ].map(({ label, value, color }) => (
-            <div key={label} className="panel px-4 py-3">
-              <p className="label-muted mb-1">{label}</p>
-              <p className={`text-lg font-extrabold ${color}`}>{value}</p>
-            </div>
-          ))}
-        </div>
-
         {/* Season banners */}
         {seasonStatus === 'all_finished' && <AllFinishedBanner onCloseSeason={closeSeason} />}
         {seasonStatus === 'user_finished' && (

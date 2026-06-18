@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import Icon from '../components/Icon'
 import { useCareerStore } from '../store/careerStore'
+import { formatMoney } from '../utils/formatMoney'
 import type { MatchEvent, MatchResult } from '../types/competition'
 import type { Player } from '../types/player'
 import { playerDisplayName } from '../types/player'
@@ -12,11 +13,6 @@ import TeamNameInline from '../components/TeamNameInline'
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
-function fmtMoney(n: number): string {
-  if (n >= 1_000_000) return `€${(n / 1_000_000).toFixed(1)}M`
-  if (n >= 1_000) return `€${(n / 1_000).toFixed(0)}K`
-  return `€${n}`
-}
 
 const REWARD_TYPE_LABELS: Record<MatchRewardType, string> = {
   money: 'Dinero',
@@ -228,7 +224,7 @@ function RewardCard({ reward, onClaim, player }: { reward: MatchReward; onClaim:
           <p className={`text-[0.5625rem] font-bold uppercase tracking-wider ${lblCol}`}>
             {REWARD_RARITY_LABELS[reward.rarity]} · {REWARD_TYPE_LABELS[reward.type]}
           </p>
-          <p className="text-white font-black text-xl leading-tight tabular-nums">{fmtMoney(reward.moneyAmount)}</p>
+          <p className="text-white font-black text-xl leading-tight tabular-nums">{formatMoney(reward.moneyAmount)}</p>
           <p className="text-gray-500 text-[0.5625rem] mt-0.5">Ingreso inmediato al presupuesto del club</p>
         </div>
         <Icon name="chevron_right" size="xs" className="text-gray-600 shrink-0" />

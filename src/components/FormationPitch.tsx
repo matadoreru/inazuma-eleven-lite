@@ -246,22 +246,29 @@ export default function FormationPitch({ formation, slotAssignment, players, cap
 
   return (
     <div
-      className="relative bg-green-900 rounded-xl overflow-hidden w-full select-none"
+      className="relative rounded-2xl overflow-hidden h-full w-auto max-w-full select-none border border-gold-600/20 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]"
       style={{ aspectRatio: '3/4' }}
     >
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_48%,rgba(34,197,94,0.2),rgba(20,83,45,0.92)_45%,rgba(6,24,16,0.98)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(251,191,36,0.05),transparent_16%,transparent_84%,rgba(251,191,36,0.04))]" />
+      <div className="absolute inset-0 bg-[repeating-linear-gradient(180deg,rgba(255,255,255,0.018)_0px,rgba(255,255,255,0.018)_1px,transparent_1px,transparent_74px)] opacity-60 pointer-events-none" />
+
       {/* Pitch markings */}
-      <div className="absolute inset-x-0 top-1/2 h-px bg-white/10 pointer-events-none" />
+      <div className="absolute inset-[3.5%] rounded-[1.25rem] border border-white/10 pointer-events-none" />
+      <div className="absolute inset-x-[3.5%] top-1/2 h-px bg-white/10 pointer-events-none" />
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-28 h-28 border border-white/10 rounded-full pointer-events-none" />
-      <div className="absolute top-3 left-1/4 right-1/4 h-[14%] border border-white/10 rounded-b pointer-events-none" />
-      <div className="absolute bottom-3 left-1/4 right-1/4 h-[14%] border border-white/10 rounded-t pointer-events-none" />
-      <div className="absolute inset-0 bg-gradient-to-b from-green-700/10 via-transparent to-green-950/20 pointer-events-none" />
+      <div className="absolute top-[6%] left-[25%] right-[25%] h-[14%] border border-white/10 rounded-b-2xl pointer-events-none" />
+      <div className="absolute top-[10.5%] left-[38%] right-[38%] h-[5.5%] border border-white/10 rounded-b-xl pointer-events-none" />
+      <div className="absolute bottom-[6%] left-[25%] right-[25%] h-[14%] border border-white/10 rounded-t-2xl pointer-events-none" />
+      <div className="absolute bottom-[10.5%] left-[38%] right-[38%] h-[5.5%] border border-white/10 rounded-t-xl pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/5 via-transparent to-black/20 pointer-events-none" />
 
       {/* Formation name label */}
-      <div className="absolute top-2 left-2 z-20 pointer-events-none flex flex-col gap-0.5">
-        <span className="text-white/80 text-[0.625rem] font-bold bg-black/40 rounded-md px-2 py-0.5 leading-tight">
+      <div className="absolute top-3 left-3 z-20 pointer-events-none flex flex-col gap-1">
+        <span className="text-gold-300 text-[0.625rem] font-bold bg-dark-950/70 border border-gold-600/25 rounded-md px-2 py-1 leading-tight shadow-lg">
           {formation.name}
         </span>
-        <span className="text-green-300/50 text-[0.5rem] font-semibold bg-black/25 rounded px-1.5 py-0.5 leading-tight tabular-nums">
+        <span className="text-gray-400 text-[0.5rem] font-semibold bg-dark-950/45 border border-white/5 rounded px-1.5 py-0.5 leading-tight tabular-nums">
           {formation.DF}-{formation.MD}-{formation.FW}
         </span>
       </div>

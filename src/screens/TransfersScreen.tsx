@@ -4,8 +4,9 @@ import { useCareerStore } from '../store/careerStore'
 import TransferPlayerRow from '../components/TransferPlayerRow'
 import Icon from '../components/Icon'
 import { filterPlayers, calcTransferValue } from '../services/transferService'
+import { formatMoney } from '../utils/formatMoney'
 import type { Position, Element, Player } from '../types/player'
-import type { IncomingOffer } from '../types/career'
+import type { IncomingOffer, OutgoingNegotiation } from '../types/career'
 import type { Team } from '../types/team'
 
 const POSITIONS: (Position | 'ALL')[] = ['ALL', 'GK', 'DF', 'MD', 'FW']
@@ -76,7 +77,6 @@ function IncomingOfferCard({ offer, players, teams }: { offer: IncomingOffer; pl
   const marketValue = calcTransferValue(player)
   const diff = offer.amount - marketValue
   const diffPct = Math.round((diff / marketValue) * 100)
-  const fmt = (n: number) => n >= 1_000_000 ? `€${(n/1_000_000).toFixed(1)}M` : n >= 1_000 ? `€${(n/1_000).toFixed(0)}K` : `€${n}`
 
   return (
     <div className="bg-dark-800/80 rounded-xl border border-gold-600/20 p-4 space-y-3">
@@ -86,18 +86,18 @@ function IncomingOfferCard({ offer, players, teams }: { offer: IncomingOffer; pl
         )}
         <div className="flex-1">
           <p className="text-white font-bold">{player.name}</p>
-          <p className="text-gray-400 text-xs">{player.position} · {player.age} anos · Media {Math.round(player.stats.TOT / 7)}</p>
+          <p className="text-gray-400 text-xs">{player.position} · {player.age} años · Media {Math.round(player.stats.TOT / 7)}</p>
           <p className="text-gray-500 text-xs">Interesado: <span className="text-gray-300">{offer.fromTeamName}</span></p>
         </div>
       </div>
       <div className="grid grid-cols-3 gap-2 text-center text-xs">
         <div className="bg-dark-700/60 rounded p-2">
           <p className="text-gray-500">Valor mercado</p>
-          <p className="text-white font-semibold">{fmt(marketValue)}</p>
+          <p className="text-white font-semibold">{formatMoney(marketValue)}</p>
         </div>
         <div className="bg-dark-700/60 rounded p-2">
           <p className="text-gray-500">Oferta recibida</p>
-          <p className="text-white font-semibold">{fmt(offer.amount)}</p>
+          <p className="text-white font-semibold">{formatMoney(offer.amount)}</p>
         </div>
         <div className={`rounded p-2 ${diff >= 0 ? 'bg-green-900/30' : 'bg-red-900/30'}`}>
           <p className="text-gray-500">Diferencia</p>
@@ -123,7 +123,7 @@ function IncomingOfferCard({ offer, players, teams }: { offer: IncomingOffer; pl
       <div className="flex gap-2">
         <input
           type="number"
-          placeholder={`Contraoferta (ej. ${fmt(Math.round(marketValue * 1.1))})`}
+          placeholder={`Contraoferta (ej. ${formatMoney(Math.round(marketValue * 1.1))})`}
           value={counterInput}
           onChange={e => setCounterInput(e.target.value)}
           className="flex-1 bg-dark-700/60 border border-gray-700 rounded px-2 py-1.5 text-white text-xs focus:border-gold-500 outline-none"
@@ -142,6 +142,144 @@ function IncomingOfferCard({ offer, players, teams }: { offer: IncomingOffer; pl
   )
 }
 
+function OutgoingNegotiationCard({
+  neg,
+  counterInput,
+  onCounterInputChange,
+  onRespondCounter,
+  onConfirm,
+  onCancel,
+  onDismiss,
+}: {
+  neg: OutgoingNegotiation
+  counterInput: string
+  onCounterInputChange: (val: string) => void
+  onRespondCounter: (action: 'accept_counter' | 'counter' | 'reject', amount?: number) => void
+  onConfirm: () => void
+  onCancel: () => void
+  onDismiss: () => void
+}) {
+  const isResolved = neg.phase === 'failed' || neg.phase === 'cancelled'
+  const isPlayerAccepted = neg.phase === 'player_accepted'
+  const isPlayerPending = neg.phase === 'player_pending'
+  const isPlayerCounter = neg.phase === 'player_counter'
+  const hasCounter = !!neg.counterAmount
+
+  const borderClass = isResolved
+    ? 'border-gold-600/20'
+    : isPlayerAccepted
+    ? 'border-green-600/50'
+    : isPlayerCounter || (hasCounter && neg.phase === 'club_pending')
+    ? 'border-yellow-600/50'
+    : 'border-gold-600/20'
+
+  const statusText = (() => {
+    if (neg.phase === 'club_pending' && !hasCounter) return { text: 'Esperando respuesta del club', color: 'text-gray-400' }
+    if (neg.phase === 'club_pending' && hasCounter) return { text: `Contraoferta del club: ${formatMoney(neg.counterAmount!)}`, color: 'text-yellow-400' }
+    if (isPlayerPending) return { text: 'El jugador está valorando la oferta', color: 'text-gray-400' }
+    if (isPlayerCounter) return { text: `El jugador pide: ${formatMoney(neg.counterAmount!)}`, color: 'text-yellow-400' }
+    if (isPlayerAccepted) return { text: '¡El jugador acepta! Confirma el fichaje', color: 'text-green-400 font-semibold' }
+    if (neg.phase === 'failed') return { text: 'Negociación fallida', color: 'text-red-400' }
+    if (neg.phase === 'cancelled') return { text: 'Cancelada', color: 'text-gray-500' }
+    return { text: '', color: '' }
+  })()
+
+  return (
+    <div className={`bg-dark-800/80 rounded-xl border p-4 ${borderClass} ${isResolved ? 'opacity-70' : ''}`}>
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex-1 min-w-0">
+          <p className={`text-sm font-bold truncate ${isResolved ? 'text-gray-400' : 'text-white'}`}>{neg.playerName}</p>
+          <p className="text-gray-500 text-xs mt-0.5">{neg.targetClubName}</p>
+          <p className={`text-xs mt-1 ${statusText.color}`}>{statusText.text}</p>
+          {!isResolved && (
+            <p className="text-gray-600 text-[0.625rem] mt-0.5">
+              Oferta: {formatMoney(neg.currentOffer)}
+              {!isPlayerAccepted && ` · Res. ${neg.resolutionDate}`}
+            </p>
+          )}
+          {isResolved && (
+            <p className="text-gray-600 text-[0.625rem] mt-0.5">Oferta final: {formatMoney(neg.currentOffer)}</p>
+          )}
+        </div>
+
+        <div className="shrink-0 flex flex-col gap-1.5 items-end">
+          {isResolved && (
+            <button
+              onClick={onDismiss}
+              className="text-[0.625rem] px-2 py-1 bg-dark-700/60 hover:bg-dark-600/70 text-gray-400 rounded font-semibold border border-gold-600/15 transition-colors"
+            >
+              Eliminar
+            </button>
+          )}
+
+          {isPlayerAccepted && (
+            <>
+              <button
+                onClick={onConfirm}
+                className="text-[0.625rem] px-2 py-1 bg-green-700 hover:bg-green-600 text-white rounded font-semibold transition-colors"
+              >
+                Confirmar
+              </button>
+              <button
+                onClick={onCancel}
+                className="text-[0.625rem] px-2 py-1 bg-dark-700/80 hover:bg-dark-600/80 text-gray-300 rounded font-semibold transition-colors border border-gold-600/15"
+              >
+                Cancelar
+              </button>
+            </>
+          )}
+
+          {hasCounter && !isPlayerAccepted && (
+            <>
+              <button
+                onClick={() => onRespondCounter('accept_counter')}
+                className="text-[0.625rem] px-2 py-1 bg-green-700 hover:bg-green-600 text-white rounded font-semibold transition-colors"
+              >
+                Aceptar
+              </button>
+              {neg.offerRound < 3 && (
+                <div className="flex gap-1 items-center">
+                  <input
+                    type="number"
+                    value={counterInput}
+                    onChange={(e) => onCounterInputChange(e.target.value)}
+                    placeholder={String(Math.round(neg.currentOffer * 1.05))}
+                    className="w-20 text-[0.625rem] px-1.5 py-1 bg-dark-700/80 border border-gold-600/30 rounded text-white placeholder-gray-500"
+                  />
+                  <button
+                    onClick={() => {
+                      const raw = parseInt(counterInput)
+                      if (raw > 0) onRespondCounter('counter', raw)
+                    }}
+                    className="text-[0.625rem] px-2 py-1 bg-yellow-700 hover:bg-yellow-600 text-white rounded font-semibold transition-colors"
+                  >
+                    Contra
+                  </button>
+                </div>
+              )}
+              <button
+                onClick={() => onRespondCounter('reject')}
+                className="text-[0.625rem] px-2 py-1 bg-dark-700/80 hover:bg-dark-600/80 text-gray-300 rounded font-semibold transition-colors border border-gold-600/15"
+              >
+                Rechazar
+              </button>
+            </>
+          )}
+
+          {!hasCounter && !isPlayerAccepted && !isResolved && (
+            <button
+              onClick={onCancel}
+              className="text-[0.625rem] px-2 py-1 bg-dark-700/80 hover:bg-dark-600/80 text-gray-300 rounded font-semibold transition-colors border border-gold-600/15"
+            >
+              Cancelar
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default function TransfersScreen() {
   const career = useCareerStore((s) => s.career)
   const teams = useCareerStore((s) => s.teams)
@@ -151,10 +289,15 @@ export default function TransfersScreen() {
   const activeTransferFilter = useCareerStore((s) => s.activeTransferFilter)
   const setTransferFilter = useCareerStore((s) => s.setTransferFilter)
   const selectPlayer = useCareerStore((s) => s.selectPlayer)
+  const respondToCounterOffer = useCareerStore((s) => s.respondToCounterOffer)
+  const cancelNegotiation = useCareerStore((s) => s.cancelNegotiation)
+  const confirmTransfer = useCareerStore((s) => s.confirmTransfer)
+  const dismissNegotiation = useCareerStore((s) => s.dismissNegotiation)
 
   const [sortKey, setSortKey] = useState<SortKey>('TOT')
   const [sortDir, setSortDir] = useState<SortDir>('desc')
-  const [activeTab, setActiveTab] = useState<'market' | 'incoming'>('market')
+  const [activeTab, setActiveTab] = useState<'market' | 'incoming' | 'outgoing'>('market')
+  const [counterInputs, setCounterInputs] = useState<Record<string, string>>({})
 
   if (!career) {
     return (
@@ -166,6 +309,13 @@ export default function TransfersScreen() {
 
   const teamById = new Map(teams.map((t) => [t.id, t]))
   const incomingOffers = (career.incomingOffers ?? []).filter(o => o.status === 'pending')
+
+  const activeNegotiations = career.outgoingNegotiations.filter(
+    (n) => n.phase === 'club_pending' || n.phase === 'player_pending' || n.phase === 'player_counter' || n.phase === 'player_accepted',
+  )
+  const resolvedNegotiations = career.outgoingNegotiations.filter(
+    (n) => n.phase === 'failed' || n.phase === 'cancelled',
+  )
 
   // Available players: not in user team
   const availablePlayers = players.filter((p) => p.teamId !== career.teamId)
@@ -222,9 +372,22 @@ export default function TransfersScreen() {
                 </span>
               )}
             </button>
+            <button
+              onClick={() => setActiveTab('outgoing')}
+              className={`px-4 py-2 text-sm font-semibold border-b-2 transition-colors flex items-center gap-1.5 ${
+                activeTab === 'outgoing' ? 'border-gold-500 text-gold-400' : 'border-transparent text-gray-500 hover:text-gray-300'
+              }`}
+            >
+              Ofertas enviadas
+              {activeNegotiations.length > 0 && (
+                <span className="bg-blue-600 text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
+                  {activeNegotiations.length}
+                </span>
+              )}
+            </button>
           </div>
 
-          {/* Filters toolbar */}
+          {/* Filters toolbar (market only) */}
           {activeTab === 'market' && <div className="flex-shrink-0 bg-dark-900/80 border-b border-gold-600/30 px-4 py-2 space-y-2">
             <div className="flex flex-wrap gap-x-4 gap-y-2 items-end">
               {/* Position filter */}
@@ -311,7 +474,7 @@ export default function TransfersScreen() {
             </div>
           </div>}
 
-          {/* Market tab: Scrollable table */}
+          {/* Market tab */}
           {activeTab === 'market' && (
           <div className="flex-1 overflow-y-auto p-3">
             <div className="panel rounded-xl overflow-hidden mb-3">
@@ -357,7 +520,6 @@ export default function TransfersScreen() {
               </table>
             </div>
 
-            {/* Pagination */}
             {totalPages > 1 && (
               <div className="flex items-center justify-center gap-2">
                 <button
@@ -390,6 +552,60 @@ export default function TransfersScreen() {
               ) : incomingOffers.map((offer) => (
                 <IncomingOfferCard key={offer.id} offer={offer} players={players} teams={teams} />
               ))}
+            </div>
+          )}
+
+          {/* Outgoing offers tab */}
+          {activeTab === 'outgoing' && (
+            <div className="flex-1 overflow-y-auto p-3 space-y-3">
+              {activeNegotiations.length === 0 && resolvedNegotiations.length === 0 ? (
+                <p className="text-gray-500 text-sm text-center py-8">No has enviado ninguna oferta.</p>
+              ) : (
+                <>
+                  {activeNegotiations.length > 0 && (
+                    <div className="space-y-2">
+                      <p className="text-gray-400 text-xs font-semibold uppercase tracking-wide px-1">
+                        Activas ({activeNegotiations.length})
+                      </p>
+                      {activeNegotiations.map((neg) => (
+                        <OutgoingNegotiationCard
+                          key={neg.id}
+                          neg={neg}
+                          counterInput={counterInputs[neg.id] ?? ''}
+                          onCounterInputChange={(val) => setCounterInputs((prev) => ({ ...prev, [neg.id]: val }))}
+                          onRespondCounter={(action, amount) => {
+                            respondToCounterOffer(neg.id, action, amount)
+                            setCounterInputs((prev) => ({ ...prev, [neg.id]: '' }))
+                          }}
+                          onConfirm={() => confirmTransfer(neg.id)}
+                          onCancel={() => cancelNegotiation(neg.id)}
+                          onDismiss={() => dismissNegotiation(neg.id)}
+                        />
+                      ))}
+                    </div>
+                  )}
+
+                  {resolvedNegotiations.length > 0 && (
+                    <div className="space-y-2">
+                      <p className="text-gray-400 text-xs font-semibold uppercase tracking-wide px-1">
+                        Resueltas ({resolvedNegotiations.length})
+                      </p>
+                      {resolvedNegotiations.map((neg) => (
+                        <OutgoingNegotiationCard
+                          key={neg.id}
+                          neg={neg}
+                          counterInput=""
+                          onCounterInputChange={() => {}}
+                          onRespondCounter={() => {}}
+                          onConfirm={() => {}}
+                          onCancel={() => {}}
+                          onDismiss={() => dismissNegotiation(neg.id)}
+                        />
+                      ))}
+                    </div>
+                  )}
+                </>
+              )}
             </div>
           )}
         </div>

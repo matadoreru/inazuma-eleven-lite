@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useCareerStore } from '../store/careerStore'
 import StatBar, { statColor } from '../components/StatBar'
 import TechniqueBadge from '../components/TechniqueBadge'
+import { formatMoney } from '../utils/formatMoney'
 import ElementBadge from '../components/ElementBadge'
 import PositionSprite from '../components/PositionSprite'
 import Icon from '../components/Icon'
@@ -28,11 +29,7 @@ import type { TechniqueBook } from '../types/inventory'
 
 // ─── helpers ────────────────────────────────────────────────────────────────
 
-function fmt(n: number): string {
-  if (n >= 1_000_000) return `€${(n / 1_000_000).toFixed(1)}M`
-  if (n >= 1_000) return `€${(n / 1_000).toFixed(0)}K`
-  return `€${n}`
-}
+const fmt = formatMoney
 
 const STAT_KEYS: (keyof Stats)[] = ['POT', 'CON', 'TEC', 'PRE', 'FIS', 'AGI', 'INT']
 
@@ -849,9 +846,7 @@ export default function PlayerDetailScreen() {
                 {activeNegotiation && activeNegotiation.phase === 'club_pending' && activeNegotiation.counterAmount && (
                   <div className="flex flex-col gap-1.5">
                     <span className="text-yellow-400 text-[0.625rem] font-semibold">
-                      Contra: {activeNegotiation.counterAmount >= 1_000_000
-                        ? `€${(activeNegotiation.counterAmount / 1_000_000).toFixed(1)}M`
-                        : `€${(activeNegotiation.counterAmount / 1_000).toFixed(0)}K`}
+                      Contra: {fmt(activeNegotiation.counterAmount)}
                     </span>
                     <button
                       onClick={() => respondToCounterOffer(activeNegotiation.id, 'accept_counter')}
@@ -894,9 +889,7 @@ export default function PlayerDetailScreen() {
                   <div className="flex flex-col gap-1">
                     <span className="text-yellow-400 text-[0.625rem] leading-tight font-semibold">Jugador contraoferta</span>
                     <span className="text-yellow-300 text-[0.5rem] font-bold">
-                      Pide: {activeNegotiation.counterAmount >= 1_000_000
-                        ? `€${(activeNegotiation.counterAmount / 1_000_000).toFixed(1)}M`
-                        : `€${(activeNegotiation.counterAmount / 1_000).toFixed(0)}K`}
+                      Pide: {fmt(activeNegotiation.counterAmount)}
                     </span>
                     <button
                       onClick={() => respondToPlayerCounterOffer(activeNegotiation.id, 'accept')}
@@ -1195,14 +1188,12 @@ export default function PlayerDetailScreen() {
             <div className="flex items-center justify-between py-2 border-b border-gold-600/20">
               <span className="text-gray-400 text-xs">Valor de mercado</span>
               <span className="text-white text-sm font-bold tabular-nums">
-                {marketValueForOffer >= 1_000_000
-                  ? `€${(marketValueForOffer / 1_000_000).toFixed(1)}M`
-                  : `€${(marketValueForOffer / 1_000).toFixed(0)}K`}
+                {fmt(marketValueForOffer)}
               </span>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-gray-400 text-xs">Tu oferta (€)</label>
+              <label className="text-gray-400 text-xs">Tu oferta (¥)</label>
               <input
                 type="number"
                 value={activeNegotiation?.counterAmount ? counterInput : offerInput}

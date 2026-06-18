@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useCareerStore } from '../store/careerStore'
 import TeamBadgeImage from '../components/TeamBadgeImage'
 import ObjectivesPanel from '../components/ObjectivesPanel'
+import { formatMoney } from '../utils/formatMoney'
 import Icon from '../components/Icon'
 import { getLeagueName } from '../utils/leagueUtils'
 import { computeSeasonStats, computeGlobalStats } from '../services/statsService'
@@ -167,8 +168,6 @@ export default function ClubScreen() {
   const currentStats = computeSeasonStats(career.season, career.teamId, career.seasonNumber)
   const globalStats = computeGlobalStats(career.seasonHistory, currentStats)
 
-  const formatBudget = (n: number) =>
-    n >= 1_000_000 ? `€${(n / 1_000_000).toFixed(1)}M` : `€${(n / 1_000).toFixed(0)}K`
 
   const posLabel: Record<string, string> = { GK: 'Portero', DF: 'Defensa', MD: 'Centrocampista', FW: 'Delantero' }
 
@@ -208,7 +207,7 @@ export default function ClubScreen() {
               </div>
               <div className="text-right shrink-0">
                 <p className="text-gray-400 text-sm">Presupuesto</p>
-                <p className="text-green-400 font-bold text-2xl">{formatBudget(budget)}</p>
+                <p className="text-green-400 font-bold text-2xl">{formatMoney(budget)}</p>
                 <p className="text-gray-500 text-sm mt-2">Formación</p>
                 <p className="text-white font-semibold text-base">{userTeam?.formation.name ?? '--'}</p>
               </div>

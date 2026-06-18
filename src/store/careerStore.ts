@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import type { Screen } from '../App'
 import type { Career } from '../types/career'
+import { formatMoney } from '../utils/formatMoney'
 import { DEFAULT_DIFFICULTY } from '../types/career'
 import type { DifficultySettings } from '../types/career'
 import type { Player } from '../types/player'
@@ -489,9 +490,7 @@ function commitMatchResult(
   // Notify user about newly completed objectives (reward must be claimed manually)
   let updatedTeams = teams
   for (const obj of newlyCompleted) {
-    const moneyStr = obj.reward.money >= 1_000
-      ? `€${(obj.reward.money / 1_000).toFixed(0)}K`
-      : `€${obj.reward.money}`
+    const moneyStr = formatMoney(obj.reward.money)
     const repStr = obj.reward.reputation > 0 ? ` + ${obj.reward.reputation} reputación` : ''
     updatedCareer = addEvent(
       'OBJECTIVE_COMPLETE',
@@ -968,9 +967,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
 
       let updatedCareer = careerWithOffers
       for (const offer of offers) {
-        const fmt = (n: number) =>
-          n >= 1_000_000 ? `€${(n / 1_000_000).toFixed(1)}M` :
-          n >= 1_000 ? `€${(n / 1_000).toFixed(0)}K` : `€${n}`
+        const fmt = formatMoney
 
         const playerName = state.players.find((p) => p.id === offer.playerId)?.name ?? 'un jugador'
         updatedCareer = addEvent(
@@ -1288,7 +1285,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     const result = respondToIncomingOffer(offerId, 'accept', career, players, teams)
 
     let updatedCareer = result.career
-    const fmt = (n: number) => n >= 1_000_000 ? `€${(n/1_000_000).toFixed(1)}M` : n >= 1_000 ? `€${(n/1_000).toFixed(0)}K` : `€${n}`
+    const fmt = formatMoney
     if (result.error === 'insufficient_budget') {
       updatedCareer = addEvent('NEWS', 'Oferta caducada',
         `${offer.fromTeamName} ya no tiene presupuesto para comprar a este jugador.`,
