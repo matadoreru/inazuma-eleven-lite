@@ -1,5 +1,5 @@
 import type { Team } from '../types/team'
-import type { Player } from '../types/player'
+import type { Player, Technique, Element } from '../types/player'
 import type { Match, MatchResult, MatchEvent } from '../types/competition'
 import type { TeamSnapshot, SnapshotPlayer } from '../types/team'
 import { buildTeamSnapshot } from './formationService'
@@ -15,6 +15,25 @@ function rand(min: number, max: number): number {
 function pickFrom<T>(arr: T[]): T | null {
   if (!arr || arr.length === 0) return null
   return arr[Math.floor(Math.random() * arr.length)]
+}
+
+function pickTechnique(player: SnapshotPlayer | null, type: Technique['type']): Technique | null {
+  if (!player?.techniques) return null
+  return player.techniques
+    .filter((t) => t.type === type)
+    .sort((a, b) => b.POT - a.POT)[0] ?? null
+}
+
+// FIRE > WOOD > WIND > MOUNTAIN > FIRE
+const ELEMENT_ADVANTAGES: Record<Element, Element> = {
+  FIRE: 'WOOD', WOOD: 'WIND', WIND: 'MOUNTAIN', MOUNTAIN: 'FIRE',
+}
+
+function elementMatchupBonus(atkElement?: Element | '', defElement?: Element | ''): number {
+  if (!atkElement || !defElement || atkElement === '' || defElement === '') return 0
+  if (ELEMENT_ADVANTAGES[atkElement as Element] === defElement) return 0.05
+  if (ELEMENT_ADVANTAGES[defElement as Element] === atkElement) return -0.05
+  return 0
 }
 
 function calcStoppageTime(halfEvents: MatchEvent[]): number {
@@ -116,7 +135,6 @@ function simulateHalf(
   const chanceBonus = tacticalChanceBonus(attackerMod)
   const variance = rand(-1.1, 1.1)
   const baseChances = 5.5 + scoreBonus + homeBonus + chanceBonus + variance
-  const chances = Math.max(0, Math.round(baseChances / 2))
 
   const finishingPower =
     attackerMod.forwardScore * 0.62 +
@@ -136,7 +154,6 @@ function simulateHalf(
   let shotsOnTarget = 0
   let xg = 0
   const events: MatchEvent[] = []
-  const minuteStep = Math.floor(45 / Math.max(1, chances))
 
   const atkStarters = attacker.starters ?? []
   const defStarters = defender.starters ?? []
@@ -144,30 +161,77 @@ function simulateHalf(
   const atkFw   = atkStarters.filter((p) => p.position === 'FW')
   const defGk   = defStarters.filter((p) => p.position === 'GK')
 
-  for (let i = 0; i < chances; i++) {
+  // Top midfielder with Regate gets a slight chance generation bonus
+  const topMid = atkFwMd.find((p) => p.position === 'MD')
+  const regateTech = pickTechnique(topMid ?? null, 'Regate')
+  const regateBonus = regateTech ? 0.3 : 0
+  const actualChances = Math.max(0, Math.round((baseChances + regateBonus) / 2))
+  const minuteStep = Math.floor(45 / Math.max(1, actualChances))
+
+  for (let i = 0; i < actualChances; i++) {
     const minute = startMinute + Math.min(44, i * minuteStep + Math.floor(rand(0, minuteStep)))
     xg += goalProb
 
     const onTarget = Math.random() < 0.55
     if (onTarget) {
       shotsOnTarget++
-      if (Math.random() < goalProb) {
+      const scorer = pickFrom(atkFwMd.length > 0 ? atkFwMd : atkStarters)
+      const gk = pickFrom(defGk.length > 0 ? defGk : defStarters)
+
+      // Technique modifiers
+      const atkTech   = pickTechnique(scorer ?? null, 'Tiro')
+      const gkTech    = pickTechnique(gk ?? null, 'Parada')
+      const techBonus  = atkTech ? atkTech.POT / 800 : 0
+      const techPenalty = gkTech ? gkTech.POT / 900 : 0
+      const elemBonus  = elementMatchupBonus(
+        atkTech?.element || scorer?.element,
+        gkTech?.element  || gk?.element,
+      )
+      const adjustedGoalProb = clamp(goalProb + techBonus - techPenalty + elemBonus, 0.06, 0.75)
+
+      if (Math.random() < adjustedGoalProb) {
         goals++
-        const scorer = pickFrom(atkFwMd.length > 0 ? atkFwMd : atkStarters)
         const scorerName = scorer ? (nameStyle === 'japanese' ? scorer.nameRomaji : scorer.name) : null
         events.push(mkEvent(
           minute, 'GOAL', attacker.id,
           scorerName ? `¡Gol de ${scorerName}!` : `¡Gol de ${attacker.name}!`,
           isHome, scorer, nameStyle,
         ))
+        if (atkTech) {
+          events.push({
+            minute,
+            type: 'TECHNIQUE',
+            teamId: attacker.id,
+            isHome,
+            text: `${scorer ? (nameStyle === 'japanese' ? scorer.nameRomaji : scorer.name) : '?'} usa ${atkTech.name}!`,
+            playerId: scorer?.id,
+            playerName: scorer ? (nameStyle === 'japanese' ? scorer.nameRomaji : scorer.name) : undefined,
+            techniqueName: atkTech.name,
+            techniqueOutcome: 'success',
+            techniqueElement: atkTech.element || undefined,
+          } as MatchEvent)
+        }
       } else {
-        const gk = pickFrom(defGk.length > 0 ? defGk : defStarters)
         const gkName = gk ? (nameStyle === 'japanese' ? gk.nameRomaji : gk.name) : null
         events.push(mkEvent(
           minute, 'SAVE', defender.id,
           gkName ? `Parada de ${gkName}` : `Parada de ${defender.name}`,
           !isHome, gk, nameStyle,
         ))
+        if (gkTech) {
+          events.push({
+            minute,
+            type: 'TECHNIQUE',
+            teamId: defender.id,
+            isHome: !isHome,
+            text: `${gkName ?? '?'} usa ${gkTech.name}!`,
+            playerId: gk?.id,
+            playerName: gkName ?? undefined,
+            techniqueName: gkTech.name,
+            techniqueOutcome: 'success',
+            techniqueElement: gkTech.element || undefined,
+          } as MatchEvent)
+        }
       }
     } else {
       const shooter = pickFrom(atkFw.length > 0 ? atkFw : atkFwMd.length > 0 ? atkFwMd : atkStarters)
@@ -180,7 +244,7 @@ function simulateHalf(
     }
   }
 
-  return { goals, shots: chances, shotsOnTarget, xg, events }
+  return { goals, shots: actualChances, shotsOnTarget, xg, events }
 }
 
 function generateDisciplinaryEvents(

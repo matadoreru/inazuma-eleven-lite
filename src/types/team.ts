@@ -1,4 +1,4 @@
-import type { Position } from './player'
+import type { Position, Element, Technique } from './player'
 
 export const MAX_CALLUP = 25
 
@@ -56,6 +56,8 @@ export interface SnapshotPlayer {
   nameRomaji: string
   spriteUrl: string
   position: Position
+  element?: Element
+  techniques?: Technique[]
 }
 
 export interface TeamSnapshot {

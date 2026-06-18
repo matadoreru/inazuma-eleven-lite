@@ -209,6 +209,26 @@ describe('simulate', () => {
   })
 })
 
+describe('technique simulation', () => {
+  it('generates TECHNIQUE events when players have techniques', () => {
+    const tech: import('../types/player').Technique = { id: 1, name: 'Gran Fuego', type: 'Tiro', element: 'FIRE', POT: 150, PP: 20 }
+    const snapWithTech = (id: number) => ({
+      id, name: `Team ${id}`, formation: { tacticalType: 'BALANCED' } as any,
+      forwardScore: 80, midfieldScore: 80, defenseScore: 60, goalkeeperScore: 60,
+      starters: [
+        { id: 10, name: 'Striker', nameRomaji: 'Striker', spriteUrl: '', position: 'FW' as const, element: 'FIRE' as const, techniques: [tech] },
+      ],
+    })
+    let foundTech = false
+    for (let i = 0; i < 100; i++) {
+      const match = { id: 'm1', leagueId: 'test', round: 1, homeTeamId: 1, awayTeamId: 2, date: '2026-01-01', played: false, homeGoals: 0, awayGoals: 0, result: null } as any
+      const result = simulate(snapWithTech(1), snapWithTech(2), match)
+      if (result.events.some(e => e.type === 'TECHNIQUE')) { foundTech = true; break }
+    }
+    expect(foundTech).toBe(true)
+  })
+})
+
 describe('simulateCupTiebreak', () => {
   const match = { id: 'm1', leagueId: 'cup', type: 'cup', round: 1,
     homeTeamId: 1, awayTeamId: 2, date: '2026-01-01', played: false,

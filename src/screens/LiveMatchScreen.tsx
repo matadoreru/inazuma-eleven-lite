@@ -468,13 +468,19 @@ export default function LiveMatchScreen() {
               )}
 
               <span className={`flex-1 text-[0.6875rem] leading-snug font-medium ${
-                event.type === 'GOAL'   ? 'text-yellow-300 font-bold' :
-                event.type === 'RED'    ? 'text-red-300' :
-                event.type === 'YELLOW' ? 'text-yellow-200/80' :
-                event.type === 'INJURY' ? 'text-orange-300/80' :
+                event.type === 'GOAL'      ? 'text-yellow-300 font-bold' :
+                event.type === 'RED'       ? 'text-red-300' :
+                event.type === 'YELLOW'    ? 'text-yellow-200/80' :
+                event.type === 'INJURY'    ? 'text-orange-300/80' :
+                event.type === 'TECHNIQUE' ? 'text-purple-300' :
                 'text-gray-300'
               }`}>
                 {event.text}
+                {event.type === 'TECHNIQUE' && event.techniqueName && (
+                  <span className="text-[10px] font-bold bg-yellow-900/40 border border-yellow-600/40 text-yellow-300 rounded px-1.5 py-0.5 ml-1">
+                    {event.techniqueName}
+                  </span>
+                )}
               </span>
 
               {event.playerSpriteUrl && (
