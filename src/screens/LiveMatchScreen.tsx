@@ -486,7 +486,7 @@ export default function LiveMatchScreen() {
 
         {isFinished && processedEvents.length > 0 && (
           <div className="pt-4 pb-2 flex justify-center">
-            <span className="text-gray-500 text-[0.5625rem] uppercase tracking-widest border-t border-gold-600/15/60 pt-3 px-4">
+            <span className="text-gray-500 text-[0.5625rem] uppercase tracking-widest border-t border-gold-600/15 pt-3 px-4">
               Partido finalizado
             </span>
           </div>
