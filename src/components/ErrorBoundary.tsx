@@ -1,5 +1,4 @@
 import { Component, type ReactNode } from 'react'
-import { clearAutoSave } from '../services/saveService'
 
 interface Props {
   children: ReactNode
@@ -8,6 +7,19 @@ interface Props {
 interface State {
   hasError: boolean
   error: Error | null
+}
+
+function clearAllAppStorage() {
+  try {
+    const keysToRemove: string[] = []
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i)
+      if (key && (key.startsWith('iel_') || key.startsWith('ie_'))) {
+        keysToRemove.push(key)
+      }
+    }
+    keysToRemove.forEach((k) => localStorage.removeItem(k))
+  } catch { /* ignore */ }
 }
 
 export default class ErrorBoundary extends Component<Props, State> {
@@ -21,7 +33,7 @@ export default class ErrorBoundary extends Component<Props, State> {
   }
 
   handleReset = () => {
-    clearAutoSave()
+    clearAllAppStorage()
     window.location.reload()
   }
 
@@ -35,6 +47,11 @@ export default class ErrorBoundary extends Component<Props, State> {
             <p className="text-gray-400 text-sm max-w-xs">
               Hubo un error al cargar la partida guardada. Se reiniciará la aplicación.
             </p>
+            {this.state.error && (
+              <p className="text-red-400 text-xs mt-3 font-mono break-all max-w-sm bg-gray-800 rounded p-2">
+                {this.state.error.message}
+              </p>
+            )}
           </div>
           <button
             onClick={this.handleReset}
