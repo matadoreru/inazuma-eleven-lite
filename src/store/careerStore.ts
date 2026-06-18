@@ -1896,7 +1896,12 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
       seasonStats: { goals: 0, assists: 0, cleanSheets: 0, matchesPlayed: 0, minutesPlayed: 0 },
     }))
 
-    const cleanedIncoming = (career.incomingOffers ?? []).filter(o => o.status === 'pending')
+    const cleanedNegotiations = (career.outgoingNegotiations ?? []).filter(
+      (n) => n.phase !== 'failed' && n.phase !== 'cancelled' && n.phase !== 'completed',
+    )
+    const cleanedIncoming = (career.incomingOffers ?? []).filter(
+      (o) => o.status === 'pending' || o.status === 'counter_sent',
+    )
 
     let updatedCareer: Career = {
       ...career,
@@ -1909,6 +1914,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
       objectives: newObjectives,
       objectiveDifficulty,
       weeklyTrainingPlan: null,
+      outgoingNegotiations: cleanedNegotiations,
       incomingOffers: cleanedIncoming,
     }
     updatedCareer = addEvent(

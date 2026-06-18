@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { filterPlayers, calcTransferValue, calcFreeAgentRecommendedOffer, buyPlayer, sanitizeAmount, MAX_TRANSFER_VALUE, evaluateClubOffer, evaluatePlayerDecision, initiateNegotiation, cancelNegotiation, respondToCounter, resolveNegotiations, respondToIncomingOffer } from '../services/transferService'
+import { filterPlayers, calcTransferValue, calcFreeAgentRecommendedOffer, buyPlayer, sellPlayer, sanitizeAmount, MAX_TRANSFER_VALUE, evaluateClubOffer, evaluatePlayerDecision, initiateNegotiation, cancelNegotiation, respondToCounter, resolveNegotiations, respondToIncomingOffer } from '../services/transferService'
 import type { OutgoingNegotiation, IncomingOffer } from '../types/career'
 import type { Player } from '../types/player'
 import type { Team, Formation } from '../types/team'
@@ -866,5 +866,17 @@ describe('respondToIncomingOffer', () => {
     const result = respondToIncomingOffer('o1', 'accept', baseCareer, [player], [userTeamIncoming, brokeBuyer])
     expect(result.error).toBe('insufficient_budget')
     expect(result.career.incomingOffers[0].status).toBe('budget_failed')
+  })
+})
+
+describe('sellPlayer — guards', () => {
+  it('does nothing if player does not belong to career team', () => {
+    const foreignPlayer = makePlayer({ id: 5, teamId: 99 })
+    const userTeam = makeTeam(1, 500_000, [])
+    const buyingTeam = makeTeam(2, 1_000_000, [])
+    const career = makeCareer(1)
+    const result = sellPlayer(5, 2, 300_000, career, [userTeam, buyingTeam], [foreignPlayer])
+    expect(result.players[0].teamId).toBe(99)
+    expect(result.teams.find(t => t.id === 1)?.budget).toBe(500_000)
   })
 })

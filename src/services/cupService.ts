@@ -161,7 +161,11 @@ export function advanceCupRound(cup: Cup): Cup {
 
   // Final round finished → cup is over
   if (nextIdx >= cup.rounds.length) {
-    const winner = getMatchWinner(currentRound.matches[0]) ?? null
+    const winner = getMatchWinner(currentRound.matches[0])
+    if (winner === null) {
+      // Fallback: home team wins (should never happen after tiebreak)
+      return { ...cup, rounds: updatedRounds, finished: true, winnerId: currentRound.matches[0].homeTeamId }
+    }
     return { ...cup, rounds: updatedRounds, finished: true, winnerId: winner }
   }
 
