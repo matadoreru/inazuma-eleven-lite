@@ -8,6 +8,7 @@ import Icon from '../components/Icon'
 import { getNextMatch } from '../services/calendarService'
 import { getNextUserCupMatch } from '../services/cupService'
 import { sortStandings } from '../services/standingsService'
+import { leagues } from '../data/leagues'
 import type { Match } from '../types/competition'
 import type { Team } from '../types/team'
 
@@ -100,13 +101,17 @@ function NextMatchSection({
 
   return (
     <div className="relative">
-      {isCupMatch && (
-        <div className="absolute -top-2 left-3 z-10">
+      <div className="absolute -top-2 left-3 z-10">
+        {isCupMatch ? (
           <span className="bg-yellow-500 text-black text-[0.6rem] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide">
             Copa · {match.cupRound}
           </span>
-        </div>
-      )}
+        ) : (
+          <span className="bg-blue-600 text-white text-[0.6rem] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide">
+            {leagues.find((l) => l.id === match.leagueId)?.name ?? 'Liga'} · J{match.round}
+          </span>
+        )}
+      </div>
       <MatchPreviewPanel
         match={match}
         homeTeam={homeTeam}
