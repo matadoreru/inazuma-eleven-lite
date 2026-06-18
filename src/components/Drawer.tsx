@@ -8,6 +8,7 @@ interface Props {
   subtitle?: string
   children: React.ReactNode
   width?: string
+  headerActions?: React.ReactNode
 }
 
 export default function Drawer({
@@ -17,6 +18,7 @@ export default function Drawer({
   subtitle,
   children,
   width = 'w-96',
+  headerActions,
 }: Props) {
   // Close on Escape key
   useEffect(() => {
@@ -51,13 +53,16 @@ export default function Drawer({
             <h2 className="text-white font-bold text-base">{title}</h2>
             {subtitle && <p className="text-gray-400 text-xs mt-0.5">{subtitle}</p>}
           </div>
-          <button
-            onClick={onClose}
-            className="p-1.5 rounded-lg text-gray-400 hover:text-white hover:bg-gray-700 transition-colors ml-3 -mr-1 -mt-0.5"
-            aria-label="Cerrar"
-          >
-            <Icon name="close" size="sm" />
-          </button>
+          <div className="flex items-center gap-1 ml-3 -mr-1 -mt-0.5">
+            {headerActions}
+            <button
+              onClick={onClose}
+              className="p-1.5 rounded-lg text-gray-400 hover:text-white hover:bg-gray-700 transition-colors"
+              aria-label="Cerrar"
+            >
+              <Icon name="close" size="sm" />
+            </button>
+          </div>
         </div>
 
         {/* Content */}

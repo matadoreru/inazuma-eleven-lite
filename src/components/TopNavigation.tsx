@@ -1,4 +1,5 @@
 import { useCareerStore } from '../store/careerStore'
+import { useNotificationPreferences } from '../hooks/useNotificationPreferences'
 import Icon from './Icon'
 import TeamBadgeImage from './TeamBadgeImage'
 
@@ -12,7 +13,8 @@ export default function TopNavigation({ title, badgeUrl }: Props) {
   const setUIPanel = useCareerStore((s) => s.setUIPanel)
   const career = useCareerStore((s) => s.career)
 
-  const unreadCount = career?.inbox.filter((e) => !e.read).length ?? 0
+  const { prefs } = useNotificationPreferences()
+  const unreadCount = career?.inbox.filter((e) => !e.read && prefs[e.type]).length ?? 0
   const bellActive = uiPanel === 'notifications'
   const gearActive = uiPanel === 'settings'
 

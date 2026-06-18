@@ -112,43 +112,43 @@ export default function NotificationsDrawer() {
   const inbox = allEvents.filter((e) => prefs[e.type])
   const unreadCount = inbox.filter((e) => !e.read).length
 
+  const gearButton = (
+    <button
+      onClick={() => setShowFilter((v) => !v)}
+      className={`p-1.5 rounded-lg transition-colors ${showFilter ? 'text-white bg-gray-700' : 'text-gray-400 hover:text-white hover:bg-gray-700'}`}
+      aria-label="Filtrar notificaciones"
+    >
+      <Icon name="tune" size="sm" />
+    </button>
+  )
+
   return (
     <Drawer
       isOpen={uiPanel === 'notifications'}
       onClose={() => { setUIPanel(null); setShowFilter(false) }}
       title="Notificaciones"
       subtitle={unreadCount > 0 ? `${unreadCount} sin leer` : 'Todo al día'}
+      headerActions={gearButton}
     >
       {/* Actions bar */}
-      <div className="flex items-center justify-between px-5 py-2.5 border-b border-gray-800 shrink-0">
-        <div className="flex items-center gap-3">
-          {inbox.length > 0 && (
-            <>
-              <button
-                onClick={markAllInboxRead}
-                className="text-xs text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1"
-              >
-                <Icon name="done_all" size="xs" />
-                Marcar todo leído
-              </button>
-              <button
-                onClick={deleteAllInboxEvents}
-                className="text-xs text-gray-500 hover:text-red-400 transition-colors flex items-center gap-1"
-              >
-                <Icon name="delete_sweep" size="xs" />
-                Eliminar todo
-              </button>
-            </>
-          )}
+      {inbox.length > 0 && (
+        <div className="flex items-center gap-3 px-5 py-2.5 border-b border-gray-800 shrink-0">
+          <button
+            onClick={markAllInboxRead}
+            className="text-xs text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1"
+          >
+            <Icon name="done_all" size="xs" />
+            Marcar todo leído
+          </button>
+          <button
+            onClick={deleteAllInboxEvents}
+            className="text-xs text-gray-500 hover:text-red-400 transition-colors flex items-center gap-1"
+          >
+            <Icon name="delete_sweep" size="xs" />
+            Eliminar todo
+          </button>
         </div>
-        <button
-          onClick={() => setShowFilter((v) => !v)}
-          className={`p-1 rounded transition-colors ${showFilter ? 'text-white bg-gray-700' : 'text-gray-500 hover:text-gray-300'}`}
-          aria-label="Filtrar notificaciones"
-        >
-          <Icon name="settings" size="xs" />
-        </button>
-      </div>
+      )}
 
       {/* Filter panel */}
       {showFilter && (
@@ -189,9 +189,7 @@ export default function NotificationsDrawer() {
       {inbox.length === 0 ? (
         <div className="flex flex-col items-center justify-center gap-3 py-16 px-6 text-center">
           <Icon name="notifications_none" size="xl" className="text-gray-700" />
-          <p className="text-gray-500 text-sm">
-            {allEvents.length > 0 ? 'Todos los tipos están ocultos' : 'No hay notificaciones'}
-          </p>
+          <p className="text-gray-500 text-sm">No hay notificaciones</p>
         </div>
       ) : (
         <div>
