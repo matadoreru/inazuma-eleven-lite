@@ -11,6 +11,16 @@ function fmt(n: number): string {
   return `€${n}`
 }
 
+function StatCell({ value }: { value: number }) {
+  return (
+    <td className="py-1.5 px-2 text-right tabular-nums w-10">
+      <span className="text-xs font-semibold" style={{ color: statColor(value, 250) }}>
+        {value}
+      </span>
+    </td>
+  )
+}
+
 interface Props {
   player: Player
   teamName: string
@@ -25,6 +35,7 @@ export default function TransferPlayerRow({ player, teamName, teamBadgeUrl, isFr
 
   return (
     <tr className="border-b border-gray-700 hover:bg-gray-700/40 transition-colors">
+      {/* Avatar */}
       <td className="py-1.5 px-2 w-12">
         <img
           src={player.spriteUrl}
@@ -36,18 +47,42 @@ export default function TransferPlayerRow({ player, teamName, teamBadgeUrl, isFr
           }}
         />
       </td>
-      <td className="py-1.5 px-3">
-        <span className="text-white text-sm font-medium block leading-tight truncate max-w-[140px]">
+
+      {/* Nombre + posición */}
+      <td className="py-1.5 px-3 min-w-0">
+        <span className="text-white text-sm font-medium block leading-tight truncate">
           {player.nameRomaji}
         </span>
         <div className="flex items-center gap-1 mt-0.5">
           <PositionSprite position={player.position} size={20} />
-          <ElementBadge element={player.element} size="sm" />
+          {player.positionAlt && (
+            <PositionSprite position={player.positionAlt} size={16} className="opacity-60" />
+          )}
         </div>
       </td>
-      <td className="py-1.5 px-3 text-right tabular-nums w-14">
+
+      {/* Elemento */}
+      <td className="py-1.5 px-2 w-20 text-center">
+        <ElementBadge element={player.element} size="sm" />
+      </td>
+
+      {/* Edad */}
+      <td className="py-1.5 px-2 w-10 text-center tabular-nums">
+        <span className="text-gray-400 text-xs">{player.age}</span>
+      </td>
+
+      {/* Stats clave con colores */}
+      <StatCell value={player.stats.POT} />
+      <StatCell value={player.stats.TEC} />
+      <StatCell value={player.stats.FIS} />
+      <StatCell value={player.stats.AGI} />
+
+      {/* Media */}
+      <td className="py-1.5 px-2 text-right tabular-nums w-14">
         <span className="text-sm font-bold" style={{ color: statColor(media, 250) }}>{media}</span>
       </td>
+
+      {/* Equipo */}
       <td className="py-1.5 px-3 w-32">
         {isFreeAgent ? (
           <span className="text-[0.625rem] font-bold px-1.5 py-0.5 rounded bg-green-900/40 text-green-400 border border-green-700/50">
@@ -67,9 +102,13 @@ export default function TransferPlayerRow({ player, teamName, teamBadgeUrl, isFr
           </div>
         )}
       </td>
+
+      {/* Valor */}
       <td className="py-1.5 px-3 text-right tabular-nums w-20">
         <span className="text-gray-300 text-xs font-medium">{fmt(value)}</span>
       </td>
+
+      {/* Ver ficha */}
       <td className="py-1.5 px-3 w-20 text-center">
         {onView && (
           <button

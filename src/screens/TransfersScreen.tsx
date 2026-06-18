@@ -10,16 +10,20 @@ import type { Position, Element, Player } from '../types/player'
 const POSITIONS: (Position | 'ALL')[] = ['ALL', 'GK', 'DF', 'MD', 'FW']
 const ELEMENTS: (Element | 'ALL')[] = ['ALL', 'FIRE', 'WOOD', 'WIND', 'MOUNTAIN']
 
-type SortKey = 'name' | 'TOT' | 'valor' | 'equipo'
+type SortKey = 'name' | 'TOT' | 'valor' | 'equipo' | 'edad' | 'POT' | 'TEC' | 'FIS' | 'AGI'
 type SortDir = 'asc' | 'desc'
 
-const SELECT_CLS =
-  'bg-gray-800 border border-gray-700 rounded-lg text-xs text-gray-300 px-2 py-1.5 focus:outline-none focus:border-gray-500 cursor-pointer'
+const NUMERIC_SORT_KEYS: SortKey[] = ['TOT', 'valor', 'edad', 'POT', 'TEC', 'FIS', 'AGI']
 
 function sortPlayers(players: Player[], key: SortKey, dir: SortDir, teamById: Map<number, { name: string }>): Player[] {
   const sorted = [...players].sort((a, b) => {
     switch (key) {
       case 'TOT': return b.stats.TOT - a.stats.TOT
+      case 'POT': return b.stats.POT - a.stats.POT
+      case 'TEC': return b.stats.TEC - a.stats.TEC
+      case 'FIS': return b.stats.FIS - a.stats.FIS
+      case 'AGI': return b.stats.AGI - a.stats.AGI
+      case 'edad': return b.age - a.age
       case 'valor': return calcTransferValue(b) - calcTransferValue(a)
       case 'equipo': {
         const ta = (a.teamId !== null && a.teamId !== 0) ? (teamById.get(a.teamId)?.name ?? '') : '~Libre'
@@ -105,7 +109,7 @@ export default function TransfersScreen() {
       setSortDir((d) => (d === 'asc' ? 'desc' : 'asc'))
     } else {
       setSortKey(col)
-      setSortDir(col === 'TOT' || col === 'valor' ? 'desc' : 'asc')
+      setSortDir(NUMERIC_SORT_KEYS.includes(col) ? 'desc' : 'asc')
     }
     setTransferFilter({ page: 0 })
   }
@@ -212,7 +216,13 @@ export default function TransfersScreen() {
                   <tr className="bg-gray-900/80 text-xs border-b border-gray-700">
                     <th className="py-2 px-2 w-12" />
                     <SortHeader label="Jugador" col="name" currentKey={sortKey} currentDir={sortDir} onClick={handleSort} />
-                    <SortHeader label="TOT" col="TOT" currentKey={sortKey} currentDir={sortDir} onClick={handleSort} className="w-14 text-right" />
+                    <th className="py-2 px-2 w-20 text-center text-gray-500">Elem.</th>
+                    <SortHeader label="Edad" col="edad" currentKey={sortKey} currentDir={sortDir} onClick={handleSort} className="w-10 text-center" />
+                    <SortHeader label="POT" col="POT" currentKey={sortKey} currentDir={sortDir} onClick={handleSort} className="w-10 text-right" />
+                    <SortHeader label="TEC" col="TEC" currentKey={sortKey} currentDir={sortDir} onClick={handleSort} className="w-10 text-right" />
+                    <SortHeader label="FIS" col="FIS" currentKey={sortKey} currentDir={sortDir} onClick={handleSort} className="w-10 text-right" />
+                    <SortHeader label="AGI" col="AGI" currentKey={sortKey} currentDir={sortDir} onClick={handleSort} className="w-10 text-right" />
+                    <SortHeader label="Media" col="TOT" currentKey={sortKey} currentDir={sortDir} onClick={handleSort} className="w-14 text-right" />
                     <SortHeader label="Equipo" col="equipo" currentKey={sortKey} currentDir={sortDir} onClick={handleSort} className="w-32" />
                     <SortHeader label="Valor" col="valor" currentKey={sortKey} currentDir={sortDir} onClick={handleSort} className="w-20 text-right" />
                     <th className="py-2 px-3 w-20" />
@@ -235,7 +245,7 @@ export default function TransfersScreen() {
                   })}
                   {paginated.length === 0 && (
                     <tr>
-                      <td colSpan={6} className="py-10 text-center text-gray-500 text-sm">
+                      <td colSpan={12} className="py-10 text-center text-gray-500 text-sm">
                         No hay jugadores disponibles con los filtros actuales
                       </td>
                     </tr>
