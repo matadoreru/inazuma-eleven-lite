@@ -20,7 +20,7 @@ import { formations as seedFormations, getFormationSlots } from '../data/formati
 // Services
 import { createCareer, getObjectivesForTeam } from '../services/careerService'
 import { save as saveSlot, load as loadSlot, loadAutoSave, clearAutoSave } from '../services/saveService'
-import { simulate } from '../services/matchSimulator'
+import { simulate, simulateCupTiebreak } from '../services/matchSimulator'
 import { buildTeamSnapshot, applyFormation, rebalanceLineup } from '../services/formationService'
 import { updateStandings, sortStandings } from '../services/standingsService'
 import { trainPlayer as trainPlayerService, restPlayer as restPlayerService } from '../services/trainingService'
@@ -327,8 +327,8 @@ function commitMatchResult(
     const updatedMatch = {
       ...match,
       played: true,
-      homeGoals: result.homeGoals,
-      awayGoals: result.awayGoals,
+      homeGoals: result.homeGoals + (result.extraTime?.homeGoals ?? 0),
+      awayGoals: result.awayGoals + (result.extraTime?.awayGoals ?? 0),
       result,
     }
     const userTeam = teams.find((t) => t.id === career.teamId)
@@ -1704,7 +1704,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     const rawAwaySnap = buildTeamSnapshot(awayTeam, players)
     const homeSnap = homeIsUser ? rawHomeSnap : scaleNpcSnapshot(rawHomeSnap, aiMult)
     const awaySnap = !homeIsUser ? rawAwaySnap : scaleNpcSnapshot(rawAwaySnap, aiMult)
-    const result = simulate(homeSnap, awaySnap, match, career.nameStyle)
+    const result = simulateCupTiebreak(homeSnap, awaySnap, match, career.nameStyle)
 
     const committed = commitMatchResult(matchId, result, career, teams, players, true)
 
@@ -1745,7 +1745,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     const rawAwaySnap = buildTeamSnapshot(awayTeam, players)
     const homeSnap = homeIsUser ? rawHomeSnap : scaleNpcSnapshot(rawHomeSnap, aiMult)
     const awaySnap = !homeIsUser ? rawAwaySnap : scaleNpcSnapshot(rawAwaySnap, aiMult)
-    const result = simulate(homeSnap, awaySnap, match, career.nameStyle)
+    const result = simulateCupTiebreak(homeSnap, awaySnap, match, career.nameStyle)
     set({ pendingMatch: { matchId, result, isCupMatch: true }, selectedMatchId: matchId })
   },
 

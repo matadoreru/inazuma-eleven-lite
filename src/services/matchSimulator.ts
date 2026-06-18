@@ -17,6 +17,15 @@ function pickFrom<T>(arr: T[]): T | null {
   return arr[Math.floor(Math.random() * arr.length)]
 }
 
+function calcStoppageTime(halfEvents: MatchEvent[]): number {
+  const injuries = halfEvents.filter((e) => e.type === 'INJURY').length
+  const goals    = halfEvents.filter((e) => e.type === 'GOAL').length
+  const yellows  = halfEvents.filter((e) => e.type === 'YELLOW').length
+  const reds     = halfEvents.filter((e) => e.type === 'RED').length
+  const raw = 1 + injuries * 1.5 + goals * 0.5 + yellows * 0.3 + reds * 1.0
+  return Math.min(7, Math.max(1, Math.round(raw)))
+}
+
 function mkEvent(
   minute: number,
   type: MatchEvent['type'],
@@ -83,6 +92,7 @@ function simulateHalf(
   isHome: boolean,
   startMinute: number,
   nameStyle: 'western' | 'japanese' = 'western',
+  goalProbMultiplier = 1.0,
 ): { goals: number; shots: number; shotsOnTarget: number; xg: number; events: MatchEvent[] } {
   const attackerMod = applyTacticalModifiers(attacker)
   const defenderMod = applyTacticalModifiers(defender)
@@ -120,7 +130,7 @@ function simulateHalf(
 
   const strengthDelta = clamp((finishingPower - savePower) / 165, -0.10, 0.11)
   const goalProbBonus = tacticalGoalProbBonus(attackerMod)
-  const goalProb = clamp(0.20 + strengthDelta + goalProbBonus, 0.06, 0.65)
+  const goalProb = clamp((0.20 + strengthDelta + goalProbBonus) * goalProbMultiplier, 0.06, 0.75)
 
   let goals = 0
   let shotsOnTarget = 0
@@ -266,6 +276,14 @@ export function simulate(homeTeam: TeamSnapshot, awayTeam: TeamSnapshot, match: 
     ...generateDisciplinaryEvents(awayTeam, awayYellows, awayReds, false, nameStyle),
   ]
 
+  const h1Stoppage = calcStoppageTime([...h1Home.events, ...h1Away.events])
+  const h2Stoppage = calcStoppageTime([...h2Home.events, ...h2Away.events])
+
+  const stoppageEvents: MatchEvent[] = [
+    { minute: 45, type: 'STOPPAGE', teamId: match.homeTeamId, text: `+${h1Stoppage} min de añadido`, isHome: true },
+    { minute: 90, type: 'STOPPAGE', teamId: match.homeTeamId, text: `+${h2Stoppage} min de añadido`, isHome: true },
+  ]
+
   const allEvents: MatchEvent[] = [
     ...phaseEvents,
     ...h1Home.events,
@@ -273,6 +291,7 @@ export function simulate(homeTeam: TeamSnapshot, awayTeam: TeamSnapshot, match: 
     ...h2Home.events,
     ...h2Away.events,
     ...disciplinary,
+    ...stoppageEvents,
   ].sort((a, b) => a.minute - b.minute)
 
   return {
@@ -297,6 +316,100 @@ export function simulate(homeTeam: TeamSnapshot, awayTeam: TeamSnapshot, match: 
     homeXG: Math.round(homeXG * 100) / 100,
     awayXG: Math.round(awayXG * 100) / 100,
     events: allEvents,
+    stoppageTime: { firstHalf: h1Stoppage, secondHalf: h2Stoppage },
+  }
+}
+
+function simulatePenalties(
+  homeSnap: TeamSnapshot,
+  awaySnap: TeamSnapshot,
+  match: Match,
+): { homeScore: number; awayScore: number; winnerId: number } {
+  // Higher GK score = better save probability (range ~15–45%)
+  const homeSaveProb = clamp(0.15 + homeSnap.goalkeeperScore / 500, 0.15, 0.45)
+  const awaySaveProb = clamp(0.15 + awaySnap.goalkeeperScore / 500, 0.15, 0.45)
+
+  let homeScore = 0
+  let awayScore = 0
+
+  for (let i = 0; i < 5; i++) {
+    if (Math.random() > awaySaveProb) homeScore++
+    if (Math.random() > homeSaveProb) awayScore++
+  }
+
+  // Sudden death if still level after 5
+  let sd = 0
+  while (homeScore === awayScore && sd < 20) {
+    if (Math.random() > awaySaveProb) homeScore++
+    if (Math.random() > homeSaveProb) awayScore++
+    sd++
+  }
+
+  // Break infinite tie edge case
+  if (homeScore === awayScore) homeScore++
+
+  return {
+    homeScore,
+    awayScore,
+    winnerId: homeScore > awayScore ? match.homeTeamId : match.awayTeamId,
+  }
+}
+
+export function simulateCupTiebreak(
+  homeTeam: TeamSnapshot,
+  awayTeam: TeamSnapshot,
+  match: Match,
+  nameStyle: 'western' | 'japanese' = 'western',
+): MatchResult {
+  const regular = simulate(homeTeam, awayTeam, match, nameStyle)
+  if (regular.homeGoals !== regular.awayGoals) return regular
+
+  // Extra time: 2 × 15 min at 60% intensity
+  const et1Home = simulateHalf(homeTeam, awayTeam, true,  91, nameStyle, 0.60)
+  const et1Away = simulateHalf(awayTeam, homeTeam, false, 91, nameStyle, 0.60)
+  const et2Home = simulateHalf(homeTeam, awayTeam, true,  106, nameStyle, 0.60)
+  const et2Away = simulateHalf(awayTeam, homeTeam, false, 106, nameStyle, 0.60)
+
+  const etHomeGoals = et1Home.goals + et2Home.goals
+  const etAwayGoals = et1Away.goals + et2Away.goals
+  const extraTime = { homeGoals: etHomeGoals, awayGoals: etAwayGoals }
+
+  const etStoppage1 = calcStoppageTime([...et1Home.events, ...et1Away.events])
+  const etStoppage2 = calcStoppageTime([...et2Home.events, ...et2Away.events])
+
+  const etEvents: MatchEvent[] = [
+    { minute: 90,  type: 'ET_START', teamId: match.homeTeamId, text: 'Comienza la prórroga', isHome: true },
+    ...et1Home.events, ...et1Away.events,
+    { minute: 105, type: 'STOPPAGE', teamId: match.homeTeamId, text: `+${etStoppage1} min`, isHome: true },
+    { minute: 106, type: 'ET_START', teamId: match.homeTeamId, text: 'Segunda parte de prórroga', isHome: true },
+    ...et2Home.events, ...et2Away.events,
+    { minute: 120, type: 'ET_END',   teamId: match.homeTeamId, text: 'Final de la prórroga', isHome: true },
+    { minute: 120, type: 'STOPPAGE', teamId: match.homeTeamId, text: `+${etStoppage2} min`, isHome: true },
+  ]
+
+  const updatedEvents = [...regular.events, ...etEvents].sort((a, b) => a.minute - b.minute)
+  const updatedStoppage = {
+    ...regular.stoppageTime,
+    etFirst: etStoppage1,
+    etSecond: etStoppage2,
+  }
+
+  if (etHomeGoals !== etAwayGoals) {
+    return { ...regular, extraTime, stoppageTime: updatedStoppage, events: updatedEvents }
+  }
+
+  // Penalties
+  const penalties = simulatePenalties(homeTeam, awayTeam, match)
+  const penaltyEvent: MatchEvent = {
+    minute: 121, type: 'PENALTY_SHOOTOUT', teamId: match.homeTeamId, isHome: true,
+    text: `Penaltis: ${penalties.homeScore}–${penalties.awayScore} — Gana ${penalties.winnerId === match.homeTeamId ? homeTeam.name : awayTeam.name}`,
+  }
+  return {
+    ...regular,
+    extraTime,
+    penalties,
+    stoppageTime: updatedStoppage,
+    events: [...updatedEvents, penaltyEvent],
   }
 }
 

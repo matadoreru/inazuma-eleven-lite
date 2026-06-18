@@ -17,23 +17,33 @@ const MATCH_DURATION = 90
 const MAX_SUBS = 3
 
 const EVENT_ICON: Record<MatchEvent['type'], string> = {
-  GOAL:   'sports_soccer',
-  SAVE:   'back_hand',
-  MISS:   'close',
-  YELLOW: 'square',
-  RED:    'square',
-  INJURY: 'healing',
-  PHASE:  'flag',
+  GOAL:             'sports_soccer',
+  SAVE:             'back_hand',
+  MISS:             'close',
+  YELLOW:           'square',
+  RED:              'square',
+  INJURY:           'healing',
+  PHASE:            'flag',
+  ET_START:         'more_time',
+  ET_END:           'sports_score',
+  PENALTY_SHOOTOUT: 'sports',
+  STOPPAGE:         'add',
+  TECHNIQUE:        'auto_awesome',
 }
 
 const EVENT_COLOR: Record<MatchEvent['type'], string> = {
-  GOAL:   'text-yellow-400',
-  SAVE:   'text-blue-400',
-  MISS:   'text-gray-500',
-  YELLOW: 'text-yellow-400',
-  RED:    'text-red-400',
-  INJURY: 'text-orange-400',
-  PHASE:  'text-gray-500',
+  GOAL:             'text-yellow-400',
+  SAVE:             'text-gold-500',
+  MISS:             'text-gray-500',
+  YELLOW:           'text-yellow-400',
+  RED:              'text-red-400',
+  INJURY:           'text-orange-400',
+  PHASE:            'text-gray-500',
+  ET_START:         'text-yellow-400',
+  ET_END:           'text-yellow-400',
+  PENALTY_SHOOTOUT: 'text-orange-400',
+  STOPPAGE:         'text-gray-400',
+  TECHNIQUE:        'text-purple-400',
 }
 
 const POS_LABEL: Record<Position, string> = { GK: 'PR', DF: 'DF', MD: 'MD', FW: 'DL' }
@@ -86,9 +96,9 @@ function SubstitutionPanel({
   const isInjury = reason === 'injury'
 
   return (
-    <div className="fixed inset-0 z-[100] bg-gray-950 flex flex-col overflow-hidden">
+    <div className="fixed inset-0 z-[100] bg-dark-950 flex flex-col overflow-hidden">
       {/* Header */}
-      <div className="shrink-0 bg-gray-900 border-b border-gray-700 px-4 py-3">
+      <div className="shrink-0 bg-dark-900/80 border-b border-gold-600/30 px-4 py-3">
         {/* Reason banner */}
         {isInjury && (
           <div className="flex items-center justify-center gap-2 mb-2 py-1.5 bg-orange-900/30 border border-orange-700/40 rounded-lg">
@@ -98,8 +108,8 @@ function SubstitutionPanel({
         )}
         {!isHalftime && !isInjury && (
           <div className="flex items-center justify-center gap-2 mb-2 py-1.5 bg-blue-900/20 border border-blue-700/30 rounded-lg">
-            <span className="material-icons text-blue-400 leading-none" style={{ fontSize: '16px' }}>swap_horiz</span>
-            <span className="text-blue-300 text-xs font-bold">Cambio táctico — {currentMinute}&apos;</span>
+            <span className="material-icons text-gold-500 leading-none" style={{ fontSize: '16px' }}>swap_horiz</span>
+            <span className="text-gold-400 text-xs font-bold">Cambio táctico — {currentMinute}&apos;</span>
           </div>
         )}
 
@@ -144,9 +154,9 @@ function SubstitutionPanel({
                           ? 'bg-blue-600/30 border border-blue-500/70'
                           : isInjuredTrigger
                           ? 'bg-orange-900/25 border border-orange-700/50 hover:border-orange-600'
-                          : 'bg-gray-800/60 border border-gray-700/50 hover:border-gray-600'}`}
+                          : 'bg-dark-800/60 border border-gold-600/20 hover:border-gold-600/30'}`}
                     >
-                      <div className="w-8 h-8 rounded-full overflow-hidden bg-gray-700 shrink-0">
+                      <div className="w-8 h-8 rounded-full overflow-hidden bg-dark-700/60 shrink-0">
                         <img
                           src={player.spriteUrl}
                           alt={playerDisplayName(player, nameStyle)}
@@ -159,7 +169,7 @@ function SubstitutionPanel({
                       {isInjuredTrigger && (
                         <span className="material-icons text-orange-400 leading-none shrink-0" style={{ fontSize: '14px' }}>healing</span>
                       )}
-                      {isSelected && <Icon name="swap_horiz" size="xs" className="text-blue-400 shrink-0" />}
+                      {isSelected && <Icon name="swap_horiz" size="xs" className="text-gold-500 shrink-0" />}
                     </button>
                   )
                 })}
@@ -188,9 +198,9 @@ function SubstitutionPanel({
                       ? 'bg-orange-950/20 border border-orange-900/30 opacity-50 cursor-not-allowed'
                       : available
                       ? 'bg-green-900/25 border border-green-700/50 hover:border-green-500/80 cursor-pointer'
-                      : 'bg-gray-800/30 border border-gray-700/30 opacity-45 cursor-default'}`}
+                      : 'bg-dark-800/30 border border-gold-600/15 opacity-45 cursor-default'}`}
                 >
-                  <div className="w-8 h-8 rounded-full overflow-hidden bg-gray-700 shrink-0">
+                  <div className="w-8 h-8 rounded-full overflow-hidden bg-dark-700/60 shrink-0">
                     <img
                       src={player.spriteUrl}
                       alt={playerDisplayName(player, nameStyle)}
@@ -216,7 +226,7 @@ function SubstitutionPanel({
       </div>
 
       {/* Footer */}
-      <div className="shrink-0 p-4 border-t border-gray-700/60 bg-gray-900">
+      <div className="shrink-0 p-4 border-t border-gold-600/20 bg-dark-900/90">
         <button
           onClick={onClose}
           className="w-full flex items-center justify-center gap-2 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold text-base transition-colors"
@@ -325,13 +335,17 @@ export default function LiveMatchScreen() {
 
   if (!career || !pendingMatch || !result) {
     return (
-      <div className="h-full flex items-center justify-center bg-gray-900">
+      <div className="h-full flex items-center justify-center bg-game">
         <p className="text-gray-400">Sin partido en curso.</p>
       </div>
     )
   }
 
-  const match    = career.season.matches.find((m) => m.id === pendingMatch.matchId)
+  const allMatchesForLookup = [
+    ...career.season.matches,
+    ...(career.cup?.rounds.flatMap((r) => r.matches) ?? []),
+  ]
+  const match    = allMatchesForLookup.find((m) => m.id === pendingMatch.matchId)
   const homeTeam = match ? teams.find((t) => t.id === match.homeTeamId) : null
   const awayTeam = match ? teams.find((t) => t.id === match.awayTeamId) : null
   const userTeam = teams.find((t) => t.id === career.teamId)
@@ -373,9 +387,11 @@ export default function LiveMatchScreen() {
   }
 
   return (
-    <div className="h-full flex flex-col bg-gray-900 overflow-hidden relative">
+    <div className="h-full flex flex-col bg-game overflow-hidden relative">
+      <div className="absolute inset-0 bg-dark-900/80 pointer-events-none" />
+      <div className="relative flex flex-col h-full overflow-hidden">
       {/* Scoreboard */}
-      <div className="bg-gray-800 border-b border-gray-700 px-4 py-4 shrink-0">
+      <div className="bg-dark-900/90 border-b border-gold-600/30 px-4 py-4 shrink-0">
         <div className="flex items-center justify-center gap-6">
           <div className="flex flex-col items-center gap-2 flex-1">
             <TeamBadgeImage teamName={homeTeam?.name ?? 'Local'} badgeUrl={homeTeam?.badgeUrl} size="md" />
@@ -396,7 +412,7 @@ export default function LiveMatchScreen() {
                 </>
               ) : (
                 <>
-                  <div className={`w-2 h-2 rounded-full ${isPlaying ? 'bg-red-500 animate-pulse' : 'bg-gray-500'}`} />
+                  <div className={`w-2 h-2 rounded-full ${isPlaying ? 'bg-red-500 animate-pulse' : 'bg-dark-500/80'}`} />
                   <span className="tabular-nums">{currentMinute}&apos;</span>
                 </>
               )}
@@ -420,9 +436,9 @@ export default function LiveMatchScreen() {
           if (isPhase) {
             return (
               <div key={`${event.minute}-${i}`} className="flex items-center gap-2 my-3">
-                <div className="flex-1 h-px bg-gray-700/50" />
+                <div className="flex-1 h-px bg-gold-600/20" />
                 <span className="text-gray-500 text-[0.5625rem] font-black uppercase tracking-widest px-1">{event.text}</span>
-                <div className="flex-1 h-px bg-gray-700/50" />
+                <div className="flex-1 h-px bg-gold-600/20" />
               </div>
             )
           }
@@ -435,7 +451,7 @@ export default function LiveMatchScreen() {
               <span className="text-gray-600 text-[0.5625rem] w-6 shrink-0 tabular-nums text-right">{event.minute}&apos;</span>
 
               {event.playerSpriteUrl ? (
-                <div className={`w-7 h-7 rounded-full overflow-hidden bg-gray-800 shrink-0 ring-1 ${
+                <div className={`w-7 h-7 rounded-full overflow-hidden bg-dark-800/70 shrink-0 ring-1 ${
                   event.type === 'GOAL' ? 'ring-yellow-500/60' :
                   event.type === 'RED'  ? 'ring-red-500/60' : 'ring-gray-700'
                 }`}>
@@ -470,7 +486,7 @@ export default function LiveMatchScreen() {
 
         {isFinished && processedEvents.length > 0 && (
           <div className="pt-4 pb-2 flex justify-center">
-            <span className="text-gray-500 text-[0.5625rem] uppercase tracking-widest border-t border-gray-700/60 pt-3 px-4">
+            <span className="text-gray-500 text-[0.5625rem] uppercase tracking-widest border-t border-gold-600/15/60 pt-3 px-4">
               Partido finalizado
             </span>
           </div>
@@ -478,12 +494,12 @@ export default function LiveMatchScreen() {
       </div>
 
       {/* Controls */}
-      <div className="bg-gray-800 border-t border-gray-700 px-4 py-3 shrink-0">
+      <div className="bg-dark-800/80 border-t border-gold-600/20 px-4 py-3 shrink-0">
         {!isFinished ? (
           <div className="flex items-center gap-2">
             <button
               onClick={() => setIsPlaying((p) => !p)}
-              className="flex items-center justify-center w-10 h-10 rounded-lg bg-gray-700 hover:bg-gray-600 text-white transition-colors"
+              className="flex items-center justify-center w-10 h-10 rounded-lg bg-dark-700/80 hover:bg-dark-600/80 text-white transition-colors"
             >
               <Icon name={isPlaying ? 'pause' : 'play_arrow'} size="sm" />
             </button>
@@ -494,7 +510,7 @@ export default function LiveMatchScreen() {
                   key={s}
                   onClick={() => setSpeed(s)}
                   className={`px-3 py-2 rounded-lg text-sm font-bold transition-colors ${
-                    speed === s ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                    speed === s ? 'bg-gold-600/25 text-gold-300 border border-gold-500/60' : 'bg-dark-700/80 text-gray-300 hover:bg-dark-600/80 border border-gold-600/15'
                   }`}
                 >
                   x{s}
@@ -509,8 +525,8 @@ export default function LiveMatchScreen() {
               title={swapsUsed >= MAX_SUBS ? 'No quedan cambios' : `Realizar cambio (${swapsUsed}/${MAX_SUBS})`}
               className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                 swapsUsed >= MAX_SUBS
-                  ? 'bg-gray-800 text-gray-600 cursor-not-allowed'
-                  : 'bg-gray-700 hover:bg-gray-600 text-gray-300'
+                  ? 'bg-dark-800/50 text-gray-600 cursor-not-allowed'
+                  : 'bg-dark-700/80 hover:bg-dark-600/80 text-gray-300'
               }`}
             >
               <Icon name="swap_horiz" size="sm" />
@@ -519,7 +535,7 @@ export default function LiveMatchScreen() {
 
             <button
               onClick={handleSkip}
-              className="ml-auto flex items-center gap-1.5 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-gray-300 rounded-lg text-sm font-medium transition-colors"
+              className="ml-auto flex items-center gap-1.5 px-4 py-2 bg-dark-700/80 hover:bg-dark-600/80 text-gray-300 rounded-lg text-sm font-medium border border-gold-600/20 transition-colors"
             >
               <Icon name="skip_next" size="sm" />
               Saltar al final
@@ -552,6 +568,7 @@ export default function LiveMatchScreen() {
           onClose={handleClosePanel}
         />
       )}
+      </div>
     </div>
   )
 }

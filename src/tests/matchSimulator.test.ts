@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { simulate, buildSnapshot } from '../services/matchSimulator'
+import { simulate, buildSnapshot, simulateCupTiebreak } from '../services/matchSimulator'
 import { buildTeamSnapshot } from '../services/formationService'
 import type { Team, Formation, TeamSnapshot } from '../types/team'
 import type { Player } from '../types/player'
@@ -206,5 +206,37 @@ describe('simulate', () => {
       totalGoals += result.homeGoals + result.awayGoals
     }
     expect(totalGoalEvents).toBe(totalGoals)
+  })
+})
+
+describe('simulateCupTiebreak', () => {
+  const match = { id: 'm1', leagueId: 'cup', type: 'cup', round: 1,
+    homeTeamId: 1, awayTeamId: 2, date: '2026-01-01', played: false,
+    homeGoals: 0, awayGoals: 0, result: null } as any
+  const snap = (id: number) => ({
+    id, name: `Team ${id}`, formation: { tacticalType: 'BALANCED' } as any,
+    forwardScore: 70, midfieldScore: 70, defenseScore: 70, goalkeeperScore: 70, starters: [],
+  })
+
+  it('returns a winner even when regular time is a draw', () => {
+    // Run 50 times — each must have a definitive winner
+    for (let i = 0; i < 50; i++) {
+      const result = simulateCupTiebreak(snap(1), snap(2), match)
+      const totalHome = result.homeGoals + (result.extraTime?.homeGoals ?? 0)
+      const totalAway = result.awayGoals + (result.extraTime?.awayGoals ?? 0)
+      const penaltyWinner = result.penalties?.winnerId
+      const hasWinner = totalHome !== totalAway || penaltyWinner !== undefined
+      expect(hasWinner).toBe(true)
+    }
+  })
+
+  it('includes ET_START event when match goes to extra time', () => {
+    // Force identical teams to maximize draw probability; check event presence over many runs
+    let foundET = false
+    for (let i = 0; i < 200; i++) {
+      const result = simulateCupTiebreak(snap(1), snap(2), match)
+      if (result.events.some(e => e.type === 'ET_START')) { foundET = true; break }
+    }
+    expect(foundET).toBe(true)
   })
 })

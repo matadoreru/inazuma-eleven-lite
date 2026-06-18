@@ -2,7 +2,7 @@ import type { Match } from '../types/competition'
 import type { Team, TeamSnapshot } from '../types/team'
 import type { Player } from '../types/player'
 import type { Cup, CupRound, CupRoundName } from '../types/season'
-import { simulate } from './matchSimulator'
+import { simulateCupTiebreak } from './matchSimulator'
 import { buildTeamSnapshot } from './formationService'
 
 function addDaysStr(dateStr: string, days: number): string {
@@ -106,11 +106,22 @@ export function initCup(teams: Team[], year: number, seasonStartDate: string): C
 }
 
 function getMatchWinner(match: Match): number | null {
-  if (!match.played) return null
-  if (match.homeGoals > match.awayGoals) return match.homeTeamId
-  if (match.awayGoals > match.homeGoals) return match.awayTeamId
-  // Cup ties go to away team (simplification — no extra time/penalties in simulation)
-  return match.awayTeamId
+  if (!match.played || !match.result) return null
+  const r = match.result
+  // Check penalties first (definitive)
+  if (r.penalties) return r.penalties.winnerId
+  // Then extra time
+  if (r.extraTime) {
+    const totalHome = r.homeGoals + r.extraTime.homeGoals
+    const totalAway = r.awayGoals + r.extraTime.awayGoals
+    if (totalHome > totalAway) return match.homeTeamId
+    if (totalAway > totalHome) return match.awayTeamId
+    return null // should never happen after tiebreak
+  }
+  // Regular time
+  if (r.homeGoals > r.awayGoals) return match.homeTeamId
+  if (r.awayGoals > r.homeGoals) return match.awayTeamId
+  return null
 }
 
 export function simulateCupMatch(match: Match, teams: Team[], players: Player[]): Match {
@@ -121,9 +132,15 @@ export function simulateCupMatch(match: Match, teams: Team[], players: Player[])
 
   const homeSnap = buildNpcSnapshot(homeTeam, players)
   const awaySnap = buildNpcSnapshot(awayTeam, players)
-  const result = simulate(homeSnap, awaySnap, match)
+  const result = simulateCupTiebreak(homeSnap, awaySnap, match)
 
-  return { ...match, played: true, homeGoals: result.homeGoals, awayGoals: result.awayGoals, result }
+  return {
+    ...match,
+    played: true,
+    homeGoals: result.homeGoals + (result.extraTime?.homeGoals ?? 0),
+    awayGoals: result.awayGoals + (result.extraTime?.awayGoals ?? 0),
+    result,
+  }
 }
 
 // After a round is fully played, fill in the next round's teams from the winners.

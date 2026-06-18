@@ -27,13 +27,16 @@ export interface Match {
 
 export interface MatchEvent {
   minute: number
-  type: 'GOAL' | 'SAVE' | 'MISS' | 'YELLOW' | 'RED' | 'INJURY' | 'PHASE'
+  type: 'GOAL' | 'SAVE' | 'MISS' | 'YELLOW' | 'RED' | 'INJURY' | 'PHASE' | 'STOPPAGE' | 'ET_START' | 'ET_END' | 'PENALTY_SHOOTOUT' | 'TECHNIQUE'
   teamId: number
   playerId?: number
   playerName?: string
   playerSpriteUrl?: string
   text: string
   isHome: boolean
+  techniqueName?: string
+  techniqueOutcome?: string
+  techniqueElement?: string
 }
 
 export interface MatchResult {
@@ -58,6 +61,9 @@ export interface MatchResult {
   homeXG: number
   awayXG: number
   events: MatchEvent[]
+  extraTime?: { homeGoals: number; awayGoals: number }
+  penalties?: { homeScore: number; awayScore: number; winnerId: number }
+  stoppageTime?: { firstHalf: number; secondHalf: number; etFirst?: number; etSecond?: number }
 }
 
 export interface StandingRow {
