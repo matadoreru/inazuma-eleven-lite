@@ -69,9 +69,38 @@ export default function SeasonReviewScreen() {
   const teams = useCareerStore((s) => s.teams)
   const startNewSeason = useCareerStore((s) => s.startNewSeason)
 
+  // ── All hooks BEFORE early returns ──
+  const [showReveal, setShowReveal] = useState(true)
+  const [fading, setFading] = useState(false)
+
+  const review = career?.lastSeasonReview ?? null
+
+  const isChampion = review?.finalPosition === 1
+  const revealDuration = (isChampion || (review?.userOutcome !== 'stayed')) ? 3500 : 2000
+
+  const currentLeague = leagues.find((l) => l.id === review?.leagueId)
+  const promotionTargetName = leagues.find((l) => l.id === currentLeague?.promotionTo)?.name ?? 'División Superior'
+  const relegationTargetName = leagues.find((l) => l.id === currentLeague?.relegationTo)?.name ?? 'División Inferior'
+
+  const overlayConfig = isChampion
+    ? { bg: 'from-yellow-950 to-yellow-900', icon: 'emoji_events', iconColor: 'text-yellow-400', title: '¡CAMPEÓN!', sub: review?.leagueName ?? '', titleColor: 'text-yellow-300' }
+    : review?.userOutcome === 'promoted'
+    ? { bg: 'from-green-950 to-green-900', icon: 'arrow_upward', iconColor: 'text-green-400', title: '¡ASCENSO!', sub: `→ ${promotionTargetName}`, titleColor: 'text-green-300' }
+    : review?.userOutcome === 'relegated'
+    ? { bg: 'from-red-950 to-red-900', icon: 'arrow_downward', iconColor: 'text-red-400', title: 'DESCENSO', sub: `→ ${relegationTargetName}`, titleColor: 'text-red-300' }
+    : { bg: 'from-gray-900 to-gray-800', icon: 'remove', iconColor: 'text-gray-400', title: 'PERMANENCIA', sub: review?.leagueName ?? '', titleColor: 'text-gray-300' }
+
+  useEffect(() => {
+    if (!review) return
+    playOutcomeSound(isChampion ? 'champion' : review.userOutcome)
+    const fadeTimer = setTimeout(() => setFading(true), revealDuration - 600)
+    const hideTimer = setTimeout(() => setShowReveal(false), revealDuration)
+    return () => { clearTimeout(fadeTimer); clearTimeout(hideTimer) }
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // ── Early returns AFTER hooks ──
   if (!career) return null
 
-  const review = career.lastSeasonReview
   if (!review) {
     return (
       <div className="h-full flex items-center justify-center bg-gray-900">
@@ -79,31 +108,6 @@ export default function SeasonReviewScreen() {
       </div>
     )
   }
-
-  const [showReveal, setShowReveal] = useState(true)
-  const [fading, setFading] = useState(false)
-
-  const isChampion = review.finalPosition === 1
-  const revealDuration = isChampion || review.userOutcome !== 'stayed' ? 3500 : 2000
-
-  useEffect(() => {
-    playOutcomeSound(isChampion ? 'champion' : review.userOutcome)
-    const fadeTimer = setTimeout(() => setFading(true), revealDuration - 600)
-    const hideTimer = setTimeout(() => setShowReveal(false), revealDuration)
-    return () => { clearTimeout(fadeTimer); clearTimeout(hideTimer) }
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
-
-  const currentLeague = leagues.find((l) => l.id === review.leagueId)
-  const promotionTargetName = leagues.find((l) => l.id === currentLeague?.promotionTo)?.name ?? 'División Superior'
-  const relegationTargetName = leagues.find((l) => l.id === currentLeague?.relegationTo)?.name ?? 'División Inferior'
-
-  const overlayConfig = isChampion
-    ? { bg: 'from-yellow-950 to-yellow-900', icon: 'emoji_events', iconColor: 'text-yellow-400', title: '¡CAMPEÓN!', sub: review.leagueName, titleColor: 'text-yellow-300' }
-    : review.userOutcome === 'promoted'
-    ? { bg: 'from-green-950 to-green-900', icon: 'arrow_upward', iconColor: 'text-green-400', title: '¡ASCENSO!', sub: `→ ${promotionTargetName}`, titleColor: 'text-green-300' }
-    : review.userOutcome === 'relegated'
-    ? { bg: 'from-red-950 to-red-900', icon: 'arrow_downward', iconColor: 'text-red-400', title: 'DESCENSO', sub: `→ ${relegationTargetName}`, titleColor: 'text-red-300' }
-    : { bg: 'from-gray-900 to-gray-800', icon: 'remove', iconColor: 'text-gray-400', title: 'PERMANENCIA', sub: review.leagueName, titleColor: 'text-gray-300' }
 
   const { label, color, icon } = formatOutcome(review.userOutcome)
   const promotedTeams = review.promotedTeamIds.map((id) => teams.find((t) => t.id === id)).filter(Boolean)
