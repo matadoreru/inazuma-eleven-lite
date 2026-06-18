@@ -11,9 +11,7 @@ describe('computeSeasonStatus', () => {
       allLeagueSeasons: {},
       cup: { finished: true } as any,
     }
-    // We'll verify this after exporting the helper
-    expect(mockCareer.season.finished).toBe(true)
-    expect(mockCareer.cup.finished).toBe(true)
+    expect(computeSeasonStatus(mockCareer)).toBe('all_finished')
   })
 
   it('returns all_finished via computeSeasonStatus when both season and cup are done', () => {
