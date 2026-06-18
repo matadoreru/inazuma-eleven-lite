@@ -1,7 +1,6 @@
+import GameLayout from '../components/GameLayout'
 import { useState } from 'react'
 import { useCareerStore } from '../store/careerStore'
-import TopNavigation from '../components/TopNavigation'
-import SideNavigation from '../components/SideNavigation'
 import PlayerRow from '../components/PlayerRow'
 import type { PlayerStatus } from '../components/PlayerRow'
 import Icon from '../components/Icon'
@@ -29,12 +28,12 @@ function sortPlayers(players: Player[], key: SortKey): Player[] {
 }
 
 const SELECT_CLS =
-  'bg-gray-800 border border-gray-700 rounded-lg text-xs text-gray-300 px-2 py-1.5 focus:outline-none focus:border-gray-500 cursor-pointer'
+  'panel rounded-lg text-xs text-gray-300 px-2 py-1.5 focus:outline-none focus:border-gray-500 cursor-pointer'
 
 function TableHeader() {
   return (
     <thead>
-      <tr className="bg-gray-900/80 text-gray-500 text-xs border-b border-gray-700">
+      <tr className="bg-dark-900/60 text-gold-600/80 text-xs border-b border-gold-600/30">
         <th className="py-2 px-3 text-right w-8">#</th>
         <th className="py-2 px-2 w-14" />
         <th className="py-2 px-3 text-left">Jugador</th>
@@ -74,7 +73,7 @@ export default function SquadScreen() {
 
   if (!career) {
     return (
-      <div className="h-full flex items-center justify-center bg-gray-900">
+      <div className="h-full flex items-center justify-center bg-dark-900/80">
         <p className="text-gray-400">No hay carrera activa.</p>
       </div>
     )
@@ -133,7 +132,7 @@ export default function SquadScreen() {
       return (
         <button
           onClick={(e) => { e.stopPropagation(); removeCallupPlayer(player.id) }}
-          className="text-[0.625rem] font-bold px-1.5 py-0.5 rounded bg-gray-700 text-gray-400 border border-gray-600 hover:bg-red-900/40 hover:text-red-400 hover:border-red-700/60 transition-colors whitespace-nowrap"
+          className="text-[0.625rem] font-bold px-1.5 py-0.5 rounded bg-dark-700/60 text-gray-400 border border-gold-600/15 hover:bg-red-900/40 hover:text-red-400 hover:border-red-700/60 transition-colors whitespace-nowrap"
         >
           Desconv.
         </button>
@@ -146,8 +145,8 @@ export default function SquadScreen() {
         disabled={disabled}
         className={`text-[0.625rem] font-bold px-1.5 py-0.5 rounded border transition-colors whitespace-nowrap
           ${disabled
-            ? 'bg-gray-800 text-gray-600 border-gray-700 cursor-not-allowed'
-            : 'bg-blue-900/30 text-blue-300 border-blue-700/50 hover:bg-blue-700/40 hover:text-blue-200'
+            ? 'bg-dark-800/60 text-gray-600 border-gold-600/10 cursor-not-allowed'
+            : 'bg-blue-900/30 text-gold-400 border-blue-700/50 hover:bg-blue-700/40 hover:text-blue-200'
           }`}
       >
         Convocar
@@ -156,24 +155,20 @@ export default function SquadScreen() {
   }
 
   return (
-    <div className="h-full flex flex-col">
-      <TopNavigation title="Plantilla" />
-      <div className="flex flex-1 overflow-hidden">
-        <SideNavigation currentScreen={screen} onNavigate={navigate} />
-
-        <div className="flex-1 flex flex-col overflow-hidden">
+    <GameLayout>
+      <div className="h-full flex flex-col overflow-hidden">
           {/* Toolbar */}
-          <div className="flex-shrink-0 bg-gray-900 border-b border-gray-700 px-4 py-2 space-y-2">
+          <div className="flex-shrink-0 bg-dark-900/80 border-b border-gold-600/30 px-4 py-2 space-y-2">
             <div className="flex items-center justify-between">
               <div className="flex gap-1 flex-wrap">
                 {squadFilterOptions.map(({ key, label }) => (
                   <button
                     key={key}
                     onClick={() => setSquadFilter(key)}
-                    className={`text-xs px-2.5 py-1.5 rounded-lg font-medium transition-colors whitespace-nowrap ${
+                    className={`text-xs px-2.5 py-1.5 rounded font-medium transition-colors whitespace-nowrap ${
                       squadFilter === key
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-gray-800 text-gray-400 hover:text-white'
+                        ? 'bg-gold-600/25 text-gold-300 border border-gold-500/60'
+                        : 'bg-dark-700/60 border border-gold-600/20 text-gray-400 hover:text-gold-400 hover:border-gold-500/40'
                     }`}
                   >
                     {label}
@@ -224,7 +219,7 @@ export default function SquadScreen() {
                   value={nameSearch}
                   onChange={(e) => setNameSearch(e.target.value)}
                   placeholder="Buscar jugador..."
-                  className="w-full bg-gray-800 border border-gray-700 rounded-lg pl-8 pr-8 py-1.5 text-white text-xs placeholder-gray-600 focus:outline-none focus:border-gray-500"
+                  className="w-full panel rounded-lg pl-8 pr-8 py-1.5 text-white text-xs placeholder-gray-600 focus:outline-none focus:border-gray-500"
                 />
                 {nameSearch && (
                   <button onClick={() => setNameSearch('')} className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300">
@@ -249,7 +244,7 @@ export default function SquadScreen() {
                       <span className="text-gray-500 text-xs font-semibold uppercase tracking-wide">{label}</span>
                       <span className="text-gray-700 text-xs">({group.length})</span>
                     </div>
-                    <div className="bg-gray-800 rounded-xl overflow-hidden border border-gray-700">
+                    <div className="panel rounded-xl overflow-hidden">
                       <table className="w-full">
                         <TableHeader />
                         <tbody>
@@ -268,7 +263,7 @@ export default function SquadScreen() {
                 )
               })
             ) : (
-              <div className="bg-gray-800 rounded-xl overflow-hidden border border-gray-700">
+              <div className="panel rounded-xl overflow-hidden">
                 <table className="w-full">
                   <TableHeader />
                   <tbody>
@@ -286,7 +281,6 @@ export default function SquadScreen() {
             )}
           </div>
         </div>
-      </div>
-    </div>
+    </GameLayout>
   )
 }

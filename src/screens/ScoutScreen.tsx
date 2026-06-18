@@ -1,7 +1,6 @@
+import GameLayout from '../components/GameLayout'
 import { useState } from 'react'
 import { useCareerStore } from '../store/careerStore'
-import TopNavigation from '../components/TopNavigation'
-import SideNavigation from '../components/SideNavigation'
 import TransferPlayerRow from '../components/TransferPlayerRow'
 import InboxEventCard from '../components/InboxEventCard'
 
@@ -25,7 +24,7 @@ export default function ScoutScreen() {
 
   if (!career) {
     return (
-      <div className="h-full flex items-center justify-center bg-gray-900">
+      <div className="h-full flex items-center justify-center bg-dark-900/80">
         <p className="text-gray-400">No hay carrera activa.</p>
       </div>
     )
@@ -47,7 +46,7 @@ export default function ScoutScreen() {
 
   // Active outgoing negotiations (includes player_accepted = waiting user confirmation)
   const activeNegotiations = career.outgoingNegotiations.filter(
-    (n) => n.phase === 'club_pending' || n.phase === 'player_pending' || n.phase === 'player_accepted',
+    (n) => n.phase === 'club_pending' || n.phase === 'player_pending' || n.phase === 'player_counter' || n.phase === 'player_accepted',
   )
 
   // Resolved negotiations (failed/cancelled) — shown until dismissed
@@ -63,11 +62,8 @@ export default function ScoutScreen() {
   }
 
   return (
-    <div className="h-full flex flex-col">
-      <TopNavigation title="Explorador" />
-      <div className="flex flex-1 overflow-hidden">
-        <SideNavigation currentScreen={screen} onNavigate={navigate} />
-        <main className="flex-1 overflow-y-auto p-4">
+    <GameLayout>
+      <main className="h-full overflow-y-auto p-4">
           <h1 className="text-white text-2xl font-bold mb-4">Ojeadores</h1>
 
           {/* Active outgoing negotiations */}
@@ -83,15 +79,16 @@ export default function ScoutScreen() {
                 {activeNegotiations.map((neg) => {
                   const isPlayerAccepted = neg.phase === 'player_accepted'
                   const isPlayerPending = neg.phase === 'player_pending'
+                  const isPlayerCounter = neg.phase === 'player_counter'
                   const hasCounter = !!neg.counterAmount
                   const borderClass = isPlayerAccepted
                     ? 'border-green-700'
-                    : hasCounter
+                    : isPlayerCounter || (hasCounter && neg.phase === 'club_pending')
                     ? 'border-yellow-700'
-                    : 'border-gray-700'
+                    : 'border-gold-600/20'
 
                   return (
-                    <div key={neg.id} className={`bg-gray-800 rounded-xl p-3 border ${borderClass}`}>
+                    <div key={neg.id} className={`bg-dark-800/80 rounded-xl border border-gold-600/15 p-3 border ${borderClass}`}>
                       <div className="flex items-start justify-between gap-2">
                         <div className="flex-1 min-w-0">
                           <p className="text-white text-sm font-semibold truncate">{neg.playerName}</p>
@@ -100,6 +97,7 @@ export default function ScoutScreen() {
                             {neg.phase === 'club_pending' && !hasCounter && 'Esperando respuesta del club'}
                             {neg.phase === 'club_pending' && hasCounter && `Contra-oferta del club: ${fmtAmt(neg.counterAmount!)}`}
                             {isPlayerPending && 'El jugador está valorando la oferta'}
+                            {isPlayerCounter && `Jugador pide: ${fmtAmt(neg.counterAmount!)}`}
                             {isPlayerAccepted && '¡El jugador acepta! Confirma el fichaje'}
                           </p>
                           <p className="text-gray-600 text-[0.625rem]">
@@ -119,7 +117,7 @@ export default function ScoutScreen() {
                               </button>
                               <button
                                 onClick={() => cancelNegotiationAction(neg.id)}
-                                className="text-[0.625rem] px-2 py-1 bg-gray-700 hover:bg-gray-600 text-gray-300 rounded font-semibold transition-colors"
+                                className="text-[0.625rem] px-2 py-1 bg-dark-700/80 hover:bg-dark-600/80 text-gray-300 rounded font-semibold transition-colors border border-gold-600/15"
                               >
                                 Cancelar
                               </button>
@@ -141,7 +139,7 @@ export default function ScoutScreen() {
                                     value={counterInputs[neg.id] ?? ''}
                                     onChange={(e) => setCounterInputs((prev) => ({ ...prev, [neg.id]: e.target.value }))}
                                     placeholder={String(Math.round(neg.currentOffer * 1.05))}
-                                    className="w-20 text-[0.625rem] px-1.5 py-1 bg-gray-700 border border-gray-600 rounded text-white placeholder-gray-500"
+                                    className="w-20 text-[0.625rem] px-1.5 py-1 bg-dark-700/80 border border-gold-600/30 rounded text-white placeholder-gray-500"
                                   />
                                   <button
                                     onClick={() => {
@@ -159,7 +157,7 @@ export default function ScoutScreen() {
                               )}
                               <button
                                 onClick={() => respondToCounterOffer(neg.id, 'reject')}
-                                className="text-[0.625rem] px-2 py-1 bg-gray-700 hover:bg-gray-600 text-gray-300 rounded font-semibold transition-colors"
+                                className="text-[0.625rem] px-2 py-1 bg-dark-700/80 hover:bg-dark-600/80 text-gray-300 rounded font-semibold transition-colors border border-gold-600/15"
                               >
                                 Rechazar
                               </button>
@@ -169,7 +167,7 @@ export default function ScoutScreen() {
                           {!hasCounter && !isPlayerAccepted && (
                             <button
                               onClick={() => cancelNegotiationAction(neg.id)}
-                              className="text-[0.625rem] px-2 py-1 bg-gray-700 hover:bg-gray-600 text-gray-300 rounded font-semibold transition-colors"
+                              className="text-[0.625rem] px-2 py-1 bg-dark-700/80 hover:bg-dark-600/80 text-gray-300 rounded font-semibold transition-colors border border-gold-600/15"
                             >
                               Cancelar
                             </button>
@@ -182,7 +180,7 @@ export default function ScoutScreen() {
 
                 {/* Resolved negotiations (failed / cancelled) */}
                 {resolvedNegotiations.map((neg) => (
-                  <div key={neg.id} className="bg-gray-800/60 rounded-xl p-3 border border-gray-700/50">
+                  <div key={neg.id} className="bg-dark-800/60 rounded-xl p-3 border border-gold-600/20">
                     <div className="flex items-center justify-between gap-2">
                       <div className="flex-1 min-w-0">
                         <p className="text-gray-400 text-sm font-semibold truncate">{neg.playerName}</p>
@@ -194,7 +192,7 @@ export default function ScoutScreen() {
                       </div>
                       <button
                         onClick={() => dismissNegotiationAction(neg.id)}
-                        className="shrink-0 text-[0.625rem] px-2 py-1 bg-gray-700 hover:bg-gray-600 text-gray-400 rounded font-semibold transition-colors"
+                        className="shrink-0 text-[0.625rem] px-2 py-1 bg-dark-700/60 hover:bg-dark-600/70 text-gray-400 rounded font-semibold border border-gold-600/15 transition-colors"
                       >
                         Eliminar
                       </button>
@@ -214,7 +212,7 @@ export default function ScoutScreen() {
               </h2>
               <div className="flex flex-col gap-3">
                 {transferOffers.map((event) => (
-                  <div key={event.id} className="bg-gray-800 rounded-xl p-4 border border-yellow-700">
+                  <div key={event.id} className="bg-dark-800/80 rounded-xl border border-gold-600/15 p-4 border border-yellow-700">
                     <InboxEventCard
                       event={event}
                       onRead={() => markInboxRead(event.id)}
@@ -246,10 +244,10 @@ export default function ScoutScreen() {
             </h2>
 
             {watchlistPlayers.length > 0 ? (
-              <div className="bg-gray-800 rounded-xl overflow-hidden border border-gray-700">
+              <div className="panel rounded-xl overflow-hidden">
                 <table className="w-full">
                   <thead>
-                    <tr className="bg-gray-900/80 text-gray-500 text-xs border-b border-gray-700">
+                    <tr className="bg-dark-900/60 text-gold-600/80 text-xs border-b border-gold-600/30">
                       <th className="py-2 px-2 w-14" />
                       <th className="py-2 px-3 text-left">Jugador</th>
                       <th className="py-2 px-2 w-20 text-center">Elem.</th>
@@ -282,7 +280,7 @@ export default function ScoutScreen() {
                 </table>
               </div>
             ) : (
-              <div className="bg-gray-800 rounded-xl p-8 border border-gray-700 text-center">
+              <div className="bg-dark-800/80 rounded-xl border border-gold-600/15 p-8 border border-gold-600/20 text-center">
                 <p className="text-gray-400 text-sm mb-2">No tienes jugadores en seguimiento</p>
                 <p className="text-gray-500 text-xs">
                   Añade jugadores desde el Mercado de Fichajes
@@ -297,7 +295,6 @@ export default function ScoutScreen() {
             )}
           </div>
         </main>
-      </div>
-    </div>
+    </GameLayout>
   )
 }

@@ -40,7 +40,7 @@ export default class ErrorBoundary extends Component<Props, State> {
   render() {
     if (this.state.hasError) {
       return (
-        <div className="h-full flex flex-col items-center justify-center gap-6 bg-gray-900 px-6 text-center">
+        <div className="h-full flex flex-col items-center justify-center gap-6 bg-dark-900 px-6 text-center">
           <div className="text-red-400 text-5xl">⚠</div>
           <div>
             <p className="text-white font-bold text-lg mb-2">Algo ha ido mal</p>
@@ -48,7 +48,7 @@ export default class ErrorBoundary extends Component<Props, State> {
               Hubo un error al cargar la partida guardada. Se reiniciará la aplicación.
             </p>
             {this.state.error && (
-              <p className="text-red-400 text-xs mt-3 font-mono break-all max-w-sm bg-gray-800 rounded p-2">
+              <p className="text-red-400 text-xs mt-3 font-mono break-all max-w-sm bg-dark-800/80 rounded p-2 border border-red-900/30">
                 {this.state.error.message}
               </p>
             )}

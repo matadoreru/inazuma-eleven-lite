@@ -1,7 +1,6 @@
+import GameLayout from '../components/GameLayout'
 import { useState } from 'react'
 import { useCareerStore } from '../store/careerStore'
-import TopNavigation from '../components/TopNavigation'
-import SideNavigation from '../components/SideNavigation'
 import TeamBadgeImage from '../components/TeamBadgeImage'
 import ObjectivesPanel from '../components/ObjectivesPanel'
 import Icon from '../components/Icon'
@@ -15,7 +14,7 @@ type Tab = 'equipo' | 'estadisticas' | 'objetivos'
 
 function StatCell({ label, value, sub }: { label: string; value: string | number; sub?: string }) {
   return (
-    <div className="bg-gray-800 rounded-xl p-3 border border-gray-700">
+    <div className="bg-dark-800/80 rounded-xl border border-gold-600/20 p-3 backdrop-blur-sm">
       <p className="text-gray-400 text-xs mb-1">{label}</p>
       <p className="text-white font-bold text-xl leading-none">{value}</p>
       {sub && <p className="text-gray-500 text-xs mt-0.5">{sub}</p>}
@@ -27,12 +26,12 @@ function ReputationBar({ value, max = 100 }: { value: number; max?: number }) {
   const pct = Math.round((value / max) * 100)
   const color =
     value >= 70 ? 'bg-yellow-400' :
-    value >= 40 ? 'bg-blue-500' :
-    'bg-gray-500'
+    value >= 40 ? 'bg-gold-500' :
+    'bg-dark-500/80'
 
   return (
     <div className="flex items-center gap-2">
-      <div className="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden">
+      <div className="flex-1 h-2 bg-dark-700/60 rounded-full overflow-hidden">
         <div className={`h-full rounded-full transition-all duration-500 ${color}`} style={{ width: `${pct}%` }} />
       </div>
       <span className="text-gray-300 text-sm font-medium tabular-nums whitespace-nowrap">{value} / {max}</span>
@@ -53,7 +52,7 @@ function SeasonStatsRow({ label, s, isCurrent = false }: {
       {/* Header */}
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
-          {isCurrent && <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0" />}
+          {isCurrent && <span className="w-2 h-2 rounded-full bg-gold-400 shrink-0" />}
           <span className="text-white text-sm font-bold">{label}</span>
         </div>
         <div className="flex items-center gap-2">
@@ -61,7 +60,7 @@ function SeasonStatsRow({ label, s, isCurrent = false }: {
           {s.finalPosition > 0 && (
             <span className={`text-xs font-bold px-1.5 py-0.5 rounded ${
               s.finalPosition === 1 ? 'bg-yellow-600/30 text-yellow-400' :
-              s.finalPosition <= 3 ? 'bg-blue-600/20 text-blue-400' : 'bg-gray-700 text-gray-300'
+              s.finalPosition <= 3 ? 'bg-gold-600/20 text-gold-400' : 'bg-dark-700/60 text-gray-400'
             }`}>#{s.finalPosition}</span>
           )}
         </div>
@@ -73,7 +72,7 @@ function SeasonStatsRow({ label, s, isCurrent = false }: {
           <p className="text-green-400 text-2xl font-extrabold leading-none">{s.wins}</p>
           <p className="text-green-600 text-[0.625rem] font-semibold mt-0.5">VICTORIAS</p>
         </div>
-        <div className="bg-gray-700/30 border border-gray-700 rounded-lg py-2 text-center">
+        <div className="bg-dark-700/30 border border-gold-600/20 rounded-lg py-2 text-center">
           <p className="text-gray-300 text-2xl font-extrabold leading-none">{s.draws}</p>
           <p className="text-gray-500 text-[0.625rem] font-semibold mt-0.5">EMPATES</p>
         </div>
@@ -89,8 +88,8 @@ function SeasonStatsRow({ label, s, isCurrent = false }: {
           <span className="text-gray-500 text-xs">% Victorias</span>
           <span className="text-white text-xs font-semibold">{s.winRate}%</span>
         </div>
-        <div className="h-1.5 bg-gray-700 rounded-full overflow-hidden">
-          <div className="h-full bg-blue-500 rounded-full" style={{ width: `${winPct}%` }} />
+        <div className="h-1.5 bg-dark-700/60 rounded-full overflow-hidden">
+          <div className="h-full bg-gold-500 rounded-full" style={{ width: `${winPct}%` }} />
         </div>
       </div>
 
@@ -131,7 +130,7 @@ export default function ClubScreen() {
 
   if (!career) {
     return (
-      <div className="h-full flex items-center justify-center bg-gray-900">
+      <div className="h-full flex items-center justify-center bg-dark-900/80">
         <p className="text-gray-400">No hay carrera activa.</p>
       </div>
     )
@@ -180,15 +179,11 @@ export default function ClubScreen() {
   ]
 
   return (
-    <div className="h-full flex flex-col">
-      <TopNavigation title="Club" />
-      <div className="flex flex-1 overflow-hidden">
-        <SideNavigation currentScreen={screen} onNavigate={navigate} />
-
-        <main className="flex-1 overflow-y-auto">
+    <GameLayout>
+      <main className="h-full overflow-y-auto">
 
           {/* Club header */}
-          <div className="bg-gradient-to-b from-gray-800 to-gray-900 border-b border-gray-700 px-5 py-5">
+          <div className="bg-gradient-to-b from-dark-800/90 to-dark-900/90 border-b border-gold-600/20 px-5 py-5">
             <div className="flex items-center gap-4">
               <TeamBadgeImage
                 teamName={teamName}
@@ -221,7 +216,7 @@ export default function ClubScreen() {
           </div>
 
           {/* Tabs */}
-          <div className="flex border-b border-gray-700 bg-gray-900 sticky top-0 z-10">
+          <div className="flex border-b border-gold-600/20 bg-dark-900/90 sticky top-0 z-10 border-b border-gold-600/20">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
@@ -240,7 +235,7 @@ export default function ClubScreen() {
                   </span>
                 )}
                 {activeTab === tab.id && (
-                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-500" />
+                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gold-500" />
                 )}
               </button>
             ))}
@@ -251,87 +246,90 @@ export default function ClubScreen() {
 
             {/* === EQUIPO === */}
             {activeTab === 'equipo' && (
-              <>
-                {/* Best player */}
+              <div className="panel overflow-hidden">
                 {bestPlayer && (
-                  <div>
-                    <h2 className="text-gray-300 text-sm font-semibold mb-3 flex items-center gap-1.5">
-                      <Icon name="emoji_events" size="xs" className="text-yellow-400" />
+                  <div className="border-b border-gold-600/15">
+                    <div className="panel-header flex items-center gap-1.5 border-b border-gold-600/20">
+                      <Icon name="emoji_events" size="xs" className="text-gold-400" />
                       Mejor jugador
-                    </h2>
-                    <div className="bg-gray-800 rounded-xl border border-yellow-800/30 p-3 flex items-center gap-3">
-                      {bestPlayer.spriteUrl ? (
-                        <img
-                          src={bestPlayer.spriteUrl}
-                          alt={playerDisplayName(bestPlayer, nameStyle)}
-                          className="w-14 h-14 object-contain rounded-lg bg-gray-700 shrink-0"
-                          onError={(e) => { e.currentTarget.style.display = 'none' }}
-                        />
-                      ) : (
-                        <div className="w-14 h-14 rounded-lg bg-gray-700 flex items-center justify-center shrink-0">
-                          <Icon name="person" size="lg" className="text-gray-500" />
+                    </div>
+                    <div className="p-3">
+                      <div className="bg-dark-900/40 rounded-xl border border-gold-600/20 p-3 flex items-center gap-3">
+                        {bestPlayer.spriteUrl ? (
+                          <img
+                            src={bestPlayer.spriteUrl}
+                            alt={playerDisplayName(bestPlayer, nameStyle)}
+                            className="w-14 h-14 object-contain rounded-lg bg-dark-700/60 shrink-0"
+                            onError={(e) => { e.currentTarget.style.display = 'none' }}
+                          />
+                        ) : (
+                          <div className="w-14 h-14 rounded-lg bg-dark-700/60 flex items-center justify-center shrink-0">
+                            <Icon name="person" size="lg" className="text-gray-500" />
+                          </div>
+                        )}
+                        <div className="flex-1 min-w-0">
+                          <p className="text-gray-400 text-sm mb-0.5">{posLabel[bestPlayer.position] ?? bestPlayer.position}</p>
+                          <p className="text-white font-bold text-lg leading-tight">{playerDisplayName(bestPlayer, nameStyle)}</p>
                         </div>
-                      )}
-                      <div className="flex-1 min-w-0">
-                        <p className="text-gray-400 text-sm mb-0.5">{posLabel[bestPlayer.position] ?? bestPlayer.position}</p>
-                        <p className="text-white font-bold text-lg leading-tight">{playerDisplayName(bestPlayer, nameStyle)}</p>
-                      </div>
-                      <div className="text-right shrink-0">
-                        <p className="text-3xl font-extrabold leading-none" style={{ color: statColor(getPlayerStatsSummary(bestPlayer).media, 250) }}>{getPlayerStatsSummary(bestPlayer).media}</p>
-                        <p className="text-gray-500 text-xs mt-1">Media</p>
+                        <div className="text-right shrink-0">
+                          <p className="text-3xl font-extrabold leading-none" style={{ color: statColor(getPlayerStatsSummary(bestPlayer).media, 250) }}>{getPlayerStatsSummary(bestPlayer).media}</p>
+                          <p className="text-gray-500 text-xs mt-1">Media</p>
+                        </div>
                       </div>
                     </div>
                   </div>
                 )}
 
-                {/* Squad summary */}
-                <div>
-                  <h2 className="text-gray-300 text-sm font-semibold mb-3 flex items-center gap-1.5">
-                    <Icon name="groups" size="xs" />
+                <div className="border-b border-gold-600/15">
+                  <div className="panel-header flex items-center gap-1.5 border-b border-gold-600/20">
+                    <Icon name="groups" size="xs" className="text-gold-400" />
                     Plantilla
-                  </h2>
-                  <div className="grid grid-cols-4 gap-2 mb-3">
-                    {(Object.entries(positionCounts) as [string, number][]).map(([pos, count]) => (
-                      <div key={pos} className="bg-gray-800 rounded-xl p-3 border border-gray-700 text-center">
-                        <p className="text-gray-400 text-xs font-semibold">{pos}</p>
-                        <p className="text-white text-2xl font-bold">{count}</p>
-                      </div>
-                    ))}
                   </div>
-                  <div className="bg-gray-800 rounded-xl p-3 border border-gray-700 flex items-center justify-between">
-                    <div>
-                      <p className="text-gray-400 text-xs">Media del equipo</p>
-                      <p className="font-bold text-2xl" style={{ color: statColor(avgTOT, 250) }}>{avgTOT}</p>
+                  <div className="p-3 space-y-3">
+                    <div className="grid grid-cols-4 gap-2">
+                      {(Object.entries(positionCounts) as [string, number][]).map(([pos, count]) => (
+                        <div key={pos} className="bg-dark-900/40 rounded-xl border border-gold-600/20 p-3 text-center">
+                          <p className="text-gray-400 text-xs font-semibold">{pos}</p>
+                          <p className="text-white text-2xl font-bold">{count}</p>
+                        </div>
+                      ))}
                     </div>
-                    <div className="text-right">
-                      <p className="text-gray-400 text-xs">Jugadores</p>
-                      <p className="text-white font-bold text-2xl">{squadPlayers.length}</p>
+                    <div className="bg-dark-900/40 rounded-xl border border-gold-600/20 p-3 flex items-center justify-between">
+                      <div>
+                        <p className="text-gray-400 text-xs">Media del equipo</p>
+                        <p className="font-bold text-2xl" style={{ color: statColor(avgTOT, 250) }}>{avgTOT}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-gray-400 text-xs">Jugadores</p>
+                        <p className="text-white font-bold text-2xl">{squadPlayers.length}</p>
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                {/* Manager */}
                 <div>
-                  <h2 className="text-gray-300 text-sm font-semibold mb-3 flex items-center gap-1.5">
-                    <Icon name="manage_accounts" size="xs" />
+                  <div className="panel-header flex items-center gap-1.5 border-b border-gold-600/20">
+                    <Icon name="manage_accounts" size="xs" className="text-gold-400" />
                     Entrenador
-                  </h2>
-                  <div className="bg-gray-800 rounded-xl p-4 border border-gray-700 flex items-center gap-3">
-                    {career.managerAvatar ? (
-                      <img src={career.managerAvatar} alt="Avatar" className="w-12 h-12 rounded-full bg-gray-700" />
-                    ) : (
-                      <div className="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center">
-                        <Icon name="person" size="md" className="text-gray-500" />
+                  </div>
+                  <div className="p-3">
+                    <div className="bg-dark-900/40 rounded-xl border border-gold-600/20 p-4 flex items-center gap-3">
+                      {career.managerAvatar ? (
+                        <img src={career.managerAvatar} alt="Avatar" className="w-12 h-12 rounded-full bg-dark-700/60" />
+                      ) : (
+                        <div className="w-12 h-12 rounded-full bg-dark-700/60 flex items-center justify-center">
+                          <Icon name="person" size="md" className="text-gray-500" />
+                        </div>
+                      )}
+                      <div>
+                        <p className="text-white font-semibold text-base">{career.managerName}</p>
+                        <p className="text-gray-400 text-sm mt-0.5">Temporada {career.seasonNumber}</p>
+                        <p className="text-gray-500 text-sm">Carrera desde {career.createdAt}</p>
                       </div>
-                    )}
-                    <div>
-                      <p className="text-white font-semibold text-base">{career.managerName}</p>
-                      <p className="text-gray-400 text-sm mt-0.5">Temporada {career.seasonNumber}</p>
-                      <p className="text-gray-500 text-sm">Carrera desde {career.createdAt}</p>
                     </div>
                   </div>
                 </div>
-              </>
+              </div>
             )}
 
             {/* === ESTADÍSTICAS === */}
@@ -340,38 +338,46 @@ export default function ClubScreen() {
                 {/* Global stats */}
                 <div>
                   <h2 className="text-gray-300 text-sm font-semibold mb-3 flex items-center gap-1.5">
-                    <Icon name="public" size="xs" />
+                    <Icon name="public" size="xs" className="text-gold-400" />
                     Estadísticas globales
                   </h2>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-3">
-                    <StatCell label="Temporadas" value={career.seasonHistory.length + 1} />
-                    <StatCell label="Partidos" value={globalStats.matchesPlayed} />
-                    <StatCell label="% Victorias" value={`${globalStats.winRate}%`} />
-                    <StatCell label="Portería 0" value={globalStats.cleanSheets} />
-                  </div>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-3">
-                    <StatCell label="Victorias" value={globalStats.wins} />
-                    <StatCell label="Empates" value={globalStats.draws} />
-                    <StatCell label="Derrotas" value={globalStats.losses} />
-                    <StatCell label="Mejor racha" value={`${globalStats.bestWinStreak}V`} />
-                  </div>
-                  <div className="grid grid-cols-3 gap-2">
-                    <StatCell label="Goles a favor" value={globalStats.goalsFor} />
-                    <StatCell label="Goles en contra" value={globalStats.goalsAgainst} />
-                    <StatCell
-                      label="Diferencia"
-                      value={`${globalStats.goalDiff >= 0 ? '+' : ''}${globalStats.goalDiff}`}
-                    />
+                  <div className="panel overflow-hidden">
+                    <div className="panel-header flex items-center gap-1.5 border-b border-gold-600/20">
+                      <Icon name="bar_chart" size="xs" className="text-gold-400" />
+                      Resumen
+                    </div>
+                    <div className="p-3 space-y-2">
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                        <StatCell label="Temporadas" value={career.seasonHistory.length + 1} />
+                        <StatCell label="Partidos" value={globalStats.matchesPlayed} />
+                        <StatCell label="% Victorias" value={`${globalStats.winRate}%`} />
+                        <StatCell label="Portería 0" value={globalStats.cleanSheets} />
+                      </div>
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                        <StatCell label="Victorias" value={globalStats.wins} />
+                        <StatCell label="Empates" value={globalStats.draws} />
+                        <StatCell label="Derrotas" value={globalStats.losses} />
+                        <StatCell label="Mejor racha" value={`${globalStats.bestWinStreak}V`} />
+                      </div>
+                      <div className="grid grid-cols-3 gap-2">
+                        <StatCell label="Goles a favor" value={globalStats.goalsFor} />
+                        <StatCell label="Goles en contra" value={globalStats.goalsAgainst} />
+                        <StatCell
+                          label="Diferencia"
+                          value={`${globalStats.goalDiff >= 0 ? '+' : ''}${globalStats.goalDiff}`}
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
 
                 {/* Current season */}
                 <div>
                   <h2 className="text-gray-300 text-sm font-semibold mb-3 flex items-center gap-1.5">
-                    <Icon name="today" size="xs" />
+                    <Icon name="today" size="xs" className="text-gold-400" />
                     Temporada actual
                   </h2>
-                  <div className="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden">
+                  <div className="panel rounded-xl overflow-hidden">
                     <SeasonStatsRow
                       label={`Temporada ${career.seasonNumber}`}
                       s={currentStats}
@@ -384,10 +390,10 @@ export default function ClubScreen() {
                 {career.seasonHistory.length > 0 && (
                   <div>
                     <h2 className="text-gray-300 text-sm font-semibold mb-3 flex items-center gap-1.5">
-                      <Icon name="history" size="xs" />
+                      <Icon name="history" size="xs" className="text-gold-400" />
                       Historial de temporadas
                     </h2>
-                    <div className="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden">
+                    <div className="panel rounded-xl overflow-hidden">
                       {[...career.seasonHistory].reverse().map((s) => (
                         <SeasonStatsRow
                           key={s.seasonNumber}
@@ -408,7 +414,6 @@ export default function ClubScreen() {
 
           </div>
         </main>
-      </div>
-    </div>
+    </GameLayout>
   )
 }

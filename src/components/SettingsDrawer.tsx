@@ -81,7 +81,7 @@ export default function SettingsDrawer() {
                   lang === code
                     ? 'border-blue-500 bg-blue-600/10 text-white'
                     : available
-                    ? 'border-gray-700 text-gray-300 hover:border-gray-500 hover:text-white'
+                    ? 'border-gold-600/20 text-gray-300 hover:border-gold-500/50 hover:text-white'
                     : 'border-gray-800 text-gray-600 cursor-not-allowed'
                 }`}
               >
@@ -113,7 +113,7 @@ export default function SettingsDrawer() {
                   className={`px-2.5 py-1 rounded text-sm font-medium transition-colors ${
                     saveSlot === slot
                       ? 'bg-blue-600 text-white'
-                      : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                      : 'bg-dark-700/60 text-gray-300 hover:bg-dark-600/80'
                   }`}
                 >
                   {slot + 1}
@@ -126,7 +126,7 @@ export default function SettingsDrawer() {
               className={`w-full flex items-center justify-center gap-2 py-2.5 rounded-lg font-semibold text-sm transition-colors ${
                 savedFeedback
                   ? 'bg-green-700 text-white'
-                  : 'bg-blue-600 hover:bg-blue-500 disabled:bg-gray-600 text-white'
+                  : 'bg-gold-600 hover:bg-gold-500 disabled:bg-dark-700 text-dark-900'
               }`}
             >
               <Icon name={savedFeedback ? 'check_circle' : 'save'} size="sm" />
@@ -156,7 +156,7 @@ export default function SettingsDrawer() {
               <Icon name="info" size="xs" />
               Información de la carrera
             </h3>
-            <div className="bg-gray-800 rounded-xl px-4 py-1 border border-gray-700">
+            <div className="bg-dark-800/70 rounded-xl px-4 py-1 border border-gold-600/20">
               <InfoRow label="Entrenador" value={career.managerName} />
               <InfoRow label="Equipo" value={userTeam?.name ?? '—'} />
               <InfoRow label="Temporada" value={`${career.seasonNumber}`} />
@@ -173,7 +173,7 @@ export default function SettingsDrawer() {
             <Icon name="sports_soccer" size="xs" />
             Aplicación
           </h3>
-          <div className="bg-gray-800 rounded-xl px-4 py-1 border border-gray-700">
+          <div className="bg-dark-800/70 rounded-xl px-4 py-1 border border-gold-600/20">
             <InfoRow label="Juego" value="Inazuma Eleven Lite" />
             <InfoRow label="Versión" value={APP_VERSION} />
             <InfoRow label="Modo" value="Carrera" />

@@ -2,7 +2,7 @@ import type { Match } from '../types/competition'
 
 interface Props {
   year: number
-  month: number  // 1-12
+  month: number
   matches: Match[]
   userTeamId: number
   currentDate: string
@@ -24,24 +24,13 @@ function dateStr(year: number, month: number, day: number): string {
 }
 
 export default function CalendarMonth({
-  year,
-  month,
-  matches,
-  userTeamId,
-  currentDate,
-  selectedDate,
-  onDayClick,
-  onPrevMonth,
-  onNextMonth,
+  year, month, matches, userTeamId, currentDate, selectedDate, onDayClick, onPrevMonth, onNextMonth,
 }: Props) {
   const daysInMonth = new Date(year, month, 0).getDate()
   const firstWeekday = new Date(year, month - 1, 1).getDay()
   const startOffset = (firstWeekday + 6) % 7
-
-  // Pad end to complete the last grid row
   const totalCells = Math.ceil((startOffset + daysInMonth) / 7) * 7
 
-  // Build match index: track user match type and any-match per date
   const matchByDate: Record<string, { userLeague: boolean; userCup: boolean; other: boolean }> = {}
   for (const m of matches) {
     if (!m.date) continue
@@ -66,46 +55,46 @@ export default function CalendarMonth({
 
   return (
     <div className="flex flex-col h-full">
-      {/* Month navigation header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-gray-700/50 shrink-0">
+      {/* Month nav */}
+      <div className="flex items-center justify-between px-4 py-2.5 border-b border-gold-600/30 shrink-0 bg-dark-900/50">
         <button
           onClick={onPrevMonth}
-          className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-gray-800 border border-gray-700/60 text-gray-400 hover:text-white hover:border-gray-600 text-xs transition-all"
+          className="flex items-center gap-1 px-3 py-1.5 rounded bg-dark-800/80 border border-gold-600/30 text-gold-500 hover:text-gold-300 hover:border-gold-500 text-[0.45rem] font-pixel uppercase tracking-wide transition-all"
         >
           <span className="material-icons select-none leading-none" style={{ fontSize: 14 }}>chevron_left</span>
           Anterior
         </button>
 
-        <h2 className="text-amber-400 font-black text-xl italic tracking-wide select-none">
+        <h2 className="text-gold-400 font-pixel text-[0.55rem] uppercase tracking-widest select-none">
           {MONTH_NAMES[month - 1]} {year}
         </h2>
 
         <button
           onClick={onNextMonth}
-          className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-gray-800 border border-gray-700/60 text-gray-400 hover:text-white hover:border-gray-600 text-xs transition-all"
+          className="flex items-center gap-1 px-3 py-1.5 rounded bg-dark-800/80 border border-gold-600/30 text-gold-500 hover:text-gold-300 hover:border-gold-500 text-[0.45rem] font-pixel uppercase tracking-wide transition-all"
         >
           Siguiente
           <span className="material-icons select-none leading-none" style={{ fontSize: 14 }}>chevron_right</span>
         </button>
       </div>
 
-      {/* Day-of-week labels */}
-      <div className="grid grid-cols-7 shrink-0 border-b border-gray-700/30">
+      {/* Day labels */}
+      <div className="grid grid-cols-7 shrink-0 border-b border-gold-600/20 bg-dark-900/40">
         {DAY_LABELS.map((d) => (
-          <div key={d} className="text-center text-gray-600 text-[0.5625rem] font-bold uppercase tracking-widest py-2">
+          <div key={d} className="text-center text-gold-700 text-[0.4rem] font-pixel uppercase tracking-widest py-1.5">
             {d}
           </div>
         ))}
       </div>
 
-      {/* Grid — fills remaining height */}
+      {/* Grid */}
       <div
-        className="flex-1 grid grid-cols-7 gap-px bg-gray-700/20 min-h-0"
+        className="flex-1 grid grid-cols-7 gap-px bg-gold-600/10 min-h-0"
         style={{ gridTemplateRows: `repeat(${totalCells / 7}, 1fr)` }}
       >
         {cells.map((day, idx) => {
           if (day === null) {
-            return <div key={`pad-${idx}`} className="bg-gray-900/60" />
+            return <div key={`pad-${idx}`} className="bg-dark-900/70" />
           }
 
           const date = dateStr(year, month, day)
@@ -113,23 +102,22 @@ export default function CalendarMonth({
           const hasUserLeagueMatch = info?.userLeague ?? false
           const hasUserCupMatch = info?.userCup ?? false
           const hasUserMatch = hasUserLeagueMatch || hasUserCupMatch
-          const hasOtherMatch = info?.other ?? false
           const isToday = date === currentDate
           const isSelected = date === selectedDate
           const isPast = date < currentDate
 
-          // Background priority: selected > cup > league > today > default
-          let bgClass = 'bg-gray-900/80'
+          let bgClass = 'bg-dark-800/70'
           let ringClass = ''
           if (isSelected) {
-            bgClass = 'bg-blue-600'
+            bgClass = 'bg-gold-600/30'
+            ringClass = 'ring-1 ring-inset ring-gold-500'
           } else if (hasUserCupMatch) {
-            bgClass = 'bg-yellow-900/60'
+            bgClass = 'bg-yellow-900/50'
           } else if (hasUserLeagueMatch) {
-            bgClass = 'bg-green-900/80'
+            bgClass = 'bg-green-900/70'
           } else if (isToday) {
-            bgClass = 'bg-amber-900/25'
-            ringClass = 'ring-1 ring-inset ring-amber-500/50'
+            bgClass = 'bg-dark-700/60'
+            ringClass = 'ring-1 ring-inset ring-gold-600/50'
           }
 
           const isClickable = !!onDayClick
@@ -142,52 +130,46 @@ export default function CalendarMonth({
               className={`relative overflow-hidden transition-all select-none
                 ${bgClass} ${ringClass}
                 ${isClickable ? 'cursor-pointer hover:brightness-110' : ''}
-                ${dimmed ? 'opacity-35' : ''}`}
+                ${dimmed ? 'opacity-30' : ''}`}
             >
-              {/* Day number */}
               <span
                 className={`absolute top-1.5 left-2 text-sm font-bold leading-none
-                  ${isSelected ? 'text-white' : hasUserMatch ? 'text-green-100' : isToday ? 'text-amber-200' : 'text-gray-400'}`}
+                  ${isSelected ? 'text-gold-300' : hasUserMatch ? 'text-green-100' : isToday ? 'text-gold-400' : 'text-gray-500'}`}
               >
                 {day}
               </span>
 
-              {/* Match icon — trophy for cup, ball for league */}
               {hasUserCupMatch && (
-                <span
-                  className="material-icons absolute bottom-5 right-2 text-white/20 select-none pointer-events-none"
-                  style={{ fontSize: 28 }}
-                >
+                <span className="material-icons absolute bottom-5 right-2 text-yellow-400/20 select-none pointer-events-none" style={{ fontSize: 28 }}>
                   emoji_events
                 </span>
               )}
+
               {hasUserLeagueMatch && !hasUserCupMatch && (
-                <span
-                  className="material-icons absolute bottom-5 right-2 text-white/20 select-none pointer-events-none"
-                  style={{ fontSize: 28 }}
-                >
+                <span className="material-icons absolute bottom-5 right-2 text-white/15 select-none pointer-events-none" style={{ fontSize: 28 }}>
                   sports_soccer
                 </span>
               )}
 
-              {/* Other-match dot */}
-              {hasOtherMatch && !hasUserMatch && (
-                <div className="absolute bottom-2 right-2">
-                  <span className="w-1 h-1 rounded-full bg-gray-500/60 block" />
-                </div>
+              {/* Labels */}
+              {hasUserMatch && (
+                <span className={`absolute bottom-1.5 left-0 right-0 text-center text-[0.4rem] font-pixel uppercase tracking-wide leading-none
+                  ${hasUserCupMatch ? 'text-yellow-300' : 'text-green-300'}`}>
+                  {hasUserCupMatch ? 'Copa' : 'Partido'}
+                </span>
               )}
 
-              {/* Bottom label */}
-              <span
-                className={`absolute bottom-1.5 left-2 text-[0.4rem] font-black uppercase tracking-widest leading-none
-                  ${hasUserCupMatch
-                    ? isSelected ? 'text-yellow-300/80' : 'text-yellow-400/70'
-                    : hasUserLeagueMatch
-                    ? isSelected ? 'text-green-300/80' : 'text-green-400/70'
-                    : isSelected ? 'text-blue-200/60' : 'text-gray-700'}`}
-              >
-                {hasUserCupMatch ? 'Copa' : hasUserLeagueMatch ? 'Tu partido' : 'Libre'}
-              </span>
+              {!hasUserMatch && !isPast && (
+                <span className="absolute bottom-1.5 left-0 right-0 text-center text-[0.35rem] text-gray-700 uppercase tracking-wide leading-none">
+                  Libre
+                </span>
+              )}
+
+              {info?.other && !hasUserMatch && (
+                <div className="absolute bottom-6 right-1.5 flex gap-0.5">
+                  <div className="w-1 h-1 rounded-full bg-dark-500/80" />
+                </div>
+              )}
             </div>
           )
         })}

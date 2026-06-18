@@ -88,7 +88,7 @@ function PlayerToken({
     >
       <div className="relative">
         {/* Face circle */}
-        <div className={`w-10 h-10 rounded-full overflow-hidden ring-2 shadow-lg bg-gray-700 ${ringColor} ${player.isInjured ? 'opacity-75' : ''}`}>
+        <div className={`w-10 h-10 rounded-full overflow-hidden ring-2 shadow-lg bg-dark-700/60 ${ringColor} ${player.isInjured ? 'opacity-75' : ''}`}>
           <img
             src={player.spriteUrl}
             alt={playerDisplayName(player, nameStyle)}

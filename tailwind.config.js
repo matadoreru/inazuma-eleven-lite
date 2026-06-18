@@ -20,6 +20,11 @@ export default {
       },
       fontFamily: {
         game: ['"Exo 2"', 'sans-serif'],
+        pixel: ['"Press Start 2P"', 'monospace'],
+      },
+      backgroundImage: {
+        'bg-menu': "url('/backgrounds/bg_menu.png')",
+        'bg-career': "url('/backgrounds/bg_career.png')",
       },
     },
   },

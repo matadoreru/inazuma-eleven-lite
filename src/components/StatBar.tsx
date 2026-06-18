@@ -20,7 +20,7 @@ export default function StatBar({ label, value, max = 250, color }: Props) {
   return (
     <div className="flex items-center gap-2 w-full">
       <span className="text-gray-400 text-xs w-8 shrink-0">{label}</span>
-      <div className="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden">
+      <div className="flex-1 h-2 bg-dark-600/80 rounded-full overflow-hidden">
         <div
           className={`h-full rounded-full ${color ?? ''}`}
           style={{ width: `${pct}%`, ...barStyle }}

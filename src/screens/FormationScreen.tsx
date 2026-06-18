@@ -12,8 +12,7 @@ import {
 import type { DragStartEvent, DragEndEvent } from '@dnd-kit/core'
 import { snapCenterToCursor } from '@dnd-kit/modifiers'
 import { useCareerStore } from '../store/careerStore'
-import TopNavigation from '../components/TopNavigation'
-import SideNavigation from '../components/SideNavigation'
+import GameLayout from '../components/GameLayout'
 import FormationPitch from '../components/FormationPitch'
 import PositionSprite from '../components/PositionSprite'
 import Icon from '../components/Icon'
@@ -67,7 +66,7 @@ function PlayerOverlayToken({ player }: { player: Player }) {
   return (
     <div className="flex flex-col items-center gap-0.5 select-none drop-shadow-2xl opacity-95">
       <div className="relative">
-        <div className="w-11 h-11 rounded-full overflow-hidden ring-2 ring-blue-400 bg-gray-700 shadow-xl">
+        <div className="w-11 h-11 rounded-full overflow-hidden ring-2 ring-gold-400 bg-dark-700/60 shadow-xl">
           <img
             src={player.spriteUrl}
             alt={playerDisplayName(player, nameStyle)}
@@ -76,7 +75,7 @@ function PlayerOverlayToken({ player }: { player: Player }) {
             onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
           />
         </div>
-        <div className="absolute -top-1.5 -right-1.5 min-w-[1.25rem] h-5 bg-gray-900/90 rounded-full flex items-center justify-center px-1 shadow border border-gray-700/60">
+        <div className="absolute -top-1.5 -right-1.5 min-w-[1.25rem] h-5 bg-dark-900/90 rounded-full flex items-center justify-center px-1 shadow border border-gold-600/20/60">
           <span className="text-[0.5rem] font-black leading-none tabular-nums" style={{ color: statColor(media, 250) }}>
             {media}
           </span>
@@ -117,9 +116,9 @@ function BenchPlayerRow({
   return (
     <div
       ref={setNodeRef}
-      className={`relative flex items-center gap-2.5 pl-4 pr-3 py-2.5 border-b border-gray-700/30 select-none
+      className={`relative flex items-center gap-2.5 pl-4 pr-3 py-2.5 border-b border-gold-600/15 select-none
         cursor-grab active:cursor-grabbing transition-opacity
-        ${isDragging ? 'opacity-0' : 'hover:bg-gray-700/25'}`}
+        ${isDragging ? 'opacity-0' : 'hover:bg-dark-700/25'}`}
       onClick={() => onPlayerClick?.(player.id)}
       {...attributes}
       {...listeners}
@@ -135,7 +134,7 @@ function BenchPlayerRow({
         <img
           src={player.spriteUrl}
           alt={playerDisplayName(player, nameStyle)}
-          className="w-8 h-8 rounded-full object-cover bg-gray-700"
+          className="w-8 h-8 rounded-full object-cover bg-dark-700/60"
           draggable={false}
           onError={(e) => {
             ;(e.currentTarget as HTMLImageElement).src =
@@ -211,11 +210,11 @@ function BenchDropZone({
     <div
       ref={setNodeRef}
       className={`flex-1 overflow-y-auto rounded-xl border transition-colors
-        ${isOver ? 'border-blue-500/60 bg-blue-900/10' : 'border-gray-700/60 bg-gray-800/30'}`}
+        ${isOver ? 'border-blue-500/60 bg-blue-900/10' : 'border-gold-600/20 bg-dark-800/30'}`}
     >
       {bench.length === 0 ? (
         <div className="h-full flex items-center justify-center min-h-[80px]">
-          <p className={`text-sm ${isOver ? 'text-blue-400' : 'text-gray-600'}`}>
+          <p className={`text-sm ${isOver ? 'text-gold-500' : 'text-gray-600'}`}>
             {isOver ? 'Soltar para sentar' : 'Sin reservas'}
           </p>
         </div>
@@ -235,7 +234,7 @@ function BenchDropZone({
             )
           })}
           {isOver && (
-            <div className="py-2 text-center text-blue-400 text-xs">Soltar para sentar</div>
+            <div className="py-2 text-center text-gold-500 text-xs">Soltar para sentar</div>
           )}
         </>
       )}
@@ -353,9 +352,11 @@ export default function FormationScreen() {
 
   if (!career) {
     return (
-      <div className="h-full flex items-center justify-center bg-gray-900">
-        <p className="text-gray-400">No hay carrera activa.</p>
-      </div>
+      <GameLayout>
+        <div className="h-full flex items-center justify-center">
+          <p className="text-gray-400">No hay carrera activa.</p>
+        </div>
+      </GameLayout>
     )
   }
 
@@ -365,21 +366,18 @@ export default function FormationScreen() {
   const isCtxKeyPlayer = contextMenu !== null && contextMenu.playerId === userTeam?.keyPlayerId
 
   return (
-    <div className="h-full flex flex-col">
-      <TopNavigation title="Formación" />
-      <div className="flex flex-1 overflow-hidden">
-        <SideNavigation currentScreen={screen} onNavigate={navigate} />
-
+    <GameLayout>
+      <div className="h-full flex overflow-hidden">
         <DndContext sensors={sensors} collisionDetection={closestCenter} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
           <main className="flex-1 flex flex-col overflow-hidden min-w-0">
 
             {/* Control bar */}
-            <div className="flex-shrink-0 bg-gray-900 border-b border-gray-700/60 px-4 py-2.5 flex items-center gap-3">
-              <span className="text-gray-500 text-xs whitespace-nowrap">Formación</span>
+            <div className="flex-shrink-0 bg-dark-900/80 border-b border-gold-600/30 px-4 py-2.5 flex items-center gap-3">
+              <span className="text-gold-600 text-[0.45rem] font-pixel uppercase tracking-widest whitespace-nowrap">Formación</span>
               <select
                 value={formationDropdownValue}
                 onChange={(e) => applyFormationAction(parseInt(e.target.value, 10))}
-                className="bg-gray-800 border border-gray-700 rounded-lg text-xs px-2.5 py-1.5 text-white focus:outline-none focus:border-gray-500 cursor-pointer"
+                className="bg-dark-800/80 border border-gold-600/30 rounded text-xs px-2.5 py-1.5 text-white focus:outline-none focus:border-gold-500 cursor-pointer"
               >
                 {!formationDropdownValue && (
                   <option value="" disabled>Seleccionar...</option>
@@ -414,7 +412,7 @@ export default function FormationScreen() {
                     onPlayerClick={handlePlayerClick}
                   />
                 ) : (
-                  <div className="flex-1 flex items-center justify-center rounded-xl border border-dashed border-gray-700 text-gray-600 text-sm">
+                  <div className="flex-1 flex items-center justify-center rounded-xl border border-dashed border-gold-600/25 text-gray-600 text-sm">
                     Selecciona una formación para empezar
                   </div>
                 )}
@@ -424,7 +422,7 @@ export default function FormationScreen() {
               <div className="flex-[2] flex flex-col min-w-0 overflow-hidden gap-2">
                 <div className="flex items-center gap-2 flex-shrink-0">
                   <span className="text-gray-400 text-xs font-bold uppercase tracking-wider">Reservas</span>
-                  <span className="text-gray-500 text-[0.625rem] font-semibold bg-gray-800 rounded-full px-1.5 py-0.5">
+                  <span className="text-gray-500 text-[0.625rem] font-semibold bg-dark-800/70 rounded-full px-1.5 py-0.5">
                     {bench.length}
                   </span>
                   <p className="ml-auto text-gray-600 text-[0.5625rem]">clic derecho para ajustes</p>
@@ -453,12 +451,12 @@ export default function FormationScreen() {
           <div className="fixed inset-0 z-40" onClick={() => setContextMenu(null)} />
           <div
             style={{ position: 'fixed', left: contextMenu.x, top: contextMenu.y }}
-            className="z-50 bg-gray-900 border border-gray-700/80 rounded-xl shadow-2xl py-1 min-w-[190px] overflow-hidden"
+            className="z-50 bg-dark-900/95 border border-gold-600/40 rounded-xl shadow-2xl py-1 min-w-[190px] overflow-hidden"
           >
             <button
               onClick={() => { setCaptainAction(contextMenu.playerId); setContextMenu(null) }}
               className={`w-full flex items-center gap-2.5 px-3 py-2.5 text-sm text-left transition-colors
-                ${isCtxCaptain ? 'text-yellow-400 bg-yellow-900/10' : 'text-white hover:bg-gray-800'}`}
+                ${isCtxCaptain ? 'text-gold-400 bg-gold-900/10' : 'text-white hover:bg-dark-700/40'}`}
             >
               <div className="w-5 h-5 bg-yellow-400 rounded-full flex items-center justify-center shrink-0">
                 <span className="text-black text-[0.5625rem] font-black leading-none">C</span>
@@ -466,7 +464,7 @@ export default function FormationScreen() {
               {isCtxCaptain ? 'Capitán (actual)' : 'Hacer capitán'}
             </button>
 
-            <div className="h-px bg-gray-700/50 mx-2" />
+            <div className="h-px bg-gold-600/20 mx-2" />
 
             <button
               onClick={() => {
@@ -474,7 +472,7 @@ export default function FormationScreen() {
                 setContextMenu(null)
               }}
               className={`w-full flex items-center gap-2.5 px-3 py-2.5 text-sm text-left transition-colors
-                ${isCtxKeyPlayer ? 'text-blue-400 bg-blue-900/10' : 'text-white hover:bg-gray-800'}`}
+                ${isCtxKeyPlayer ? 'text-gold-500 bg-gold-900/10' : 'text-white hover:bg-dark-700/40'}`}
             >
               <div className="w-5 h-5 bg-blue-400 rounded-full flex items-center justify-center shrink-0">
                 <span className="material-icons text-white select-none leading-none" style={{ fontSize: '9px' }}>star</span>
@@ -484,6 +482,6 @@ export default function FormationScreen() {
           </div>
         </>
       )}
-    </div>
+    </GameLayout>
   )
 }

@@ -19,7 +19,7 @@ export default function TopNavigation({ title, badgeUrl }: Props) {
   const gearActive = uiPanel === 'settings'
 
   return (
-    <header className="bg-gray-900 border-b border-gray-700 px-4 py-2 flex items-center justify-between shrink-0 z-10">
+    <header className="bg-dark-900/90 border-b border-gold-600/25 px-4 py-2 flex items-center justify-between shrink-0 z-10">
       <div className="flex items-center gap-2 min-w-0">
         {badgeUrl && <TeamBadgeImage teamName={title ?? 'Equipo'} badgeUrl={badgeUrl} size="sm" className="shrink-0" />}
         <span className="text-white font-semibold text-sm truncate">{title ?? ''}</span>
@@ -29,7 +29,7 @@ export default function TopNavigation({ title, badgeUrl }: Props) {
         <button
           onClick={() => setUIPanel(bellActive ? null : 'notifications')}
           className={`relative p-2 rounded-lg transition-colors ${
-            bellActive ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-gray-700 hover:text-white'
+            bellActive ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-dark-700/60 hover:text-white'
           }`}
           aria-label="Notificaciones"
         >
@@ -44,7 +44,7 @@ export default function TopNavigation({ title, badgeUrl }: Props) {
         <button
           onClick={() => setUIPanel(gearActive ? null : 'settings')}
           className={`p-2 rounded-lg transition-colors ${
-            gearActive ? 'bg-gray-700 text-white' : 'text-gray-400 hover:bg-gray-700 hover:text-white'
+            gearActive ? 'bg-dark-700/60 text-white' : 'text-gray-400 hover:bg-dark-700/60 hover:text-white'
           }`}
           aria-label="Ajustes"
         >

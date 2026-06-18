@@ -43,7 +43,7 @@ const RARITY_LABEL_COLOR: Record<RewardRarity, string> = {
 }
 
 const RARITY_BORDER: Record<RewardRarity, string> = {
-  common:    'border-gray-600/60',
+  common:    'border-gold-600/30/60',
   uncommon:  'border-green-600/50',
   special:   'border-cyan-500/55',
   rare:      'border-fuchsia-500/55',
@@ -51,7 +51,7 @@ const RARITY_BORDER: Record<RewardRarity, string> = {
 }
 
 const RARITY_BG: Record<RewardRarity, string> = {
-  common:    'bg-gray-800/80',
+  common:    'bg-dark-800/70',
   uncommon:  'bg-green-950/60',
   special:   'bg-cyan-950/55',
   rare:      'bg-fuchsia-950/45',
@@ -59,7 +59,7 @@ const RARITY_BG: Record<RewardRarity, string> = {
 }
 
 const RARITY_HOVER: Record<RewardRarity, string> = {
-  common:    'hover:bg-gray-800',
+  common:    'hover:bg-dark-700/40',
   uncommon:  'hover:bg-green-950',
   special:   'hover:bg-cyan-950',
   rare:      'hover:bg-fuchsia-950',
@@ -75,7 +75,7 @@ const RARITY_GLOW: Record<RewardRarity, string> = {
 }
 
 const RARITY_ICON_BG: Record<RewardRarity, string> = {
-  common:    'bg-gray-900/70',
+  common:    'bg-dark-900/70',
   uncommon:  'bg-green-900/40',
   special:   'bg-cyan-900/35',
   rare:      'bg-fuchsia-900/30',
@@ -102,8 +102,8 @@ function StatRow({
   const total = hNum + aNum || 1
   const hPct  = Math.round((hNum / total) * 100)
   const aPct  = 100 - hPct
-  const homeBar = userIsHome ? 'bg-blue-500' : 'bg-gray-600'
-  const awayBar = userIsHome ? 'bg-gray-600' : 'bg-blue-500'
+  const homeBar = userIsHome ? 'bg-gold-500' : 'bg-dark-600/80'
+  const awayBar = userIsHome ? 'bg-dark-600/80' : 'bg-gold-500'
 
   return (
     <div className="mb-3">
@@ -128,7 +128,7 @@ function StatRow({
 
 const EVENT_ICON: Record<MatchEvent['type'], { icon: string; color: string }> = {
   GOAL:   { icon: 'sports_soccer',   color: 'text-yellow-400' },
-  SAVE:   { icon: 'back_hand',       color: 'text-blue-400'   },
+  SAVE:   { icon: 'back_hand',       color: 'text-gold-500'   },
   MISS:   { icon: 'close',           color: 'text-gray-600'   },
   YELLOW: { icon: 'square',          color: 'text-yellow-400' },
   RED:    { icon: 'square',          color: 'text-red-500'    },
@@ -150,21 +150,21 @@ function EventRow({
   if (event.type === 'PHASE') {
     return (
       <div className="flex items-center gap-2 my-2">
-        <div className="flex-1 h-px bg-gray-700/60" />
+        <div className="flex-1 h-px bg-gold-600/20" />
         <span className="text-gray-600 text-[0.45rem] font-bold uppercase tracking-widest shrink-0">
           {event.text}
         </span>
-        <div className="flex-1 h-px bg-gray-700/60" />
+        <div className="flex-1 h-px bg-gold-600/20" />
       </div>
     )
   }
 
   return (
-    <div className="flex items-center gap-2 py-1.5 border-b border-gray-700/25 last:border-0">
+    <div className="flex items-center gap-2 py-1.5 border-b border-gold-600/20/25 last:border-0">
       <span className="text-gray-600 text-[0.5rem] tabular-nums w-5 shrink-0 text-right">{event.minute}'</span>
 
       {event.playerSpriteUrl ? (
-        <div className={`w-5 h-5 rounded-full overflow-hidden bg-gray-700 shrink-0 ring-1 ${
+        <div className={`w-5 h-5 rounded-full overflow-hidden bg-dark-700/60 shrink-0 ring-1 ${
           event.type === 'GOAL' ? 'ring-yellow-500/50' :
           event.type === 'RED'  ? 'ring-red-500/50' :
           'ring-gray-600/50'
@@ -329,18 +329,24 @@ export default function MatchScreen() {
 
   if (!career || !lastMatchResult) {
     return (
-      <div className="h-full flex items-center justify-center bg-gray-900">
-        <p className="text-gray-400">Cargando resultado...</p>
+      <div className="h-full flex items-center justify-center bg-game">
+        <div className="absolute inset-0 bg-dark-900/60" />
+        <p className="relative text-gray-400">Cargando resultado...</p>
       </div>
     )
   }
 
-  const playedMatches = career.season.matches
+  const allMatches = [
+    ...career.season.matches,
+    ...(career.cup?.rounds.flatMap((r) => r.matches) ?? []),
+  ]
+
+  const playedMatches = allMatches
     .filter((m) => m.played && (m.homeTeamId === career.teamId || m.awayTeamId === career.teamId))
     .sort((a, b) => b.date.localeCompare(a.date))
 
   const lastMatch = selectedMatchId
-    ? career.season.matches.find((m) => m.id === selectedMatchId)
+    ? allMatches.find((m) => m.id === selectedMatchId)
     : playedMatches[0]
 
   const homeTeam = lastMatch ? teams.find((t) => t.id === lastMatch.homeTeamId) : null
@@ -375,10 +381,12 @@ export default function MatchScreen() {
   ]
 
   return (
-    <div className="h-full flex flex-col bg-gray-900 overflow-hidden">
+    <div className="h-full flex flex-col bg-game overflow-hidden">
+      <div className="absolute inset-0 bg-dark-900/75 pointer-events-none" />
+      <div className="relative flex flex-col h-full overflow-hidden">
 
       {/* ── HEADER ── */}
-      <div className={`shrink-0 border-b border-gray-700/60 px-4 py-3 ${resultBg}`}>
+      <div className={`shrink-0 border-b border-gold-600/30 px-4 py-3 bg-dark-900/80 ${resultBg}`}>
         <div className="flex items-center gap-3">
           <div className="flex-1 text-right min-w-0">
             <TeamNameInline
@@ -414,15 +422,12 @@ export default function MatchScreen() {
       </div>
 
       {/* ── RECOMPENSA ── */}
-      <div className="shrink-0 border-b border-gray-700/50">
-        <div className="flex items-center gap-2 px-4 py-2 border-b border-gray-700/40">
+      <div className="shrink-0 border-b border-gold-600/20/50">
+        <div className="flex items-center gap-2 px-4 py-2 border-b border-gold-600/20/40">
           <Icon name="redeem" size="xs" className={hasRewards ? 'text-amber-400' : 'text-gray-500'} />
           <h2 className={`text-[0.625rem] font-black uppercase tracking-widest ${hasRewards ? 'text-amber-300' : 'text-gray-500'}`}>
-            Recompensa
+            Recompensa - Elige una recompensa para tu club
           </h2>
-          {hasRewards && (
-            <span className="ml-auto text-gray-500 text-xs font-semibold">Elige 1 para reclamar</span>
-          )}
         </div>
 
         {hasRewards ? (
@@ -460,20 +465,20 @@ export default function MatchScreen() {
       <div className="flex flex-1 overflow-hidden min-h-0">
 
         {/* ESTADÍSTICAS */}
-        <div className="flex-1 flex flex-col border-r border-gray-700/50 overflow-hidden min-w-0">
-          <div className="shrink-0 px-4 py-2 border-b border-gray-700/40 flex items-center gap-2">
+        <div className="flex-1 flex flex-col border-r border-gold-600/20 overflow-hidden min-w-0">
+          <div className="shrink-0 px-4 py-2 border-b border-gold-600/20/40 flex items-center gap-2">
             <Icon name="bar_chart" size="xs" className="text-gray-500" />
             <h2 className="text-gray-400 text-[0.625rem] font-bold uppercase tracking-widest">Estadísticas</h2>
           </div>
 
           <div className="shrink-0 flex items-center gap-2 px-4 pt-2 pb-1">
             <div className="flex items-center gap-1 flex-1">
-              <div className={`w-1.5 h-1.5 rounded-full ${isHome ? 'bg-blue-500' : 'bg-gray-600'}`} />
+              <div className={`w-1.5 h-1.5 rounded-full ${isHome ? 'bg-gold-500' : 'bg-dark-600/80'}`} />
               <TeamNameInline teamName={homeTeamName} badgeUrl={homeTeam?.badgeUrl} size="xs" textClassName="text-gray-500 text-[0.5rem]" />
             </div>
             <div className="flex items-center gap-1 flex-1 justify-end">
               <TeamNameInline teamName={awayTeamName} badgeUrl={awayTeam?.badgeUrl} size="xs" align="right" textClassName="text-gray-500 text-[0.5rem]" />
-              <div className={`w-1.5 h-1.5 rounded-full ${!isHome ? 'bg-blue-500' : 'bg-gray-600'}`} />
+              <div className={`w-1.5 h-1.5 rounded-full ${!isHome ? 'bg-gold-500' : 'bg-dark-600/80'}`} />
             </div>
           </div>
 
@@ -486,7 +491,7 @@ export default function MatchScreen() {
 
         {/* EVENTOS */}
         <div className="flex-1 flex flex-col overflow-hidden min-w-0">
-          <div className="shrink-0 px-4 py-2 border-b border-gray-700/40 flex items-center gap-2">
+          <div className="shrink-0 px-4 py-2 border-b border-gold-600/20/40 flex items-center gap-2">
             <Icon name="timeline" size="xs" className="text-gray-500" />
             <h2 className="text-gray-400 text-[0.625rem] font-bold uppercase tracking-widest">Eventos</h2>
             <span className="ml-auto text-gray-600 text-[0.5625rem] tabular-nums">
@@ -512,6 +517,7 @@ export default function MatchScreen() {
           </div>
         </div>
 
+      </div>
       </div>
     </div>
   )

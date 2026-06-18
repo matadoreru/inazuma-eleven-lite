@@ -1,7 +1,6 @@
+import GameLayout from '../components/GameLayout'
 import { useState } from 'react'
 import { useCareerStore } from '../store/careerStore'
-import TopNavigation from '../components/TopNavigation'
-import SideNavigation from '../components/SideNavigation'
 import TeamNameInline from '../components/TeamNameInline'
 import type { Player, Position, Stats } from '../types/player'
 import { playerDisplayName } from '../types/player'
@@ -83,7 +82,7 @@ function PlayerFace({ player, size = 'sm' }: { player: Player; size?: 'xs' | 'sm
   const nameStyle = useNameStyle()
   const px = size === 'xs' ? 'w-8 h-8' : 'w-10 h-10'
   return (
-    <div className={`${px} rounded-full overflow-hidden bg-gray-700 shrink-0 ring-1 ring-white/10`}>
+    <div className={`${px} rounded-full overflow-hidden bg-dark-700/60 shrink-0 ring-1 ring-white/10`}>
       <img
         src={player.spriteUrl}
         alt={playerDisplayName(player, nameStyle)}
@@ -97,7 +96,7 @@ function PlayerFace({ player, size = 'sm' }: { player: Player; size?: 'xs' | 'sm
 function StaminaBar({ value }: { value: number }) {
   const color = value >= 70 ? 'bg-green-500' : value >= 40 ? 'bg-amber-400' : 'bg-red-500'
   return (
-    <div className="h-1 bg-gray-600 rounded-full overflow-hidden w-16">
+    <div className="h-1 bg-dark-600/80 rounded-full overflow-hidden w-16">
       <div className={`h-full rounded-full ${color}`} style={{ width: `${value}%` }} />
     </div>
   )
@@ -130,7 +129,7 @@ function SlotCard({
   }
 
   return (
-    <div className="bg-gray-800 border border-gray-700 rounded-xl p-3 flex gap-3 items-start">
+    <div className="panel rounded-xl p-3 flex gap-3 items-start">
       <PlayerFace player={player} />
 
       <div className="flex-1 min-w-0 flex flex-col gap-1.5">
@@ -150,7 +149,7 @@ function SlotCard({
         <select
           value={slot.trainingType}
           onChange={(e) => handleTypeChange(e.target.value as TrainingType)}
-          className="w-full bg-gray-700 border border-gray-600 rounded px-2 py-1 text-xs text-white"
+          className="w-full bg-dark-700/80 border border-gold-600/30 rounded px-2 py-1 text-xs text-white"
         >
           {SELECTABLE_TYPES.map((t) => (
             <option key={t} value={t}>{TYPE_LABELS[t]}</option>
@@ -162,16 +161,16 @@ function SlotCard({
             <select
               value={slot.statTarget ?? 'POT'}
               onChange={(e) => onChange({ ...slot, statTarget: e.target.value as keyof Stats })}
-              className="w-full bg-gray-700 border border-gray-600 rounded px-2 py-1 text-xs text-white"
+              className="w-full bg-dark-700/80 border border-gold-600/30 rounded px-2 py-1 text-xs text-white"
             >
               {TRAINABLE_STATS.map((s) => (
                 <option key={s} value={s}>{STAT_INFO[s].label} ({s})</option>
               ))}
             </select>
             {statInfo && (
-              <div className="bg-gray-900/60 rounded-lg px-2 py-1.5 border border-gray-700/50">
+              <div className="bg-dark-900/60 rounded-lg px-2 py-1.5 border border-gold-600/20">
                 <p className="text-gray-300 text-[0.625rem] leading-relaxed">{statInfo.desc}</p>
-                <p className="text-blue-400 text-[0.625rem] mt-0.5">{statInfo.roles}</p>
+                <p className="text-gold-500 text-[0.625rem] mt-0.5">{statInfo.roles}</p>
               </div>
             )}
           </>
@@ -237,7 +236,7 @@ function PositionChangePanel({
           Cambio de posición
         </h2>
         <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
-          slotsUsed >= 2 ? 'bg-red-900/40 text-red-400' : 'bg-gray-700 text-gray-400'
+          slotsUsed >= 2 ? 'bg-red-900/40 text-red-400' : 'bg-dark-700/60 text-gray-400'
         }`}>
           {slotsUsed}/2
         </span>
@@ -245,7 +244,7 @@ function PositionChangePanel({
 
       {/* Active plans */}
       {activePlans.length === 0 ? (
-        <div className="text-gray-600 text-xs text-center py-3 border border-dashed border-gray-700 rounded-xl">
+        <div className="text-gray-600 text-xs text-center py-3 border border-dashed border-gold-600/25 rounded-xl">
           Sin cambios activos
         </div>
       ) : (
@@ -255,7 +254,7 @@ function PositionChangePanel({
             const pct = Math.min(100, Math.round((plan.daysCompleted / plan.daysRequired) * 100))
             const remaining = plan.daysRequired - plan.daysCompleted
             return (
-              <div key={player.id} className="bg-gray-800 border border-gray-700 rounded-xl p-3">
+              <div key={player.id} className="panel rounded-xl p-3">
                 <div className="flex items-center gap-2 mb-2">
                   <PlayerFace player={player} size="xs" />
                   <div className="flex-1 min-w-0">
@@ -273,7 +272,7 @@ function PositionChangePanel({
                     Cancelar
                   </button>
                 </div>
-                <div className="h-1.5 bg-gray-700 rounded-full overflow-hidden mb-1">
+                <div className="h-1.5 bg-dark-700/60 rounded-full overflow-hidden mb-1">
                   <div
                     className="h-full bg-blue-500 rounded-full transition-all"
                     style={{ width: `${pct}%` }}
@@ -291,7 +290,7 @@ function PositionChangePanel({
 
       {/* New change form */}
       {canAddNew && (
-        <div className="bg-gray-800/60 border border-gray-700/50 rounded-xl p-3 flex flex-col gap-2">
+        <div className="bg-dark-800/60 border border-gold-600/25 rounded-xl p-3 flex flex-col gap-2">
           <p className="text-gray-500 text-xs font-medium">Iniciar nuevo cambio</p>
           <select
             value={newPlayerId}
@@ -300,7 +299,7 @@ function PositionChangePanel({
               setNewTarget('DF')
               setError('')
             }}
-            className="w-full bg-gray-700 border border-gray-600 rounded px-2 py-1.5 text-xs text-white"
+            className="w-full bg-dark-700/80 border border-gold-600/30 rounded px-2 py-1.5 text-xs text-white"
           >
             <option value="">Seleccionar jugador...</option>
             {availableForChange.map((p) => (
@@ -313,7 +312,7 @@ function PositionChangePanel({
             <select
               value={newTarget}
               onChange={(e) => setNewTarget(e.target.value as Position)}
-              className="w-full bg-gray-700 border border-gray-600 rounded px-2 py-1.5 text-xs text-white"
+              className="w-full bg-dark-700/80 border border-gold-600/30 rounded px-2 py-1.5 text-xs text-white"
             >
               {targetOptions.map((pos) => (
                 <option key={pos} value={pos}>{POS_FULL[pos]}</option>
@@ -355,7 +354,7 @@ function PlayerListRow({
       onClick={() => !disabled && onAdd(player)}
       disabled={disabled}
       className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg transition-colors text-left
-        ${inPlan ? 'bg-blue-900/30 border border-blue-700/40' : disabled ? 'opacity-40 cursor-not-allowed' : 'hover:bg-gray-700/60'}`}
+        ${inPlan ? 'bg-gold-600/20 border border-gold-500/40' : disabled ? 'opacity-40 cursor-not-allowed' : 'hover:bg-dark-700/40'}`}
     >
       <PlayerFace player={player} size="xs" />
       <div className="flex-1 min-w-0">
@@ -372,7 +371,7 @@ function PlayerListRow({
         <span className="text-red-400 text-[0.625rem] font-bold shrink-0">Lesionado</span>
       )}
       {inPlan && (
-        <span className="text-blue-400 text-[0.625rem] font-bold shrink-0">En plan</span>
+        <span className="text-gold-500 text-[0.625rem] font-bold shrink-0">En plan</span>
       )}
       {!inPlan && !player.isInjured && !planFull && (
         <span className="material-icons text-gray-500" style={{ fontSize: 16 }}>add</span>
@@ -397,7 +396,7 @@ export default function TrainingScreen() {
 
   if (!career) {
     return (
-      <div className="h-full flex items-center justify-center bg-gray-900">
+      <div className="h-full flex items-center justify-center bg-dark-900/80">
         <p className="text-gray-400">No hay carrera activa.</p>
       </div>
     )
@@ -429,16 +428,12 @@ export default function TrainingScreen() {
   const userTeam = teams.find((t) => t.id === career.teamId)
 
   return (
-    <div className="h-full flex flex-col">
-      <TopNavigation title="Entrenamiento" />
-      <div className="flex flex-1 overflow-hidden">
-        <SideNavigation currentScreen={screen} onNavigate={navigate} />
-
-        <main className="flex-1 flex overflow-hidden">
+    <GameLayout>
+      <main className="h-full flex overflow-hidden">
 
           {/* ── Left panel: Player roster ── */}
-          <div className="flex flex-col border-r border-gray-700/60 w-72 shrink-0 overflow-hidden">
-            <div className="px-4 py-3 border-b border-gray-700/60 shrink-0">
+          <div className="flex flex-col border-r border-gold-600/20 w-72 shrink-0 overflow-hidden">
+            <div className="px-4 py-3 border-b border-gold-600/20 shrink-0">
               <div className="flex items-center gap-2 mt-0.5 text-gray-500 text-xs">
                 <TeamNameInline teamName={teamName} badgeUrl={userTeam?.badgeUrl} size="xs" textClassName="text-gray-500 text-xs" />
                 <span>·</span>
@@ -469,12 +464,12 @@ export default function TrainingScreen() {
           {/* ── Centre panel: Training plan ── */}
           <div className="flex-1 flex flex-col overflow-hidden min-w-0">
             {/* Header */}
-            <div className="px-5 py-3 border-b border-gray-700/60 shrink-0 flex items-center justify-between">
+            <div className="px-5 py-3 border-b border-gold-600/20 shrink-0 flex items-center justify-between">
               <div>
                 <h1 className="text-white text-lg font-bold leading-tight">Entrenamiento semanal</h1>
                 <p className="text-gray-500 text-xs mt-0.5">Añade jugadores desde la lista y configura su entrenamiento</p>
               </div>
-              <span className={`text-sm font-bold px-3 py-1 rounded-full border ${slots.length >= MAX_TRAINING_SLOTS ? 'border-blue-500/60 bg-blue-900/20 text-blue-300' : 'border-gray-700 bg-gray-800 text-gray-400'}`}>
+              <span className={`text-sm font-bold px-3 py-1 rounded-full border ${slots.length >= MAX_TRAINING_SLOTS ? 'border-gold-500/60 bg-gold-900/15 text-gold-400' : 'border-gold-600/20 bg-dark-800/60 text-gray-400'}`}>
                 {slots.length}/{MAX_TRAINING_SLOTS}
               </span>
             </div>
@@ -504,14 +499,14 @@ export default function TrainingScreen() {
             </div>
 
             {/* Confirm */}
-            <div className="px-4 py-3 border-t border-gray-700/60 shrink-0">
+            <div className="px-4 py-3 border-t border-gold-600/15/60 shrink-0">
               <button
                 onClick={commitWeeklyTraining}
                 disabled={slots.length === 0}
                 className={`w-full py-3 rounded-xl font-bold text-sm transition-all
                   ${slots.length > 0
                     ? 'bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-900/30'
-                    : 'bg-gray-800 text-gray-600 cursor-not-allowed border border-gray-700'}`}
+                    : 'bg-dark-800/50 text-gray-600 cursor-not-allowed border border-gold-600/15'}`}
               >
                 Confirmar y avanzar 7 días
               </button>
@@ -519,7 +514,7 @@ export default function TrainingScreen() {
           </div>
 
           {/* ── Right panel: Position changes ── */}
-          <div className="w-64 shrink-0 border-l border-gray-700/60 overflow-y-auto p-4">
+          <div className="w-64 shrink-0 border-l border-gold-600/20 overflow-y-auto p-4">
             <PositionChangePanel
               players={squadPlayers}
               onStart={startPositionChange}
@@ -529,7 +524,6 @@ export default function TrainingScreen() {
           </div>
 
         </main>
-      </div>
-    </div>
+    </GameLayout>
   )
 }

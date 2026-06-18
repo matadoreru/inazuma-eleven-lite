@@ -17,8 +17,8 @@ export default function PlayerCard({ player, onClick }: Props) {
   return (
     <div
       onClick={onClick}
-      className={`bg-gray-800 rounded-lg p-2 flex flex-col items-center gap-1 w-24
-        ${onClick ? 'cursor-pointer hover:bg-gray-700 active:bg-gray-600 transition-colors' : ''}`}
+      className={`bg-dark-800/70 rounded-lg p-2 flex flex-col items-center gap-1 w-24 border border-gold-600/15
+        ${onClick ? 'cursor-pointer hover:bg-dark-700/60 active:bg-dark-600/70 transition-colors' : ''}`}
     >
       <img
         src={player.spriteUrl}

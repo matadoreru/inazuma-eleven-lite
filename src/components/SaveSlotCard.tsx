@@ -11,7 +11,7 @@ interface Props {
 export default function SaveSlotCard({ slot, slotNumber, onLoad, onDelete }: Props) {
   if (!slot) {
     return (
-      <div className="flex items-center justify-center border border-dashed border-gray-700 rounded-xl px-6 py-5 text-gray-600 text-sm">
+      <div className="flex items-center justify-center border border-dashed border-gold-600/25 rounded-xl px-6 py-5 text-gray-600 text-sm">
         Ranura {slotNumber + 1} — vacía
       </div>
     )
@@ -23,12 +23,12 @@ export default function SaveSlotCard({ slot, slotNumber, onLoad, onDelete }: Pro
   })
 
   return (
-    <div className="flex items-center gap-4 bg-gray-800 rounded-xl px-5 py-4 border border-gray-700">
+    <div className="flex items-center gap-4 bg-dark-800/80 rounded-xl px-5 py-4 border border-gold-600/25">
       <img
         src={slot.summary.managerAvatar || '/avatars/avatar-1.svg'}
         alt="Entrenador"
         onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/avatars/avatar-1.svg' }}
-        className="w-12 h-12 rounded-full object-cover flex-shrink-0 bg-gray-700"
+        className="w-12 h-12 rounded-full object-cover flex-shrink-0 bg-dark-700/60"
       />
       <img
         src={team?.badgeUrl ?? '/teams/default_team_icon.png'}
@@ -53,7 +53,7 @@ export default function SaveSlotCard({ slot, slotNumber, onLoad, onDelete }: Pro
         {onDelete && (
           <button
             onClick={onDelete}
-            className="px-3 py-1.5 bg-gray-700 hover:bg-red-700 text-gray-400 hover:text-white rounded-lg text-xs font-bold transition-colors"
+            className="px-3 py-1.5 bg-dark-700/60 hover:bg-red-700 text-gray-400 hover:text-white rounded-lg text-xs font-bold transition-colors"
           >
             ✕
           </button>

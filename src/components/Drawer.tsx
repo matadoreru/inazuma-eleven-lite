@@ -43,12 +43,12 @@ export default function Drawer({
 
       {/* Drawer panel */}
       <div
-        className={`fixed top-0 right-0 h-full z-50 flex flex-col bg-gray-900 border-l border-gray-700 shadow-2xl
+        className={`fixed top-0 right-0 h-full z-50 flex flex-col bg-dark-900/95 border-l border-gold-600/30 shadow-2xl
           ${width} transition-transform duration-200 ease-out
           ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
       >
         {/* Header */}
-        <div className="flex items-start justify-between px-5 py-4 border-b border-gray-700 shrink-0">
+        <div className="flex items-start justify-between px-5 py-4 border-b border-gold-600/20 shrink-0">
           <div>
             <h2 className="text-white font-bold text-base">{title}</h2>
             {subtitle && <p className="text-gray-400 text-xs mt-0.5">{subtitle}</p>}
@@ -57,7 +57,7 @@ export default function Drawer({
             {headerActions}
             <button
               onClick={onClose}
-              className="p-1.5 rounded-lg text-gray-400 hover:text-white hover:bg-gray-700 transition-colors"
+              className="p-1.5 rounded-lg text-gray-400 hover:text-white hover:bg-dark-700/60 transition-colors"
               aria-label="Cerrar"
             >
               <Icon name="close" size="sm" />

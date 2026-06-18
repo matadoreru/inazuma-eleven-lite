@@ -1,7 +1,6 @@
+import GameLayout from '../components/GameLayout'
 import { useState } from 'react'
 import { useCareerStore } from '../store/careerStore'
-import TopNavigation from '../components/TopNavigation'
-import SideNavigation from '../components/SideNavigation'
 import CalendarMonth, { MONTH_NAMES } from '../components/CalendarMonth'
 import Icon from '../components/Icon'
 import type { Match } from '../types/competition'
@@ -58,7 +57,7 @@ function TeamBadge({
 
   if (!team) {
     return (
-      <div className={`${wh} rounded-md bg-gray-700 flex items-center justify-center shrink-0`}>
+      <div className={`${wh} rounded-md bg-dark-700/60 flex items-center justify-center shrink-0`}>
         <Icon name="shield" size="xs" className="text-gray-500" />
       </div>
     )
@@ -91,7 +90,7 @@ function SectionLabel({ label }: { label: string }) {
   return (
     <div className="flex items-center gap-2">
       <span className="text-[0.5rem] font-black uppercase tracking-widest text-gray-600 shrink-0">{label}</span>
-      <div className="flex-1 h-px bg-gray-700/50" />
+      <div className="flex-1 h-px bg-gold-600/20" />
     </div>
   )
 }
@@ -128,11 +127,11 @@ function DayDetailPanel({
     <div className="flex flex-col h-full overflow-hidden">
 
       {/* Header */}
-      <div className="shrink-0 px-4 py-4 border-b border-gray-700/50">
+      <div className="shrink-0 px-4 py-4 border-b border-gold-600/20/50">
         <h2 className="text-white font-black text-xl leading-tight">{fmtLong(selectedDate)}</h2>
         {userMatch ? (
           <p className={`text-xs font-semibold mt-0.5
-            ${userMatch.type === 'cup' ? 'text-yellow-400' : 'text-blue-400'}`}>
+            ${userMatch.type === 'cup' ? 'text-yellow-400' : 'text-gold-500'}`}>
             {userMatch.type === 'cup'
               ? `Copa · ${matchLabel(userMatch)}`
               : `${matchLabel(userMatch)} · J${userMatch.round}`}
@@ -187,7 +186,7 @@ function DayDetailPanel({
                 <span className="text-gray-500 text-xs">{matchLabel(userMatch)}</span>
                 <span
                   className={`text-[0.5625rem] font-black px-1.5 py-px rounded uppercase tracking-wide
-                    ${isHome ? 'bg-blue-900/40 text-blue-400' : 'bg-orange-900/30 text-orange-400'}`}
+                    ${isHome ? 'bg-blue-900/40 text-gold-500' : 'bg-orange-900/30 text-orange-400'}`}
                 >
                   {isHome ? 'Local' : 'Visitante'}
                 </span>
@@ -200,7 +199,7 @@ function DayDetailPanel({
         {dayMatches.length > 0 && (
           <div className="px-3 pt-2 pb-4">
             <SectionLabel label={`Partidos (${dayMatches.length})`} />
-            <div className="mt-2 rounded-xl border border-gray-700/40 overflow-hidden">
+            <div className="mt-2 rounded-xl border border-gold-600/15 overflow-hidden">
               {dayMatches.map((match, i) => {
                 const isUser = match.homeTeamId === userTeamId || match.awayTeamId === userTeamId
                 const home = teamById(match.homeTeamId)
@@ -209,8 +208,8 @@ function DayDetailPanel({
                   <div
                     key={match.id}
                     className={`flex items-center gap-2 px-2.5 py-2.5
-                      ${i > 0 ? 'border-t border-gray-700/30' : ''}
-                      ${isUser ? 'bg-green-900/15' : 'bg-gray-800/20'}`}
+                      ${i > 0 ? 'border-t border-gold-600/15/30' : ''}
+                      ${isUser ? 'bg-green-900/15' : 'bg-dark-800/20'}`}
                   >
                     <TeamBadge team={home} size="md" />
                     <span className="text-gray-300 text-xs truncate flex-1 min-w-0">
@@ -254,7 +253,7 @@ export default function CalendarScreen() {
 
   if (!career) {
     return (
-      <div className="h-full flex items-center justify-center bg-gray-900">
+      <div className="h-full flex items-center justify-center bg-dark-900/80">
         <p className="text-gray-400">No hay carrera activa.</p>
       </div>
     )
@@ -279,12 +278,8 @@ export default function CalendarScreen() {
     .slice(0, 4)
 
   return (
-    <div className="h-full flex flex-col">
-      <TopNavigation title="Calendario" />
-      <div className="flex flex-1 overflow-hidden">
-        <SideNavigation currentScreen={screen} onNavigate={navigate} />
-
-        <main className="flex-1 flex flex-col overflow-hidden min-w-0 bg-gray-900">
+    <GameLayout>
+      <main className="h-full flex flex-col overflow-hidden min-w-0">
 
           {/* ── Top: calendar + detail panel ── */}
           <div className="flex flex-1 overflow-hidden min-h-0">
@@ -305,7 +300,7 @@ export default function CalendarScreen() {
             </div>
 
             {/* Right: day detail */}
-            <div className="w-72 shrink-0 border-l border-gray-700/60 overflow-hidden">
+            <div className="w-72 shrink-0 border-l border-gold-600/20 overflow-hidden">
               <DayDetailPanel
                 selectedDate={selectedDate}
                 allMatches={allMatches}
@@ -316,11 +311,11 @@ export default function CalendarScreen() {
           </div>
 
           {/* ── Bottom: upcoming 4 matches ── */}
-          <div className="shrink-0 border-t border-gray-700/60 bg-gray-900/80">
+          <div className="shrink-0 border-t border-gold-600/20 bg-dark-900/80">
             <div className="flex items-stretch gap-3 px-4 py-3">
 
               {/* Label */}
-              <div className="shrink-0 flex items-center justify-center pr-3 border-r border-gray-700/40">
+              <div className="shrink-0 flex items-center justify-center pr-3 border-r border-gold-600/15">
                 <span className="text-gray-600 text-[0.45rem] font-black uppercase tracking-widest leading-snug text-center">
                   Próximos<br />Partidos
                 </span>
@@ -343,11 +338,11 @@ export default function CalendarScreen() {
                     }}
                     className={`flex-1 flex flex-col items-center gap-1 px-2 py-2 rounded-xl border transition-all min-w-0
                       ${isSel
-                        ? 'border-blue-500/60 bg-blue-900/20'
-                        : 'border-gray-700/50 bg-gray-800/40 hover:bg-gray-800 hover:border-gray-600'}`}
+                        ? 'border-gold-500/60 bg-gold-900/15'
+                        : 'border-gold-600/20 bg-dark-800/40 hover:bg-dark-700/40 hover:border-gold-600/30'}`}
                   >
                     <div className="flex flex-col items-center gap-0.5">
-                      <span className={`text-xs font-black tabular-nums ${isSel ? 'text-blue-300' : 'text-gray-400'}`}>
+                      <span className={`text-xs font-black tabular-nums ${isSel ? 'text-gold-400' : 'text-gray-400'}`}>
                         {fmtShort(match.date)}
                       </span>
                       {match.type === 'cup' && (
@@ -367,7 +362,7 @@ export default function CalendarScreen() {
               {Array.from({ length: Math.max(0, 4 - upcoming.length) }, (_, i) => (
                 <div
                   key={`pad-${i}`}
-                  className="flex-1 rounded-xl border border-gray-700/20 flex items-center justify-center"
+                  className="flex-1 rounded-xl border border-gold-600/20/20 flex items-center justify-center"
                 >
                   <span className="text-gray-700 text-xs">—</span>
                 </div>
@@ -376,7 +371,6 @@ export default function CalendarScreen() {
           </div>
 
         </main>
-      </div>
-    </div>
+    </GameLayout>
   )
 }

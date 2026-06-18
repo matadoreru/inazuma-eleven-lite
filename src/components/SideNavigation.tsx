@@ -26,7 +26,7 @@ const NAV_ITEMS: NavItem[] = [
 
 export default function SideNavigation({ currentScreen, onNavigate }: Props) {
   return (
-    <nav className="bg-gray-900 border-r border-gray-700 flex flex-col py-4 gap-0.5 w-36 shrink-0">
+    <nav className="bg-dark-900/90 border-r border-gold-600/25 flex flex-col py-4 gap-0.5 w-36 shrink-0">
       {NAV_ITEMS.map(({ screen, label, icon }) => {
         const isActive = currentScreen === screen
         return (
@@ -37,7 +37,7 @@ export default function SideNavigation({ currentScreen, onNavigate }: Props) {
               ${
                 isActive
                   ? 'bg-blue-600 text-white'
-                  : 'text-gray-400 hover:bg-gray-800 hover:text-white'
+                  : 'text-gray-400 hover:bg-dark-700/60 hover:text-white'
               }`}
           >
             <Icon name={icon} size="sm" />

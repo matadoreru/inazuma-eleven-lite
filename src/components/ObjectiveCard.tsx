@@ -59,10 +59,10 @@ export default function ObjectiveCard({ objective }: Props) {
   if (objective.reward.reputation > 0) rewardParts.push(`+${objective.reward.reputation} rep`)
 
   return (
-    <div className={`bg-gray-800 rounded-lg p-3 border ${
-      objective.claimed ? 'border-gray-700 opacity-60' :
+    <div className={`bg-dark-800/70 rounded-lg p-3 border ${
+      objective.claimed ? 'border-gold-600/15 opacity-60' :
       objective.completed ? 'border-green-700' :
-      objective.failed ? 'border-red-800' : 'border-gray-700'
+      objective.failed ? 'border-red-800' : 'border-gold-600/20'
     }`}>
       <div className="flex items-start justify-between gap-2 mb-2">
         <div className="flex-1 min-w-0">
@@ -85,7 +85,7 @@ export default function ObjectiveCard({ objective }: Props) {
         value={objective.current}
         max={objective.target}
         color={
-          objective.claimed ? 'bg-gray-500' :
+          objective.claimed ? 'bg-dark-500/80' :
           objective.completed ? 'bg-green-500' :
           objective.failed ? 'bg-red-500' : 'bg-blue-500'
         }

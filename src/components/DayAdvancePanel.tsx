@@ -31,12 +31,7 @@ function formatShortDate(dateStr: string): string {
 }
 
 export default function DayAdvancePanel({
-  currentDate,
-  teamId,
-  matches,
-  onAdvanceDay,
-  onAdvanceToNextMatch,
-  hasNextMatch,
+  currentDate, teamId, matches, onAdvanceDay, onAdvanceToNextMatch, hasNextMatch,
 }: Props) {
   const weekDays = getWeekDays(currentDate)
   const matchDates = new Set(
@@ -44,85 +39,80 @@ export default function DayAdvancePanel({
       .filter((m) => !m.played && (m.homeTeamId === teamId || m.awayTeamId === teamId))
       .map((m) => m.date),
   )
-
   const hasMatchToday = matchDates.has(currentDate)
 
   return (
-    <div className="bg-gray-800 rounded-xl border border-gray-700 p-4">
-      <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center gap-2 text-gray-400 text-xs font-semibold uppercase tracking-wide">
+    <div className="panel overflow-hidden">
+      <div className="panel-header flex items-center justify-between">
+        <div className="flex items-center gap-1.5">
           <Icon name="calendar_today" size="xs" />
           Semana actual
         </div>
-        <span className="text-white text-sm font-bold">{currentDate}</span>
+        <span className="text-gold-400 font-pixel text-[0.4rem]">{currentDate}</span>
       </div>
 
-      {/* Week view */}
-      <div className="grid grid-cols-7 gap-1 mb-4">
-        {weekDays.map((date, i) => {
-          const isPast = date < currentDate
-          const isToday = date === currentDate
-          const hasMatch = matchDates.has(date)
-          const isFuture = date > currentDate
+      <div className="p-4">
+        {/* Week view */}
+        <div className="grid grid-cols-7 gap-1 mb-4">
+          {weekDays.map((date, i) => {
+            const isPast = date < currentDate
+            const isToday = date === currentDate
+            const hasMatch = matchDates.has(date)
+            const isFuture = date > currentDate
 
-          let cellClass = 'bg-gray-700/40 text-gray-600'
-          if (isToday && hasMatch) cellClass = 'bg-amber-500 text-white ring-2 ring-amber-300'
-          else if (isToday) cellClass = 'bg-blue-600 text-white ring-2 ring-blue-400'
-          else if (isPast) cellClass = 'bg-gray-800 text-gray-700'
-          else if (hasMatch) cellClass = 'bg-green-900/60 text-green-300 ring-1 ring-green-600'
-          else if (isFuture) cellClass = 'bg-gray-700/40 text-gray-400'
+            let cellClass = 'bg-dark-700/40 text-gray-600'
+            if (isToday && hasMatch) cellClass = 'bg-gold-600/80 text-dark-900 ring-1 ring-gold-400'
+            else if (isToday) cellClass = 'bg-dark-600 text-gold-400 ring-1 ring-gold-600/60'
+            else if (isPast) cellClass = 'bg-dark-800/60 text-gray-700'
+            else if (hasMatch) cellClass = 'bg-green-900/50 text-green-300 ring-1 ring-green-600/60'
+            else if (isFuture) cellClass = 'bg-dark-700/30 text-gray-500'
 
-          return (
-            <div
-              key={date}
-              className={`flex flex-col items-center rounded-lg py-2 px-1 ${cellClass}`}
-              title={`${DAY_NAMES[i]} ${date}`}
-            >
-              <span className="text-[0.625rem] font-bold uppercase">{DAY_LABELS[i]}</span>
-              <span className="text-[11px] font-medium mt-0.5">{formatShortDate(date)}</span>
-              {hasMatch && (
-                <Icon
-                  name="sports_soccer"
-                  size="xs"
-                  className={`mt-0.5 ${isToday ? 'text-white' : 'text-green-400'}`}
-                />
-              )}
-              {isToday && !hasMatch && <div className="w-1 h-1 rounded-full bg-white mt-0.5" />}
+            return (
+              <div
+                key={date}
+                className={`flex flex-col items-center rounded py-2 px-1 ${cellClass}`}
+                title={`${DAY_NAMES[i]} ${date}`}
+              >
+                <span className="text-[0.5rem] font-pixel">{DAY_LABELS[i]}</span>
+                <span className="text-[0.55rem] font-medium mt-0.5">{formatShortDate(date)}</span>
+                {hasMatch && (
+                  <Icon name="sports_soccer" size="xs" className={`mt-0.5 ${isToday ? 'text-dark-900' : 'text-green-400'}`} />
+                )}
+                {isToday && !hasMatch && <div className="w-1 h-1 rounded-full bg-gold-500 mt-0.5" />}
+              </div>
+            )
+          })}
+        </div>
+
+        {hasMatchToday ? (
+          <div className="rounded bg-gold-600/10 border border-gold-600/40 px-4 py-3 flex items-center gap-3">
+            <Icon name="sports_soccer" size="md" className="text-gold-400 shrink-0" />
+            <div>
+              <p className="text-gold-300 text-sm font-bold leading-tight">Partido pendiente hoy</p>
+              <p className="text-gold-500/70 text-xs mt-0.5">Juega el partido antes de continuar</p>
             </div>
-          )
-        })}
-      </div>
-
-      {/* Match today: blocked state */}
-      {hasMatchToday ? (
-        <div className="rounded-xl bg-amber-500/10 border border-amber-500/40 px-4 py-3 flex items-center gap-3">
-          <Icon name="sports_soccer" size="md" className="text-amber-400 shrink-0" />
-          <div>
-            <p className="text-amber-300 text-base font-bold leading-tight">Partido pendiente hoy</p>
-            <p className="text-amber-400/70 text-sm mt-0.5">Juega el partido antes de continuar</p>
           </div>
-        </div>
-      ) : (
-        /* Advance buttons */
-        <div className="flex gap-2">
-          <button
-            onClick={onAdvanceDay}
-            className="flex-1 flex items-center justify-center gap-2 py-3.5 bg-gray-700 hover:bg-gray-600 active:bg-gray-500 text-white rounded-xl text-base font-semibold transition-colors"
-          >
-            <Icon name="arrow_forward" size="sm" />
-            Avanzar día
-          </button>
-          {hasNextMatch && (
+        ) : (
+          <div className="flex gap-2">
             <button
-              onClick={onAdvanceToNextMatch}
-              className="flex-1 flex items-center justify-center gap-2 py-3.5 bg-blue-700 hover:bg-blue-600 active:bg-blue-500 text-white rounded-xl text-base font-semibold transition-colors"
+              onClick={onAdvanceDay}
+              className="flex-1 flex items-center justify-center gap-2 py-3 btn-secondary rounded"
             >
-              <Icon name="skip_next" size="sm" />
-              Ir al partido
+              <Icon name="arrow_forward" size="sm" />
+              Avanzar día
             </button>
-          )}
-        </div>
-      )}
+            {hasNextMatch && (
+              <button
+                onClick={onAdvanceToNextMatch}
+                className="flex-1 flex items-center justify-center gap-2 py-3 btn-primary rounded"
+              >
+                <Icon name="skip_next" size="sm" />
+                Ir al partido
+              </button>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   )
 }

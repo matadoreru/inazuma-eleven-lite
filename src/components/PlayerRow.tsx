@@ -18,8 +18,8 @@ interface Props {
 
 const STATUS_STYLE: Record<PlayerStatus, string> = {
   TIT: 'bg-blue-600/30 text-blue-300 border border-blue-600/40',
-  SUP: 'bg-gray-700 text-gray-400 border border-gray-600',
-  NC: 'bg-gray-800 text-gray-600 border border-gray-700',
+  SUP: 'bg-dark-700/60 text-gray-400 border border-gold-600/30',
+  NC: 'bg-dark-800/60 text-gray-600 border border-gold-600/10',
 }
 
 const ENERGY_BAR_COLOR: Record<ReturnType<typeof getEnergyState>, string> = {
@@ -36,9 +36,9 @@ export default function PlayerRow({ player, status, isSelected, onClick, actions
   return (
     <tr
       onClick={onClick}
-      className={`border-b border-gray-700 transition-colors ${
+      className={`border-b border-gold-600/15 transition-colors ${
         onClick ? 'cursor-pointer' : ''
-      } ${isSelected ? 'bg-blue-900/20' : onClick ? 'hover:bg-gray-700/50' : ''}`}
+      } ${isSelected ? 'bg-blue-900/20' : onClick ? 'hover:bg-dark-700/50' : ''}`}
     >
       <td className="py-1.5 px-3 text-gray-400 text-xs w-10 text-right tabular-nums">
         {player.jerseyNumber > 0 ? `#${player.jerseyNumber}` : '–'}
@@ -75,7 +75,7 @@ export default function PlayerRow({ player, status, isSelected, onClick, actions
       <td className="py-1.5 px-3 text-right text-gray-300 text-sm tabular-nums w-12 hidden sm:table-cell">{player.stats.FIS}</td>
       <td className="py-1.5 px-3 w-20 hidden md:table-cell">
         <div className="flex flex-col items-end gap-0.5">
-          <div className="w-14 h-1.5 bg-gray-700 rounded-full overflow-hidden">
+          <div className="w-14 h-1.5 bg-dark-600/80 rounded-full overflow-hidden">
             <div
               className={`h-full rounded-full ${ENERGY_BAR_COLOR[energyState]}`}
               style={{ width: `${player.stamina}%` }}

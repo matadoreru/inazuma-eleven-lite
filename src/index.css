@@ -4,7 +4,7 @@
 
 @layer base {
   html {
-    font-size: 20px;
+    font-size: 15px;
   }
   html, body, #root {
     @apply h-full bg-dark-900 text-white font-game;
@@ -15,14 +15,14 @@
   }
 
   ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
   }
   ::-webkit-scrollbar-track {
-    @apply bg-dark-800;
+    @apply bg-dark-900;
   }
   ::-webkit-scrollbar-thumb {
-    @apply bg-dark-500 rounded;
+    @apply bg-dark-600 rounded;
   }
   ::-webkit-scrollbar-thumb:hover {
     @apply bg-gold-600;
@@ -30,34 +30,58 @@
 }
 
 @layer components {
+  /* ── Buttons ── */
   .btn-primary {
-    @apply px-4 py-2 bg-gold-500 hover:bg-gold-400 text-dark-900 font-bold rounded transition-colors;
+    @apply px-4 py-2 bg-gold-500 hover:bg-gold-400 active:bg-gold-600 text-dark-900 font-bold rounded transition-colors uppercase tracking-wide text-xs;
   }
   .btn-secondary {
-    @apply px-4 py-2 bg-dark-600 hover:bg-dark-500 text-white font-semibold rounded border border-dark-500 hover:border-gold-600 transition-colors;
+    @apply px-4 py-2 bg-dark-800/80 hover:bg-dark-700 text-gold-400 hover:text-gold-300 font-semibold rounded border border-gold-600/50 hover:border-gold-500 transition-colors uppercase tracking-wide text-xs;
   }
   .btn-danger {
-    @apply px-4 py-2 bg-red-700 hover:bg-red-600 text-white font-bold rounded transition-colors;
+    @apply px-4 py-2 bg-red-900/60 hover:bg-red-800 text-red-300 font-bold rounded border border-red-700/50 transition-colors uppercase tracking-wide text-xs;
   }
+
+  /* ── Panels ── */
   .card {
-    @apply bg-dark-800 border border-dark-600 rounded-lg p-4;
+    @apply bg-dark-800/85 border border-gold-600/40 rounded p-4 backdrop-blur-sm;
   }
   .card-gold {
-    @apply bg-dark-800 border border-gold-600 rounded-lg p-4;
+    @apply bg-dark-800/85 border border-gold-500 rounded p-4 backdrop-blur-sm;
   }
   .panel {
-    @apply bg-dark-700 rounded-lg;
+    @apply bg-dark-800/85 border border-gold-600/40 rounded backdrop-blur-sm;
   }
+  .panel-header {
+    @apply text-gold-400 font-pixel text-[0.4rem] uppercase tracking-widest px-3 py-2 border-b border-gold-600/30;
+  }
+
+  /* ── Typography ── */
   .screen-title {
-    @apply text-2xl font-extrabold text-gold-400 tracking-wide uppercase;
+    @apply text-xl font-pixel text-gold-400 tracking-wide uppercase leading-relaxed;
   }
   .label-muted {
-    @apply text-xs text-gray-400 uppercase tracking-wider;
+    @apply text-[0.5rem] text-gray-500 uppercase tracking-widest font-pixel;
   }
   .stat-value {
     @apply text-sm font-bold text-white;
   }
+
+  /* ── Inputs ── */
   .input-field {
-    @apply w-full bg-dark-700 border border-dark-500 focus:border-gold-500 outline-none text-white px-3 py-2 rounded text-sm;
+    @apply w-full bg-dark-700/80 border border-gold-600/30 focus:border-gold-500 outline-none text-white px-3 py-2 rounded text-sm placeholder-gray-600;
+  }
+
+  /* ── Game layout background ── */
+  .bg-game {
+    background-image: url('/backgrounds/bg_career.png');
+    background-size: cover;
+    background-position: center top;
+    background-attachment: fixed;
+  }
+  .bg-menu {
+    background-image: url('/backgrounds/bg_menu.png');
+    background-size: cover;
+    background-position: center top;
+    background-attachment: fixed;
   }
 }

@@ -1,7 +1,6 @@
+import GameLayout from '../components/GameLayout'
 import { useState } from 'react'
 import { useCareerStore } from '../store/careerStore'
-import TopNavigation from '../components/TopNavigation'
-import SideNavigation from '../components/SideNavigation'
 import StatBar, { statColor } from '../components/StatBar'
 import TechniqueBadge from '../components/TechniqueBadge'
 import ElementBadge from '../components/ElementBadge'
@@ -73,8 +72,8 @@ function JerseyModal({
 
   return (
     <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
-      <div className="bg-gray-800 rounded-2xl border border-gray-600 w-full max-w-sm shadow-2xl">
-        <div className="px-5 pt-5 pb-4 border-b border-gray-700">
+      <div className="panel rounded-2xl w-full max-w-sm shadow-2xl">
+        <div className="px-5 pt-5 pb-4 border-b border-gold-600/20">
           <p className="text-white font-bold text-base">Cambiar dorsal</p>
           <p className="text-gray-400 text-sm mt-0.5">{playerName}</p>
         </div>
@@ -91,7 +90,7 @@ function JerseyModal({
                 onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
                 placeholder="Nuevo dorsal (1–99)"
                 autoFocus
-                className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 text-sm"
+                className="w-full bg-dark-700/80 border border-gold-600/30 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 text-sm"
               />
             </>
           ) : (
@@ -107,14 +106,14 @@ function JerseyModal({
           )}
         </div>
         <div className="px-5 pb-5 flex gap-3">
-          <button onClick={onClose} className="flex-1 py-2.5 bg-gray-700 hover:bg-gray-600 text-white rounded-xl text-sm font-semibold transition-colors">
+          <button onClick={onClose} className="flex-1 py-2.5 bg-dark-700/80 hover:bg-dark-600/80 text-white rounded-xl text-sm font-semibold transition-colors">
             Cancelar
           </button>
           {!conflictPlayer ? (
             <button
               onClick={handleSubmit}
               disabled={!input || isNaN(parseInt(input, 10))}
-              className="flex-1 py-2.5 bg-blue-600 hover:bg-blue-500 disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-xl text-sm font-semibold transition-colors"
+              className="flex-1 py-2.5 bg-gold-600 hover:bg-gold-500 disabled:opacity-40 disabled:cursor-not-allowed text-dark-900 rounded-xl text-sm font-semibold transition-colors"
             >
               Cambiar
             </button>
@@ -149,8 +148,8 @@ function SwapCallupModal({
   const [selected, setSelected] = useState<number | null>(null)
   return (
     <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
-      <div className="bg-gray-800 rounded-2xl border border-gray-600 w-full max-w-md shadow-2xl">
-        <div className="px-5 pt-5 pb-4 border-b border-gray-700">
+      <div className="panel rounded-2xl w-full max-w-md shadow-2xl">
+        <div className="px-5 pt-5 pb-4 border-b border-gold-600/20">
           <div className="flex items-start gap-3">
             <div className="w-8 h-8 rounded-full bg-amber-500/20 flex items-center justify-center shrink-0 mt-0.5">
               <Icon name="group_remove" size="xs" className="text-amber-400" />
@@ -169,23 +168,23 @@ function SwapCallupModal({
               key={p.id}
               onClick={() => setSelected(p.id)}
               className={`w-full flex items-center gap-3 px-5 py-3 text-left transition-colors ${
-                selected === p.id ? 'bg-blue-600/20 border-l-2 border-blue-500' : 'hover:bg-gray-700/40 border-l-2 border-transparent'
+                selected === p.id ? 'bg-gold-600/15 border-l-2 border-gold-500' : 'hover:bg-dark-700/40 border-l-2 border-transparent'
               }`}
             >
               <div className="flex-1 min-w-0">
                 <p className="text-white text-sm font-medium leading-tight">{playerDisplayName(p, nameStyle)}</p>
                 <p className="text-gray-500 text-xs">{p.position} · Media {p.stats.TOT} · Total {statTotal(p.stats)}</p>
               </div>
-              {selected === p.id && <Icon name="check_circle" size="sm" className="text-blue-400 shrink-0" />}
+              {selected === p.id && <Icon name="check_circle" size="sm" className="text-gold-500 shrink-0" />}
             </button>
           ))}
         </div>
-        <div className="px-5 py-4 border-t border-gray-700 flex gap-3">
-          <button onClick={onCancel} className="flex-1 py-2.5 bg-gray-700 hover:bg-gray-600 text-white rounded-xl text-sm font-semibold transition-colors">Cancelar</button>
+        <div className="px-5 py-4 border-t border-gold-600/15 flex gap-3">
+          <button onClick={onCancel} className="flex-1 py-2.5 bg-dark-700/80 hover:bg-dark-600/80 text-white rounded-xl text-sm font-semibold transition-colors">Cancelar</button>
           <button
             onClick={() => selected !== null && onConfirm(selected)}
             disabled={selected === null}
-            className="flex-1 py-2.5 bg-blue-600 hover:bg-blue-500 disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-xl text-sm font-semibold transition-colors"
+            className="flex-1 py-2.5 bg-gold-600 hover:bg-gold-500 disabled:opacity-40 disabled:cursor-not-allowed text-dark-900 rounded-xl text-sm font-semibold transition-colors"
           >
             Intercambiar
           </button>
@@ -221,8 +220,8 @@ function PotentialModal({
 
   return (
     <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
-      <div className="bg-gray-800 rounded-2xl border border-gray-600 w-full max-w-sm shadow-2xl">
-        <div className="px-5 pt-5 pb-4 border-b border-gray-700">
+      <div className="panel rounded-2xl w-full max-w-sm shadow-2xl">
+        <div className="px-5 pt-5 pb-4 border-b border-gold-600/20">
           <p className="text-white font-bold text-base">{cfg.label}</p>
           <p className="text-gray-400 text-sm mt-0.5">{cfg.description}</p>
         </div>
@@ -231,12 +230,12 @@ function PotentialModal({
           {/* Current range */}
           <div>
             <p className="text-gray-500 text-xs mb-2">Rango actual</p>
-            <div className="flex items-center gap-3 bg-gray-700/50 rounded-xl px-4 py-3">
+            <div className="flex items-center gap-3 bg-dark-700/50 rounded-xl px-4 py-3">
               <div className="text-center w-10">
                 <p className="text-white text-lg font-bold">{analysis.rangeMin}</p>
                 <p className="text-gray-600 text-xs">Mín</p>
               </div>
-              <div className="flex-1 h-1.5 bg-gray-600 rounded-full relative">
+              <div className="flex-1 h-1.5 bg-dark-600/80 rounded-full relative">
                 <div className="absolute inset-y-0 bg-purple-600 rounded-full"
                   style={{
                     left: `${((analysis.rangeMin - 1) / 98) * 100}%`,
@@ -262,7 +261,7 @@ function PotentialModal({
                 <p className="text-purple-300 text-lg font-bold">{preview.rangeMin}</p>
                 <p className="text-gray-600 text-xs">Mín</p>
               </div>
-              <div className="flex-1 h-1.5 bg-gray-600 rounded-full relative">
+              <div className="flex-1 h-1.5 bg-dark-600/80 rounded-full relative">
                 <div className="absolute inset-y-0 bg-purple-400 rounded-full"
                   style={{
                     left: `${((preview.rangeMin - 1) / 98) * 100}%`,
@@ -282,7 +281,7 @@ function PotentialModal({
 
           {/* What gets revealed */}
           {cfg.reveals.length > 0 && (
-            <div className="flex items-start gap-2 p-3 rounded-lg bg-gray-700/40">
+            <div className="flex items-start gap-2 p-3 rounded-lg bg-dark-700/40">
               <Icon name="info" size="xs" className="text-gray-400 shrink-0 mt-0.5" />
               <p className="text-gray-300 text-xs">
                 Desvela: {cfg.reveals.map((r) => {
@@ -306,7 +305,7 @@ function PotentialModal({
         </div>
 
         <div className="px-5 pb-5 flex gap-3">
-          <button onClick={onClose} className="flex-1 py-2.5 bg-gray-700 hover:bg-gray-600 text-white rounded-xl text-sm font-semibold transition-colors">Cancelar</button>
+          <button onClick={onClose} className="flex-1 py-2.5 bg-dark-700/80 hover:bg-dark-600/80 text-white rounded-xl text-sm font-semibold transition-colors">Cancelar</button>
           <button
             onClick={() => { if (canAfford) { onConfirm(); onClose() } }}
             disabled={!canAfford}
@@ -348,14 +347,14 @@ function PotentialSection({
 
   const confidenceColor =
     confidence === 'Muy alta' ? 'text-green-400' :
-    confidence === 'Alta' ? 'text-blue-400' :
+    confidence === 'Alta' ? 'text-gold-500' :
     confidence === 'Media' ? 'text-yellow-400' :
     'text-gray-400'
 
   return (
-    <div className="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden">
+    <div className="panel rounded-xl overflow-hidden">
       {/* Header */}
-      <div className="px-4 py-3 border-b border-gray-700 flex items-center justify-between">
+      <div className="px-4 py-3 border-b border-gold-600/20 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Icon name="analytics" size="xs" className="text-purple-400" />
           <h2 className="text-white text-sm font-semibold">Potencial</h2>
@@ -386,7 +385,7 @@ function PotentialSection({
         </div>
 
         {/* Visual range bar */}
-        <div className="relative h-2 bg-gray-700 rounded-full">
+        <div className="relative h-2 bg-dark-700/70 rounded-full">
           <div
             className="absolute inset-y-0 bg-purple-500/60 rounded-full"
             style={{
@@ -403,13 +402,13 @@ function PotentialSection({
         {(discovered.growthCurve || discovered.developmentRisk || discovered.trainingAffinity !== undefined || discovered.matchAffinity !== undefined) && (
           <div className="grid grid-cols-2 gap-2 pt-1">
             {discovered.growthCurve && (
-              <div className="bg-gray-700/50 rounded-lg px-3 py-2">
+              <div className="bg-dark-700/40 rounded-lg px-3 py-2">
                 <p className="text-gray-500 text-xs">Curva</p>
                 <p className="text-white text-xs font-semibold mt-0.5">{getGrowthCurveLabel(discovered.growthCurve)}</p>
               </div>
             )}
             {discovered.developmentRisk && (
-              <div className="bg-gray-700/50 rounded-lg px-3 py-2">
+              <div className="bg-dark-700/40 rounded-lg px-3 py-2">
                 <p className="text-gray-500 text-xs">Riesgo</p>
                 <p className={`text-xs font-semibold mt-0.5 ${
                   discovered.developmentRisk === 'low' ? 'text-green-400' :
@@ -418,7 +417,7 @@ function PotentialSection({
               </div>
             )}
             {discovered.trainingAffinity !== undefined && (
-              <div className="bg-gray-700/50 rounded-lg px-3 py-2">
+              <div className="bg-dark-700/40 rounded-lg px-3 py-2">
                 <p className="text-gray-500 text-xs">Afinidad entreno</p>
                 <p className={`text-xs font-semibold mt-0.5 ${discovered.trainingAffinity >= 1.2 ? 'text-green-400' : discovered.trainingAffinity <= 0.85 ? 'text-red-400' : 'text-gray-300'}`}>
                   {discovered.trainingAffinity >= 1.2 ? 'Alta' : discovered.trainingAffinity <= 0.85 ? 'Baja' : 'Normal'}
@@ -426,7 +425,7 @@ function PotentialSection({
               </div>
             )}
             {discovered.matchAffinity !== undefined && (
-              <div className="bg-gray-700/50 rounded-lg px-3 py-2">
+              <div className="bg-dark-700/40 rounded-lg px-3 py-2">
                 <p className="text-gray-500 text-xs">Afinidad partidos</p>
                 <p className={`text-xs font-semibold mt-0.5 ${discovered.matchAffinity >= 1.2 ? 'text-green-400' : discovered.matchAffinity <= 0.85 ? 'text-red-400' : 'text-gray-300'}`}>
                   {discovered.matchAffinity >= 1.2 ? 'Alta' : discovered.matchAffinity <= 0.85 ? 'Baja' : 'Normal'}
@@ -453,7 +452,7 @@ function PotentialSection({
         {/* Scout recommendation */}
         {discovered.recommendation && (
           <div className="flex items-start gap-2 p-3 rounded-lg bg-blue-900/20 border border-blue-800/30">
-            <Icon name="person_pin" size="xs" className="text-blue-400 shrink-0 mt-0.5" />
+            <Icon name="person_pin" size="xs" className="text-gold-500 shrink-0 mt-0.5" />
             <p className="text-blue-200 text-xs leading-relaxed">{discovered.recommendation}</p>
           </div>
         )}
@@ -500,8 +499,8 @@ function EquipmentSection({
   const equipped = player.equipment ?? EMPTY_EQUIPMENT
 
   return (
-    <div className="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden">
-      <div className="px-4 py-3 border-b border-gray-700">
+    <div className="panel rounded-xl overflow-hidden">
+      <div className="px-4 py-3 border-b border-gold-600/20">
         <h2 className="text-white text-sm font-semibold">Equipamiento</h2>
       </div>
       <div className="p-3 flex flex-col gap-2">
@@ -516,7 +515,7 @@ function EquipmentSection({
                 className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg border transition-colors text-left ${
                   item
                     ? 'border-amber-700/40 bg-amber-900/10 hover:bg-amber-900/20'
-                    : 'border-gray-700 bg-gray-700/30 hover:bg-gray-700/50'
+                    : 'border-gold-600/20 bg-dark-700/20 hover:bg-dark-700/40'
                 }`}
               >
                 <Icon
@@ -549,7 +548,7 @@ function EquipmentSection({
 
               {/* Inventory picker for this slot */}
               {isOpen && (
-                <div className="mt-1 ml-2 border-l-2 border-gray-700 pl-3 flex flex-col gap-1">
+                <div className="mt-1 ml-2 border-l-2 border-gold-600/20 pl-3 flex flex-col gap-1">
                   {availableItems.length === 0 ? (
                     <p className="text-gray-600 text-xs py-1">No hay ítems disponibles en el inventario.</p>
                   ) : (
@@ -603,6 +602,7 @@ export default function PlayerDetailScreen() {
   const teachTechnique = useCareerStore((s) => s.teachTechnique)
   const initiateTransferNegotiation = useCareerStore((s) => s.initiateTransferNegotiation)
   const respondToCounterOffer = useCareerStore((s) => s.respondToCounterOffer)
+  const respondToPlayerCounterOffer = useCareerStore((s) => s.respondToPlayerCounterOffer)
   const cancelNegotiationAction = useCareerStore((s) => s.cancelNegotiation)
   const confirmTransferAction = useCareerStore((s) => s.confirmTransfer)
   const dismissNegotiationAction = useCareerStore((s) => s.dismissNegotiation)
@@ -618,7 +618,7 @@ export default function PlayerDetailScreen() {
 
   if (!career) {
     return (
-      <div className="h-full flex items-center justify-center bg-gray-900">
+      <div className="h-full flex items-center justify-center bg-dark-900/80">
         <p className="text-gray-400">No hay carrera activa.</p>
       </div>
     )
@@ -628,15 +628,11 @@ export default function PlayerDetailScreen() {
 
   if (!player) {
     return (
-      <div className="h-full flex flex-col">
-        <TopNavigation title="Jugador" />
-        <div className="flex flex-1 overflow-hidden">
-          <SideNavigation currentScreen={screen} onNavigate={navigate} />
-          <main className="flex-1 flex items-center justify-center">
-            <p className="text-gray-400">Jugador no encontrado.</p>
-          </main>
-        </div>
-      </div>
+      <GameLayout>
+        <main className="h-full flex items-center justify-center">
+          <p className="text-gray-400">Jugador no encontrado.</p>
+        </main>
+      </GameLayout>
     )
   }
 
@@ -669,7 +665,7 @@ export default function PlayerDetailScreen() {
 
   const activeNegotiation = !isInUserTeam
     ? career.outgoingNegotiations.find(
-        (n) => n.playerId === player.id && (n.phase === 'club_pending' || n.phase === 'player_pending' || n.phase === 'player_accepted'),
+        (n) => n.playerId === player.id && (n.phase === 'club_pending' || n.phase === 'player_pending' || n.phase === 'player_counter' || n.phase === 'player_accepted'),
       ) ?? null
     : null
 
@@ -718,23 +714,19 @@ export default function PlayerDetailScreen() {
 
   const statusLabel = isStarter ? 'TIT' : isBench ? 'SUP' : 'NC'
   const statusStyle = isStarter
-    ? 'bg-blue-600/30 text-blue-300 border border-blue-600/40'
+    ? 'bg-blue-600/30 text-gold-400 border border-blue-600/40'
     : isBench
-    ? 'bg-gray-700 text-gray-400 border border-gray-600'
-    : 'bg-gray-800 text-gray-600 border border-gray-700'
+    ? 'bg-dark-700/60 text-gray-400 border border-gold-600/20'
+    : 'bg-dark-800/60 text-gray-600 border border-gold-600/10'
 
   const { total, media } = getPlayerStatsSummary(player)
 
   return (
-    <div className="h-full flex flex-col">
-      <TopNavigation title="Jugador" />
-      <div className="flex flex-1 overflow-hidden">
-        <SideNavigation currentScreen={screen} onNavigate={navigate} />
-
-        <main className="flex-1 flex flex-col overflow-hidden bg-gray-900">
+    <GameLayout>
+      <main className="h-full flex flex-col overflow-hidden">
 
           {/* ── Hero strip ── */}
-          <div className="shrink-0 flex items-center gap-3 px-3 py-2.5 border-b border-gray-700/60">
+          <div className="shrink-0 flex items-center gap-3 px-3 py-2.5 border-b border-gold-600/20">
             <button
               onClick={() => navigate(previousScreen ?? 'squad')}
               className="text-gray-500 hover:text-white transition-colors shrink-0 p-1"
@@ -747,13 +739,13 @@ export default function PlayerDetailScreen() {
               <img
                 src={player.spriteUrl}
                 alt={playerDisplayName(player, nameStyle)}
-                className="w-14 h-14 object-contain rounded-lg bg-gray-800"
+                className="w-14 h-14 object-contain rounded-lg bg-dark-800/70"
                 onError={(e) => {
                   ;(e.currentTarget as HTMLImageElement).src =
                     "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56'%3E%3Crect width='56' height='56' rx='8' fill='%234b5563'/%3E%3C/svg%3E"
                 }}
               />
-              <div className="absolute -bottom-1 -right-1 bg-gray-900 rounded-md p-0.5 border border-gray-700">
+              <div className="absolute -bottom-1 -right-1 bg-dark-900/90 rounded-md p-0.5 border border-gold-600/30">
                 <PositionSprite position={player.position} size={20} />
               </div>
             </div>
@@ -810,7 +802,7 @@ export default function PlayerDetailScreen() {
                 )}
                 <button
                   onClick={() => setShowJerseyModal(true)}
-                  className="flex items-center gap-1 px-2 py-1 bg-blue-700 hover:bg-blue-600 text-white rounded text-xs font-semibold transition-colors"
+                  className="flex items-center gap-1 px-2 py-1 bg-blue-700 hover:bg-gold-600/25 text-gold-300 border border-gold-500/60 rounded text-xs font-semibold transition-colors"
                 >
                   <Icon name="tag" size="xs" />
                   Dorsal
@@ -831,7 +823,7 @@ export default function PlayerDetailScreen() {
                 {!activeNegotiation && !recentNegotiation && (
                   <button
                     onClick={() => { setOfferInput(String(marketValueForOffer)); setShowOfferModal(true) }}
-                    className="flex items-center gap-1 px-2 py-1 bg-blue-700 hover:bg-blue-600 text-white rounded text-xs font-semibold transition-colors"
+                    className="flex items-center gap-1 px-2 py-1 bg-blue-700 hover:bg-gold-600/25 text-gold-300 border border-gold-500/60 rounded text-xs font-semibold transition-colors"
                   >
                     <span className="material-icons leading-none" style={{ fontSize: '14px' }}>
                       {(player.teamId === null || player.teamId === 0) ? 'handshake' : 'send'}
@@ -846,7 +838,7 @@ export default function PlayerDetailScreen() {
                     <span className="text-gray-500 text-[0.5rem]">Est. {activeNegotiation.resolutionDate}</span>
                     <button
                       onClick={() => cancelNegotiationAction(activeNegotiation.id)}
-                      className="flex items-center gap-1 px-2 py-1 bg-gray-700 hover:bg-gray-600 text-gray-300 rounded text-xs font-semibold transition-colors"
+                      className="flex items-center gap-1 px-2 py-1 bg-dark-700/80 hover:bg-dark-600/80 text-gray-300 rounded text-xs font-semibold transition-colors border border-gold-600/20"
                     >
                       <span className="material-icons leading-none" style={{ fontSize: '12px' }}>cancel</span>
                       Cancelar
@@ -877,7 +869,7 @@ export default function PlayerDetailScreen() {
                     )}
                     <button
                       onClick={() => respondToCounterOffer(activeNegotiation.id, 'reject')}
-                      className="flex items-center gap-1 px-2 py-1 bg-gray-700 hover:bg-gray-600 text-gray-300 rounded text-xs font-semibold transition-colors"
+                      className="flex items-center gap-1 px-2 py-1 bg-dark-700/80 hover:bg-dark-600/80 text-gray-300 rounded text-xs font-semibold transition-colors border border-gold-600/20"
                     >
                       Rechazar
                     </button>
@@ -886,14 +878,39 @@ export default function PlayerDetailScreen() {
 
                 {activeNegotiation && activeNegotiation.phase === 'player_pending' && (
                   <div className="flex flex-col gap-1">
-                    <span className="text-blue-400 text-[0.625rem] leading-tight">Jugador valorando oferta</span>
+                    <span className="text-gold-500 text-[0.625rem] leading-tight">Jugador valorando oferta</span>
                     <span className="text-gray-500 text-[0.5rem]">Est. {activeNegotiation.resolutionDate}</span>
                     <button
                       onClick={() => cancelNegotiationAction(activeNegotiation.id)}
-                      className="flex items-center gap-1 px-2 py-1 bg-gray-700 hover:bg-gray-600 text-gray-300 rounded text-xs font-semibold transition-colors"
+                      className="flex items-center gap-1 px-2 py-1 bg-dark-700/80 hover:bg-dark-600/80 text-gray-300 rounded text-xs font-semibold transition-colors border border-gold-600/20"
                     >
                       <span className="material-icons leading-none" style={{ fontSize: '12px' }}>cancel</span>
                       Cancelar
+                    </button>
+                  </div>
+                )}
+
+                {activeNegotiation && activeNegotiation.phase === 'player_counter' && activeNegotiation.counterAmount !== undefined && (
+                  <div className="flex flex-col gap-1">
+                    <span className="text-yellow-400 text-[0.625rem] leading-tight font-semibold">Jugador contraoferta</span>
+                    <span className="text-yellow-300 text-[0.5rem] font-bold">
+                      Pide: {activeNegotiation.counterAmount >= 1_000_000
+                        ? `€${(activeNegotiation.counterAmount / 1_000_000).toFixed(1)}M`
+                        : `€${(activeNegotiation.counterAmount / 1_000).toFixed(0)}K`}
+                    </span>
+                    <button
+                      onClick={() => respondToPlayerCounterOffer(activeNegotiation.id, 'accept')}
+                      className="flex items-center gap-1 px-2 py-1 bg-green-700 hover:bg-green-600 text-white rounded text-xs font-semibold transition-colors"
+                    >
+                      <span className="material-icons leading-none" style={{ fontSize: '12px' }}>check</span>
+                      Aceptar
+                    </button>
+                    <button
+                      onClick={() => respondToPlayerCounterOffer(activeNegotiation.id, 'reject')}
+                      className="flex items-center gap-1 px-2 py-1 bg-dark-700/80 hover:bg-dark-600/80 text-gray-300 rounded text-xs font-semibold transition-colors border border-gold-600/20"
+                    >
+                      <span className="material-icons leading-none" style={{ fontSize: '12px' }}>close</span>
+                      Rechazar
                     </button>
                   </div>
                 )}
@@ -910,7 +927,7 @@ export default function PlayerDetailScreen() {
                     </button>
                     <button
                       onClick={() => cancelNegotiationAction(activeNegotiation.id)}
-                      className="flex items-center gap-1 px-2 py-1 bg-gray-700 hover:bg-gray-600 text-gray-300 rounded text-xs font-semibold transition-colors"
+                      className="flex items-center gap-1 px-2 py-1 bg-dark-700/80 hover:bg-dark-600/80 text-gray-300 rounded text-xs font-semibold transition-colors border border-gold-600/20"
                     >
                       <span className="material-icons leading-none" style={{ fontSize: '12px' }}>cancel</span>
                       Cancelar fichaje
@@ -923,7 +940,7 @@ export default function PlayerDetailScreen() {
                     <span className="text-red-400 text-[0.625rem]">Negociación fallida</span>
                     <button
                       onClick={() => { setOfferInput(String(marketValueForOffer)); setShowOfferModal(true) }}
-                      className="flex items-center gap-1 px-2 py-1 bg-blue-700 hover:bg-blue-600 text-white rounded text-xs font-semibold transition-colors"
+                      className="flex items-center gap-1 px-2 py-1 bg-blue-700 hover:bg-gold-600/25 text-gold-300 border border-gold-500/60 rounded text-xs font-semibold transition-colors"
                     >
                       Reintentar
                     </button>
@@ -935,7 +952,7 @@ export default function PlayerDetailScreen() {
                     <span className="text-gray-500 text-[0.625rem]">Cancelada</span>
                     <button
                       onClick={() => { setOfferInput(String(marketValueForOffer)); setShowOfferModal(true) }}
-                      className="flex items-center gap-1 px-2 py-1 bg-blue-700 hover:bg-blue-600 text-white rounded text-xs font-semibold transition-colors"
+                      className="flex items-center gap-1 px-2 py-1 bg-blue-700 hover:bg-gold-600/25 text-gold-300 border border-gold-500/60 rounded text-xs font-semibold transition-colors"
                     >
                       Nueva oferta
                     </button>
@@ -953,7 +970,7 @@ export default function PlayerDetailScreen() {
           <div className="flex flex-1 overflow-hidden">
 
             {/* Left: Stats + Season */}
-            <div className="w-52 shrink-0 border-r border-gray-700/60 overflow-y-auto p-3 flex flex-col gap-3">
+            <div className="w-52 shrink-0 border-r border-gold-600/20 overflow-y-auto p-3 flex flex-col gap-3">
               <div>
                 <p className="text-[0.5rem] font-black uppercase tracking-widest text-gray-600 mb-2">Estadísticas</p>
                 <div className="flex flex-col gap-1.5">
@@ -961,7 +978,7 @@ export default function PlayerDetailScreen() {
                     <StatBar key={stat} label={stat} value={player.stats[stat]} max={250} />
                   ))}
                 </div>
-                <div className="mt-2 pt-2 border-t border-gray-700/50 grid grid-cols-2 gap-x-2 text-xs">
+                <div className="mt-2 pt-2 border-t border-gold-600/15/50 grid grid-cols-2 gap-x-2 text-xs">
                   <span className="text-gray-500">Total</span>
                   <span className="text-gray-300 font-semibold tabular-nums text-right">{total}</span>
                   <span className="text-gray-500">Media</span>
@@ -972,21 +989,21 @@ export default function PlayerDetailScreen() {
               <div>
                 <p className="text-[0.5rem] font-black uppercase tracking-widest text-gray-600 mb-2">Temporada</p>
                 <div className="grid grid-cols-2 gap-1.5">
-                  <div className="bg-gray-800 rounded-lg px-2 py-1.5 text-center">
+                  <div className="bg-dark-800/70 rounded-lg px-2 py-1.5 text-center border border-gold-600/15 text-center">
                     <p className="text-white text-base font-black tabular-nums">{player.seasonStats.goals}</p>
                     <p className="text-gray-600 text-[0.5rem]">Goles</p>
                   </div>
-                  <div className="bg-gray-800 rounded-lg px-2 py-1.5 text-center">
+                  <div className="bg-dark-800/70 rounded-lg px-2 py-1.5 text-center border border-gold-600/15 text-center">
                     <p className="text-white text-base font-black tabular-nums">{player.seasonStats.assists}</p>
                     <p className="text-gray-600 text-[0.5rem]">Asist.</p>
                   </div>
                   {player.position === 'GK' && (
-                    <div className="bg-gray-800 rounded-lg px-2 py-1.5 text-center">
+                    <div className="bg-dark-800/70 rounded-lg px-2 py-1.5 text-center border border-gold-600/15 text-center">
                       <p className="text-white text-base font-black tabular-nums">{player.seasonStats.cleanSheets}</p>
                       <p className="text-gray-600 text-[0.5rem]">P. en cero</p>
                     </div>
                   )}
-                  <div className="bg-gray-800 rounded-lg px-2 py-1.5 text-center">
+                  <div className="bg-dark-800/70 rounded-lg px-2 py-1.5 text-center border border-gold-600/15 text-center">
                     <p className="text-white text-base font-black tabular-nums">{player.seasonStats.matchesPlayed}</p>
                     <p className="text-gray-600 text-[0.5rem]">Partidos</p>
                   </div>
@@ -1009,7 +1026,7 @@ export default function PlayerDetailScreen() {
                     <div className="flex items-center justify-between mb-2">
                       <p className="text-[0.5rem] font-black uppercase tracking-widest text-gray-600">Supertécnicas</p>
                       {hasAnyBooks && (
-                        <span className="text-[0.5rem] text-blue-400 font-medium">{allBooks.length} libro{allBooks.length !== 1 ? 's' : ''}</span>
+                        <span className="text-[0.5rem] text-gold-500 font-medium">{allBooks.length} libro{allBooks.length !== 1 ? 's' : ''}</span>
                       )}
                     </div>
 
@@ -1018,7 +1035,7 @@ export default function PlayerDetailScreen() {
                       {Array.from({ length: MAX_NORMAL_TECHNIQUES }, (_, i) => {
                         const tech = normalTechs[i]
                         return (
-                          <div key={i} className={`flex items-center gap-2 px-2 py-1.5 rounded-lg border ${tech ? 'border-gray-700 bg-gray-800/60' : 'border-dashed border-gray-700/60 bg-transparent'}`}>
+                          <div key={i} className={`flex items-center gap-2 px-2 py-1.5 rounded-lg border ${tech ? 'border-gold-600/20 bg-dark-800/60' : 'border-dashed border-gold-600/20 bg-transparent'}`}>
                             {tech ? (
                               <>
                                 <TechniqueBadge technique={tech} />
@@ -1026,7 +1043,7 @@ export default function PlayerDetailScreen() {
                                 {isInUserTeam && (
                                   <button
                                     onClick={() => setTechModal({ kind: 'normal', slotIndex: i })}
-                                    className="text-gray-500 hover:text-blue-400 transition-colors shrink-0"
+                                    className="text-gray-500 hover:text-gold-500 transition-colors shrink-0"
                                     title="Cambiar técnica"
                                   >
                                     <span className="material-icons leading-none" style={{ fontSize: 13 }}>swap_horiz</span>
@@ -1053,7 +1070,7 @@ export default function PlayerDetailScreen() {
                       {Array.from({ length: MAX_IMPROVEMENT_TECHNIQUES }, (_, i) => {
                         const tech = improveTechs[i]
                         return (
-                          <div key={i} className={`flex items-center gap-2 px-2 py-1.5 rounded-lg border ${tech ? 'border-gray-700 bg-gray-800/60' : 'border-dashed border-gray-700/60 bg-transparent'}`}>
+                          <div key={i} className={`flex items-center gap-2 px-2 py-1.5 rounded-lg border ${tech ? 'border-gold-600/20 bg-dark-800/60' : 'border-dashed border-gold-600/20 bg-transparent'}`}>
                             {tech ? (
                               <>
                                 <TechniqueBadge technique={tech} />
@@ -1061,7 +1078,7 @@ export default function PlayerDetailScreen() {
                                 {isInUserTeam && (
                                   <button
                                     onClick={() => setTechModal({ kind: 'improvement', slotIndex: i })}
-                                    className="text-gray-500 hover:text-blue-400 transition-colors shrink-0"
+                                    className="text-gray-500 hover:text-gold-500 transition-colors shrink-0"
                                     title="Cambiar técnica"
                                   >
                                     <span className="material-icons leading-none" style={{ fontSize: 13 }}>swap_horiz</span>
@@ -1097,15 +1114,15 @@ export default function PlayerDetailScreen() {
             </div>
 
             {/* Right: Career info + Potential */}
-            <div className="w-56 shrink-0 border-l border-gray-700/60 overflow-y-auto p-3 flex flex-col gap-3">
+            <div className="w-56 shrink-0 border-l border-gold-600/20 overflow-y-auto p-3 flex flex-col gap-3">
               <div>
                 <p className="text-[0.5rem] font-black uppercase tracking-widest text-gray-600 mb-2">Carrera</p>
                 <div className="grid grid-cols-2 gap-1.5">
-                  <div className="bg-gray-800 rounded-lg px-2 py-1.5">
+                  <div className="bg-dark-800/70 rounded-lg px-2 py-1.5">
                     <p className="text-gray-500 text-[0.5625rem]">Potencial base</p>
                     <p className="text-purple-400 font-bold text-sm">{player.career.potential}</p>
                   </div>
-                  <div className="bg-gray-800 rounded-lg px-2 py-1.5">
+                  <div className="bg-dark-800/70 rounded-lg px-2 py-1.5">
                     <p className="text-gray-500 text-[0.5625rem]">Valor</p>
                     <p className="text-green-400 font-bold text-xs truncate">{fmt(player.career.marketValue)}</p>
                   </div>
@@ -1127,7 +1144,6 @@ export default function PlayerDetailScreen() {
 
           </div>
         </main>
-      </div>
 
       {/* ── Jersey modal ── */}
       {showJerseyModal && (
@@ -1168,7 +1184,7 @@ export default function PlayerDetailScreen() {
       {/* ── Offer modal (initiate negotiation / counter-offer) ── */}
       {showOfferModal && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
-          <div className="bg-gray-800 rounded-xl p-5 w-full max-w-sm border border-gray-700 space-y-4">
+          <div className="bg-dark-800/80 rounded-xl border border-gold-600/15 p-5 w-full max-w-sm border border-gold-600/20 space-y-4">
             <div>
               <h2 className="text-white text-base font-bold">
                 {activeNegotiation?.counterAmount ? 'Contra-oferta' : ((player.teamId === null || player.teamId === 0) ? 'Contactar agente' : 'Enviar oferta al club')}
@@ -1176,7 +1192,7 @@ export default function PlayerDetailScreen() {
               <p className="text-gray-400 text-xs mt-0.5">{playerDisplayName(player, nameStyle)}</p>
             </div>
 
-            <div className="flex items-center justify-between py-2 border-b border-gray-700">
+            <div className="flex items-center justify-between py-2 border-b border-gold-600/20">
               <span className="text-gray-400 text-xs">Valor de mercado</span>
               <span className="text-white text-sm font-bold tabular-nums">
                 {marketValueForOffer >= 1_000_000
@@ -1191,7 +1207,7 @@ export default function PlayerDetailScreen() {
                 type="number"
                 value={activeNegotiation?.counterAmount ? counterInput : offerInput}
                 onChange={(e) => activeNegotiation?.counterAmount ? setCounterInput(e.target.value) : setOfferInput(e.target.value)}
-                className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-blue-500"
+                className="w-full bg-dark-700/80 border border-gold-600/30 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-gold-500"
                 min={1}
               />
             </div>
@@ -1214,7 +1230,7 @@ export default function PlayerDetailScreen() {
 
             <button
               onClick={() => setShowOfferModal(false)}
-              className="w-full py-2 bg-gray-700 hover:bg-gray-600 text-gray-300 rounded-lg font-semibold text-sm transition-colors"
+              className="w-full py-2 bg-dark-700/80 hover:bg-dark-600/80 text-gray-300 rounded-lg font-semibold text-sm border border-gold-600/20"
             >
               Cancelar
             </button>
@@ -1225,14 +1241,14 @@ export default function PlayerDetailScreen() {
       {/* ── Sell modal ── */}
       {showSellModal && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
-          <div className="bg-gray-800 rounded-xl p-5 w-full max-w-sm border border-gray-700 space-y-4">
+          <div className="bg-dark-800/80 rounded-xl border border-gold-600/15 p-5 w-full max-w-sm border border-gold-600/20 space-y-4">
             <div>
               <h2 className="text-white text-base font-bold">Vender jugador</h2>
               <p className="text-gray-400 text-xs mt-0.5">{playerDisplayName(player, nameStyle)}</p>
             </div>
 
             {/* Market value */}
-            <div className="flex items-center justify-between py-2 border-b border-gray-700">
+            <div className="flex items-center justify-between py-2 border-b border-gold-600/20">
               <span className="text-gray-400 text-xs">Valor de mercado</span>
               <span className="text-white text-sm font-bold tabular-nums">
                 {fmt(calcTransferValue(player))}
@@ -1240,7 +1256,7 @@ export default function PlayerDetailScreen() {
             </div>
 
             {/* Quick sell */}
-            <div className="bg-gray-700/50 rounded-xl p-3 border border-gray-600/50 space-y-2">
+            <div className="bg-dark-700/40 rounded-xl p-3 border border-gold-600/25 space-y-2">
               <div className="flex items-center justify-between">
                 <span className="text-gray-300 text-xs font-semibold">Venta rápida</span>
                 <div className="text-right">
@@ -1287,7 +1303,7 @@ export default function PlayerDetailScreen() {
                   </button>
                   <button
                     onClick={handleRejectOffer}
-                    className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-gray-600 hover:bg-gray-500 text-white rounded-lg font-semibold text-xs transition-colors"
+                    className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-gold-600/20 hover:bg-gold-600/30 text-gold-300 rounded-lg font-semibold text-xs transition-colors border border-gold-600/30"
                   >
                     <span className="material-icons leading-none" style={{ fontSize: '14px' }}>close</span>
                     Rechazar
@@ -1298,7 +1314,7 @@ export default function PlayerDetailScreen() {
 
             <button
               onClick={() => setShowSellModal(false)}
-              className="w-full py-2 bg-gray-700 hover:bg-gray-600 text-gray-300 rounded-lg font-semibold text-sm transition-colors"
+              className="w-full py-2 bg-dark-700/80 hover:bg-dark-600/80 text-gray-300 rounded-lg font-semibold text-sm border border-gold-600/20"
             >
               Cancelar
             </button>
@@ -1309,8 +1325,8 @@ export default function PlayerDetailScreen() {
       {/* ── Technique book selection modal ── */}
       {techModal && player && (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
-          <div className="bg-gray-800 rounded-xl w-full max-w-sm border border-gray-700">
-            <div className="flex items-center justify-between px-4 py-3 border-b border-gray-700">
+          <div className="bg-dark-800/90 rounded-xl w-full max-w-sm border border-gold-600/30">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-gold-600/20">
               <div>
                 <h2 className="text-white text-sm font-bold">
                   {techModal.kind === 'normal' ? 'Técnica de habilidad' : 'Técnica pasiva'}
@@ -1360,7 +1376,7 @@ export default function PlayerDetailScreen() {
                         teachTechnique(player.id, book.id, techModal.slotIndex)
                         setTechModal(null)
                       }}
-                      className="flex items-center gap-3 px-3 py-2.5 rounded-lg border border-gray-700 bg-gray-700/30 hover:bg-gray-700 transition-colors text-left"
+                      className="flex items-center gap-3 px-3 py-2.5 rounded-lg border border-gold-600/20 bg-dark-700/30 hover:bg-dark-700/60 transition-colors text-left"
                     >
                       <TechniqueBadge technique={book.technique} />
                       <div className="flex-1 min-w-0">
@@ -1369,7 +1385,7 @@ export default function PlayerDetailScreen() {
                           {book.technique.type} · POT {book.technique.POT} · PP {book.technique.PP}
                         </p>
                       </div>
-                      <span className="text-blue-400 text-[0.5625rem] font-bold shrink-0">
+                      <span className="text-gold-500 text-[0.5625rem] font-bold shrink-0">
                         {isReplacing ? 'Reemplazar' : 'Enseñar'}
                       </span>
                     </button>
@@ -1380,6 +1396,6 @@ export default function PlayerDetailScreen() {
           </div>
         </div>
       )}
-    </div>
+    </GameLayout>
   )
 }

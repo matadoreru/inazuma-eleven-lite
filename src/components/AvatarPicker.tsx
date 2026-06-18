@@ -35,7 +35,7 @@ export default function AvatarPicker({ value, onChange }: Props) {
           type="button"
           onClick={() => onChange(src)}
           className={`rounded-full overflow-hidden transition-all focus:outline-none
-            ${value === src ? 'ring-4 ring-blue-500 ring-offset-2 ring-offset-gray-900' : 'opacity-70 hover:opacity-100'}`}
+            ${value === src ? 'ring-4 ring-gold-500 ring-offset-2 ring-offset-gray-900' : 'opacity-70 hover:opacity-100'}`}
         >
           <img src={src} alt="Avatar" className="w-14 h-14 object-cover" />
         </button>
@@ -43,15 +43,15 @@ export default function AvatarPicker({ value, onChange }: Props) {
       <button
         type="button"
         onClick={() => fileRef.current?.click()}
-        className={`w-14 h-14 rounded-full border-2 border-dashed flex flex-col items-center justify-center text-gray-400 hover:text-white hover:border-gray-500 transition-colors text-xs gap-0.5
-          ${!PREDEFINED.includes(value) && value ? 'border-blue-500 ring-4 ring-blue-500 ring-offset-2 ring-offset-gray-900' : 'border-gray-600'}`}
+        className={`w-14 h-14 rounded-full border-2 border-dashed flex flex-col items-center justify-center text-gray-400 hover:text-white hover:border-gray-500 transition-colors text-[0.5rem] leading-none gap-0
+          ${!PREDEFINED.includes(value) && value ? 'border-gold-500 ring-4 ring-gold-500 ring-offset-2 ring-offset-gray-900' : 'border-gold-600/30'}`}
       >
         {!PREDEFINED.includes(value) && value ? (
           <img src={value} alt="Avatar personalizado" className="w-full h-full rounded-full object-cover" />
         ) : (
           <>
-            <span className="text-lg leading-none">+</span>
-            <span>Subir</span>
+            <span className="text-sm leading-none">+</span>
+            <span className="scale-90">Subir</span>
           </>
         )}
       </button>

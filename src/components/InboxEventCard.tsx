@@ -49,8 +49,8 @@ const typeColor: Record<InboxEventType, string> = {
 export default function InboxEventCard({ event, onRead }: Props) {
   return (
     <div
-      className={`bg-gray-800 rounded-lg p-3 border transition-colors ${
-        event.read ? 'border-gray-700 opacity-70' : 'border-blue-600'
+      className={`bg-dark-800/70 rounded-lg p-3 border transition-colors ${
+        event.read ? 'border-gold-600/15 opacity-70' : 'border-gold-500'
       }`}
     >
       <div className="flex items-start gap-2">

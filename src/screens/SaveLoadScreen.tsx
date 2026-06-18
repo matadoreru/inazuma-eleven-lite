@@ -1,7 +1,6 @@
+import GameLayout from '../components/GameLayout'
 import { useState, useEffect } from 'react'
 import { useCareerStore } from '../store/careerStore'
-import TopNavigation from '../components/TopNavigation'
-import SideNavigation from '../components/SideNavigation'
 import TeamNameInline from '../components/TeamNameInline'
 import { listSaves, deleteSave } from '../services/saveService'
 import { MAX_SAVE_SLOTS } from '../types/save'
@@ -92,7 +91,7 @@ export default function SaveLoadScreen() {
           return (
             <div
               key={slotIdx}
-              className="bg-gray-800 rounded-xl p-4 border border-gray-700"
+              className="bg-dark-800/80 rounded-xl border border-gold-600/15 p-4 border border-gold-600/20"
             >
               <div className="flex items-start justify-between gap-3">
                 {/* Slot Info */}
@@ -159,7 +158,7 @@ export default function SaveLoadScreen() {
                     value={slotName}
                     onChange={(e) => setSlotName(e.target.value)}
                     placeholder="Nombre del guardado (opcional)"
-                    className="flex-1 bg-gray-700 border border-gray-600 rounded-lg px-3 py-1.5 text-white text-xs placeholder-gray-500 focus:outline-none focus:border-blue-500"
+                    className="flex-1 bg-dark-700/80 border border-gold-600/30 rounded-lg px-3 py-1.5 text-white text-xs placeholder-gray-500 focus:outline-none focus:border-gold-500"
                     autoFocus
                     onKeyDown={(e) => {
                       if (e.key === 'Enter') handleSave(slotIdx)
@@ -174,7 +173,7 @@ export default function SaveLoadScreen() {
                   </button>
                   <button
                     onClick={() => setSavingSlot(null)}
-                    className="text-xs px-3 py-1.5 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors"
+                    className="text-xs px-3 py-1.5 bg-dark-700/80 hover:bg-dark-600/80 text-white rounded-lg transition-colors"
                   >
                     X
                   </button>
@@ -189,19 +188,15 @@ export default function SaveLoadScreen() {
 
   if (!isInGame) {
     return (
-      <div className="h-full flex flex-col bg-gray-900">
+      <GameLayout noNav>
         {content}
-      </div>
+      </GameLayout>
     )
   }
 
   return (
-    <div className="h-full flex flex-col">
-      <TopNavigation title="Guardar / Cargar" />
-      <div className="flex flex-1 overflow-hidden">
-        <SideNavigation currentScreen={screen} onNavigate={navigate} />
-        {content}
-      </div>
-    </div>
+    <GameLayout>
+      {content}
+    </GameLayout>
   )
 }
