@@ -41,7 +41,7 @@ function CupBracket({ cup, teams, userTeamId }: { cup: Cup | null; teams: Team[]
                   className={`flex items-center gap-3 px-4 py-2.5 text-sm ${isUser ? 'bg-blue-900/20' : ''}`}
                 >
                   <span className={`flex-1 truncate ${isUserHome ? 'text-blue-200 font-semibold' : 'text-white'}`}>
-                    {home?.name ?? `Equipo ${match.homeTeamId}`}
+                    {match.homeTeamId === -1 ? '—' : (home?.name ?? `Equipo ${match.homeTeamId}`)}
                   </span>
                   <div className="shrink-0 min-w-[44px] text-center">
                     {match.played ? (
@@ -51,7 +51,7 @@ function CupBracket({ cup, teams, userTeamId }: { cup: Cup | null; teams: Team[]
                     )}
                   </div>
                   <span className={`flex-1 truncate text-right ${isUserAway ? 'text-blue-200 font-semibold' : 'text-white'}`}>
-                    {away?.name ?? `Equipo ${match.awayTeamId}`}
+                    {match.awayTeamId === -1 ? '—' : (away?.name ?? `Equipo ${match.awayTeamId}`)}
                   </span>
                 </div>
               )

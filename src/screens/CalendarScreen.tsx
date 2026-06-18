@@ -271,7 +271,8 @@ export default function CalendarScreen() {
   const year = parseInt(yearStr, 10)
   const month = parseInt(monthStr, 10)
   const leagueMatches = career.season.matches
-  const cupMatches = career.cup?.rounds.flatMap((r) => r.matches) ?? []
+  const cupMatches = (career.cup?.rounds.flatMap((r) => r.matches) ?? [])
+    .filter((m) => m.homeTeamId !== -1 && m.awayTeamId !== -1)
   const allMatches = [...leagueMatches, ...cupMatches]
 
   const upcoming = allMatches
