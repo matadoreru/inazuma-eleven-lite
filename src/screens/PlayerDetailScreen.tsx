@@ -1153,9 +1153,9 @@ export default function PlayerDetailScreen() {
             <div className="flex items-center justify-between py-2 border-b border-gray-700">
               <span className="text-gray-400 text-xs">Valor de mercado</span>
               <span className="text-white text-sm font-bold tabular-nums">
-                {calcTransferValue(player) >= 1_000_000
-                  ? `€${(calcTransferValue(player) / 1_000_000).toFixed(1)}M`
-                  : `€${(calcTransferValue(player) / 1_000).toFixed(0)}K`}
+                {marketValueForOffer >= 1_000_000
+                  ? `€${(marketValueForOffer / 1_000_000).toFixed(1)}M`
+                  : `€${(marketValueForOffer / 1_000).toFixed(0)}K`}
               </span>
             </div>
 

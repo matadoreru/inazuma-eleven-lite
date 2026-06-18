@@ -733,6 +733,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
         cup: data.career.cup ?? null,
         seasonStatus: data.career.seasonStatus ?? 'active',
         lastSeasonReview: data.career.lastSeasonReview ?? null,
+        outgoingNegotiations: data.career.outgoingNegotiations ?? [],
       },
       players,
       teams,
