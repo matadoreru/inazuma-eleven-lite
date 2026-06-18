@@ -2,8 +2,7 @@ import { useState } from 'react'
 import { useCareerStore } from '../store/careerStore'
 import Drawer from './Drawer'
 import Icon from './Icon'
-
-const APP_VERSION = '0.1.0'
+import { APP_VERSION } from '../utils/version'
 
 const LANGUAGES = [
   { code: 'es', label: 'Español', available: true },

@@ -4,6 +4,7 @@ import { listSaves, deleteSave } from '../services/saveService'
 import SaveSlotCard from '../components/SaveSlotCard'
 import type { SaveSlot } from '../types/save'
 import { MAX_SAVE_SLOTS } from '../types/save'
+import { APP_VERSION } from '../utils/version'
 
 type View = 'menu' | 'load'
 
@@ -60,7 +61,7 @@ export default function MainMenuScreen() {
   }
 
   return (
-    <div className="h-full flex flex-col items-center justify-center bg-gray-900 gap-10">
+    <div className="relative h-full flex flex-col items-center justify-center bg-gray-900 gap-10">
       <div className="text-center">
         <div className="mb-4 flex justify-center">
           <span className="material-icons text-blue-500" style={{ fontSize: 64 }}>sports_soccer</span>
@@ -84,6 +85,9 @@ export default function MainMenuScreen() {
           Cargar Partida
         </button>
       </div>
+      <span className="absolute bottom-3 right-3 text-xs text-gray-600 select-none">
+        {APP_VERSION}
+      </span>
     </div>
   )
 }
