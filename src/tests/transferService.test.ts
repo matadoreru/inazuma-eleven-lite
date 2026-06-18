@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { filterPlayers, calcTransferValue, buyPlayer, sanitizeAmount, MAX_TRANSFER_VALUE, evaluateClubOffer, evaluatePlayerDecision, initiateNegotiation, cancelNegotiation, respondToCounter, resolveNegotiations } from '../services/transferService'
+import { filterPlayers, calcTransferValue, calcFreeAgentRecommendedOffer, buyPlayer, sanitizeAmount, MAX_TRANSFER_VALUE, evaluateClubOffer, evaluatePlayerDecision, initiateNegotiation, cancelNegotiation, respondToCounter, resolveNegotiations } from '../services/transferService'
 import type { OutgoingNegotiation } from '../types/career'
 import type { Player } from '../types/player'
 import type { Team, Formation } from '../types/team'
@@ -485,35 +485,49 @@ describe('evaluateClubOffer', () => {
 // ─── evaluatePlayerDecision ──────────────────────────────────────────────────
 
 describe('evaluatePlayerDecision', () => {
+  // Non-free-agent: reputation-only logic unchanged
   it('player with TOT < 65 always accepts regardless of team reputation', () => {
     const player = makePlayer({ stats: { ...makePlayer().stats, TOT: 60 } })
     const poorTeam = makeTeam(1, 100_000)
     poorTeam.reputation = 10
-    expect(evaluatePlayerDecision(player, poorTeam)).toBe('accept')
+    expect(evaluatePlayerDecision(player, poorTeam, 50_000, false)).toBe('accept')
   })
 
-  it('player TOT 65–74: accepts if buyingTeam.reputation >= 30', () => {
+  it('player TOT 65–74: accepts if buyingTeam.reputation >= 30 (non-free-agent)', () => {
     const player = makePlayer({ stats: { ...makePlayer().stats, TOT: 70 } })
     const goodTeam = { ...makeTeam(1, 100_000), reputation: 30 }
     const badTeam = { ...makeTeam(1, 100_000), reputation: 29 }
-    expect(evaluatePlayerDecision(player, goodTeam)).toBe('accept')
-    expect(evaluatePlayerDecision(player, badTeam)).toBe('reject')
+    expect(evaluatePlayerDecision(player, goodTeam, 50_000, false)).toBe('accept')
+    expect(evaluatePlayerDecision(player, badTeam, 50_000, false)).toBe('reject')
   })
 
-  it('player TOT 75–84: accepts if buyingTeam.reputation >= 50', () => {
+  it('player TOT 75–84: accepts if buyingTeam.reputation >= 50 (non-free-agent)', () => {
     const player = makePlayer({ stats: { ...makePlayer().stats, TOT: 80 } })
     const goodTeam = { ...makeTeam(1, 100_000), reputation: 50 }
     const badTeam = { ...makeTeam(1, 100_000), reputation: 49 }
-    expect(evaluatePlayerDecision(player, goodTeam)).toBe('accept')
-    expect(evaluatePlayerDecision(player, badTeam)).toBe('reject')
+    expect(evaluatePlayerDecision(player, goodTeam, 50_000, false)).toBe('accept')
+    expect(evaluatePlayerDecision(player, badTeam, 50_000, false)).toBe('reject')
   })
 
-  it('player TOT >= 85: accepts if buyingTeam.reputation >= 70', () => {
+  it('player TOT >= 85: accepts if buyingTeam.reputation >= 70 (non-free-agent)', () => {
     const player = makePlayer({ stats: { ...makePlayer().stats, TOT: 90 } })
     const goodTeam = { ...makeTeam(1, 100_000), reputation: 70 }
     const badTeam = { ...makeTeam(1, 100_000), reputation: 69 }
-    expect(evaluatePlayerDecision(player, goodTeam)).toBe('accept')
-    expect(evaluatePlayerDecision(player, badTeam)).toBe('reject')
+    expect(evaluatePlayerDecision(player, goodTeam, 50_000, false)).toBe('accept')
+    expect(evaluatePlayerDecision(player, badTeam, 50_000, false)).toBe('reject')
+  })
+
+  it('free agent: accepts almost always when offer >= market value', () => {
+    const player = makePlayer({ stats: { ...makePlayer().stats, TOT: 80 } })
+    const team = { ...makeTeam(1, 1_000_000), reputation: 50 }
+    const marketValue = calcTransferValue(player)
+    // At full market value, should accept the vast majority of the time
+    // We run 100 trials — rejections should be very rare (< 15%)
+    let accepts = 0
+    for (let i = 0; i < 100; i++) {
+      if (evaluatePlayerDecision(player, team, marketValue, true) === 'accept') accepts++
+    }
+    expect(accepts).toBeGreaterThan(75)
   })
 })
 
@@ -645,6 +659,65 @@ describe('respondToCounter', () => {
     }
     const result = respondToCounter('neg-1', 'accept_counter', career)
     expect(result).toBe(career)
+  })
+})
+
+// ─── calcFreeAgentRecommendedOffer ───────────────────────────────────────────
+
+describe('calcFreeAgentRecommendedOffer', () => {
+  it('returns 78% of market value', () => {
+    const player = makePlayer()
+    const marketValue = calcTransferValue(player)
+    expect(calcFreeAgentRecommendedOffer(player)).toBe(Math.round(marketValue * 0.78))
+  })
+
+  it('returns a positive integer', () => {
+    const player = makePlayer()
+    const offer = calcFreeAgentRecommendedOffer(player)
+    expect(offer).toBeGreaterThan(0)
+    expect(Number.isInteger(offer)).toBe(true)
+  })
+})
+
+// ─── evaluatePlayerDecision — free agent ────────────────────────────────────
+
+const makeTeamWith = (overrides: Partial<Team> = {}): Team => ({
+  id: 99, name: 'Test FC', tier: 3, reputation: 50, budget: 5_000_000,
+  leagueId: 'test', captainId: 1, formation: makeFormation(), lineup: [], playerIds: [],
+  ...overrides,
+})
+
+describe('evaluatePlayerDecision — free agent', () => {
+  const freeAgent = makePlayer({ teamId: 0, stats: { POT: 100, CON: 80, TEC: 90, PRE: 70, FIS: 85, AGI: 75, INT: 80, TOT: 83 } })
+  const avgClub = makeTeamWith({ reputation: 50 })
+  const weakClub = makeTeamWith({ reputation: 15 })
+
+  it('accepts >=80% of market value with high probability', () => {
+    // run 100 trials — expect >55 accepts (pAccept ~0.65 for avg club at 0.85 ratio)
+    const value = calcTransferValue(freeAgent)
+    let accepts = 0
+    for (let i = 0; i < 100; i++) {
+      if (evaluatePlayerDecision(freeAgent, avgClub, Math.round(value * 0.85), true) === 'accept') accepts++
+    }
+    expect(accepts).toBeGreaterThan(55)
+  })
+
+  it('almost always accepts offer at or above market value', () => {
+    const value = calcTransferValue(freeAgent)
+    let accepts = 0
+    for (let i = 0; i < 100; i++) {
+      if (evaluatePlayerDecision(freeAgent, avgClub, value, true) === 'accept') accepts++
+    }
+    expect(accepts).toBeGreaterThan(80)
+  })
+
+  it('very weak club still gets decent acceptance at full value', () => {
+    const value = calcTransferValue(freeAgent)
+    let accepts = 0
+    for (let i = 0; i < 100; i++) {
+      if (evaluatePlayerDecision(freeAgent, weakClub, value, true) === 'accept') accepts++
+    }
+    expect(accepts).toBeGreaterThan(70) // repBonus -0.15, pAccept still 0.92-0.15=0.77
   })
 })
 

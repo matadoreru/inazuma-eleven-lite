@@ -4,7 +4,7 @@ import PositionSprite from './PositionSprite'
 import ElementBadge from './ElementBadge'
 import { statColor } from './StatBar'
 import { getPlayerStatsSummary } from '../types/player'
-import { calcTransferValue } from '../services/transferService'
+import { calcTransferValue, calcFreeAgentRecommendedOffer } from '../services/transferService'
 import { useNameStyle } from '../hooks/useNameStyle'
 
 function fmt(n: number): string {
@@ -36,10 +36,11 @@ export default function TransferPlayerRow({ player, teamName, teamBadgeUrl, isFr
   const { media } = getPlayerStatsSummary(player)
   const value = calcTransferValue(player)
   const displayName = playerDisplayName(player, nameStyle)
+  const recommendedOffer = isFreeAgent ? calcFreeAgentRecommendedOffer(player) : null
 
   return (
     <tr
-      className="border-b border-gray-700 hover:bg-gray-700/40 transition-colors cursor-pointer"
+      className="border-b border-gold-600/15 hover:bg-dark-700/40 transition-colors cursor-pointer"
       onClick={onView}
     >
       {/* Avatar */}
@@ -92,9 +93,14 @@ export default function TransferPlayerRow({ player, teamName, teamBadgeUrl, isFr
       {/* Equipo */}
       <td className="py-1.5 px-3 w-32">
         {isFreeAgent ? (
-          <span className="text-[0.625rem] font-bold px-1.5 py-0.5 rounded bg-green-900/40 text-green-400 border border-green-700/50">
-            Libre
-          </span>
+          <div className="flex flex-col">
+            <span className="text-xs font-bold text-green-400 uppercase tracking-wide">Libre</span>
+            {recommendedOffer !== null && (
+              <span className="text-[10px] text-gray-500">
+                Oferta rec.: {recommendedOffer >= 1000 ? `€${(recommendedOffer / 1000).toFixed(0)}K` : `€${recommendedOffer}`}
+              </span>
+            )}
+          </div>
         ) : (
           <div className="flex items-center gap-1.5 min-w-0">
             {teamBadgeUrl && (

@@ -309,6 +309,11 @@ export function evaluateClubOffer(
   return { decision: 'reject' }
 }
 
+export function calcFreeAgentRecommendedOffer(player: Player): number {
+  // Free agents accept at ~0.80 of market value → recommend 0.78 as a safe starting offer
+  return Math.round(calcTransferValue(player) * 0.78)
+}
+
 export function evaluatePlayerDecision(
   player: Player,
   buyingTeam: Team,
@@ -319,22 +324,22 @@ export function evaluatePlayerDecision(
     const marketValue = Math.max(1, calcTransferValue(player))
     const ratio = offerAmount / marketValue
 
-    // Base probabilities by offer ratio
     let pAccept: number
     let pCounter: number
-    if (ratio >= 1.0) {
-      pAccept = 0.90; pCounter = 0.07
-    } else if (ratio >= 0.85) {
-      pAccept = 0.60; pCounter = 0.28
-    } else if (ratio >= 0.70) {
-      pAccept = 0.25; pCounter = 0.40
+    if (ratio >= 0.80) {
+      pAccept = 0.92; pCounter = 0.06
+    } else if (ratio >= 0.65) {
+      pAccept = 0.65; pCounter = 0.25
+    } else if (ratio >= 0.50) {
+      pAccept = 0.25; pCounter = 0.50
     } else {
-      pAccept = 0.05; pCounter = 0.15
+      pAccept = 0.05; pCounter = 0.25
     }
 
-    // Prestigious club bonus / weak club penalty (capped ±10%)
-    const repBonus = Math.max(-0.10, Math.min(0.10, (buyingTeam.reputation - 50) / 100))
-    pAccept = Math.max(0, Math.min(1, pAccept + repBonus))
+    // Wider rep range: ±0.15. Very new clubs get small bonus (opportunity factor).
+    const repBonus = Math.max(-0.15, Math.min(0.15, (buyingTeam.reputation - 50) / 100))
+    const newClubBonus = buyingTeam.reputation < 20 ? 0.05 : 0
+    pAccept = Math.max(0, Math.min(1, pAccept + repBonus + newClubBonus))
 
     const r = Math.random()
     if (r < pAccept) return 'accept'
