@@ -102,6 +102,7 @@ const makeCareer = (teamId: number): Career => ({
   lastSeasonReview: null,
   outgoingNegotiations: [],
   difficulty: DEFAULT_DIFFICULTY,
+  nameStyle: 'western' as const,
   createdAt: '2026-01-01',
   lastSavedAt: '2026-01-01',
 })

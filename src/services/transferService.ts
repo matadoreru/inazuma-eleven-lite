@@ -323,6 +323,7 @@ export function initiateNegotiation(
   career: Career,
   players: Player[],
   teams: Team[],
+  nameStyle: 'western' | 'japanese' = 'western',
 ): Career | null {
   const player = players.find((p) => p.id === playerId)
   if (!player || player.teamId === career.teamId) return null
@@ -341,7 +342,7 @@ export function initiateNegotiation(
   const negotiation: OutgoingNegotiation = {
     id: crypto.randomUUID(),
     playerId,
-    playerName: player.nameRomaji,
+    playerName: nameStyle === 'japanese' ? player.nameRomaji : player.name,
     targetClubId: isFreeAgent ? null : player.teamId,
     targetClubName: isFreeAgent ? 'Agente Libre' : (targetClub?.name ?? 'Desconocido'),
     phase: isFreeAgent ? 'player_pending' : 'club_pending',

@@ -1,9 +1,10 @@
 import { useDroppable, useDraggable } from '@dnd-kit/core'
 import type { Formation, FormationSlot } from '../types/team'
 import type { Player, Position, Element } from '../types/player'
-import { getPlayerStatsSummary } from '../types/player'
+import { getPlayerStatsSummary, playerDisplayName } from '../types/player'
 import { getFormationSlots } from '../data/formations'
 import { statColor } from './StatBar'
+import { useNameStyle } from '../hooks/useNameStyle'
 
 // ─── Element colours ─────────────────────────────────────────────────────────
 
@@ -67,6 +68,7 @@ function PlayerToken({
     data: { playerId: player.id, isStarter: true, slotIndex },
   })
 
+  const nameStyle = useNameStyle()
   const { media } = getPlayerStatsSummary(player)
   const effectiveMedia = player.isInjured ? Math.round(media * 0.70) : media
   const ringColor = player.isInjured ? 'ring-orange-500/80' : isCaptain ? 'ring-yellow-400' : 'ring-white/25'
@@ -89,7 +91,7 @@ function PlayerToken({
         <div className={`w-10 h-10 rounded-full overflow-hidden ring-2 shadow-lg bg-gray-700 ${ringColor} ${player.isInjured ? 'opacity-75' : ''}`}>
           <img
             src={player.spriteUrl}
-            alt={player.nameRomaji}
+            alt={playerDisplayName(player, nameStyle)}
             className="w-full h-full object-cover"
             draggable={false}
             onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
@@ -168,6 +170,7 @@ function FieldSlot({
   onSlotContextMenu?: (playerId: number, x: number, y: number) => void
   onPlayerClick?: (playerId: number) => void
 }) {
+  const nameStyle = useNameStyle()
   const { setNodeRef, isOver } = useDroppable({
     id: `slot-${slotIndex}`,
     data: { slotIndex, position: slot.position },
@@ -216,7 +219,7 @@ function FieldSlot({
           className="text-white text-[0.5rem] font-semibold leading-tight rounded px-1 py-px max-w-[80px] text-center shadow-sm"
           style={{ backgroundColor: labelBg }}
         >
-          {player.nameRomaji}
+          {playerDisplayName(player, nameStyle)}
         </span>
       ) : (
         <span className="h-[14px]" /> /* spacer to keep position label aligned */

@@ -1,8 +1,9 @@
 import type { Player } from '../types/player'
-import { getPlayerStatsSummary } from '../types/player'
+import { getPlayerStatsSummary, playerDisplayName } from '../types/player'
 import PositionSprite from './PositionSprite'
 import ElementBadge from './ElementBadge'
 import { statColor } from './StatBar'
+import { useNameStyle } from '../hooks/useNameStyle'
 
 interface Props {
   player: Player
@@ -10,7 +11,9 @@ interface Props {
 }
 
 export default function PlayerCard({ player, onClick }: Props) {
+  const nameStyle = useNameStyle()
   const { total, media } = getPlayerStatsSummary(player)
+  const displayName = playerDisplayName(player, nameStyle)
   return (
     <div
       onClick={onClick}
@@ -19,7 +22,7 @@ export default function PlayerCard({ player, onClick }: Props) {
     >
       <img
         src={player.spriteUrl}
-        alt={player.nameRomaji}
+        alt={displayName}
         className="w-12 h-12 object-contain rounded"
         onError={(e) => {
           ;(e.currentTarget as HTMLImageElement).src =
@@ -27,7 +30,7 @@ export default function PlayerCard({ player, onClick }: Props) {
         }}
       />
       <span className="text-white text-xs font-medium text-center leading-tight truncate w-full text-center">
-        {player.nameRomaji}
+        {displayName}
       </span>
       <PositionSprite position={player.position} size={25} />
       <ElementBadge element={player.element} size="sm" />

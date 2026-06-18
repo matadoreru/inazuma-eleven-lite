@@ -68,6 +68,7 @@ function makeCareer(settings: DifficultySettings = DEFAULT_DIFFICULTY): Career {
     lastSeasonReview: null,
     outgoingNegotiations: [],
     difficulty: settings,
+    nameStyle: 'western' as const,
     createdAt: '2026-01-01',
     lastSavedAt: '2026-01-01',
   }

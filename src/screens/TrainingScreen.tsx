@@ -4,9 +4,11 @@ import TopNavigation from '../components/TopNavigation'
 import SideNavigation from '../components/SideNavigation'
 import TeamNameInline from '../components/TeamNameInline'
 import type { Player, Position, Stats } from '../types/player'
+import { playerDisplayName } from '../types/player'
 import type { WeeklyTrainingSlot, TrainingType } from '../types/training'
 import { MAX_TRAINING_SLOTS } from '../types/training'
 import { getEnergyState } from '../services/energyService'
+import { useNameStyle } from '../hooks/useNameStyle'
 
 // ─── Stat info ────────────────────────────────────────────────────────────────
 
@@ -78,12 +80,13 @@ const ENERGY_LABEL: Record<ReturnType<typeof getEnergyState>, string> = {
 // ─── Sub-components ──────────────────────────────────────────────────────────
 
 function PlayerFace({ player, size = 'sm' }: { player: Player; size?: 'xs' | 'sm' }) {
+  const nameStyle = useNameStyle()
   const px = size === 'xs' ? 'w-8 h-8' : 'w-10 h-10'
   return (
     <div className={`${px} rounded-full overflow-hidden bg-gray-700 shrink-0 ring-1 ring-white/10`}>
       <img
         src={player.spriteUrl}
-        alt={player.nameRomaji}
+        alt={playerDisplayName(player, nameStyle)}
         className="w-full h-full object-cover"
         onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
       />
@@ -113,6 +116,7 @@ function SlotCard({
   onRemove: () => void
   onChange: (updated: WeeklyTrainingSlot) => void
 }) {
+  const nameStyle = useNameStyle()
   const statInfo = slot.statTarget ? STAT_INFO[slot.statTarget] : null
 
   function handleTypeChange(type: TrainingType) {
@@ -132,7 +136,7 @@ function SlotCard({
       <div className="flex-1 min-w-0 flex flex-col gap-1.5">
         <div className="flex items-center justify-between gap-2">
           <p className="text-white text-sm font-semibold truncate">
-            {player.nameRomaji.split(' ')[0]}
+            {playerDisplayName(player, nameStyle).split(' ')[0]}
           </p>
           <button
             onClick={onRemove}
@@ -194,6 +198,7 @@ function PositionChangePanel({
   onCancel: (playerId: number) => void
   currentDate: string
 }) {
+  const nameStyle = useNameStyle()
   const [newPlayerId, setNewPlayerId] = useState<number | ''>('')
   const [newTarget, setNewTarget] = useState<Position>('DF')
   const [error, setError] = useState('')
@@ -255,7 +260,7 @@ function PositionChangePanel({
                   <PlayerFace player={player} size="xs" />
                   <div className="flex-1 min-w-0">
                     <p className="text-white text-xs font-semibold truncate">
-                      {player.nameRomaji.split(' ')[0]}
+                      {playerDisplayName(player, nameStyle).split(' ')[0]}
                     </p>
                     <p className="text-gray-400 text-xs">
                       {POS_FULL[player.position]} → {POS_FULL[plan.targetPosition]}
@@ -300,7 +305,7 @@ function PositionChangePanel({
             <option value="">Seleccionar jugador...</option>
             {availableForChange.map((p) => (
               <option key={p.id} value={p.id}>
-                {p.nameRomaji.split(' ')[0]} ({POS_LABEL[p.position]})
+                {playerDisplayName(p, nameStyle).split(' ')[0]} ({POS_LABEL[p.position]})
               </option>
             ))}
           </select>
@@ -342,6 +347,7 @@ function PlayerListRow({
   planFull: boolean
   onAdd: (player: Player) => void
 }) {
+  const nameStyle = useNameStyle()
   const disabled = inPlan || planFull || player.isInjured
   const energyState = getEnergyState(player.stamina)
   return (
@@ -353,7 +359,7 @@ function PlayerListRow({
     >
       <PlayerFace player={player} size="xs" />
       <div className="flex-1 min-w-0">
-        <p className="text-white text-xs font-medium truncate">{player.nameRomaji}</p>
+        <p className="text-white text-xs font-medium truncate">{playerDisplayName(player, nameStyle)}</p>
         <div className="flex items-center gap-2 mt-0.5">
           <span className="text-gray-500 text-[0.625rem]">{POS_LABEL[player.position]}</span>
           <StaminaBar value={player.stamina} />

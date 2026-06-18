@@ -286,6 +286,7 @@ const POSITION_STATS: Record<Player['position'], Array<keyof Stats>> = {
 function generateStatBoostReward(
   rarity: RewardRarity,
   starters: Player[],
+  nameStyle: 'western' | 'japanese' = 'western',
 ): MatchReward {
   const player = pickRandom(starters)
   const statChoices = POSITION_STATS[player.position]
@@ -309,7 +310,7 @@ function generateStatBoostReward(
     rarity,
     statBoost: {
       playerId: player.id,
-      playerName: player.nameRomaji,
+      playerName: nameStyle === 'japanese' ? player.nameRomaji : player.name,
       stat,
       amount,
     },
@@ -327,6 +328,7 @@ export function generateMatchRewards(
   starters: Player[],
   rewardChoices: number,
   result?: Pick<MatchResult, 'homeGoals' | 'awayGoals'>,
+  nameStyle: 'western' | 'japanese' = 'western',
 ): MatchReward[] {
   const isCupMatch = match.type === 'cup'
   const baseDifficulty = calcMatchDifficulty(
@@ -346,7 +348,7 @@ export function generateMatchRewards(
   ]
 
   if (starters.length > 0) {
-    candidates.push(generateStatBoostReward(rarity, starters))
+    candidates.push(generateStatBoostReward(rarity, starters, nameStyle))
   }
 
   // Shuffle and take first rewardChoices items

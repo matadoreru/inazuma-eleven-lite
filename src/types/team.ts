@@ -52,6 +52,7 @@ export interface Team {
 
 export interface SnapshotPlayer {
   id: number
+  name: string
   nameRomaji: string
   spriteUrl: string
   position: Position

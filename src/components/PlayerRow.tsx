@@ -1,9 +1,10 @@
 import type { Player } from '../types/player'
-import { getPlayerStatsSummary } from '../types/player'
+import { getPlayerStatsSummary, playerDisplayName } from '../types/player'
 import PositionSprite from './PositionSprite'
 import ElementBadge from './ElementBadge'
 import { statColor } from './StatBar'
 import { getEnergyState } from '../services/energyService'
+import { useNameStyle } from '../hooks/useNameStyle'
 
 export type PlayerStatus = 'TIT' | 'SUP' | 'NC'
 
@@ -28,7 +29,9 @@ const ENERGY_BAR_COLOR: Record<ReturnType<typeof getEnergyState>, string> = {
 }
 
 export default function PlayerRow({ player, status, isSelected, onClick, actions }: Props) {
+  const nameStyle = useNameStyle()
   const { total, media } = getPlayerStatsSummary(player)
+  const displayName = playerDisplayName(player, nameStyle)
   const energyState = getEnergyState(player.stamina)
   return (
     <tr
@@ -43,7 +46,7 @@ export default function PlayerRow({ player, status, isSelected, onClick, actions
       <td className="py-1.5 px-2 w-14">
         <img
           src={player.spriteUrl}
-          alt={player.nameRomaji}
+          alt={displayName}
           className="w-12 h-12 object-contain rounded"
           onError={(e) => {
             ;(e.currentTarget as HTMLImageElement).src =
@@ -52,7 +55,7 @@ export default function PlayerRow({ player, status, isSelected, onClick, actions
         />
       </td>
       <td className="py-1.5 px-3">
-        <span className="text-white text-sm font-medium block leading-tight">{player.nameRomaji}</span>
+        <span className="text-white text-sm font-medium block leading-tight">{displayName}</span>
         <div className="flex items-center gap-1 mt-0.5">
           <PositionSprite position={player.position} size={25} />
           <ElementBadge element={player.element} size="sm" />

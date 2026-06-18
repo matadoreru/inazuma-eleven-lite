@@ -24,7 +24,7 @@ function sortPlayers(players: Player[], key: SortKey): Player[] {
       return b.stats.TOT - a.stats.TOT
     }
     if (key === 'TOT') return b.stats.TOT - a.stats.TOT
-    return a.nameRomaji.localeCompare(b.nameRomaji)
+    return a.name.localeCompare(b.name)
   })
 }
 
@@ -107,7 +107,7 @@ export default function SquadScreen() {
   if (elemFilter !== 'all') filteredPlayers = filteredPlayers.filter((p) => p.element === elemFilter)
   if (nameSearch.trim()) {
     const q = nameSearch.trim().toLowerCase()
-    filteredPlayers = filteredPlayers.filter((p) => p.nameRomaji.toLowerCase().includes(q))
+    filteredPlayers = filteredPlayers.filter((p) => p.name.toLowerCase().includes(q) || p.nameRomaji.toLowerCase().includes(q))
   }
 
   const squadPlayers = sortPlayers(filteredPlayers, sortKey)

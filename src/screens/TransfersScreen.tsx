@@ -31,7 +31,7 @@ function sortPlayers(players: Player[], key: SortKey, dir: SortDir, teamById: Ma
         return ta.localeCompare(tb)
       }
       case 'name': default:
-        return a.nameRomaji.localeCompare(b.nameRomaji)
+        return a.name.localeCompare(b.name)
     }
   })
   return dir === 'desc' ? sorted.reverse() : sorted
@@ -214,7 +214,7 @@ export default function TransfersScreen() {
               <table className="w-full">
                 <thead>
                   <tr className="bg-gray-900/80 text-xs border-b border-gray-700">
-                    <th className="py-2 px-2 w-12" />
+                    <th className="py-2 px-2 w-14" />
                     <SortHeader label="Jugador" col="name" currentKey={sortKey} currentDir={sortDir} onClick={handleSort} />
                     <th className="py-2 px-2 w-20 text-center text-gray-500">Elem.</th>
                     <SortHeader label="Edad" col="edad" currentKey={sortKey} currentDir={sortDir} onClick={handleSort} className="w-10 text-center" />
@@ -225,7 +225,6 @@ export default function TransfersScreen() {
                     <SortHeader label="Media" col="TOT" currentKey={sortKey} currentDir={sortDir} onClick={handleSort} className="w-14 text-right" />
                     <SortHeader label="Equipo" col="equipo" currentKey={sortKey} currentDir={sortDir} onClick={handleSort} className="w-32" />
                     <SortHeader label="Valor" col="valor" currentKey={sortKey} currentDir={sortDir} onClick={handleSort} className="w-20 text-right" />
-                    <th className="py-2 px-3 w-20" />
                   </tr>
                 </thead>
                 <tbody>
@@ -245,7 +244,7 @@ export default function TransfersScreen() {
                   })}
                   {paginated.length === 0 && (
                     <tr>
-                      <td colSpan={12} className="py-10 text-center text-gray-500 text-sm">
+                      <td colSpan={11} className="py-10 text-center text-gray-500 text-sm">
                         No hay jugadores disponibles con los filtros actuales
                       </td>
                     </tr>

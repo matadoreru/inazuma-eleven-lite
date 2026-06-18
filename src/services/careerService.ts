@@ -211,6 +211,7 @@ export function createCareer(
     lastSeasonReview: null,
     outgoingNegotiations: [],
     difficulty: settings,
+    nameStyle: 'western',
     createdAt: now,
     lastSavedAt: now,
   }

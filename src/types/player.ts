@@ -50,6 +50,10 @@ export function getPlayerStatsSummary(player: Player): { total: number; media: n
   return { total, media: Math.round(total / 7) }
 }
 
+export function playerDisplayName(player: { name: string; nameRomaji: string }, nameStyle: 'western' | 'japanese'): string {
+  return nameStyle === 'japanese' ? player.nameRomaji : player.name
+}
+
 export interface PlayerSeasonStats {
   goals: number
   assists: number

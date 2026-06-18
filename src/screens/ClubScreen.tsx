@@ -7,8 +7,9 @@ import ObjectivesPanel from '../components/ObjectivesPanel'
 import Icon from '../components/Icon'
 import { getLeagueName } from '../utils/leagueUtils'
 import { computeSeasonStats, computeGlobalStats } from '../services/statsService'
-import { getPlayerStatsSummary } from '../types/player'
+import { getPlayerStatsSummary, playerDisplayName } from '../types/player'
 import { statColor } from '../components/StatBar'
+import { useNameStyle } from '../hooks/useNameStyle'
 
 type Tab = 'equipo' | 'estadisticas' | 'objetivos'
 
@@ -119,6 +120,7 @@ function SeasonStatsRow({ label, s, isCurrent = false }: {
 }
 
 export default function ClubScreen() {
+  const nameStyle = useNameStyle()
   const career = useCareerStore((s) => s.career)
   const teams = useCareerStore((s) => s.teams)
   const players = useCareerStore((s) => s.players)
@@ -261,7 +263,7 @@ export default function ClubScreen() {
                       {bestPlayer.spriteUrl ? (
                         <img
                           src={bestPlayer.spriteUrl}
-                          alt={bestPlayer.nameRomaji}
+                          alt={playerDisplayName(bestPlayer, nameStyle)}
                           className="w-14 h-14 object-contain rounded-lg bg-gray-700 shrink-0"
                           onError={(e) => { e.currentTarget.style.display = 'none' }}
                         />
@@ -272,7 +274,7 @@ export default function ClubScreen() {
                       )}
                       <div className="flex-1 min-w-0">
                         <p className="text-gray-400 text-sm mb-0.5">{posLabel[bestPlayer.position] ?? bestPlayer.position}</p>
-                        <p className="text-white font-bold text-lg leading-tight">{bestPlayer.nameRomaji}</p>
+                        <p className="text-white font-bold text-lg leading-tight">{playerDisplayName(bestPlayer, nameStyle)}</p>
                       </div>
                       <div className="text-right shrink-0">
                         <p className="text-3xl font-extrabold leading-none" style={{ color: statColor(getPlayerStatsSummary(bestPlayer).media, 250) }}>{getPlayerStatsSummary(bestPlayer).media}</p>

@@ -6,6 +6,8 @@ import PositionSprite from '../components/PositionSprite'
 import type { MatchEvent } from '../types/competition'
 import type { Team } from '../types/team'
 import type { Player, Position } from '../types/player'
+import { playerDisplayName } from '../types/player'
+import { useNameStyle } from '../hooks/useNameStyle'
 
 type Speed = 1 | 2 | 4
 type SubReason = 'halftime' | 'injury' | 'tactical'
@@ -63,6 +65,7 @@ function SubstitutionPanel({
   onSwap: (starterId: number, benchId: number) => void
   onClose: () => void
 }) {
+  const nameStyle = useNameStyle()
   const [selectedStarterId, setSelectedStarterId] = useState<number | null>(injuredPlayerId ?? null)
 
   const starters = userTeam.lineup.filter((s) => s.isStarter && !matchExclusions.has(s.playerId))
@@ -146,12 +149,12 @@ function SubstitutionPanel({
                       <div className="w-8 h-8 rounded-full overflow-hidden bg-gray-700 shrink-0">
                         <img
                           src={player.spriteUrl}
-                          alt={player.nameRomaji}
+                          alt={playerDisplayName(player, nameStyle)}
                           className="w-full h-full object-cover"
                           onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
                         />
                       </div>
-                      <span className="text-white text-sm font-medium flex-1 truncate">{player.nameRomaji}</span>
+                      <span className="text-white text-sm font-medium flex-1 truncate">{playerDisplayName(player, nameStyle)}</span>
                       <PositionSprite position={player.position} size={14} />
                       {isInjuredTrigger && (
                         <span className="material-icons text-orange-400 leading-none shrink-0" style={{ fontSize: '14px' }}>healing</span>
@@ -179,7 +182,7 @@ function SubstitutionPanel({
                   key={player.id}
                   onClick={() => available && handleSwap(player.id)}
                   disabled={!available}
-                  title={isPreInjured ? `${player.nameRomaji} está lesionado (${player.injuryDaysRemaining}d)` : undefined}
+                  title={isPreInjured ? `${playerDisplayName(player, nameStyle)} está lesionado (${player.injuryDaysRemaining}d)` : undefined}
                   className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl mb-1 transition-all
                     ${isPreInjured
                       ? 'bg-orange-950/20 border border-orange-900/30 opacity-50 cursor-not-allowed'
@@ -190,13 +193,13 @@ function SubstitutionPanel({
                   <div className="w-8 h-8 rounded-full overflow-hidden bg-gray-700 shrink-0">
                     <img
                       src={player.spriteUrl}
-                      alt={player.nameRomaji}
+                      alt={playerDisplayName(player, nameStyle)}
                       className="w-full h-full object-cover"
                       onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
                     />
                   </div>
                   <span className={`text-sm font-medium flex-1 truncate ${isPreInjured ? 'text-orange-400/70' : 'text-white'}`}>
-                    {player.nameRomaji}
+                    {playerDisplayName(player, nameStyle)}
                   </span>
                   <PositionSprite position={player.position} size={14} />
                   {isPreInjured && (

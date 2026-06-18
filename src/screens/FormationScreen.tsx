@@ -20,8 +20,9 @@ import Icon from '../components/Icon'
 import { formations, getFormationSlots } from '../data/formations'
 import type { Formation, LineupSlot } from '../types/team'
 import type { Player, Position, Element } from '../types/player'
-import { getPlayerStatsSummary } from '../types/player'
+import { getPlayerStatsSummary, playerDisplayName } from '../types/player'
 import { statColor } from '../components/StatBar'
+import { useNameStyle } from '../hooks/useNameStyle'
 
 // ─── Element accent colours for bench rows ───────────────────────────────────
 
@@ -60,6 +61,7 @@ function initSlots(formation: Formation, lineup: LineupSlot[]): (number | null)[
 // ─── Drag overlay token ───────────────────────────────────────────────────────
 
 function PlayerOverlayToken({ player }: { player: Player }) {
+  const nameStyle = useNameStyle()
   const { media } = getPlayerStatsSummary(player)
   const stripColor = ELEMENT_STRIP[player.element] ?? ELEMENT_STRIP['']
   return (
@@ -68,7 +70,7 @@ function PlayerOverlayToken({ player }: { player: Player }) {
         <div className="w-11 h-11 rounded-full overflow-hidden ring-2 ring-blue-400 bg-gray-700 shadow-xl">
           <img
             src={player.spriteUrl}
-            alt={player.nameRomaji}
+            alt={playerDisplayName(player, nameStyle)}
             className="w-full h-full object-cover"
             draggable={false}
             onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
@@ -84,7 +86,7 @@ function PlayerOverlayToken({ player }: { player: Player }) {
         className="text-white text-[0.5rem] font-semibold rounded px-1 py-0.5 max-w-[72px] text-center leading-tight"
         style={{ backgroundColor: stripColor + 'cc' }}
       >
-        {player.nameRomaji}
+        {playerDisplayName(player, nameStyle)}
       </span>
     </div>
   )
@@ -108,6 +110,7 @@ function BenchPlayerRow({
     data: { playerId: player.id, isStarter: false },
   })
 
+  const nameStyle = useNameStyle()
   const { media } = getPlayerStatsSummary(player)
   const stripColor = ELEMENT_STRIP[player.element] ?? ELEMENT_STRIP['']
 
@@ -131,7 +134,7 @@ function BenchPlayerRow({
       <div className="relative shrink-0">
         <img
           src={player.spriteUrl}
-          alt={player.nameRomaji}
+          alt={playerDisplayName(player, nameStyle)}
           className="w-8 h-8 rounded-full object-cover bg-gray-700"
           draggable={false}
           onError={(e) => {
@@ -153,7 +156,7 @@ function BenchPlayerRow({
 
       {/* Name + position + element */}
       <div className="flex-1 min-w-0">
-        <p className="text-white text-xs font-medium truncate leading-tight">{player.nameRomaji}</p>
+        <p className="text-white text-xs font-medium truncate leading-tight">{playerDisplayName(player, nameStyle)}</p>
         <div className="mt-0.5 flex items-center gap-1.5 flex-wrap">
           <PositionSprite position={player.position} size={16} />
           {player.element && (

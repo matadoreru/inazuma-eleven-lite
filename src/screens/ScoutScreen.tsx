@@ -250,7 +250,7 @@ export default function ScoutScreen() {
                 <table className="w-full">
                   <thead>
                     <tr className="bg-gray-900/80 text-gray-500 text-xs border-b border-gray-700">
-                      <th className="py-2 px-2 w-12" />
+                      <th className="py-2 px-2 w-14" />
                       <th className="py-2 px-3 text-left">Jugador</th>
                       <th className="py-2 px-2 w-20 text-center">Elem.</th>
                       <th className="py-2 px-2 w-10 text-center">Edad</th>
@@ -261,7 +261,6 @@ export default function ScoutScreen() {
                       <th className="py-2 px-3 text-right w-14">Media</th>
                       <th className="py-2 px-3 text-left w-32">Equipo</th>
                       <th className="py-2 px-3 text-right w-20">Valor</th>
-                      <th className="py-2 px-3 w-20" />
                     </tr>
                   </thead>
                   <tbody>

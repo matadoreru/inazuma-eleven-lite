@@ -103,6 +103,7 @@ export default function NewCareerScreen() {
   const [managerName, setManagerName] = useState('')
   const [managerAvatar, setManagerAvatar] = useState('/avatars/avatar-1.svg')
   const [selectedTeamId, setSelectedTeamId] = useState<number | null>(null)
+  const [nameStyle, setNameStyle] = useState<'western' | 'japanese'>('western')
   const [difficultyMode, setDifficultyMode] = useState<DifficultyMode>('normal')
   const [difficulty, setDifficulty] = useState<DifficultySettings>(DEFAULT_DIFFICULTY)
   const [careerMode, setCareerMode] = useState<CareerMode>(null)
@@ -156,7 +157,7 @@ export default function NewCareerScreen() {
     if (!managerName.trim()) return
     if (careerMode === 'existing') {
       if (selectedTeamId === null) return
-      startNewCareer(managerName.trim(), selectedTeamId, managerAvatar, difficulty)
+      startNewCareer(managerName.trim(), selectedTeamId, managerAvatar, difficulty, undefined, nameStyle)
     } else if (customClubPreview) {
       startNewCareer(
         managerName.trim(),
@@ -164,6 +165,7 @@ export default function NewCareerScreen() {
         managerAvatar,
         difficulty,
         { team: customClubPreview.team, squadPlayerIds: customClubPreview.playerIds },
+        nameStyle,
       )
     }
   }
@@ -564,6 +566,26 @@ export default function NewCareerScreen() {
                 </div>
               </div>
             )}
+
+            {/* Name style toggle */}
+            <div className="bg-gray-800 rounded-2xl p-4 border border-gray-700">
+              <p className="text-white text-sm font-semibold mb-1">Nombres de jugadores</p>
+              <p className="text-gray-400 text-xs mb-3">Elige cómo se muestran los nombres en todo el juego.</p>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => setNameStyle('western')}
+                  className={`flex-1 py-2 rounded-xl text-sm font-semibold transition-colors ${nameStyle === 'western' ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'}`}
+                >
+                  Occidentales <span className="text-xs opacity-70">(Mark Evans)</span>
+                </button>
+                <button
+                  onClick={() => setNameStyle('japanese')}
+                  className={`flex-1 py-2 rounded-xl text-sm font-semibold transition-colors ${nameStyle === 'japanese' ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'}`}
+                >
+                  Japoneses <span className="text-xs opacity-70">(Mamoru Endo)</span>
+                </button>
+              </div>
+            </div>
           </div>
         )}
 

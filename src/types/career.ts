@@ -260,6 +260,7 @@ export interface Career {
   lastSeasonReview: SeasonReview | null
   outgoingNegotiations: OutgoingNegotiation[]
   difficulty: DifficultySettings
+  nameStyle: 'western' | 'japanese'
   createdAt: string
   lastSavedAt: string
 }

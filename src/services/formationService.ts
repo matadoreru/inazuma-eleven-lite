@@ -83,7 +83,7 @@ export function buildTeamSnapshot(team: Team, players: Player[]): TeamSnapshot {
     .map((slot) => {
       const p = playerMap.get(slot.playerId)
       if (!p) return null
-      return { id: p.id, nameRomaji: p.nameRomaji, spriteUrl: p.spriteUrl, position: slot.assignedPosition }
+      return { id: p.id, name: p.name, nameRomaji: p.nameRomaji, spriteUrl: p.spriteUrl, position: slot.assignedPosition }
     })
     .filter((p): p is SnapshotPlayer => p !== null)
 

@@ -545,7 +545,7 @@ interface CareerState {
   setUIPanel(panel: 'notifications' | 'settings' | null): void
 
   // Career lifecycle
-  startNewCareer(managerName: string, teamId: number, managerAvatar?: string, difficulty?: DifficultySettings, customTeamInput?: { team: Team; squadPlayerIds: number[] }): void
+  startNewCareer(managerName: string, teamId: number, managerAvatar?: string, difficulty?: DifficultySettings, customTeamInput?: { team: Team; squadPlayerIds: number[] }, nameStyle?: 'western' | 'japanese'): void
   loadCareer(slot: number): void
   saveCareer(slot: number, slotName: string): void
   exitToMainMenu(): void
@@ -666,7 +666,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     set({ selectedMatchId: matchId })
   },
 
-  startNewCareer(managerName, teamId, managerAvatar = '/avatars/avatar-1.svg', difficulty = DEFAULT_DIFFICULTY, customTeamInput?: { team: Team; squadPlayerIds: number[] }) {
+  startNewCareer(managerName, teamId, managerAvatar = '/avatars/avatar-1.svg', difficulty = DEFAULT_DIFFICULTY, customTeamInput?: { team: Team; squadPlayerIds: number[] }, nameStyle: 'western' | 'japanese' = 'western') {
     const playersCopy: Player[] = JSON.parse(JSON.stringify(seedPlayers))
       .map((p: Player) => ({ ...p, seasonStats: p.seasonStats ?? { goals: 0, assists: 0, cleanSheets: 0, matchesPlayed: 0, minutesPlayed: 0 } }))
     const teamsCopy: Team[] = JSON.parse(JSON.stringify(seedTeams))
@@ -695,6 +695,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
 
     const { career, teams: newTeams, players: newPlayers } = createCareer(managerName, resolvedTeamId, teamsCopy, leaguesCopy, playersCopy, difficulty)
     career.managerAvatar = managerAvatar
+    career.nameStyle = nameStyle
 
     set({
       career,
@@ -738,6 +739,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
         seasonStatus: data.career.seasonStatus ?? 'active',
         lastSeasonReview: data.career.lastSeasonReview ?? null,
         outgoingNegotiations: data.career.outgoingNegotiations ?? [],
+        nameStyle: data.career.nameStyle ?? 'western',
       },
       players,
       teams,
@@ -791,6 +793,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
         career: {
           ...data.career,
           difficulty: data.career.difficulty ?? DEFAULT_DIFFICULTY,
+          nameStyle: data.career.nameStyle ?? 'western',
           playerPotential: data.career.playerPotential ?? {},
           weeklyTrainingPlan: data.career.weeklyTrainingPlan ?? null,
           inventory: data.career.inventory ?? { ...EMPTY_INVENTORY },
@@ -840,7 +843,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     const rawAway = buildTeamSnapshot(awayTeamData, players)
     const homeSnapshot = homeIsUser ? rawHome : scaleNpcSnapshot(rawHome, aiMult)
     const awaySnapshot = !homeIsUser ? rawAway : scaleNpcSnapshot(rawAway, aiMult)
-    const result = simulate(homeSnapshot, awaySnapshot, match)
+    const result = simulate(homeSnapshot, awaySnapshot, match, career.nameStyle)
 
     const committed = commitMatchResult(matchId, result, career, teams, players)
 
@@ -850,7 +853,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     const starterIds = new Set(userTeam?.lineup.filter((s) => s.isStarter).map((s) => s.playerId) ?? [])
     const starters = players.filter((p) => starterIds.has(p.id))
     const rewards = isUserMatch && userTeam && rivalTeam
-      ? generateMatchRewards(match, userTeam, rivalTeam, starters, career.difficulty.rewardChoices, result)
+      ? generateMatchRewards(match, userTeam, rivalTeam, starters, career.difficulty.rewardChoices, result, career.nameStyle)
       : null
 
     set({
@@ -883,7 +886,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     const rawAway = buildTeamSnapshot(awayTeamData, players)
     const homeSnapshot = homeIsUser ? rawHome : scaleNpcSnapshot(rawHome, aiMult)
     const awaySnapshot = !homeIsUser ? rawAway : scaleNpcSnapshot(rawAway, aiMult)
-    const result = simulate(homeSnapshot, awaySnapshot, match)
+    const result = simulate(homeSnapshot, awaySnapshot, match, career.nameStyle)
 
     set({ pendingMatch: { matchId, result }, selectedMatchId: matchId })
   },
@@ -913,7 +916,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     const starterIds = new Set(userTeam?.lineup.filter((s) => s.isStarter).map((s) => s.playerId) ?? [])
     const starters = players.filter((p) => starterIds.has(p.id))
     const rewards = match && userTeam && rivalTeam
-      ? generateMatchRewards(match, userTeam, rivalTeam, starters, career.difficulty.rewardChoices, pendingMatch.result)
+      ? generateMatchRewards(match, userTeam, rivalTeam, starters, career.difficulty.rewardChoices, pendingMatch.result, career.nameStyle)
       : null
 
     set({
@@ -1276,7 +1279,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
   initiateTransferNegotiation(playerId, amount) {
     const { career, players, teams } = get()
     if (!career) return
-    const updated = initiateNegotiationService(playerId, amount, career, players, teams)
+    const updated = initiateNegotiationService(playerId, amount, career, players, teams, career.nameStyle)
     if (updated) set({ career: updated })
   },
 
@@ -1656,7 +1659,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     const rawAwaySnap = buildTeamSnapshot(awayTeam, players)
     const homeSnap = homeIsUser ? rawHomeSnap : scaleNpcSnapshot(rawHomeSnap, aiMult)
     const awaySnap = !homeIsUser ? rawAwaySnap : scaleNpcSnapshot(rawAwaySnap, aiMult)
-    const result = simulate(homeSnap, awaySnap, match)
+    const result = simulate(homeSnap, awaySnap, match, career.nameStyle)
 
     const committed = commitMatchResult(matchId, result, career, teams, players, true)
 
@@ -1665,7 +1668,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     const starterIds = new Set(userTeam?.lineup.filter((s) => s.isStarter).map((s) => s.playerId) ?? [])
     const starters = players.filter((p) => starterIds.has(p.id))
     const rewards = userTeam && rivalTeam
-      ? generateMatchRewards(match, userTeam, rivalTeam, starters, career.difficulty.rewardChoices, result)
+      ? generateMatchRewards(match, userTeam, rivalTeam, starters, career.difficulty.rewardChoices, result, career.nameStyle)
       : null
 
     set({
@@ -1697,7 +1700,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     const rawAwaySnap = buildTeamSnapshot(awayTeam, players)
     const homeSnap = homeIsUser ? rawHomeSnap : scaleNpcSnapshot(rawHomeSnap, aiMult)
     const awaySnap = !homeIsUser ? rawAwaySnap : scaleNpcSnapshot(rawAwaySnap, aiMult)
-    const result = simulate(homeSnap, awaySnap, match)
+    const result = simulate(homeSnap, awaySnap, match, career.nameStyle)
     set({ pendingMatch: { matchId, result, isCupMatch: true }, selectedMatchId: matchId })
   },
 

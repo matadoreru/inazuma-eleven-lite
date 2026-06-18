@@ -24,6 +24,7 @@ function mkEvent(
   text: string,
   isHome: boolean,
   player: SnapshotPlayer | null = null,
+  nameStyle: 'western' | 'japanese' = 'western',
 ): MatchEvent {
   return {
     minute,
@@ -31,7 +32,7 @@ function mkEvent(
     teamId,
     text,
     isHome,
-    ...(player ? { playerId: player.id, playerName: player.nameRomaji, playerSpriteUrl: player.spriteUrl } : {}),
+    ...(player ? { playerId: player.id, playerName: nameStyle === 'japanese' ? player.nameRomaji : player.name, playerSpriteUrl: player.spriteUrl } : {}),
   }
 }
 
@@ -81,6 +82,7 @@ function simulateHalf(
   defender: TeamSnapshot,
   isHome: boolean,
   startMinute: number,
+  nameStyle: 'western' | 'japanese' = 'western',
 ): { goals: number; shots: number; shotsOnTarget: number; xg: number; events: MatchEvent[] } {
   const attackerMod = applyTacticalModifiers(attacker)
   const defenderMod = applyTacticalModifiers(defender)
@@ -142,25 +144,28 @@ function simulateHalf(
       if (Math.random() < goalProb) {
         goals++
         const scorer = pickFrom(atkFwMd.length > 0 ? atkFwMd : atkStarters)
+        const scorerName = scorer ? (nameStyle === 'japanese' ? scorer.nameRomaji : scorer.name) : null
         events.push(mkEvent(
           minute, 'GOAL', attacker.id,
-          scorer ? `¡Gol de ${scorer.nameRomaji}!` : `¡Gol de ${attacker.name}!`,
-          isHome, scorer,
+          scorerName ? `¡Gol de ${scorerName}!` : `¡Gol de ${attacker.name}!`,
+          isHome, scorer, nameStyle,
         ))
       } else {
         const gk = pickFrom(defGk.length > 0 ? defGk : defStarters)
+        const gkName = gk ? (nameStyle === 'japanese' ? gk.nameRomaji : gk.name) : null
         events.push(mkEvent(
           minute, 'SAVE', defender.id,
-          gk ? `Parada de ${gk.nameRomaji}` : `Parada de ${defender.name}`,
-          !isHome, gk,
+          gkName ? `Parada de ${gkName}` : `Parada de ${defender.name}`,
+          !isHome, gk, nameStyle,
         ))
       }
     } else {
       const shooter = pickFrom(atkFw.length > 0 ? atkFw : atkFwMd.length > 0 ? atkFwMd : atkStarters)
+      const shooterName = shooter ? (nameStyle === 'japanese' ? shooter.nameRomaji : shooter.name) : null
       events.push(mkEvent(
         minute, 'MISS', attacker.id,
-        shooter ? `Disparo fuera de ${shooter.nameRomaji}` : 'Disparo fuera',
-        isHome, shooter,
+        shooterName ? `Disparo fuera de ${shooterName}` : 'Disparo fuera',
+        isHome, shooter, nameStyle,
       ))
     }
   }
@@ -173,6 +178,7 @@ function generateDisciplinaryEvents(
   yellows: number,
   reds: number,
   isHome: boolean,
+  nameStyle: 'western' | 'japanese' = 'western',
 ): MatchEvent[] {
   const events: MatchEvent[] = []
   const starters = team.starters ?? []
@@ -184,39 +190,42 @@ function generateDisciplinaryEvents(
     const available = pool.filter((p) => !used.has(p.id))
     const player = pickFrom(available.length > 0 ? available : pool)
     if (player) used.add(player.id)
+    const pName = player ? (nameStyle === 'japanese' ? player.nameRomaji : player.name) : null
     events.push(mkEvent(
       Math.floor(rand(5, 89)), 'YELLOW', team.id,
-      player ? `Tarjeta amarilla para ${player.nameRomaji}` : 'Tarjeta amarilla',
-      isHome, player,
+      pName ? `Tarjeta amarilla para ${pName}` : 'Tarjeta amarilla',
+      isHome, player, nameStyle,
     ))
   }
 
   if (reds > 0) {
     const player = pickFrom(pool)
+    const pName = player ? (nameStyle === 'japanese' ? player.nameRomaji : player.name) : null
     events.push(mkEvent(
       Math.floor(rand(30, 88)), 'RED', team.id,
-      player ? `Tarjeta roja para ${player.nameRomaji}` : 'Tarjeta roja',
-      isHome, player,
+      pName ? `Tarjeta roja para ${pName}` : 'Tarjeta roja',
+      isHome, player, nameStyle,
     ))
   }
 
   if (starters.length > 0 && Math.random() < 0.15) {
     const player = pickFrom(starters)
+    const pName = player ? (nameStyle === 'japanese' ? player.nameRomaji : player.name) : null
     events.push(mkEvent(
       Math.floor(rand(10, 85)), 'INJURY', team.id,
-      player ? `${player.nameRomaji} sale lesionado` : 'Lesión',
-      isHome, player,
+      pName ? `${pName} sale lesionado` : 'Lesión',
+      isHome, player, nameStyle,
     ))
   }
 
   return events
 }
 
-export function simulate(homeTeam: TeamSnapshot, awayTeam: TeamSnapshot, match: Match): MatchResult {
-  const h1Home = simulateHalf(homeTeam, awayTeam, true, 1)
-  const h1Away = simulateHalf(awayTeam, homeTeam, false, 1)
-  const h2Home = simulateHalf(homeTeam, awayTeam, true, 46)
-  const h2Away = simulateHalf(awayTeam, homeTeam, false, 46)
+export function simulate(homeTeam: TeamSnapshot, awayTeam: TeamSnapshot, match: Match, nameStyle: 'western' | 'japanese' = 'western'): MatchResult {
+  const h1Home = simulateHalf(homeTeam, awayTeam, true, 1, nameStyle)
+  const h1Away = simulateHalf(awayTeam, homeTeam, false, 1, nameStyle)
+  const h2Home = simulateHalf(homeTeam, awayTeam, true, 46, nameStyle)
+  const h2Away = simulateHalf(awayTeam, homeTeam, false, 46, nameStyle)
 
   const homeGoals = h1Home.goals + h2Home.goals
   const awayGoals = h1Away.goals + h2Away.goals
@@ -253,8 +262,8 @@ export function simulate(homeTeam: TeamSnapshot, awayTeam: TeamSnapshot, match: 
   ]
 
   const disciplinary = [
-    ...generateDisciplinaryEvents(homeTeam, homeYellows, homeReds, true),
-    ...generateDisciplinaryEvents(awayTeam, awayYellows, awayReds, false),
+    ...generateDisciplinaryEvents(homeTeam, homeYellows, homeReds, true, nameStyle),
+    ...generateDisciplinaryEvents(awayTeam, awayYellows, awayReds, false, nameStyle),
   ]
 
   const allEvents: MatchEvent[] = [

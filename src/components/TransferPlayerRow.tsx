@@ -1,9 +1,11 @@
 import type { Player } from '../types/player'
+import { playerDisplayName } from '../types/player'
 import PositionSprite from './PositionSprite'
 import ElementBadge from './ElementBadge'
 import { statColor } from './StatBar'
 import { getPlayerStatsSummary } from '../types/player'
 import { calcTransferValue } from '../services/transferService'
+import { useNameStyle } from '../hooks/useNameStyle'
 
 function fmt(n: number): string {
   if (n >= 1_000_000) return `€${(n / 1_000_000).toFixed(1)}M`
@@ -30,28 +32,33 @@ interface Props {
 }
 
 export default function TransferPlayerRow({ player, teamName, teamBadgeUrl, isFreeAgent, onView }: Props) {
+  const nameStyle = useNameStyle()
   const { media } = getPlayerStatsSummary(player)
   const value = calcTransferValue(player)
+  const displayName = playerDisplayName(player, nameStyle)
 
   return (
-    <tr className="border-b border-gray-700 hover:bg-gray-700/40 transition-colors">
+    <tr
+      className="border-b border-gray-700 hover:bg-gray-700/40 transition-colors cursor-pointer"
+      onClick={onView}
+    >
       {/* Avatar */}
-      <td className="py-1.5 px-2 w-12">
+      <td className="py-1.5 px-2 w-14">
         <img
           src={player.spriteUrl}
-          alt={player.nameRomaji}
-          className="w-10 h-10 object-contain rounded"
+          alt={displayName}
+          className="w-12 h-12 object-contain rounded"
           onError={(e) => {
             ;(e.currentTarget as HTMLImageElement).src =
-              "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Crect width='40' height='40' rx='5' fill='%234b5563'/%3E%3C/svg%3E"
+              "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Crect width='48' height='48' rx='5' fill='%234b5563'/%3E%3C/svg%3E"
           }}
         />
       </td>
 
       {/* Nombre + posición */}
-      <td className="py-1.5 px-3 min-w-0">
+      <td className="py-1.5 px-3 min-w-0 max-w-[120px]">
         <span className="text-white text-sm font-medium block leading-tight truncate">
-          {player.nameRomaji}
+          {displayName}
         </span>
         <div className="flex items-center gap-1 mt-0.5">
           <PositionSprite position={player.position} size={20} />
@@ -106,18 +113,6 @@ export default function TransferPlayerRow({ player, teamName, teamBadgeUrl, isFr
       {/* Valor */}
       <td className="py-1.5 px-3 text-right tabular-nums w-20">
         <span className="text-gray-300 text-xs font-medium">{fmt(value)}</span>
-      </td>
-
-      {/* Ver ficha */}
-      <td className="py-1.5 px-3 w-20 text-center">
-        {onView && (
-          <button
-            onClick={onView}
-            className="text-xs px-2.5 py-1 rounded-lg bg-blue-700 text-white hover:bg-blue-600 transition-colors font-semibold"
-          >
-            Ver ficha
-          </button>
-        )}
       </td>
     </tr>
   )

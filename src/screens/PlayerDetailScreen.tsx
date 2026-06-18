@@ -9,7 +9,8 @@ import PositionSprite from '../components/PositionSprite'
 import Icon from '../components/Icon'
 import { MAX_CALLUP } from '../types/team'
 import type { Player, Stats } from '../types/player'
-import { statTotal, getPlayerStatsSummary } from '../types/player'
+import { statTotal, getPlayerStatsSummary, playerDisplayName } from '../types/player'
+import { useNameStyle } from '../hooks/useNameStyle'
 import type { PotentialAnalysis, AnalysisTier } from '../types/career'
 import {
   getNextAnalysisTier,
@@ -48,11 +49,12 @@ function JerseyModal({
 }: {
   currentNumber: number
   playerName: string
-  players: { id: number; nameRomaji: string; jerseyNumber: number }[]
+  players: { id: number; name: string; nameRomaji: string; jerseyNumber: number }[]
   onClose: () => void
   onChange: (num: number) => 'ok' | 'conflict'
   onSwap: (conflictId: number) => void
 }) {
+  const nameStyle = useNameStyle()
   const [input, setInput] = useState(currentNumber > 0 ? String(currentNumber) : '')
   const [conflictId, setConflictId] = useState<number | null>(null)
   const conflictPlayer = conflictId !== null ? players.find((p) => p.id === conflictId) : null
@@ -97,7 +99,7 @@ function JerseyModal({
               <Icon name="warning" size="sm" className="text-amber-400 shrink-0 mt-0.5" />
               <div>
                 <p className="text-white text-sm font-medium">
-                  El #{input} ya lo tiene {conflictPlayer.nameRomaji}
+                  El #{input} ya lo tiene {playerDisplayName(conflictPlayer, nameStyle)}
                 </p>
                 <p className="text-gray-400 text-xs mt-0.5">Puedes intercambiar los dorsales.</p>
               </div>
@@ -139,10 +141,11 @@ function SwapCallupModal({
   onCancel,
 }: {
   playerInName: string
-  benchPlayers: { id: number; nameRomaji: string; position: string; stats: Stats }[]
+  benchPlayers: { id: number; name: string; nameRomaji: string; position: string; stats: Stats }[]
   onConfirm: (outId: number) => void
   onCancel: () => void
 }) {
+  const nameStyle = useNameStyle()
   const [selected, setSelected] = useState<number | null>(null)
   return (
     <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
@@ -170,7 +173,7 @@ function SwapCallupModal({
               }`}
             >
               <div className="flex-1 min-w-0">
-                <p className="text-white text-sm font-medium leading-tight">{p.nameRomaji}</p>
+                <p className="text-white text-sm font-medium leading-tight">{playerDisplayName(p, nameStyle)}</p>
                 <p className="text-gray-500 text-xs">{p.position} · Media {p.stats.TOT} · Total {statTotal(p.stats)}</p>
               </div>
               {selected === p.id && <Icon name="check_circle" size="sm" className="text-blue-400 shrink-0" />}
@@ -578,6 +581,7 @@ function EquipmentSection({
 // ─── Main screen ─────────────────────────────────────────────────────────────
 
 export default function PlayerDetailScreen() {
+  const nameStyle = useNameStyle()
   const career = useCareerStore((s) => s.career)
   const teams = useCareerStore((s) => s.teams)
   const players = useCareerStore((s) => s.players)
@@ -742,7 +746,7 @@ export default function PlayerDetailScreen() {
             <div className="relative shrink-0">
               <img
                 src={player.spriteUrl}
-                alt={player.nameRomaji}
+                alt={playerDisplayName(player, nameStyle)}
                 className="w-14 h-14 object-contain rounded-lg bg-gray-800"
                 onError={(e) => {
                   ;(e.currentTarget as HTMLImageElement).src =
@@ -757,7 +761,7 @@ export default function PlayerDetailScreen() {
             {/* Identity */}
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-1.5 flex-wrap">
-                <h1 className="text-white text-base font-bold leading-tight">{player.nameRomaji}</h1>
+                <h1 className="text-white text-base font-bold leading-tight">{playerDisplayName(player, nameStyle)}</h1>
                 <span className={`text-[0.625rem] font-bold px-1.5 py-0.5 rounded shrink-0 ${statusStyle}`}>{statusLabel}</span>
                 <ElementBadge element={player.element} size="sm" />
                 {player.jerseyNumber > 0 && (
@@ -770,7 +774,7 @@ export default function PlayerDetailScreen() {
                   <span className="bg-yellow-800 text-yellow-200 text-[0.625rem] px-1.5 py-0.5 rounded font-semibold shrink-0">Sancionado</span>
                 )}
               </div>
-              <p className="text-gray-600 text-[0.625rem] truncate leading-tight">{player.name}</p>
+              <p className="text-gray-600 text-[0.625rem] truncate leading-tight">{nameStyle === 'japanese' ? player.name : player.nameRomaji}</p>
               <span className="text-gray-500 text-xs">Stamina <span className="text-cyan-400">{player.stamina}%</span></span>
             </div>
 
@@ -1129,7 +1133,7 @@ export default function PlayerDetailScreen() {
       {showJerseyModal && (
         <JerseyModal
           currentNumber={player.jerseyNumber}
-          playerName={player.nameRomaji}
+          playerName={playerDisplayName(player, nameStyle)}
           players={players.filter((p) => p.teamId === career.teamId)}
           onClose={() => setShowJerseyModal(false)}
           onChange={(num) => changeJerseyNumber(player.id, num)}
@@ -1140,7 +1144,7 @@ export default function PlayerDetailScreen() {
       {/* ── Swap callup modal ── */}
       {showSwapCallup && (
         <SwapCallupModal
-          playerInName={player.nameRomaji}
+          playerInName={playerDisplayName(player, nameStyle)}
           benchPlayers={benchPlayers}
           onConfirm={handleSwapCallupConfirm}
           onCancel={() => setShowSwapCallup(false)}
@@ -1169,7 +1173,7 @@ export default function PlayerDetailScreen() {
               <h2 className="text-white text-base font-bold">
                 {activeNegotiation?.counterAmount ? 'Contra-oferta' : ((player.teamId === null || player.teamId === 0) ? 'Contactar agente' : 'Enviar oferta al club')}
               </h2>
-              <p className="text-gray-400 text-xs mt-0.5">{player.nameRomaji}</p>
+              <p className="text-gray-400 text-xs mt-0.5">{playerDisplayName(player, nameStyle)}</p>
             </div>
 
             <div className="flex items-center justify-between py-2 border-b border-gray-700">
@@ -1224,7 +1228,7 @@ export default function PlayerDetailScreen() {
           <div className="bg-gray-800 rounded-xl p-5 w-full max-w-sm border border-gray-700 space-y-4">
             <div>
               <h2 className="text-white text-base font-bold">Vender jugador</h2>
-              <p className="text-gray-400 text-xs mt-0.5">{player.nameRomaji}</p>
+              <p className="text-gray-400 text-xs mt-0.5">{playerDisplayName(player, nameStyle)}</p>
             </div>
 
             {/* Market value */}

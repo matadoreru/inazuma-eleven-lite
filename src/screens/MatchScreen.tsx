@@ -3,6 +3,8 @@ import Icon from '../components/Icon'
 import { useCareerStore } from '../store/careerStore'
 import type { MatchEvent, MatchResult } from '../types/competition'
 import type { Player } from '../types/player'
+import { playerDisplayName } from '../types/player'
+import { useNameStyle } from '../hooks/useNameStyle'
 import type { MatchReward, MatchRewardType, RewardRarity } from '../types/reward'
 import { REWARD_RARITY_LABELS } from '../types/reward'
 import { EQUIPMENT_SLOT_ICONS, EQUIPMENT_SLOT_LABELS } from '../types/equipment'
@@ -205,6 +207,7 @@ function EventRow({
 // ─── Reward card ─────────────────────────────────────────────────────────────
 
 function RewardCard({ reward, onClaim, player }: { reward: MatchReward; onClaim: () => void; player?: Player }) {
+  const nameStyle = useNameStyle()
   const border  = RARITY_BORDER[reward.rarity]
   const bg      = RARITY_BG[reward.rarity]
   const hover   = RARITY_HOVER[reward.rarity]
@@ -235,7 +238,7 @@ function RewardCard({ reward, onClaim, player }: { reward: MatchReward; onClaim:
 
   if (reward.type === 'stat_boost' && reward.statBoost) {
     const { playerName, stat, amount } = reward.statBoost
-    const displayName = player?.nameRomaji ?? playerName
+    const displayName = player ? playerDisplayName(player, nameStyle) : playerName
     return (
       <button onClick={onClaim} className={baseClass}>
         <div className={`w-10 h-10 rounded-xl ${iconBg} flex items-center justify-center shrink-0 overflow-hidden`}>
