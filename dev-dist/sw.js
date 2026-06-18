@@ -1,1 +1,98 @@
-if(!self.define){let e,a={};const i=(i,s)=>(i=new URL(i+".js",s).href,a[i]||new Promise(a=>{if("document"in self){const e=document.createElement("script");e.src=i,e.onload=a,document.head.appendChild(e)}else e=i,importScripts(i),a()}).then(()=>{let e=a[i];if(!e)throw new Error(`Module ${i} didn’t register its module`);return e}));self.define=(s,r)=>{const c=e||("document"in self?document.currentScript.src:"")||location.href;if(a[c])return;let d={};const n=e=>i(e,c),f={module:{uri:c},exports:d,require:n};a[c]=Promise.all(s.map(e=>f[e]||n(e))).then(e=>(r(...e),d))}}define(["./workbox-dcde9eb3"],function(e){"use strict";self.skipWaiting(),e.clientsClaim(),e.precacheAndRoute([{url:"registerSW.js",revision:"1872c500de691dce40960bb85481de07"},{url:"index.html",revision:"27cc9337f219486ebbaf4bdfe05f1cd5"},{url:"icon-512.png",revision:"9c205034663de6b4f761c8301515d737"},{url:"icon-192.png",revision:"f934029af9db1a2be548d1c98d3a4c63"},{url:"favicon.ico",revision:"0627fb5a0a0f1c11f160b81f1d8e18f4"},{url:"teams/farm.webp",revision:"fdbfec1d4278806531c0eff152fb53d6"},{url:"teams/default_team_icon.png",revision:"d12699f839d7ddfb9014316e85f75f26"},{url:"teams/brain.webp",revision:"24d5d9551fe085b47221659374505dcd"},{url:"teams/Zeus.png",revision:"d86e75a2cecfd540a341c1c087d4a9e4"},{url:"teams/Wild.webp",revision:"5050c7d88a37ac97c214f73326b4a011"},{url:"teams/Umbrellla MS.webp",revision:"38a5cfc756c49f996fecd9e0f98848ef"},{url:"teams/Street Sally's.webp",revision:"06bee94c3d398c48a51e9ea3e5c9b9fe"},{url:"teams/Shuriken.webp",revision:"8402d7a9f5c0c36886a92f829fe873a2"},{url:"teams/Royal Academy.webp",revision:"d30eb9d9b82128aae3badffea231274e"},{url:"teams/Raimon.webp",revision:"10cc3cc35f90d5b45f854548a31f0fa8"},{url:"teams/Raimon Veterans.webp",revision:"fe8dde50b99dfe31048547cb48311977"},{url:"teams/Otaku.webp",revision:"759c297810a63179138d12d2046c2601"},{url:"teams/Occult.webp",revision:"3aaf054d11fcbf781e2cc138f999f43e"},{url:"teams/Kirkwood.webp",revision:"34bad1bb4bf2d2d2c9e63788d8184923"},{url:"teams/Inazuma Kids FC.webp",revision:"12be8bbaae74eaedda9d3d950b85f0ad"},{url:"positions/PR.webp",revision:"ede1a608e24445e2f7eecc7a6ce6e2f9"},{url:"positions/MD.webp",revision:"62d10e326b78dcdec65a01aff85a5a72"},{url:"positions/DL.webp",revision:"d1b4f69b8825dce49670cb33ccdada4e"},{url:"positions/DF.webp",revision:"0104cd3442aa4ff734dcde844b3dd633"},{url:"elements/wood.webp",revision:"880b3259888debab67609d78db8ca436"},{url:"elements/wind.webp",revision:"54b1ce3cf418e40e1d644ca2b2fb97b2"},{url:"elements/mountain.webp",revision:"097bd587072aca65d3f7c915099cf308"},{url:"elements/fire.webp",revision:"326468bc186622e92538e9dd976b9f98"},{url:"avatars/avatar-5.svg",revision:"ee41cc62636bff3bf242ade0988d2c54"},{url:"avatars/avatar-4.svg",revision:"36427ba3fad365f04afb7e4915116301"},{url:"avatars/avatar-3.svg",revision:"11c8c305ba9ba5cd282b22d746d21ec9"},{url:"avatars/avatar-2.svg",revision:"754c8e73e99de231ca35c4a2b686b108"},{url:"avatars/avatar-1.svg",revision:"2a4f064d7286ffd14e8c522b63558b12"},{url:"assets/index-DhjM5WHQ.css",revision:null},{url:"assets/index-DNM1MXy6.js",revision:null},{url:"favicon.ico",revision:"0627fb5a0a0f1c11f160b81f1d8e18f4"},{url:"icon-192.png",revision:"f934029af9db1a2be548d1c98d3a4c63"},{url:"icon-512.png",revision:"9c205034663de6b4f761c8301515d737"},{url:"manifest.webmanifest",revision:"271beabfc1f0ec916a823d2d33980107"}],{}),e.cleanupOutdatedCaches(),e.registerRoute(new e.NavigationRoute(e.createHandlerBoundToURL("index.html"))),e.registerRoute(/^https:\/\/fonts\.(googleapis|gstatic)\.com\/.*/i,new e.CacheFirst({cacheName:"google-fonts",plugins:[new e.ExpirationPlugin({maxEntries:10,maxAgeSeconds:31536e3})]}),"GET")});
+/**
+ * Copyright 2018 Google Inc. All Rights Reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// If the loader is already loaded, just stop.
+if (!self.define) {
+  let registry = {};
+
+  // Used for `eval` and `importScripts` where we can't get script URL by other means.
+  // In both cases, it's safe to use a global var because those functions are synchronous.
+  let nextDefineUri;
+
+  const singleRequire = (uri, parentUri) => {
+    uri = new URL(uri + ".js", parentUri).href;
+    return registry[uri] || (
+      
+        new Promise(resolve => {
+          if ("document" in self) {
+            const script = document.createElement("script");
+            script.src = uri;
+            script.onload = resolve;
+            document.head.appendChild(script);
+          } else {
+            nextDefineUri = uri;
+            importScripts(uri);
+            resolve();
+          }
+        })
+      
+      .then(() => {
+        let promise = registry[uri];
+        if (!promise) {
+          throw new Error(`Module ${uri} didn’t register its module`);
+        }
+        return promise;
+      })
+    );
+  };
+
+  self.define = (depsNames, factory) => {
+    const uri = nextDefineUri || ("document" in self ? document.currentScript.src : "") || location.href;
+    if (registry[uri]) {
+      // Module is already loading or loaded.
+      return;
+    }
+    let exports = {};
+    const require = depUri => singleRequire(depUri, uri);
+    const specialDeps = {
+      module: { uri },
+      exports,
+      require
+    };
+    registry[uri] = Promise.all(depsNames.map(
+      depName => specialDeps[depName] || require(depName)
+    )).then(deps => {
+      factory(...deps);
+      return exports;
+    });
+  };
+}
+define(['./workbox-25613826'], (function (workbox) { 'use strict';
+
+  self.skipWaiting();
+  workbox.clientsClaim();
+  /**
+   * The precacheAndRoute() method efficiently caches and responds to
+   * requests for URLs in the manifest.
+   * See https://goo.gl/S9QRab
+   */
+  workbox.precacheAndRoute([{
+    "url": "registerSW.js",
+    "revision": "3ca0b8505b4bec776b69afdba2768812"
+  }, {
+    "url": "index.html",
+    "revision": "0.h5k7261l2l8"
+  }], {});
+  workbox.cleanupOutdatedCaches();
+  workbox.registerRoute(new workbox.NavigationRoute(workbox.createHandlerBoundToURL("index.html"), {
+    allowlist: [/^\/$/]
+  }));
+  workbox.registerRoute(/^https:\/\/fonts\.(googleapis|gstatic)\.com\/.*/i, new workbox.CacheFirst({
+    "cacheName": "google-fonts",
+    plugins: [new workbox.ExpirationPlugin({
+      maxEntries: 10,
+      maxAgeSeconds: 31536000
+    })]
+  }), 'GET');
+
+}));
