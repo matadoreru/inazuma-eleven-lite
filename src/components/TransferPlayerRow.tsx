@@ -97,7 +97,7 @@ export default function TransferPlayerRow({ player, teamName, teamBadgeUrl, isFr
             <span className="text-xs font-bold text-green-400 uppercase tracking-wide">Libre</span>
             {recommendedOffer !== null && (
               <span className="text-[10px] text-gray-500">
-                Oferta rec.: {recommendedOffer >= 1000 ? `€${(recommendedOffer / 1000).toFixed(0)}K` : `€${recommendedOffer}`}
+                Oferta rec.: {fmt(recommendedOffer)}
               </span>
             )}
           </div>
