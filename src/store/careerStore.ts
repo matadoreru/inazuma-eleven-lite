@@ -655,6 +655,12 @@ interface CareerState {
 
   // Match rewards
   claimReward(reward: MatchReward): void
+  rewardBeingEquipped: MatchReward | null
+  openRewardEquip(reward: MatchReward): void
+  closeRewardEquip(): void
+  saveRewardToInventory(reward: MatchReward): void
+  equipRewardItem(playerId: number, reward: MatchReward): void
+  teachRewardTechnique(playerId: number, reward: MatchReward, replaceIndex?: number): void
 
   // Equipment
   equipItem(playerId: number, itemId: string): void
@@ -674,6 +680,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
   lastMatchResult: null,
   pendingMatch: null,
   pendingRewards: null,
+  rewardBeingEquipped: null,
   uiPanel: null,
 
   navigate(screen) {
@@ -1589,6 +1596,18 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     const { career, players, teams } = get()
     if (!career) return
 
+    if (reward.type === 'equipment' && reward.equipmentItem) {
+      set({ pendingRewards: null })
+      get().openRewardEquip(reward)
+      return
+    }
+
+    if (reward.type === 'technique_book' && reward.techniqueBook) {
+      set({ pendingRewards: null })
+      get().openRewardEquip(reward)
+      return
+    }
+
     if (reward.type === 'money' && reward.moneyAmount) {
       const updatedTeams = teams.map((t) =>
         t.id === career.teamId ? { ...t, budget: t.budget + reward.moneyAmount! } : t,
@@ -1605,29 +1624,64 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
         return { ...p, stats: newStats }
       })
       set({ players: updatedPlayers, pendingRewards: null })
-    } else if (reward.type === 'technique_book' && reward.techniqueBook) {
+    } else {
+      set({ pendingRewards: null })
+    }
+  },
+
+  openRewardEquip(reward) {
+    set({ rewardBeingEquipped: reward })
+  },
+
+  closeRewardEquip() {
+    set({ rewardBeingEquipped: null })
+  },
+
+  saveRewardToInventory(reward) {
+    const { career } = get()
+    if (!career) return
+    if (reward.type === 'technique_book' && reward.techniqueBook) {
       const book = reward.techniqueBook
       const updatedInventory = {
         ...career.inventory,
-        techniqueBooks: {
-          ...career.inventory.techniqueBooks,
-          [book.id]: (career.inventory.techniqueBooks[book.id] ?? 0) + 1,
-        },
-        generatedBooks: {
-          ...career.inventory.generatedBooks,
-          [book.id]: book,
-        },
+        techniqueBooks: { ...career.inventory.techniqueBooks, [book.id]: (career.inventory.techniqueBooks[book.id] ?? 0) + 1 },
+        generatedBooks: { ...career.inventory.generatedBooks, [book.id]: book },
       }
-      set({ career: { ...career, inventory: updatedInventory }, pendingRewards: null })
+      set({ career: { ...career, inventory: updatedInventory }, rewardBeingEquipped: null })
     } else if (reward.type === 'equipment' && reward.equipmentItem) {
       const updatedInventory = {
         ...career.inventory,
         equipmentItems: [...career.inventory.equipmentItems, reward.equipmentItem],
       }
-      set({ career: { ...career, inventory: updatedInventory }, pendingRewards: null })
+      set({ career: { ...career, inventory: updatedInventory }, rewardBeingEquipped: null })
     } else {
-      set({ pendingRewards: null })
+      set({ rewardBeingEquipped: null })
     }
+  },
+
+  equipRewardItem(playerId, reward) {
+    const { career, players } = get()
+    if (!career || !reward.equipmentItem) return
+    const item = reward.equipmentItem
+    const player = players.find((p) => p.id === playerId)
+    if (!player) return
+    const inventoryWithItem = { ...career.inventory, equipmentItems: [...career.inventory.equipmentItems, item] }
+    const result = equipItemService(player, item, inventoryWithItem)
+    set({ players: players.map((p) => (p.id === playerId ? result.player : p)), career: { ...career, inventory: result.inventory }, rewardBeingEquipped: null })
+  },
+
+  teachRewardTechnique(playerId, reward, replaceIndex) {
+    const { career } = get()
+    if (!career || !reward.techniqueBook) return
+    const book = reward.techniqueBook
+    const inventoryWithBook = {
+      ...career.inventory,
+      techniqueBooks: { ...career.inventory.techniqueBooks, [book.id]: (career.inventory.techniqueBooks[book.id] ?? 0) + 1 },
+      generatedBooks: { ...career.inventory.generatedBooks, [book.id]: book },
+    }
+    set({ career: { ...career, inventory: inventoryWithBook } })
+    get().teachTechnique(playerId, book.id, replaceIndex)
+    set({ rewardBeingEquipped: null })
   },
 
   // --- Equipment ---

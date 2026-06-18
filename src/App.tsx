@@ -17,6 +17,7 @@ import SaveLoadScreen from './screens/SaveLoadScreen'
 import SeasonReviewScreen from './screens/SeasonReviewScreen'
 import NotificationsDrawer from './components/NotificationsDrawer'
 import SettingsDrawer from './components/SettingsDrawer'
+import RewardEquipModal from './components/RewardEquipModal'
 
 export type Screen =
   | 'main_menu'
@@ -55,13 +56,13 @@ export default function App() {
       {screen === 'match_live' && <LiveMatchScreen />}
       {screen === 'standings' && <StandingsScreen />}
       {screen === 'transfers' && <TransfersScreen />}
-      {screen === 'scout' && <ScoutScreen />}
       {screen === 'save_load' && <SaveLoadScreen />}
       {screen === 'season_review' && <SeasonReviewScreen />}
 
       {/* Global overlay drawers — rendered above all screens */}
       <NotificationsDrawer />
       <SettingsDrawer />
+      <RewardEquipModal />
     </div>
   )
 }
