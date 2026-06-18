@@ -1,7 +1,10 @@
+import { useState, useEffect } from 'react'
 import { useCareerStore } from '../store/careerStore'
 import Icon from '../components/Icon'
 import TeamNameInline from '../components/TeamNameInline'
 import type { SeasonReview, UserSeasonOutcome } from '../types/season'
+import { leagues } from '../data/leagues'
+import { playOutcomeSound } from '../services/soundService'
 
 function formatOutcome(outcome: UserSeasonOutcome): { label: string; color: string; icon: string } {
   switch (outcome) {
@@ -77,12 +80,56 @@ export default function SeasonReviewScreen() {
     )
   }
 
+  const [showReveal, setShowReveal] = useState(true)
+  const [fading, setFading] = useState(false)
+
+  const isChampion = review.finalPosition === 1
+  const revealDuration = isChampion || review.userOutcome !== 'stayed' ? 3500 : 2000
+
+  useEffect(() => {
+    playOutcomeSound(isChampion ? 'champion' : review.userOutcome)
+    const fadeTimer = setTimeout(() => setFading(true), revealDuration - 600)
+    const hideTimer = setTimeout(() => setShowReveal(false), revealDuration)
+    return () => { clearTimeout(fadeTimer); clearTimeout(hideTimer) }
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  const currentLeague = leagues.find((l) => l.id === review.leagueId)
+  const promotionTargetName = leagues.find((l) => l.id === currentLeague?.promotionTo)?.name ?? 'División Superior'
+  const relegationTargetName = leagues.find((l) => l.id === currentLeague?.relegationTo)?.name ?? 'División Inferior'
+
+  const overlayConfig = isChampion
+    ? { bg: 'from-yellow-950 to-yellow-900', icon: 'emoji_events', iconColor: 'text-yellow-400', title: '¡CAMPEÓN!', sub: review.leagueName, titleColor: 'text-yellow-300' }
+    : review.userOutcome === 'promoted'
+    ? { bg: 'from-green-950 to-green-900', icon: 'arrow_upward', iconColor: 'text-green-400', title: '¡ASCENSO!', sub: `→ ${promotionTargetName}`, titleColor: 'text-green-300' }
+    : review.userOutcome === 'relegated'
+    ? { bg: 'from-red-950 to-red-900', icon: 'arrow_downward', iconColor: 'text-red-400', title: 'DESCENSO', sub: `→ ${relegationTargetName}`, titleColor: 'text-red-300' }
+    : { bg: 'from-gray-900 to-gray-800', icon: 'remove', iconColor: 'text-gray-400', title: 'PERMANENCIA', sub: review.leagueName, titleColor: 'text-gray-300' }
+
   const { label, color, icon } = formatOutcome(review.userOutcome)
   const promotedTeams = review.promotedTeamIds.map((id) => teams.find((t) => t.id === id)).filter(Boolean)
   const relegatedTeams = review.relegatedTeamIds.map((id) => teams.find((t) => t.id === id)).filter(Boolean)
 
   return (
     <div className="h-full flex flex-col bg-gray-900 overflow-y-auto">
+      {showReveal && (
+        <div
+          className={`fixed inset-0 z-50 bg-gradient-to-b ${overlayConfig.bg} flex flex-col items-center justify-center gap-6 transition-opacity duration-700`}
+          style={{ opacity: fading ? 0 : 1, pointerEvents: fading ? 'none' : 'auto' }}
+        >
+          <div className="w-28 h-28 rounded-full bg-white/10 flex items-center justify-center">
+            <span className={`material-icons ${overlayConfig.iconColor}`} style={{ fontSize: 64 }}>
+              {overlayConfig.icon}
+            </span>
+          </div>
+          <div className="text-center px-8">
+            <p className={`text-5xl font-black tracking-widest ${overlayConfig.titleColor}`}>
+              {overlayConfig.title}
+            </p>
+            <p className="text-gray-300 text-lg mt-2">{overlayConfig.sub}</p>
+          </div>
+          <p className="text-gray-500 text-sm">Temporada {review.seasonNumber}</p>
+        </div>
+      )}
       {/* Header */}
       <div className="bg-gray-800 border-b border-gray-700 px-6 py-5">
         <p className="text-gray-400 text-sm">Temporada {review.seasonNumber} · {review.year}</p>
