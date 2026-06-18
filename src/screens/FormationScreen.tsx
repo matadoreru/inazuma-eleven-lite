@@ -375,7 +375,7 @@ function FieldPlayerToken({
       </div>
 
       <div className="flex items-center gap-1 rounded-full border border-gold-600/25 bg-dark-950/80 px-1.5 py-0.5">
-        <PositionSprite position={player.position} size={50} />
+        <PositionSprite position={player.position} size={20} />
         <span className="text-[0.65rem] font-black text-gold-300">{slotPosition}</span>
       </div>
     </button>
