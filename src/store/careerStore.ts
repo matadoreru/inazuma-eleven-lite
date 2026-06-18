@@ -60,6 +60,7 @@ import type { EquipmentSlot } from '../types/equipment'
 import { drainStaminaAfterMatch, recoverStaminaForDays, daysBetween } from '../services/energyService'
 import {
   initCup,
+  deconflictCupSchedule,
   simulateCupMatch,
   advanceCupRound,
   getNextUserCupMatch,
@@ -1780,8 +1781,12 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
       }
     }
 
-    // New cup
-    const newCup = initCup(teams, newYear, newSeason.startDate)
+    // New cup — deconflict dates against all league schedules
+    const newAllLeagueMatches = [
+      ...newSeason.matches,
+      ...Object.values(newAllLeagueSeasons).flatMap((ls) => ls.matches),
+    ]
+    const newCup = deconflictCupSchedule(initCup(teams, newYear, newSeason.startDate), newAllLeagueMatches)
 
     // New objectives
     const newObjectives = league && userTeam ? getObjectivesForTeam(userTeam, league) : career.objectives

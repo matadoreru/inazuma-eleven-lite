@@ -99,30 +99,22 @@ function NextMatchSection({
   const awayTeam = teams.find((t) => t.id === match.awayTeamId)
   if (!homeTeam || !awayTeam) return null
 
+  const competitionLabel = isCupMatch
+    ? `Copa · ${match.cupRound ?? 'Copa'}`
+    : `${leagues.find((l) => l.id === match.leagueId)?.name ?? 'Liga'} · J${match.round}`
+
   return (
-    <div className="relative">
-      <div className="absolute -top-2 left-3 z-10">
-        {isCupMatch ? (
-          <span className="bg-yellow-500 text-black text-[0.6rem] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide">
-            Copa · {match.cupRound}
-          </span>
-        ) : (
-          <span className="bg-blue-600 text-white text-[0.6rem] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide">
-            {leagues.find((l) => l.id === match.leagueId)?.name ?? 'Liga'} · J{match.round}
-          </span>
-        )}
-      </div>
-      <MatchPreviewPanel
-        match={match}
-        homeTeam={homeTeam}
-        awayTeam={awayTeam}
-        currentDate={currentDate}
-        userTeamId={userTeamId}
-        isSimulating={isSimulating}
-        onQuickSim={onQuickSim}
-        onLiveSim={onLiveSim}
-      />
-    </div>
+    <MatchPreviewPanel
+      match={match}
+      homeTeam={homeTeam}
+      awayTeam={awayTeam}
+      currentDate={currentDate}
+      userTeamId={userTeamId}
+      isSimulating={isSimulating}
+      competitionLabel={competitionLabel}
+      onQuickSim={onQuickSim}
+      onLiveSim={onLiveSim}
+    />
   )
 }
 

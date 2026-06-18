@@ -5,8 +5,18 @@ import SideNavigation from '../components/SideNavigation'
 import TeamNameInline from '../components/TeamNameInline'
 import { sortStandings } from '../services/standingsService'
 import { leagues } from '../data/leagues'
+import type { League } from '../types/competition'
 import type { Cup } from '../types/season'
 import type { Team } from '../types/team'
+
+type PositionZone = 'promotion' | 'relegation' | null
+
+function getPositionZone(pos: number, league: League | undefined): PositionZone {
+  if (!league) return null
+  if (league.promotionSlots > 0 && pos <= league.promotionSlots) return 'promotion'
+  if (league.relegationSlots > 0 && pos > league.teamsCount - league.relegationSlots) return 'relegation'
+  return null
+}
 
 function CupBracket({ cup, teams, userTeamId }: { cup: Cup | null; teams: Team[]; userTeamId: number }) {
   if (!cup) {
@@ -38,11 +48,18 @@ function CupBracket({ cup, teams, userTeamId }: { cup: Cup | null; teams: Team[]
               return (
                 <div
                   key={match.id}
-                  className={`flex items-center gap-3 px-4 py-2.5 text-sm ${isUser ? 'bg-blue-900/20' : ''}`}
+                  className={`flex items-center gap-2 px-4 py-2.5 text-sm ${isUser ? 'bg-blue-900/20' : ''}`}
                 >
-                  <span className={`flex-1 truncate ${isUserHome ? 'text-blue-200 font-semibold' : 'text-white'}`}>
-                    {match.homeTeamId === -1 ? '—' : (home?.name ?? `Equipo ${match.homeTeamId}`)}
-                  </span>
+                  <div className="flex-1 min-w-0">
+                    {match.homeTeamId === -1
+                      ? <span className="text-gray-500">—</span>
+                      : <TeamNameInline
+                          teamName={home?.name ?? `Equipo ${match.homeTeamId}`}
+                          badgeUrl={home?.badgeUrl}
+                          textClassName={isUserHome ? 'text-blue-200 font-semibold' : 'text-white'}
+                        />
+                    }
+                  </div>
                   <div className="shrink-0 min-w-[44px] text-center">
                     {match.played ? (
                       <span className="text-white font-black tabular-nums">{match.homeGoals}–{match.awayGoals}</span>
@@ -50,9 +67,17 @@ function CupBracket({ cup, teams, userTeamId }: { cup: Cup | null; teams: Team[]
                       <span className="text-gray-600 text-xs font-bold">VS</span>
                     )}
                   </div>
-                  <span className={`flex-1 truncate text-right ${isUserAway ? 'text-blue-200 font-semibold' : 'text-white'}`}>
-                    {match.awayTeamId === -1 ? '—' : (away?.name ?? `Equipo ${match.awayTeamId}`)}
-                  </span>
+                  <div className="flex-1 min-w-0">
+                    {match.awayTeamId === -1
+                      ? <span className="text-gray-500 block text-right">—</span>
+                      : <TeamNameInline
+                          teamName={away?.name ?? `Equipo ${match.awayTeamId}`}
+                          badgeUrl={away?.badgeUrl}
+                          align="right"
+                          textClassName={isUserAway ? 'text-blue-200 font-semibold' : 'text-white'}
+                        />
+                    }
+                  </div>
                 </div>
               )
             })}
@@ -85,6 +110,7 @@ export default function StandingsScreen() {
     ? career.season.standings
     : career.allLeagueSeasons[activeTab]?.standings ?? []
   const sorted = sortStandings(activeStandings)
+  const activeLeague = leagues.find((l) => l.id === activeTab)
 
   return (
     <div className="h-full flex flex-col">
@@ -151,15 +177,42 @@ export default function StandingsScreen() {
                       <span className="w-10 text-center font-bold text-white">Pts</span>
                     </div>
 
+                    {/* Zone legend */}
+                    {(activeLeague?.promotionSlots ?? 0) > 0 && (
+                      <div className="flex items-center gap-4 px-3 py-2 border-t border-gray-700 bg-gray-900/60 text-xs text-gray-400">
+                        <span className="flex items-center gap-1.5">
+                          <span className="w-2.5 h-2.5 rounded-sm bg-green-500/70 shrink-0" />
+                          Ascenso
+                        </span>
+                        {(activeLeague?.relegationSlots ?? 0) > 0 && (
+                          <span className="flex items-center gap-1.5">
+                            <span className="w-2.5 h-2.5 rounded-sm bg-red-500/70 shrink-0" />
+                            Descenso
+                          </span>
+                        )}
+                      </div>
+                    )}
+                    {(activeLeague?.promotionSlots ?? 0) === 0 && (activeLeague?.relegationSlots ?? 0) > 0 && (
+                      <div className="flex items-center gap-4 px-3 py-2 border-t border-gray-700 bg-gray-900/60 text-xs text-gray-400">
+                        <span className="flex items-center gap-1.5">
+                          <span className="w-2.5 h-2.5 rounded-sm bg-red-500/70 shrink-0" />
+                          Descenso
+                        </span>
+                      </div>
+                    )}
+
                     {/* Rows */}
                     {sorted.map((row, idx) => {
                       const isUserTeam = row.teamId === career.teamId
                       const team = teams.find((t) => t.id === row.teamId)
+                      const zone = getPositionZone(idx + 1, activeLeague)
+                      const zoneBorder = zone === 'promotion' ? 'border-l-green-500' : zone === 'relegation' ? 'border-l-red-500' : ''
+                      const zoneBg = zone === 'promotion' ? 'bg-green-900/10' : zone === 'relegation' ? 'bg-red-900/10' : ''
                       return (
                         <div
                           key={row.teamId}
-                          className={`grid grid-cols-[auto_1fr_repeat(8,auto)] gap-0 px-3 py-2.5 border-t border-gray-700 text-sm items-center
-                            ${isUserTeam ? 'bg-blue-900/40 border-l-2 border-l-blue-500' : 'hover:bg-gray-700/50 transition-colors'}`}
+                          className={`grid grid-cols-[auto_1fr_repeat(8,auto)] gap-0 px-3 py-2.5 border-t border-gray-700 text-sm items-center border-l-2
+                            ${isUserTeam ? 'bg-blue-900/40 border-l-blue-500' : `${zoneBg} ${zoneBorder || 'border-l-transparent'} hover:bg-gray-700/50 transition-colors`}`}
                         >
                           <span className={`w-8 text-center font-bold ${isUserTeam ? 'text-blue-300' : 'text-gray-400'}`}>
                             {idx + 1}

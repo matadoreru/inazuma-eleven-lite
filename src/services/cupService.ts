@@ -72,28 +72,25 @@ export function initCup(teams: Team[], year: number, seasonStartDate: string): C
     makeCupMatch(previaTeams[0]?.id ?? -1, previaTeams[1]?.id ?? -1, previaDate, 'Previa', 0),
   ]
 
-  // Octavos: 16 teams → 8 matches
-  // Bracket: [previa_winner, ...restSecondDiv(6), ...firstDiv(9)] seeded weakest vs strongest
-  // -1 is placeholder for previa winner
+  // Octavos: 16 teams → 8 matches, spread 1 per day
   const octavosSeeding: number[] = [
-    -1,                              // slot 0: previa winner TBD
-    ...restSecondDiv.map((t) => t.id),  // slots 1–6
-    ...firstDivTeams.map((t) => t.id),  // slots 7–15
+    -1,
+    ...restSecondDiv.map((t) => t.id),
+    ...firstDivTeams.map((t) => t.id),
   ]
-  // Pair: weakest vs strongest → [0] vs [15], [1] vs [14], …
   const octavosMatches: Match[] = []
   for (let i = 0; i < 8; i++) {
     octavosMatches.push(
-      makeCupMatch(octavosSeeding[i], octavosSeeding[15 - i], octavosDate, 'Octavos de Final', i),
+      makeCupMatch(octavosSeeding[i], octavosSeeding[15 - i], addDaysStr(octavosDate, i), 'Octavos de Final', i),
     )
   }
 
-  // Placeholder rounds (winners filled after previous rounds finish)
+  // Placeholder rounds (winners filled after previous rounds finish), spread 1 per day
   const cuartosMatches = Array.from({ length: 4 }, (_, i) =>
-    makeCupMatch(-1, -1, cuartosDate, 'Cuartos de Final', i),
+    makeCupMatch(-1, -1, addDaysStr(cuartosDate, i), 'Cuartos de Final', i),
   )
   const semiMatches = Array.from({ length: 2 }, (_, i) =>
-    makeCupMatch(-1, -1, semiDate, 'Semifinal', i),
+    makeCupMatch(-1, -1, addDaysStr(semiDate, i), 'Semifinal', i),
   )
   const finalMatches = [makeCupMatch(-1, -1, finalDate, 'Final', 0)]
 
@@ -177,6 +174,47 @@ export function advanceCupRound(cup: Cup): Cup {
   }
 
   return { ...cup, rounds: updatedRounds, currentRoundIndex: nextIdx }
+}
+
+// Shift cup match dates so no team plays in 2 competitions on the same day.
+// Pass all league matches (user's league + external leagues) as allLeagueMatches.
+// Placeholder matches with teamId === -1 are skipped (teams not yet known).
+export function deconflictCupSchedule(cup: Cup, allLeagueMatches: Match[]): Cup {
+  const busyDates = new Map<number, Set<string>>()
+
+  function markBusy(teamId: number, date: string) {
+    if (teamId === -1) return
+    const set = busyDates.get(teamId) ?? new Set()
+    set.add(date)
+    busyDates.set(teamId, set)
+  }
+
+  function isBusy(teamId: number, date: string): boolean {
+    if (teamId === -1) return false
+    return busyDates.get(teamId)?.has(date) ?? false
+  }
+
+  for (const m of allLeagueMatches) {
+    markBusy(m.homeTeamId, m.date)
+    markBusy(m.awayTeamId, m.date)
+  }
+
+  const updatedRounds = cup.rounds.map((round) => {
+    const updatedMatches = round.matches.map((match) => {
+      if (match.homeTeamId === -1 || match.awayTeamId === -1) return match
+      let date = match.date
+      for (let i = 0; i < 20; i++) {
+        if (!isBusy(match.homeTeamId, date) && !isBusy(match.awayTeamId, date)) break
+        date = addDaysStr(date, 1)
+      }
+      markBusy(match.homeTeamId, date)
+      markBusy(match.awayTeamId, date)
+      return date !== match.date ? { ...match, date } : match
+    })
+    return { ...round, matches: updatedMatches }
+  })
+
+  return { ...cup, rounds: updatedRounds }
 }
 
 // Get the user's next unplayed cup match (on or before currentDate)

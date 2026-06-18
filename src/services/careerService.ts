@@ -14,7 +14,7 @@ import type { Team } from '../types/team'
 import type { League } from '../types/competition'
 import type { Player } from '../types/player'
 import { initSeason, initLeagueSeason } from './seasonService'
-import { initCup } from './cupService'
+import { initCup, deconflictCupSchedule } from './cupService'
 import { addEvent } from './inboxService'
 import { generatePotentialAnalysis } from './potentialService'
 import { autoAssignJerseys } from './jerseyService'
@@ -66,11 +66,23 @@ function buildObjectives(team: Team, league: League): Objective[] {
       true,
       'SEASON', 'HARD', 'main_goal',
     ))
-  } else {
+  } else if (league.relegationSlots > 0) {
     objectives.push(obj(
       'AVOID_RELEGATION',
       'Evitar el descenso esta temporada',
       1,
+      { money: 100_000, reputation: 5 },
+      { reputation: 10 },
+      true,
+      'SEASON', 'EASY', 'main_goal',
+    ))
+  } else {
+    // League has no relegation — objective is to avoid the bottom positions
+    const safeZone = Math.max(1, league.teamsCount - 2)
+    objectives.push(obj(
+      'TOP_N',
+      `Terminar entre los ${safeZone} primeros`,
+      safeZone,
       { money: 100_000, reputation: 5 },
       { reputation: 10 },
       true,
@@ -174,8 +186,12 @@ export function createCareer(
     }
   }
 
-  // Initialize cup
-  const cup = initCup(scaledTeams, CURRENT_YEAR, season.startDate)
+  // Initialize cup and deconflict dates with all league schedules
+  const allLeagueMatches = [
+    ...season.matches,
+    ...Object.values(allLeagueSeasons).flatMap((ls) => ls.matches),
+  ]
+  const cup = deconflictCupSchedule(initCup(scaledTeams, CURRENT_YEAR, season.startDate), allLeagueMatches)
 
   // Generate potential profiles for all players on the user's squad
   const playerPotential: Record<number, PotentialAnalysis> = {}

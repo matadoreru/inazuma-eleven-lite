@@ -131,19 +131,12 @@ function DayDetailPanel({
       <div className="shrink-0 px-4 py-4 border-b border-gray-700/50">
         <h2 className="text-white font-black text-xl leading-tight">{fmtLong(selectedDate)}</h2>
         {userMatch ? (
-          <div className="flex items-center gap-1.5 mt-0.5 flex-wrap">
-            <span className={`text-[0.6rem] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide
-              ${userMatch.type === 'cup'
-                ? 'bg-yellow-500/20 text-yellow-400'
-                : 'bg-blue-500/20 text-blue-400'}`}
-            >
-              {userMatch.type === 'cup' ? 'Copa' : 'Liga'}
-            </span>
-            <p className="text-gray-400 text-xs font-medium">
-              {matchLabel(userMatch)}
-              {userMatch.type !== 'cup' && ` · J${userMatch.round}`}
-            </p>
-          </div>
+          <p className={`text-xs font-semibold mt-0.5
+            ${userMatch.type === 'cup' ? 'text-yellow-400' : 'text-blue-400'}`}>
+            {userMatch.type === 'cup'
+              ? `Copa · ${matchLabel(userMatch)}`
+              : `${matchLabel(userMatch)} · J${userMatch.round}`}
+          </p>
         ) : (
           <p className="text-gray-600 text-xs mt-0.5">Día libre</p>
         )}

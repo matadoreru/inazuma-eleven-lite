@@ -13,7 +13,13 @@ function addDays(dateStr: string, days: number): string {
   return d.toISOString().split('T')[0]
 }
 
+// Day-of-week offset per round so matches spread across different weekdays.
+// Each round starts at matchDate + offset[round % len], then each match gets +1 day.
+// Values 0-2 ensure all matches (max 5 per round) stay within the 7-day window.
+const ROUND_DAY_OFFSETS = [0, 1, 2, 0, 2, 1, 0, 1]
+
 // Round-robin schedule generator (each team plays every other team twice)
+// Matches are staggered: max 1 per day, varying start day per round.
 function generateRoundRobinMatches(
   teamIds: number[],
   leagueId: string,
@@ -21,22 +27,20 @@ function generateRoundRobinMatches(
 ): Match[] {
   const n = teamIds.length
   const ids = [...teamIds]
-  // If odd number, add a dummy team
   if (n % 2 !== 0) ids.push(-1)
 
   const totalTeams = ids.length
-  const rounds = (totalTeams - 1) * 2
   const matchesPerRound = totalTeams / 2
   const matches: Match[] = []
-  let matchDate = startDate
-  let matchIndex = 0
+  let roundBaseDate = startDate
 
-  // First half: standard round-robin
+  // First half
   for (let round = 0; round < totalTeams - 1; round++) {
+    const dayOffset = ROUND_DAY_OFFSETS[round % ROUND_DAY_OFFSETS.length]
+    let matchInRound = 0
     for (let i = 0; i < matchesPerRound; i++) {
       const home = ids[i === 0 ? 0 : ((round + i - 1) % (totalTeams - 1)) + 1]
       const away = ids[i === 0 ? (round % (totalTeams - 1)) + 1 : ((round - i + totalTeams - 1) % (totalTeams - 1)) + 1]
-
       if (home !== -1 && away !== -1) {
         matches.push({
           id: crypto.randomUUID(),
@@ -44,41 +48,48 @@ function generateRoundRobinMatches(
           round: round + 1,
           homeTeamId: home,
           awayTeamId: away,
-          date: matchDate,
+          date: addDays(roundBaseDate, dayOffset + matchInRound),
           played: false,
           homeGoals: 0,
           awayGoals: 0,
           result: null,
         })
+        matchInRound++
       }
-      matchIndex++
     }
-    matchDate = addDays(matchDate, 7)
+    roundBaseDate = addDays(roundBaseDate, 7)
   }
 
-  // Second half: reversed home/away
+  // Second half: reversed home/away, grouped by original round
   const firstHalfMatches = matches.slice()
-  for (let r = 0; r < firstHalfMatches.length; r++) {
-    const orig = firstHalfMatches[r]
-    matches.push({
-      id: crypto.randomUUID(),
-      leagueId,
-      round: orig.round + (totalTeams - 1),
-      homeTeamId: orig.awayTeamId,
-      awayTeamId: orig.homeTeamId,
-      date: matchDate,
-      played: false,
-      homeGoals: 0,
-      awayGoals: 0,
-      result: null,
-    })
-    if ((r + 1) % matchesPerRound === 0) {
-      matchDate = addDays(matchDate, 7)
-    }
+  const byRound = new Map<number, Match[]>()
+  for (const m of firstHalfMatches) {
+    const arr = byRound.get(m.round) ?? []
+    arr.push(m)
+    byRound.set(m.round, arr)
   }
+  const firstHalfRounds = Array.from(byRound.keys()).sort((a, b) => a - b)
 
-  // Recalculate end date from last match
-  void rounds
+  for (let ri = 0; ri < firstHalfRounds.length; ri++) {
+    const roundMatches = byRound.get(firstHalfRounds[ri])!
+    const absoluteRound = (totalTeams - 1) + ri
+    const dayOffset = ROUND_DAY_OFFSETS[absoluteRound % ROUND_DAY_OFFSETS.length]
+    roundMatches.forEach((orig, matchInRound) => {
+      matches.push({
+        id: crypto.randomUUID(),
+        leagueId,
+        round: orig.round + (totalTeams - 1),
+        homeTeamId: orig.awayTeamId,
+        awayTeamId: orig.homeTeamId,
+        date: addDays(roundBaseDate, dayOffset + matchInRound),
+        played: false,
+        homeGoals: 0,
+        awayGoals: 0,
+        result: null,
+      })
+    })
+    roundBaseDate = addDays(roundBaseDate, 7)
+  }
 
   return matches
 }

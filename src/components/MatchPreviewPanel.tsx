@@ -10,6 +10,7 @@ interface Props {
   currentDate: string
   userTeamId: number
   isSimulating: boolean
+  competitionLabel?: string
   onQuickSim: () => void
   onLiveSim: () => void
 }
@@ -21,6 +22,7 @@ export default function MatchPreviewPanel({
   currentDate,
   userTeamId,
   isSimulating,
+  competitionLabel,
   onQuickSim,
   onLiveSim,
 }: Props) {
@@ -34,7 +36,7 @@ export default function MatchPreviewPanel({
       <div className="bg-gray-900/60 px-4 py-2 flex items-center justify-between border-b border-gray-700">
         <div className="flex items-center gap-1.5 text-gray-400 text-xs font-semibold uppercase tracking-wide">
           <Icon name="sports_soccer" size="xs" />
-          Jornada {match.round}
+          {competitionLabel ?? `Jornada ${match.round}`}
         </div>
         <div className="flex items-center gap-1.5 text-gray-400 text-xs">
           <Icon name="calendar_today" size="xs" />
