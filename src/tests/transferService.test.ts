@@ -715,17 +715,18 @@ describe('resolveNegotiations', () => {
     expect(result.career.inbox.some((e) => e.type === 'OUTGOING_TRANSFER_CLUB_REJECTED')).toBe(true)
   })
 
-  it('player_pending resolves to completed when player accepts (low TOT, any rep)', () => {
+  it('player_pending resolves to player_accepted when player accepts (low TOT, any rep)', () => {
     const lowTotPlayer = makePlayer({ id: 10, teamId: 2, stats: { ...makePlayer().stats, TOT: 50 } })
     const career = {
       ...makeCareer(1),
       outgoingNegotiations: [makeNegotiation({ phase: 'player_pending', currentOffer: 50_000, resolutionDate: '2026-01-01', playerId: 10 })],
     }
     const result = resolveNegotiations(career, '2026-01-01', [lowTotPlayer, otherFW1, otherFW2], [userTeam, sellingTeam])
-    expect(result.career.outgoingNegotiations[0].phase).toBe('completed')
-    // Player moved to user team
-    const transferred = result.players.find((p) => p.id === 10)
-    expect(transferred?.teamId).toBe(1)
+    // Player accepted → waits for user confirmation
+    expect(result.career.outgoingNegotiations[0].phase).toBe('player_accepted')
+    // Player not yet moved (transfer pending user confirmation)
+    const notTransferred = result.players.find((p) => p.id === 10)
+    expect(notTransferred?.teamId).toBe(2)
     expect(result.career.inbox.some((e) => e.type === 'OUTGOING_TRANSFER_PLAYER_ACCEPTED')).toBe(true)
   })
 

@@ -1,4 +1,5 @@
 import { useCareerStore } from './store/careerStore'
+import { useInboxSound } from './hooks/useInboxSound'
 import MainMenuScreen from './screens/MainMenuScreen'
 import NewCareerScreen from './screens/NewCareerScreen'
 import CareerHomeScreen from './screens/CareerHomeScreen'
@@ -38,6 +39,7 @@ export type Screen =
 
 export default function App() {
   const screen = useCareerStore((s) => s.screen)
+  useInboxSound()
 
   return (
     <div className="h-full flex flex-col overflow-hidden">

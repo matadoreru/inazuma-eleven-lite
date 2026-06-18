@@ -87,11 +87,12 @@ export interface TransferOffer {
 // ─── Transfer Negotiations ────────────────────────────────────────────────────
 
 export type NegotiationPhase =
-  | 'club_pending'    // waiting for rival club response
-  | 'player_pending'  // club accepted; waiting for player decision
-  | 'completed'       // transfer completed successfully
-  | 'failed'          // rejected definitively
-  | 'cancelled'       // cancelled by user
+  | 'club_pending'      // waiting for rival club response
+  | 'player_pending'    // club accepted; waiting for player decision
+  | 'player_accepted'   // player said yes; waiting for user to confirm
+  | 'completed'         // transfer completed successfully
+  | 'failed'            // rejected definitively
+  | 'cancelled'         // cancelled by user
 
 export interface OutgoingNegotiation {
   id: string

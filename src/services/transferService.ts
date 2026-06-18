@@ -445,14 +445,11 @@ export function resolveNegotiations(
           continue
         }
 
-        const buyResult = buyPlayer(neg.playerId, career.teamId, neg.currentOffer, c, t, p)
-        c = updateNeg(buyResult.career, neg.id, { phase: 'completed' })
-        p = buyResult.players
-        t = buyResult.teams
+        c = updateNeg(c, neg.id, { phase: 'player_accepted' })
         c = pushEvent(c, makeEvent(
           'OUTGOING_TRANSFER_PLAYER_ACCEPTED',
-          `¡Fichaje completado! ${neg.playerName}`,
-          `${neg.playerName} se une a tu equipo por ${fmtAmt(neg.currentOffer)}.`,
+          `¡El jugador acepta! ${neg.playerName}`,
+          `${neg.playerName} ha aceptado tu oferta de ${fmtAmt(neg.currentOffer)}. Ve al ojeador para confirmar el fichaje.`,
           currentDate, { negotiationId: neg.id },
         ))
       } else {
@@ -502,4 +499,30 @@ export function respondToCounter(
     offerRound: neg.offerRound + 1,
     resolutionDate: addDays(career.season.currentDate, randInt(2, 3)),
   })
+}
+
+export function confirmTransfer(
+  negotiationId: string,
+  career: Career,
+  players: Player[],
+  teams: Team[],
+): { career: Career; players: Player[]; teams: Team[] } {
+  const neg = career.outgoingNegotiations.find((n) => n.id === negotiationId)
+  if (!neg || neg.phase !== 'player_accepted') return { career, players, teams }
+
+  const buyingTeam = teams.find((t) => t.id === career.teamId)
+  if (!buyingTeam || buyingTeam.budget < neg.currentOffer) {
+    return {
+      career: updateNeg(career, negotiationId, { phase: 'failed' }),
+      players,
+      teams,
+    }
+  }
+
+  const result = buyPlayer(neg.playerId, career.teamId, neg.currentOffer, career, teams, players)
+  return {
+    career: updateNeg(result.career, negotiationId, { phase: 'completed' }),
+    players: result.players,
+    teams: result.teams,
+  }
 }

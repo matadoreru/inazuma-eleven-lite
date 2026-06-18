@@ -33,6 +33,7 @@ import {
   cancelNegotiation as cancelNegotiationService,
   respondToCounter as respondToCounterService,
   resolveNegotiations as resolveNegotiationsService,
+  confirmTransfer as confirmTransferService,
 } from '../services/transferService'
 import { checkObjectives, canClaimObjective } from '../services/objectiveService'
 import { markRead, markAllRead, addEvent } from '../services/inboxService'
@@ -593,6 +594,8 @@ interface CareerState {
   initiateTransferNegotiation(playerId: number, amount: number): void
   respondToCounterOffer(negotiationId: string, action: 'accept_counter' | 'reject' | 'counter', newAmount?: number): void
   cancelNegotiation(negotiationId: string): void
+  confirmTransfer(negotiationId: string): void
+  dismissNegotiation(negotiationId: string): void
 
   // Formation
   applyFormation(formationId: number): void
@@ -1243,6 +1246,26 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     if (!career) return
     const updated = cancelNegotiationService(negotiationId, career)
     set({ career: updated })
+  },
+
+  confirmTransfer(negotiationId) {
+    const { career, players, teams } = get()
+    if (!career) return
+    const result = confirmTransferService(negotiationId, career, players, teams)
+    set({ career: result.career, players: result.players, teams: result.teams })
+  },
+
+  dismissNegotiation(negotiationId) {
+    const { career } = get()
+    if (!career) return
+    const neg = career.outgoingNegotiations.find((n) => n.id === negotiationId)
+    if (!neg || (neg.phase !== 'failed' && neg.phase !== 'cancelled')) return
+    set({
+      career: {
+        ...career,
+        outgoingNegotiations: career.outgoingNegotiations.filter((n) => n.id !== negotiationId),
+      },
+    })
   },
 
   // --- Formation ---

@@ -600,6 +600,8 @@ export default function PlayerDetailScreen() {
   const initiateTransferNegotiation = useCareerStore((s) => s.initiateTransferNegotiation)
   const respondToCounterOffer = useCareerStore((s) => s.respondToCounterOffer)
   const cancelNegotiationAction = useCareerStore((s) => s.cancelNegotiation)
+  const confirmTransferAction = useCareerStore((s) => s.confirmTransfer)
+  const dismissNegotiationAction = useCareerStore((s) => s.dismissNegotiation)
 
   const [showSellModal, setShowSellModal] = useState(false)
   const [showJerseyModal, setShowJerseyModal] = useState(false)
@@ -663,7 +665,7 @@ export default function PlayerDetailScreen() {
 
   const activeNegotiation = !isInUserTeam
     ? career.outgoingNegotiations.find(
-        (n) => n.playerId === player.id && (n.phase === 'club_pending' || n.phase === 'player_pending'),
+        (n) => n.playerId === player.id && (n.phase === 'club_pending' || n.phase === 'player_pending' || n.phase === 'player_accepted'),
       ) ?? null
     : null
 
@@ -828,9 +830,9 @@ export default function PlayerDetailScreen() {
                     className="flex items-center gap-1 px-2 py-1 bg-blue-700 hover:bg-blue-600 text-white rounded text-xs font-semibold transition-colors"
                   >
                     <span className="material-icons leading-none" style={{ fontSize: '14px' }}>
-                      {player.teamId === null ? 'handshake' : 'send'}
+                      {(player.teamId === null || player.teamId === 0) ? 'handshake' : 'send'}
                     </span>
-                    {player.teamId === null ? 'Contactar agente' : 'Contactar club'}
+                    {(player.teamId === null || player.teamId === 0) ? 'Contactar agente' : 'Contactar club'}
                   </button>
                 )}
 
@@ -888,6 +890,26 @@ export default function PlayerDetailScreen() {
                     >
                       <span className="material-icons leading-none" style={{ fontSize: '12px' }}>cancel</span>
                       Cancelar
+                    </button>
+                  </div>
+                )}
+
+                {activeNegotiation && activeNegotiation.phase === 'player_accepted' && (
+                  <div className="flex flex-col gap-1.5">
+                    <span className="text-green-400 text-[0.625rem] font-semibold leading-tight">¡El jugador acepta!</span>
+                    <button
+                      onClick={() => confirmTransferAction(activeNegotiation.id)}
+                      className="flex items-center gap-1 px-2 py-1 bg-green-700 hover:bg-green-600 text-white rounded text-xs font-semibold transition-colors"
+                    >
+                      <span className="material-icons leading-none" style={{ fontSize: '12px' }}>check_circle</span>
+                      Confirmar fichaje
+                    </button>
+                    <button
+                      onClick={() => cancelNegotiationAction(activeNegotiation.id)}
+                      className="flex items-center gap-1 px-2 py-1 bg-gray-700 hover:bg-gray-600 text-gray-300 rounded text-xs font-semibold transition-colors"
+                    >
+                      <span className="material-icons leading-none" style={{ fontSize: '12px' }}>cancel</span>
+                      Cancelar fichaje
                     </button>
                   </div>
                 )}
@@ -1145,7 +1167,7 @@ export default function PlayerDetailScreen() {
           <div className="bg-gray-800 rounded-xl p-5 w-full max-w-sm border border-gray-700 space-y-4">
             <div>
               <h2 className="text-white text-base font-bold">
-                {activeNegotiation?.counterAmount ? 'Contra-oferta' : (player.teamId === null ? 'Contactar agente' : 'Enviar oferta al club')}
+                {activeNegotiation?.counterAmount ? 'Contra-oferta' : ((player.teamId === null || player.teamId === 0) ? 'Contactar agente' : 'Enviar oferta al club')}
               </h2>
               <p className="text-gray-400 text-xs mt-0.5">{player.nameRomaji}</p>
             </div>
