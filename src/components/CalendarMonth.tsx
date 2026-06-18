@@ -41,17 +41,21 @@ export default function CalendarMonth({
   // Pad end to complete the last grid row
   const totalCells = Math.ceil((startOffset + daysInMonth) / 7) * 7
 
-  // Build match index: track user match and any-match per date
-  const matchByDate: Record<string, { user: boolean; other: boolean }> = {}
+  // Build match index: track user match type and any-match per date
+  const matchByDate: Record<string, { userLeague: boolean; userCup: boolean; other: boolean }> = {}
   for (const m of matches) {
     if (!m.date) continue
     const y = parseInt(m.date.slice(0, 4), 10)
     const mo = parseInt(m.date.slice(5, 7), 10)
     if (y !== year || mo !== month) continue
     const isUser = m.homeTeamId === userTeamId || m.awayTeamId === userTeamId
-    if (!matchByDate[m.date]) matchByDate[m.date] = { user: false, other: false }
-    if (isUser) matchByDate[m.date].user = true
-    else matchByDate[m.date].other = true
+    if (!matchByDate[m.date]) matchByDate[m.date] = { userLeague: false, userCup: false, other: false }
+    if (isUser) {
+      if (m.type === 'cup') matchByDate[m.date].userCup = true
+      else matchByDate[m.date].userLeague = true
+    } else {
+      matchByDate[m.date].other = true
+    }
   }
 
   const cells: (number | null)[] = [
@@ -106,18 +110,22 @@ export default function CalendarMonth({
 
           const date = dateStr(year, month, day)
           const info = matchByDate[date]
-          const hasUserMatch = info?.user ?? false
+          const hasUserLeagueMatch = info?.userLeague ?? false
+          const hasUserCupMatch = info?.userCup ?? false
+          const hasUserMatch = hasUserLeagueMatch || hasUserCupMatch
           const hasOtherMatch = info?.other ?? false
           const isToday = date === currentDate
           const isSelected = date === selectedDate
           const isPast = date < currentDate
 
-          // Background priority: selected > user match > today > default
+          // Background priority: selected > cup > league > today > default
           let bgClass = 'bg-gray-900/80'
           let ringClass = ''
           if (isSelected) {
             bgClass = 'bg-blue-600'
-          } else if (hasUserMatch) {
+          } else if (hasUserCupMatch) {
+            bgClass = 'bg-yellow-900/60'
+          } else if (hasUserLeagueMatch) {
             bgClass = 'bg-green-900/80'
           } else if (isToday) {
             bgClass = 'bg-amber-900/25'
@@ -144,8 +152,16 @@ export default function CalendarMonth({
                 {day}
               </span>
 
-              {/* Soccer ball icon — only for user match days */}
-              {hasUserMatch && (
+              {/* Match icon — trophy for cup, ball for league */}
+              {hasUserCupMatch && (
+                <span
+                  className="material-icons absolute bottom-5 right-2 text-white/20 select-none pointer-events-none"
+                  style={{ fontSize: 28 }}
+                >
+                  emoji_events
+                </span>
+              )}
+              {hasUserLeagueMatch && !hasUserCupMatch && (
                 <span
                   className="material-icons absolute bottom-5 right-2 text-white/20 select-none pointer-events-none"
                   style={{ fontSize: 28 }}
@@ -164,11 +180,13 @@ export default function CalendarMonth({
               {/* Bottom label */}
               <span
                 className={`absolute bottom-1.5 left-2 text-[0.4rem] font-black uppercase tracking-widest leading-none
-                  ${hasUserMatch
+                  ${hasUserCupMatch
+                    ? isSelected ? 'text-yellow-300/80' : 'text-yellow-400/70'
+                    : hasUserLeagueMatch
                     ? isSelected ? 'text-green-300/80' : 'text-green-400/70'
                     : isSelected ? 'text-blue-200/60' : 'text-gray-700'}`}
               >
-                {hasUserMatch ? 'Tu partido' : 'Libre'}
+                {hasUserCupMatch ? 'Copa' : hasUserLeagueMatch ? 'Tu partido' : 'Libre'}
               </span>
             </div>
           )
