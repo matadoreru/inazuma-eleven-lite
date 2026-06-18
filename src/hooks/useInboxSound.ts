@@ -34,17 +34,19 @@ function playNotificationSound() {
 }
 
 export function useInboxSound() {
-  const inbox = useCareerStore((s) => s.career?.inbox ?? [])
-  const prevLengthRef = useRef(inbox.length)
+  // Select only the length (a primitive) to avoid creating new array references on each render
+  const inboxLength = useCareerStore((s) => s.career?.inbox.length ?? 0)
+  const prevLengthRef = useRef(inboxLength)
 
   useEffect(() => {
-    if (inbox.length > prevLengthRef.current) {
-      // inbox[0] is the newest event (prepended)
+    if (inboxLength > prevLengthRef.current) {
+      // Read inbox directly from store — no selector needed in an effect
+      const inbox = useCareerStore.getState().career?.inbox ?? []
       const newestType = inbox[0]?.type
       if (newestType && isTypeEnabled(newestType)) {
         playNotificationSound()
       }
     }
-    prevLengthRef.current = inbox.length
-  }, [inbox.length])
+    prevLengthRef.current = inboxLength
+  }, [inboxLength])
 }
