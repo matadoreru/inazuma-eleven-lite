@@ -1,0 +1,659 @@
+import { useState, useEffect } from 'react'
+import type { Player, Stats, Technique, Position, Element, Gender, CanonTier } from '../types/player'
+import { statTotal } from '../types/player'
+import { getActiveProfile, updateProfileData } from '../services/profileService'
+
+// ─── helpers ────────────────────────────────────────────────────────────────
+
+function positionColor(pos: Position): string {
+  return { GK: 'text-yellow-400', DF: 'text-blue-400', MD: 'text-green-400', FW: 'text-red-400' }[pos]
+}
+
+function nextId(arr: Player[]): number {
+  return arr.length === 0 ? 1 : Math.max(...arr.map(p => p.id)) + 1
+}
+
+function defaultPlayer(): Player {
+  return {
+    id: 0,
+    name: 'Nuevo jugador',
+    nameRomaji: 'New Player',
+    gender: 'Masculino',
+    position: 'MD',
+    positionAlt: null,
+    element: 'WIND',
+    stats: { POT: 50, CON: 50, TEC: 50, PRE: 50, FIS: 50, AGI: 50, INT: 50, TOT: 350 },
+    career: {
+      maxLevel: 99,
+      potential: 70,
+      growthRate: 1,
+      contractStatus: 'free',
+      marketValue: 100000,
+      salary: 5000,
+      experience: 0,
+      trainingProgress: 0,
+      trainingSessionsThisWeek: 0,
+      positionAlt: null,
+      positionChangePlan: null,
+    },
+    techniques: [],
+    improvementTechniques: [],
+    spriteUrl: '',
+    stamina: 100,
+    morale: 80,
+    isInjured: false,
+    injuryDaysRemaining: 0,
+    isSuspended: false,
+    suspensionMatches: 0,
+    age: 18,
+    teamId: null,
+    jerseyNumber: 0,
+    canonTier: 'common',
+    seasonStats: { goals: 0, assists: 0, cleanSheets: 0, matchesPlayed: 0, minutesPlayed: 0 },
+  }
+}
+
+// ─── PlayerForm ──────────────────────────────────────────────────────────────
+
+interface PlayerFormProps {
+  data: Player
+  onChange: (updated: Player) => void
+  onSave: () => void
+  onCancel: () => void
+}
+
+const INPUT_CLS = 'w-full bg-dark-700 border border-gray-700 rounded px-2 py-1 text-sm text-white focus:outline-none focus:border-blue-500'
+const LABEL_CLS = 'block text-gray-400 text-xs mb-0.5'
+
+const STAT_KEYS: (keyof Stats)[] = ['POT', 'CON', 'TEC', 'PRE', 'FIS', 'AGI', 'INT']
+
+function newTech(): Technique {
+  return { id: Date.now(), name: '', type: 'Tiro', element: 'FIRE', POT: 50, PP: 5 }
+}
+
+function PlayerForm({ data, onChange, onSave, onCancel }: PlayerFormProps) {
+  function updateTech(idx: number, field: keyof Technique, value: string | number) {
+    const techs = [...(data.techniques ?? [])]
+    techs[idx] = { ...techs[idx], [field]: value }
+    onChange({ ...data, techniques: techs })
+  }
+
+  function addTech() {
+    onChange({ ...data, techniques: [...(data.techniques ?? []), newTech()] })
+  }
+
+  function removeTech(idx: number) {
+    const techs = (data.techniques ?? []).filter((_, i) => i !== idx)
+    onChange({ ...data, techniques: techs })
+  }
+
+  function updateImproveTech(idx: number, field: keyof Technique, value: string | number) {
+    const techs = [...(data.improvementTechniques ?? [])]
+    techs[idx] = { ...techs[idx], [field]: value }
+    onChange({ ...data, improvementTechniques: techs })
+  }
+
+  function addImproveTech() {
+    onChange({
+      ...data,
+      improvementTechniques: [
+        ...(data.improvementTechniques ?? []),
+        { ...newTech(), type: 'Mejora' },
+      ],
+    })
+  }
+
+  function removeImproveTech(idx: number) {
+    const techs = (data.improvementTechniques ?? []).filter((_, i) => i !== idx)
+    onChange({ ...data, improvementTechniques: techs })
+  }
+
+  const normalTechs = data.techniques ?? []
+  const improveTechs = data.improvementTechniques ?? []
+
+  return (
+    <div className="bg-dark-800 border border-gray-700/50 rounded-lg mx-3 my-2 p-4 space-y-4">
+      <div className="grid grid-cols-2 gap-4">
+
+        {/* Left column — Basic info */}
+        <div className="space-y-2">
+          <p className="text-gray-300 text-xs font-semibold uppercase tracking-wider mb-2">Información básica</p>
+
+          <div>
+            <label className={LABEL_CLS}>Nombre</label>
+            <input
+              type="text"
+              value={data.name}
+              onChange={e => onChange({ ...data, name: e.target.value })}
+              className={INPUT_CLS}
+            />
+          </div>
+
+          <div>
+            <label className={LABEL_CLS}>Nombre romaji</label>
+            <input
+              type="text"
+              value={data.nameRomaji}
+              onChange={e => onChange({ ...data, nameRomaji: e.target.value })}
+              className={INPUT_CLS}
+            />
+          </div>
+
+          <div>
+            <label className={LABEL_CLS}>Edad</label>
+            <input
+              type="number"
+              min="15"
+              max="99"
+              value={data.age}
+              onChange={e => onChange({ ...data, age: +e.target.value })}
+              className={INPUT_CLS}
+            />
+          </div>
+
+          <div>
+            <label className={LABEL_CLS}>Género</label>
+            <select
+              value={data.gender}
+              onChange={e => onChange({ ...data, gender: e.target.value as Gender })}
+              className={INPUT_CLS}
+            >
+              <option value="Masculino">Masculino</option>
+              <option value="Femenino">Femenino</option>
+            </select>
+          </div>
+
+          <div>
+            <label className={LABEL_CLS}>Posición</label>
+            <select
+              value={data.position}
+              onChange={e => onChange({ ...data, position: e.target.value as Position })}
+              className={INPUT_CLS}
+            >
+              <option value="GK">GK</option>
+              <option value="DF">DF</option>
+              <option value="MD">MD</option>
+              <option value="FW">FW</option>
+            </select>
+          </div>
+
+          <div>
+            <label className={LABEL_CLS}>Posición alternativa</label>
+            <select
+              value={data.positionAlt ?? ''}
+              onChange={e => onChange({ ...data, positionAlt: (e.target.value || null) as Position | null })}
+              className={INPUT_CLS}
+            >
+              <option value="">— ninguna</option>
+              <option value="GK">GK</option>
+              <option value="DF">DF</option>
+              <option value="MD">MD</option>
+              <option value="FW">FW</option>
+            </select>
+          </div>
+
+          <div>
+            <label className={LABEL_CLS}>Elemento</label>
+            <select
+              value={data.element}
+              onChange={e => onChange({ ...data, element: e.target.value as Element })}
+              className={INPUT_CLS}
+            >
+              <option value="FIRE">FIRE</option>
+              <option value="WOOD">WOOD</option>
+              <option value="WIND">WIND</option>
+              <option value="MOUNTAIN">MOUNTAIN</option>
+            </select>
+          </div>
+
+          <div>
+            <label className={LABEL_CLS}>Tier</label>
+            <select
+              value={data.canonTier}
+              onChange={e => onChange({ ...data, canonTier: e.target.value as CanonTier })}
+              className={INPUT_CLS}
+            >
+              <option value="common">common</option>
+              <option value="rare">rare</option>
+              <option value="epic">epic</option>
+              <option value="legendary">legendary</option>
+            </select>
+          </div>
+
+          <div>
+            <label className={LABEL_CLS}>Dorsal</label>
+            <input
+              type="number"
+              min="0"
+              max="99"
+              value={data.jerseyNumber}
+              onChange={e => onChange({ ...data, jerseyNumber: +e.target.value })}
+              className={INPUT_CLS}
+            />
+          </div>
+
+          <div>
+            <label className={LABEL_CLS}>ID equipo</label>
+            <input
+              type="number"
+              value={data.teamId ?? 0}
+              onChange={e => onChange({ ...data, teamId: +e.target.value === 0 ? null : +e.target.value })}
+              className={INPUT_CLS}
+            />
+          </div>
+
+          <div>
+            <label className={LABEL_CLS}>Sprite URL</label>
+            <input
+              type="text"
+              value={data.spriteUrl}
+              onChange={e => onChange({ ...data, spriteUrl: e.target.value })}
+              className={INPUT_CLS}
+            />
+          </div>
+        </div>
+
+        {/* Right column — Career + Stats */}
+        <div className="space-y-2">
+          <p className="text-gray-300 text-xs font-semibold uppercase tracking-wider mb-2">Carrera</p>
+
+          <div>
+            <label className={LABEL_CLS}>Nivel máx.</label>
+            <input
+              type="number"
+              min="1"
+              max="99"
+              value={data.career.maxLevel}
+              onChange={e => onChange({ ...data, career: { ...data.career, maxLevel: +e.target.value } })}
+              className={INPUT_CLS}
+            />
+          </div>
+
+          <div>
+            <label className={LABEL_CLS}>Potencial</label>
+            <input
+              type="number"
+              min="1"
+              max="99"
+              value={data.career.potential}
+              onChange={e => onChange({ ...data, career: { ...data.career, potential: +e.target.value } })}
+              className={INPUT_CLS}
+            />
+          </div>
+
+          <div>
+            <label className={LABEL_CLS}>Valor de mercado</label>
+            <input
+              type="number"
+              min="0"
+              value={data.career.marketValue}
+              onChange={e => onChange({ ...data, career: { ...data.career, marketValue: +e.target.value } })}
+              className={INPUT_CLS}
+            />
+          </div>
+
+          <div>
+            <label className={LABEL_CLS}>Salario</label>
+            <input
+              type="number"
+              min="0"
+              value={data.career.salary}
+              onChange={e => onChange({ ...data, career: { ...data.career, salary: +e.target.value } })}
+              className={INPUT_CLS}
+            />
+          </div>
+
+          <div>
+            <label className={LABEL_CLS}>Estado contrato</label>
+            <select
+              value={data.career.contractStatus}
+              onChange={e => onChange({ ...data, career: { ...data.career, contractStatus: e.target.value as 'free' | 'contracted' } })}
+              className={INPUT_CLS}
+            >
+              <option value="free">Libre</option>
+              <option value="contracted">Contratado</option>
+            </select>
+          </div>
+
+          {/* Stats */}
+          <div className="pt-2">
+            <p className="text-gray-300 text-xs font-semibold uppercase tracking-wider mb-2">Estadísticas</p>
+            <div className="space-y-1">
+              {STAT_KEYS.map(stat => (
+                <div key={stat} className="flex items-center gap-2">
+                  <span className="text-gray-400 text-xs w-8">{stat}</span>
+                  <input
+                    type="number"
+                    min="1"
+                    max="99"
+                    value={data.stats[stat as keyof Stats]}
+                    onChange={e => onChange({
+                      ...data,
+                      stats: { ...data.stats, [stat]: +e.target.value, TOT: 0 },
+                    })}
+                    className="w-16 bg-dark-700 border border-gray-700 rounded px-2 py-0.5 text-sm text-white text-center focus:outline-none focus:border-blue-500"
+                  />
+                </div>
+              ))}
+              <div className="flex items-center gap-2 pt-1 border-t border-gray-800">
+                <span className="text-gray-300 text-xs font-semibold w-8">TOT</span>
+                <span className="text-blue-300 text-sm font-bold">
+                  {data.stats.POT + data.stats.CON + data.stats.TEC + data.stats.PRE + data.stats.FIS + data.stats.AGI + data.stats.INT}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Techniques section */}
+      <div className="border-t border-gray-800 pt-3 space-y-3">
+        {/* Normal techniques */}
+        <div>
+          <div className="flex items-center justify-between mb-2">
+            <p className="text-gray-300 text-xs font-semibold uppercase tracking-wider">Técnicas ({normalTechs.length}/3)</p>
+            <button
+              onClick={addTech}
+              disabled={normalTechs.length >= 3}
+              className="text-xs px-2 py-0.5 rounded bg-blue-700/30 hover:bg-blue-700/50 text-blue-300 disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              + Añadir técnica
+            </button>
+          </div>
+          <div className="space-y-2">
+            {normalTechs.map((tech, idx) => (
+              <div key={tech.id} className="flex items-center gap-2 flex-wrap">
+                <input
+                  type="text"
+                  placeholder="Nombre"
+                  value={tech.name}
+                  onChange={e => updateTech(idx, 'name', e.target.value)}
+                  className="flex-1 min-w-0 bg-dark-700 border border-gray-700 rounded px-2 py-0.5 text-sm text-white focus:outline-none focus:border-blue-500"
+                />
+                <select
+                  value={tech.type}
+                  onChange={e => updateTech(idx, 'type', e.target.value)}
+                  className="bg-dark-700 border border-gray-700 rounded px-2 py-0.5 text-sm text-white focus:outline-none focus:border-blue-500"
+                >
+                  <option value="Tiro">Tiro</option>
+                  <option value="Regate">Regate</option>
+                  <option value="Bloqueo">Bloqueo</option>
+                  <option value="Parada">Parada</option>
+                </select>
+                <select
+                  value={tech.element}
+                  onChange={e => updateTech(idx, 'element', e.target.value)}
+                  className="bg-dark-700 border border-gray-700 rounded px-2 py-0.5 text-sm text-white focus:outline-none focus:border-blue-500"
+                >
+                  <option value="">— ninguno</option>
+                  <option value="FIRE">FIRE</option>
+                  <option value="WOOD">WOOD</option>
+                  <option value="WIND">WIND</option>
+                  <option value="MOUNTAIN">MOUNTAIN</option>
+                </select>
+                <input
+                  type="number"
+                  min="1"
+                  max="999"
+                  value={tech.POT}
+                  onChange={e => updateTech(idx, 'POT', +e.target.value)}
+                  className="w-16 bg-dark-700 border border-gray-700 rounded px-2 py-0.5 text-sm text-white text-center focus:outline-none focus:border-blue-500"
+                  placeholder="POT"
+                />
+                <input
+                  type="number"
+                  min="1"
+                  max="99"
+                  value={tech.PP}
+                  onChange={e => updateTech(idx, 'PP', +e.target.value)}
+                  className="w-12 bg-dark-700 border border-gray-700 rounded px-2 py-0.5 text-sm text-white text-center focus:outline-none focus:border-blue-500"
+                  placeholder="PP"
+                />
+                <button
+                  onClick={() => removeTech(idx)}
+                  className="text-red-500 hover:text-red-400 text-sm px-1"
+                >
+                  ×
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Improvement techniques */}
+        <div>
+          <div className="flex items-center justify-between mb-2">
+            <p className="text-gray-300 text-xs font-semibold uppercase tracking-wider">Técnicas de mejora ({improveTechs.length}/2)</p>
+            <button
+              onClick={addImproveTech}
+              disabled={improveTechs.length >= 2}
+              className="text-xs px-2 py-0.5 rounded bg-purple-700/30 hover:bg-purple-700/50 text-purple-300 disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              + Añadir técnica de mejora
+            </button>
+          </div>
+          <div className="space-y-2">
+            {improveTechs.map((tech, idx) => (
+              <div key={tech.id} className="flex items-center gap-2 flex-wrap">
+                <input
+                  type="text"
+                  placeholder="Nombre"
+                  value={tech.name}
+                  onChange={e => updateImproveTech(idx, 'name', e.target.value)}
+                  className="flex-1 min-w-0 bg-dark-700 border border-gray-700 rounded px-2 py-0.5 text-sm text-white focus:outline-none focus:border-blue-500"
+                />
+                <span className="text-gray-500 text-xs px-2 py-0.5 bg-dark-700 border border-gray-700 rounded">Mejora</span>
+                <select
+                  value={tech.element}
+                  onChange={e => updateImproveTech(idx, 'element', e.target.value)}
+                  className="bg-dark-700 border border-gray-700 rounded px-2 py-0.5 text-sm text-white focus:outline-none focus:border-blue-500"
+                >
+                  <option value="">— ninguno</option>
+                  <option value="FIRE">FIRE</option>
+                  <option value="WOOD">WOOD</option>
+                  <option value="WIND">WIND</option>
+                  <option value="MOUNTAIN">MOUNTAIN</option>
+                </select>
+                <input
+                  type="number"
+                  min="1"
+                  max="999"
+                  value={tech.POT}
+                  onChange={e => updateImproveTech(idx, 'POT', +e.target.value)}
+                  className="w-16 bg-dark-700 border border-gray-700 rounded px-2 py-0.5 text-sm text-white text-center focus:outline-none focus:border-blue-500"
+                  placeholder="POT"
+                />
+                <input
+                  type="number"
+                  min="1"
+                  max="99"
+                  value={tech.PP}
+                  onChange={e => updateImproveTech(idx, 'PP', +e.target.value)}
+                  className="w-12 bg-dark-700 border border-gray-700 rounded px-2 py-0.5 text-sm text-white text-center focus:outline-none focus:border-blue-500"
+                  placeholder="PP"
+                />
+                <button
+                  onClick={() => removeImproveTech(idx)}
+                  className="text-red-500 hover:text-red-400 text-sm px-1"
+                >
+                  ×
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Action buttons */}
+      <div className="flex justify-end gap-2 border-t border-gray-800 pt-3">
+        <button
+          onClick={onCancel}
+          className="px-3 py-1.5 text-sm text-gray-400 hover:text-white"
+        >
+          Cancelar
+        </button>
+        <button
+          onClick={onSave}
+          className="px-4 py-1.5 bg-blue-600 hover:bg-blue-500 text-white text-sm rounded-lg font-medium"
+        >
+          Guardar
+        </button>
+      </div>
+    </div>
+  )
+}
+
+// ─── DevPlayersScreen ────────────────────────────────────────────────────────
+
+export default function DevPlayersScreen() {
+  const [players, setPlayers] = useState<Player[]>([])
+  const [profileId, setProfileId] = useState<string>('')
+  const [search, setSearch] = useState('')
+  const [editingId, setEditingId] = useState<number | 'new' | null>(null)
+  const [formData, setFormData] = useState<Player | null>(null)
+
+  function refresh() {
+    const p = getActiveProfile()
+    if (!p) return
+    setProfileId(p.id)
+    setPlayers(p.data.players)
+  }
+
+  useEffect(() => { refresh() }, [])
+
+  function handleSave() {
+    if (!formData || !profileId) return
+    let next: Player[]
+    if (editingId === 'new') {
+      next = [...players, { ...formData, id: nextId(players) }]
+    } else {
+      next = players.map(p => p.id === formData.id ? formData : p)
+    }
+    updateProfileData(profileId, { players: next })
+    refresh()
+    setEditingId(null)
+    setFormData(null)
+  }
+
+  function handleDelete(id: number) {
+    const next = players.filter(p => p.id !== id)
+    updateProfileData(profileId, { players: next })
+    if (editingId === id) { setEditingId(null); setFormData(null) }
+    refresh()
+  }
+
+  function handleDuplicate(player: Player) {
+    const copy: Player = {
+      ...JSON.parse(JSON.stringify(player)),
+      id: nextId(players),
+      name: `Copia de ${player.name}`,
+    }
+    updateProfileData(profileId, { players: [...players, copy] })
+    refresh()
+  }
+
+  function handleEdit(player: Player) {
+    if (editingId === player.id) {
+      setEditingId(null); setFormData(null)
+    } else {
+      setEditingId(player.id)
+      setFormData(JSON.parse(JSON.stringify(player)))
+    }
+  }
+
+  function handleNew() {
+    setEditingId('new')
+    setFormData(defaultPlayer())
+  }
+
+  const filtered = players.filter(p =>
+    search === '' ||
+    p.name.toLowerCase().includes(search.toLowerCase()) ||
+    p.nameRomaji.toLowerCase().includes(search.toLowerCase())
+  )
+
+  return (
+    <div className="h-full flex flex-col overflow-hidden">
+
+      {/* Header */}
+      <div className="flex items-center gap-3 px-4 py-3 border-b border-gray-800 shrink-0">
+        <input
+          type="text"
+          placeholder="Buscar por nombre..."
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+          className="flex-1 bg-dark-700 border border-gray-700 rounded-lg px-3 py-1.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
+        />
+        <span className="text-gray-500 text-xs shrink-0">{players.length} jugadores</span>
+        <button
+          onClick={handleNew}
+          className="flex items-center gap-1 px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white text-sm rounded-lg font-medium shrink-0 transition-colors"
+        >
+          + Nuevo jugador
+        </button>
+      </div>
+
+      {/* Scrollable list */}
+      <div className="flex-1 overflow-y-auto">
+
+        {/* New player form at top */}
+        {editingId === 'new' && formData && (
+          <PlayerForm
+            data={formData}
+            onChange={setFormData}
+            onSave={handleSave}
+            onCancel={() => { setEditingId(null); setFormData(null) }}
+          />
+        )}
+
+        {filtered.length === 0 && (
+          <p className="p-6 text-gray-500 text-sm text-center">
+            {search ? 'Sin resultados.' : 'No hay jugadores en este perfil.'}
+          </p>
+        )}
+
+        {filtered.map(player => (
+          <div key={player.id}>
+            {/* Player row */}
+            <div className="flex items-center px-4 py-2.5 border-b border-gray-800/50 gap-3 hover:bg-dark-800/30">
+              <span className="text-gray-600 text-xs w-6 shrink-0">#{player.jerseyNumber}</span>
+              <span className="text-white text-sm flex-1 min-w-0 truncate">{player.name}</span>
+              <span className="text-gray-500 text-xs shrink-0">{player.nameRomaji}</span>
+              <span className={`text-xs font-bold shrink-0 ${positionColor(player.position)}`}>{player.position}</span>
+              <span className="text-gray-400 text-xs shrink-0">{player.element}</span>
+              <span className="text-gray-400 text-xs shrink-0">TOT {statTotal(player.stats)}</span>
+              <button
+                onClick={() => handleEdit(player)}
+                className="text-blue-400 hover:text-blue-300 text-xs shrink-0 px-1.5 py-0.5 rounded hover:bg-blue-900/20"
+              >
+                Editar
+              </button>
+              <button
+                onClick={() => handleDuplicate(player)}
+                className="text-gray-400 hover:text-white text-xs shrink-0 px-1.5 py-0.5 rounded hover:bg-gray-800"
+              >
+                Dupl
+              </button>
+              <button
+                onClick={() => handleDelete(player.id)}
+                className="text-red-500 hover:text-red-400 text-xs shrink-0 px-1.5 py-0.5 rounded hover:bg-red-900/20"
+              >
+                ×
+              </button>
+            </div>
+
+            {/* Inline edit form */}
+            {editingId === player.id && formData && (
+              <PlayerForm
+                data={formData}
+                onChange={setFormData}
+                onSave={handleSave}
+                onCancel={() => { setEditingId(null); setFormData(null) }}
+              />
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
