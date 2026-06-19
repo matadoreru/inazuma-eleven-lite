@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useCareerStore } from '../store/careerStore'
 import { disableDevMode } from '../services/profileService'
-import GameLayout from '../components/GameLayout'
 import Icon from '../components/Icon'
 import DevProfilesScreen from './DevProfilesScreen'
 
@@ -17,9 +16,8 @@ export default function DevMenuScreen() {
   }
 
   return (
-    <GameLayout bg="menu" noNav>
-      <div className="h-full flex flex-col">
-        <div className="flex items-center justify-between px-4 py-3 border-b border-gray-800 shrink-0">
+    <div className="h-full flex flex-col bg-dark-900 overflow-hidden">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-gray-800 shrink-0">
           <button
             onClick={() => navigate('main_menu')}
             className="flex items-center gap-1.5 text-gray-400 hover:text-white text-sm transition-colors"
@@ -58,6 +56,6 @@ export default function DevMenuScreen() {
           {activeTab === 'profiles' && <DevProfilesScreen />}
         </div>
       </div>
-    </GameLayout>
+    </div>
   )
 }
