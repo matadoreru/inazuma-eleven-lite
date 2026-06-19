@@ -170,6 +170,16 @@ export function deleteProfile(id: string): void {
   setIndex({ ...index, profileIds, activeProfileId })
 }
 
+export function updateProfileData(id: string, data: Partial<ProfileData>): void {
+  const profile = readProfile(id)
+  if (!profile) throw new Error(`Profile not found: ${id}`)
+  writeProfile({
+    ...profile,
+    data: { ...profile.data, ...data },
+    updatedAt: new Date().toISOString(),
+  })
+}
+
 export interface ProfileExport {
   format: string
   formatVersion: string

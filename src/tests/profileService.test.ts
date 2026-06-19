@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import * as svc from '../services/profileService'
 import { BASE_PROFILE_ID, PROFILE_FORMAT, PROFILE_KEY_PREFIX } from '../types/profile'
+import type { Player } from '../types/player'
 
 function createLocalStorageMock() {
   let store: Record<string, string> = {}
@@ -197,5 +198,34 @@ describe('profileService', () => {
     const base = svc.getProfile(BASE_PROFILE_ID)
     expect(base).not.toBeNull()
     expect(base!.isBuiltIn).toBe(true)
+  })
+
+  describe('updateProfileData', () => {
+    it('replaces the players array while keeping other data unchanged', () => {
+      svc.init()
+      const p = svc.createProfile('EditorTest', 'desc', ['custom'])
+      const original = svc.getProfile(p.id)!
+      const fakePlayer = { id: 9001, name: 'Fake', nameRomaji: 'Fake' } as unknown as Player
+      svc.updateProfileData(p.id, { players: [fakePlayer] })
+      const updated = svc.getProfile(p.id)!
+      expect(updated.data.players).toEqual([fakePlayer])
+      // teams and leagues should remain unchanged
+      expect(updated.data.teams).toEqual(original.data.teams)
+      expect(updated.data.leagues).toEqual(original.data.leagues)
+    })
+
+    it('updates updatedAt to current time', () => {
+      svc.init()
+      const before = new Date().toISOString()
+      const p = svc.createProfile('TimeTest', '', ['custom'])
+      svc.updateProfileData(p.id, { leagues: [] })
+      const updated = svc.getProfile(p.id)!
+      expect(updated.updatedAt >= before).toBe(true)
+    })
+
+    it('throws if profile id does not exist', () => {
+      svc.init()
+      expect(() => svc.updateProfileData('no-such-id', { players: [] })).toThrow('Profile not found: no-such-id')
+    })
   })
 })
