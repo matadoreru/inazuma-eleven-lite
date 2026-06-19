@@ -830,6 +830,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
         scoutLevel: t.scoutLevel ?? Math.max(1, Math.ceil(t.reputation / 20)),
         facilitiesLevel: t.facilitiesLevel ?? Math.max(1, Math.ceil(t.reputation / 20)),
       }))
+      const { leagues: profileLeagues } = getActiveProfileData()
       set({
         career: {
           ...data.career,
@@ -849,6 +850,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
         },
         players,
         teams,
+        leagues: profileLeagues,
         screen: 'career_home',
         lastMatchResult: null,
         pendingMatch: null,
