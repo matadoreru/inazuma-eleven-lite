@@ -22,7 +22,7 @@ function defaultPlayer(): Player {
     position: 'MD',
     positionAlt: null,
     element: 'WIND',
-    stats: { POT: 50, CON: 50, TEC: 50, PRE: 50, FIS: 50, AGI: 50, INT: 50, TOT: 350 },
+    stats: { POT: 50, CON: 50, TEC: 50, PRE: 50, FIS: 50, AGI: 50, INT: 50, TOT: 50 },
     career: {
       maxLevel: 99,
       potential: 70,
@@ -327,18 +327,19 @@ function PlayerForm({ data, onChange, onSave, onCancel }: PlayerFormProps) {
                     min="1"
                     max="99"
                     value={data.stats[stat as keyof Stats]}
-                    onChange={e => onChange({
-                      ...data,
-                      stats: { ...data.stats, [stat]: +e.target.value, TOT: 0 },
-                    })}
+                    onChange={e => {
+                      const newStats = { ...data.stats, [stat]: +e.target.value }
+                      const newTOT = Math.round((newStats.POT + newStats.CON + newStats.TEC + newStats.PRE + newStats.FIS + newStats.AGI + newStats.INT) / 7)
+                      onChange({ ...data, stats: { ...newStats, TOT: newTOT } })
+                    }}
                     className="w-16 bg-dark-700 border border-gray-700 rounded px-2 py-0.5 text-sm text-white text-center focus:outline-none focus:border-blue-500"
                   />
                 </div>
               ))}
               <div className="flex items-center gap-2 pt-1 border-t border-gray-800">
-                <span className="text-gray-300 text-xs font-semibold w-8">TOT</span>
+                <span className="text-gray-300 text-xs font-semibold w-8">Media</span>
                 <span className="text-blue-300 text-sm font-bold">
-                  {data.stats.POT + data.stats.CON + data.stats.TEC + data.stats.PRE + data.stats.FIS + data.stats.AGI + data.stats.INT}
+                  {Math.round((data.stats.POT + data.stats.CON + data.stats.TEC + data.stats.PRE + data.stats.FIS + data.stats.AGI + data.stats.INT) / 7)}
                 </span>
               </div>
             </div>
