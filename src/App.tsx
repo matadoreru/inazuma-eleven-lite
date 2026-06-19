@@ -15,6 +15,7 @@ import StandingsScreen from './screens/StandingsScreen'
 import TransfersScreen from './screens/TransfersScreen'
 import SaveLoadScreen from './screens/SaveLoadScreen'
 import SeasonReviewScreen from './screens/SeasonReviewScreen'
+import DevMenuScreen from './screens/DevMenuScreen'
 import NotificationsDrawer from './components/NotificationsDrawer'
 import SettingsDrawer from './components/SettingsDrawer'
 import RewardEquipModal from './components/RewardEquipModal'
@@ -36,6 +37,7 @@ export type Screen =
   | 'scout'
   | 'save_load'
   | 'season_review'
+  | 'dev_menu'
 
 export default function App() {
   const screen = useCareerStore((s) => s.screen)
@@ -58,6 +60,7 @@ export default function App() {
       {screen === 'transfers' && <TransfersScreen />}
       {screen === 'save_load' && <SaveLoadScreen />}
       {screen === 'season_review' && <SeasonReviewScreen />}
+      {screen === 'dev_menu' && <DevMenuScreen />}
 
       {/* Global overlay drawers — rendered above all screens */}
       <NotificationsDrawer />

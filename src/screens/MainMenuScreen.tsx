@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useCareerStore } from '../store/careerStore'
 import { listSaves, deleteSave } from '../services/saveService'
 import SaveSlotCard from '../components/SaveSlotCard'
@@ -6,6 +6,7 @@ import GameLayout from '../components/GameLayout'
 import type { SaveSlot } from '../types/save'
 import { MAX_SAVE_SLOTS } from '../types/save'
 import { APP_VERSION } from '../utils/version'
+import { isDevModeActive, enableDevMode, init as initProfiles } from '../services/profileService'
 
 type View = 'menu' | 'load'
 
@@ -21,6 +22,13 @@ export default function MainMenuScreen() {
   const loadCareer = useCareerStore((s) => s.loadCareer)
   const [view, setView] = useState<View>('menu')
   const [saves, setSaves] = useState<(SaveSlot | null)[]>([])
+  const [devMode, setDevMode] = useState(() => isDevModeActive())
+  const [tapCount, setTapCount] = useState(0)
+  const tapTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  useEffect(() => {
+    initProfiles()
+  }, [])
 
   function refreshSaves() {
     const filled = listSaves()
@@ -33,6 +41,19 @@ export default function MainMenuScreen() {
   useEffect(() => {
     if (view === 'load') refreshSaves()
   }, [view])
+
+  function handleVersionTap() {
+    const next = tapCount + 1
+    setTapCount(next)
+    if (tapTimerRef.current) clearTimeout(tapTimerRef.current)
+    tapTimerRef.current = setTimeout(() => setTapCount(0), 3000)
+    if (next >= 5) {
+      enableDevMode()
+      setDevMode(true)
+      setTapCount(0)
+      if (tapTimerRef.current) clearTimeout(tapTimerRef.current)
+    }
+  }
 
   function handleDelete(slot: number) {
     deleteSave(slot)
@@ -127,15 +148,32 @@ export default function MainMenuScreen() {
                 <span className="material-icons text-sm shrink-0 text-gray-600 group-hover:text-gold-600">chevron_right</span>
               </button>
             ))}
+            {devMode && (
+              <button
+                onClick={() => navigate('dev_menu')}
+                className="mt-2 flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl border border-orange-600/30 text-orange-400 hover:bg-orange-900/20 text-sm font-medium transition-colors"
+              >
+                <span className="material-icons text-base">developer_mode</span>
+                Menú Dev
+              </button>
+            )}
           </div>
         </div>
 
       </div>
 
       {/* Version bottom-right */}
-      <span className="absolute bottom-3 right-4 font-pixel text-gray-600 text-[0.35rem] select-none">
-        {APP_VERSION}
-      </span>
+      <button
+        onClick={handleVersionTap}
+        className="absolute bottom-3 right-4 font-pixel text-gray-600 text-[0.35rem] select-none cursor-default focus:outline-none"
+      >
+        {devMode && (
+          <span className="mr-1.5 px-1 py-0.5 rounded text-[0.5rem] font-bold bg-orange-600/20 text-orange-400 uppercase tracking-wider">
+            DEV
+          </span>
+        )}
+        v{APP_VERSION}
+      </button>
     </GameLayout>
   )
 }
