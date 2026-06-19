@@ -65,6 +65,11 @@ describe('profileService', () => {
     expect(svc.getProfile(p.id)!.name).toBe('Renombrado')
   })
 
+  it('renameProfile() throws on built-in profile', () => {
+    svc.init()
+    expect(() => svc.renameProfile(BASE_PROFILE_ID, 'Hacked')).toThrow()
+  })
+
   it('deleteProfile() removes profile from index and storage', () => {
     svc.init()
     const p = svc.createProfile('To delete', '', ['custom'])

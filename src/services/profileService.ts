@@ -154,6 +154,7 @@ export function duplicateProfile(id: string): Profile {
 export function renameProfile(id: string, name: string): void {
   const profile = readProfile(id)
   if (!profile) throw new Error(`Profile not found: ${id}`)
+  if (profile.isBuiltIn) throw new Error('Cannot rename built-in profile')
   writeProfile({ ...profile, name, updatedAt: new Date().toISOString() })
 }
 
@@ -199,7 +200,8 @@ export function validateAndParseImport(json: string): ImportResult {
     if (
       !Array.isArray(p.data.players) ||
       !Array.isArray(p.data.teams) ||
-      !Array.isArray(p.data.leagues)
+      !Array.isArray(p.data.leagues) ||
+      !Array.isArray(p.data.techniques)
     )
       return { ok: false, error: 'El perfil no contiene los arrays de datos obligatorios.' }
     const idConflict = getIndex().profileIds.includes(p.id)
