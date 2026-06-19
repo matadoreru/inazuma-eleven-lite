@@ -418,7 +418,10 @@ export default function DevTeamsScreen() {
         {filtered.map(team => (
           <div key={team.id}>
             {/* Team row */}
-            <div className="flex items-center px-4 py-2.5 border-b border-gray-800/50 gap-3 hover:bg-dark-800/30">
+            <div
+              onClick={() => handleEdit(team)}
+              className={`flex items-center px-4 py-2.5 border-b border-gray-800/50 gap-3 cursor-pointer transition-colors ${editingId === team.id ? 'bg-dark-800/60' : 'hover:bg-dark-800/30'}`}
+            >
               <TeamBadgeImage teamName={team.name} badgeUrl={team.badgeUrl} size="sm" className="shrink-0" />
               <span className="text-gray-500 text-xs shrink-0">#{team.id}</span>
               <span className="text-white text-sm flex-1 min-w-0 truncate">{team.name}</span>
@@ -427,19 +430,13 @@ export default function DevTeamsScreen() {
               <span className="text-gray-400 text-xs shrink-0">Rep {team.reputation}</span>
               <span className="text-gray-500 text-xs shrink-0">{formatMoney(team.budget)}</span>
               <button
-                onClick={() => handleEdit(team)}
-                className="text-blue-400 hover:text-blue-300 text-xs shrink-0 px-1.5 py-0.5"
-              >
-                Editar
-              </button>
-              <button
-                onClick={() => handleDuplicate(team)}
+                onClick={e => { e.stopPropagation(); handleDuplicate(team) }}
                 className="text-gray-400 hover:text-white text-xs shrink-0 px-1.5 py-0.5"
               >
                 Dupl
               </button>
               <button
-                onClick={() => handleDelete(team.id)}
+                onClick={e => { e.stopPropagation(); handleDelete(team.id) }}
                 className="text-red-500 hover:text-red-400 text-xs shrink-0 px-1.5 py-0.5"
               >
                 ×
