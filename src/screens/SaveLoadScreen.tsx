@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { useCareerStore } from '../store/careerStore'
 import TeamNameInline from '../components/TeamNameInline'
 import { listSaves, deleteSave } from '../services/saveService'
+import { listProfiles } from '../services/profileService'
 import { formatMoney } from '../utils/formatMoney'
 import { MAX_SAVE_SLOTS } from '../types/save'
 import type { SaveSlot } from '../types/save'
@@ -30,6 +31,9 @@ export default function SaveLoadScreen() {
   const [saves, setSaves] = useState<SaveSlot[]>([])
   const [savingSlot, setSavingSlot] = useState<number | null>(null)
   const [slotName, setSlotName] = useState('')
+  const [knownProfileIds, setKnownProfileIds] = useState<Set<string>>(() =>
+    new Set(listProfiles().map((p) => p.id))
+  )
 
   const isInGame = career !== null
 
@@ -39,6 +43,7 @@ export default function SaveLoadScreen() {
 
   function refreshSaves() {
     setSaves(listSaves())
+    setKnownProfileIds(new Set(listProfiles().map((p) => p.id)))
   }
 
   function handleLoad(slot: number) {
@@ -109,6 +114,12 @@ export default function SaveLoadScreen() {
                       </p>
                       <p className="text-gray-500 text-xs">{save.summary.currentDate}</p>
                       <p className="text-gray-600 text-xs">{formatDate(save.savedAtUnix)}</p>
+                      {save.profileId && !knownProfileIds.has(save.profileId) && (
+                        <div className="mt-1.5 flex items-center gap-1.5 text-yellow-500 text-xs">
+                          <span className="material-icons text-xs">warning</span>
+                          Perfil original no disponible ({save.profileId.slice(0, 8)}…)
+                        </div>
+                      )}
                     </div>
                   ) : (
                     <p className="text-gray-600 text-sm italic">Ranura vacía</p>

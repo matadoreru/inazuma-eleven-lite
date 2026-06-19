@@ -5,6 +5,7 @@ import type { SaveSlot, SaveData, SaveSummary } from '../types/save'
 import { SAVE_SCHEMA_VERSION, MAX_SAVE_SLOTS, SAVE_KEY_PREFIX } from '../types/save'
 import { DEFAULT_DIFFICULTY } from '../types/career'
 import { sortStandings } from './standingsService'
+import { getActiveProfile } from './profileService'
 
 function buildSummary(career: Career, players: Player[], teams: Team[]): SaveSummary {
   const team = teams.find((t) => t.id === career.teamId)
@@ -38,6 +39,7 @@ export function save(
 
   const now = Date.now()
   const summary = buildSummary(career, players, teams)
+  const activeProfile = getActiveProfile()
 
   const updatedCareer: Career = {
     ...career,
@@ -52,6 +54,8 @@ export function save(
     career: updatedCareer,
     players,
     teams,
+    profileId: activeProfile?.id,
+    profileVersion: activeProfile?.version,
   }
 
   localStorage.setItem(getKey(slot), JSON.stringify(data))
@@ -85,6 +89,8 @@ export function listSaves(): SaveSlot[] {
         schemaVersion: data.schemaVersion,
         savedAtUnix: data.savedAtUnix,
         summary: data.summary,
+        profileId: data.profileId,
+        profileName: undefined,
       })
     } catch {
       // Skip corrupted save

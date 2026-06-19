@@ -19,6 +19,8 @@ export interface SaveSlot {
   schemaVersion: number
   savedAtUnix: number
   summary: SaveSummary
+  profileId?: string
+  profileName?: string
 }
 
 export interface SaveData {
@@ -29,6 +31,8 @@ export interface SaveData {
   career: Career
   players: Player[]
   teams: Team[]
+  profileId?: string
+  profileVersion?: string
 }
 
 export const SAVE_SCHEMA_VERSION = 1
