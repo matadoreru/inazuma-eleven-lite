@@ -1,7 +1,7 @@
 import { useState, useMemo, useRef } from 'react'
 import { useCareerStore } from '../store/careerStore'
-import { teams } from '../data/teams'
-import { players } from '../data/players'
+import Icon from '../components/Icon'
+import { getActiveProfileData, getActiveProfile } from '../services/profileService'
 import StepperBar from '../components/StepperBar'
 import AvatarPicker from '../components/AvatarPicker'
 import TeamSelectCard from '../components/TeamSelectCard'
@@ -98,6 +98,10 @@ function DiffStepper({
 export default function NewCareerScreen() {
   const navigate = useCareerStore((s) => s.navigate)
   const startNewCareer = useCareerStore((s) => s.startNewCareer)
+
+  const profileData = useMemo(() => getActiveProfileData(), [])
+  const activeProfileName = useMemo(() => getActiveProfile()?.name ?? 'Perfil base', [])
+  const { teams, players } = profileData
 
   const [step, setStep] = useState(0)
   const [managerName, setManagerName] = useState('')
@@ -706,6 +710,14 @@ export default function NewCareerScreen() {
                         </div>
                       )}
                     </div>
+
+                    <div className="bg-dark-900/40 rounded-xl border border-gold-600/20 p-3 flex items-center gap-2">
+                      <Icon name="layers" size="xs" className="text-gray-500 shrink-0" />
+                      <div>
+                        <p className="text-gray-400 text-[0.65rem] uppercase tracking-wide">Datos</p>
+                        <p className="text-gray-300 text-xs font-medium">{activeProfileName}</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -791,6 +803,14 @@ export default function NewCareerScreen() {
                         {difficultyMode === 'normal' && <span className="text-gold-500 font-bold text-lg">Normal</span>}
                         {difficultyMode === 'hard'   && <span className="text-red-400 font-bold text-lg">Difícil</span>}
                         {difficultyMode === 'custom' && <span className="text-purple-400 font-bold text-lg">Custom</span>}
+                      </div>
+                    </div>
+
+                    <div className="bg-dark-900/40 rounded-xl border border-gold-600/20 p-3 flex items-center gap-2">
+                      <Icon name="layers" size="xs" className="text-gray-500 shrink-0" />
+                      <div>
+                        <p className="text-gray-400 text-[0.65rem] uppercase tracking-wide">Datos</p>
+                        <p className="text-gray-300 text-xs font-medium">{activeProfileName}</p>
                       </div>
                     </div>
                   </div>

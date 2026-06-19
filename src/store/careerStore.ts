@@ -7,16 +7,14 @@ import type { DifficultySettings } from '../types/career'
 import type { Player } from '../types/player'
 import type { Team } from '../types/team'
 import { MAX_CALLUP } from '../types/team'
-import type { Match, MatchResult, MatchEvent } from '../types/competition'
+import type { Match, MatchResult, MatchEvent, League } from '../types/competition'
 import type { TransferFilter } from '../types/transfer'
 import { DEFAULT_TRANSFER_FILTER } from '../types/transfer'
 import type { LeagueSeason, SeasonStatus } from '../types/season'
 
-// Seed data
-import { players as seedPlayers } from '../data/players'
-import { teams as seedTeams } from '../data/teams'
-import { leagues as seedLeagues } from '../data/leagues'
+// Seed data — formations only (players/teams/leagues come from active profile)
 import { formations as seedFormations, getFormationSlots } from '../data/formations'
+import { getActiveProfileData } from '../services/profileService'
 
 // Services
 import { createCareer, getObjectivesForTeam } from '../services/careerService'
@@ -551,6 +549,7 @@ interface CareerState {
   career: Career | null
   players: Player[]
   teams: Team[]
+  leagues: League[]
 
   activeTransferFilter: TransferFilter
   isSimulating: boolean
@@ -676,6 +675,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
   career: null,
   players: [],
   teams: [],
+  leagues: [],
   activeTransferFilter: { ...DEFAULT_TRANSFER_FILTER },
   isSimulating: false,
   lastMatchResult: null,
@@ -701,15 +701,16 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
   },
 
   startNewCareer(managerName, teamId, managerAvatar = '/avatars/avatar-1.svg', difficulty = DEFAULT_DIFFICULTY, customTeamInput?: { team: Team; squadPlayerIds: number[] }, nameStyle: 'western' | 'japanese' = 'western') {
-    const playersCopy: Player[] = JSON.parse(JSON.stringify(seedPlayers))
+    const { players: seedP, teams: seedT, leagues: seedL } = getActiveProfileData()
+    const playersCopy: Player[] = JSON.parse(JSON.stringify(seedP))
       .map((p: Player) => ({ ...p, seasonStats: p.seasonStats ?? { goals: 0, assists: 0, cleanSheets: 0, matchesPlayed: 0, minutesPlayed: 0 } }))
-    const teamsCopy: Team[] = JSON.parse(JSON.stringify(seedTeams))
+    const teamsCopy: Team[] = JSON.parse(JSON.stringify(seedT))
       .map((t: Team) => ({
         ...t,
         scoutLevel: t.scoutLevel ?? Math.max(1, Math.ceil(t.reputation / 20)),
         facilitiesLevel: t.facilitiesLevel ?? Math.max(1, Math.ceil(t.reputation / 20)),
       }))
-    const leaguesCopy = JSON.parse(JSON.stringify(seedLeagues))
+    const leaguesCopy: League[] = JSON.parse(JSON.stringify(seedL))
 
     let resolvedTeamId = teamId
     if (customTeamInput) {
@@ -735,6 +736,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
       career,
       players: newPlayers,
       teams: newTeams,
+      leagues: leaguesCopy,
       screen: 'career_home',
       lastMatchResult: null,
       pendingMatch: null,
@@ -762,6 +764,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
       scoutLevel: t.scoutLevel ?? Math.max(1, Math.ceil(t.reputation / 20)),
       facilitiesLevel: t.facilitiesLevel ?? Math.max(1, Math.ceil(t.reputation / 20)),
     }))
+    const { leagues: profileLeagues } = getActiveProfileData()
     set({
       career: {
         ...data.career,
@@ -780,6 +783,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
       },
       players,
       teams,
+      leagues: profileLeagues,
       screen: 'career_home',
       lastMatchResult: null,
       pendingMatch: null,
@@ -1833,7 +1837,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     const { career, teams } = get()
     if (!career || career.seasonStatus !== 'all_finished') return
 
-    const leagues = seedLeagues
+    const leagues = get().leagues
     const { teams: updatedTeams, promotedIds, relegatedIds } =
       applyPromotionsRelegations(teams, leagues, career.season, career.allLeagueSeasons)
 
@@ -1885,7 +1889,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     const { career, players, teams } = get()
     if (!career || career.seasonStatus !== 'review') return
 
-    const leagues = seedLeagues
+    const leagues = get().leagues
     const newSeasonNumber = career.seasonNumber + 1
     const newYear = career.season.year + 1
 
