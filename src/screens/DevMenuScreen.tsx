@@ -4,6 +4,8 @@ import { disableDevMode } from '../services/profileService'
 import Icon from '../components/Icon'
 import DevProfilesScreen from './DevProfilesScreen'
 import DevPlayersScreen from './DevPlayersScreen'
+import DevTeamsScreen from './DevTeamsScreen'
+import DevLeaguesScreen from './DevLeaguesScreen'
 
 type DevTab = 'profiles' | 'players' | 'teams' | 'leagues'
 
@@ -62,8 +64,8 @@ export default function DevMenuScreen() {
         <div className="flex-1 overflow-y-auto">
           {activeTab === 'profiles' && <DevProfilesScreen />}
           {activeTab === 'players' && <DevPlayersScreen />}
-          {activeTab === 'teams' && <div className="p-6 text-gray-500 text-sm">Próximamente — editor de equipos</div>}
-          {activeTab === 'leagues' && <div className="p-6 text-gray-500 text-sm">Próximamente — editor de ligas</div>}
+          {activeTab === 'teams' && <DevTeamsScreen />}
+          {activeTab === 'leagues' && <DevLeaguesScreen />}
         </div>
     </div>
   )
