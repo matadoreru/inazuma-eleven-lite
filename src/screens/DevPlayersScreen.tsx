@@ -250,6 +250,14 @@ function PlayerForm({ data, onChange, onSave, onCancel }: PlayerFormProps) {
               onChange={e => onChange({ ...data, spriteUrl: e.target.value })}
               className={INPUT_CLS}
             />
+            {data.spriteUrl && (
+              <img
+                src={data.spriteUrl}
+                alt="preview"
+                className="mt-1 w-16 h-16 object-contain rounded bg-dark-700"
+                onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
+              />
+            )}
           </div>
         </div>
 
@@ -617,6 +625,12 @@ export default function DevPlayersScreen() {
           <div key={player.id}>
             {/* Player row */}
             <div className="flex items-center px-4 py-2.5 border-b border-gray-800/50 gap-3 hover:bg-dark-800/30">
+              <img
+                src={player.spriteUrl}
+                alt={player.name}
+                className="w-9 h-9 object-contain shrink-0 rounded"
+                onError={(e) => { (e.currentTarget as HTMLImageElement).src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36'%3E%3Crect width='36' height='36' rx='4' fill='%234b5563'/%3E%3C/svg%3E" }}
+              />
               <span className="text-gray-600 text-xs w-6 shrink-0">#{player.jerseyNumber}</span>
               <span className="text-white text-sm flex-1 min-w-0 truncate">{player.name}</span>
               <span className="text-gray-500 text-xs shrink-0">{player.nameRomaji}</span>

@@ -4,6 +4,7 @@ import type { League } from '../types/competition'
 import { formations as seedFormations } from '../data/formations'
 import { getActiveProfile, updateProfileData } from '../services/profileService'
 import { formatMoney } from '../utils/formatMoney'
+import TeamBadgeImage from '../components/TeamBadgeImage'
 
 // ─── helpers ────────────────────────────────────────────────────────────────
 
@@ -153,6 +154,7 @@ function TeamForm({ data, leagues, onChange, onSave, onCancel }: TeamFormProps) 
               className={INPUT_CLS}
               placeholder="https://..."
             />
+            <TeamBadgeImage teamName={data.name} badgeUrl={data.badgeUrl} size="md" className="mt-1" />
           </div>
         </div>
       </div>
@@ -296,6 +298,7 @@ export default function DevTeamsScreen() {
           <div key={team.id}>
             {/* Team row */}
             <div className="flex items-center px-4 py-2.5 border-b border-gray-800/50 gap-3 hover:bg-dark-800/30">
+              <TeamBadgeImage teamName={team.name} badgeUrl={team.badgeUrl} size="sm" className="shrink-0" />
               <span className="text-gray-500 text-xs shrink-0">#{team.id}</span>
               <span className="text-white text-sm flex-1 min-w-0 truncate">{team.name}</span>
               <span className="text-gray-400 text-xs shrink-0">T{team.tier}</span>
