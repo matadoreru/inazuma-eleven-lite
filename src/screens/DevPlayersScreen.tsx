@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react'
 import type { Player, Stats, Technique, Position, Element, Gender, CanonTier } from '../types/player'
 import { statTotal } from '../types/player'
 import { getActiveProfile, updateProfileData } from '../services/profileService'
+import type { Team } from '../types/team'
+import PositionSprite from '../components/PositionSprite'
+import ElementBadge from '../components/ElementBadge'
+import TeamBadgeImage from '../components/TeamBadgeImage'
 
 // ─── helpers ────────────────────────────────────────────────────────────────
-
-function positionColor(pos: Position): string {
-  return { GK: 'text-yellow-400', DF: 'text-blue-400', MD: 'text-green-400', FW: 'text-red-400' }[pos]
-}
 
 function nextId(arr: Player[]): number {
   return arr.length === 0 ? 1 : Math.max(...arr.map(p => p.id)) + 1
@@ -57,6 +57,7 @@ function defaultPlayer(): Player {
 
 interface PlayerFormProps {
   data: Player
+  teams: Team[]
   onChange: (updated: Player) => void
   onSave: () => void
   onCancel: () => void
@@ -71,7 +72,7 @@ function newTech(): Technique {
   return { id: Date.now(), name: '', type: 'Tiro', element: 'FIRE', POT: 50, PP: 5 }
 }
 
-function PlayerForm({ data, onChange, onSave, onCancel }: PlayerFormProps) {
+function PlayerForm({ data, teams, onChange, onSave, onCancel }: PlayerFormProps) {
   function updateTech(idx: number, field: keyof Technique, value: string | number) {
     const techs = [...(data.techniques ?? [])]
     techs[idx] = { ...techs[idx], [field]: value }
@@ -175,6 +176,10 @@ function PlayerForm({ data, onChange, onSave, onCancel }: PlayerFormProps) {
               <option value="MD">MD</option>
               <option value="FW">FW</option>
             </select>
+            <div className="flex items-center gap-2 mt-1">
+              <PositionSprite position={data.position} size={24} />
+              <span className="text-gray-500 text-xs">{data.position}</span>
+            </div>
           </div>
 
           <div>
@@ -190,6 +195,12 @@ function PlayerForm({ data, onChange, onSave, onCancel }: PlayerFormProps) {
               <option value="MD">MD</option>
               <option value="FW">FW</option>
             </select>
+            {data.positionAlt && (
+              <div className="flex items-center gap-2 mt-1">
+                <PositionSprite position={data.positionAlt} size={20} className="opacity-70" />
+                <span className="text-gray-500 text-xs">{data.positionAlt}</span>
+              </div>
+            )}
           </div>
 
           <div>
@@ -208,16 +219,26 @@ function PlayerForm({ data, onChange, onSave, onCancel }: PlayerFormProps) {
 
           <div>
             <label className={LABEL_CLS}>Tier</label>
-            <select
-              value={data.canonTier}
-              onChange={e => onChange({ ...data, canonTier: e.target.value as CanonTier })}
-              className={INPUT_CLS}
-            >
-              <option value="common">common</option>
-              <option value="rare">rare</option>
-              <option value="epic">epic</option>
-              <option value="legendary">legendary</option>
-            </select>
+            <div className="flex gap-1 flex-wrap">
+              {(['common', 'rare', 'epic', 'legendary'] as const).map(tier => {
+                const colors: Record<string, string> = {
+                  common: 'bg-gray-600/40 text-gray-200 border-gray-500',
+                  rare: 'bg-blue-600/40 text-blue-200 border-blue-500',
+                  epic: 'bg-purple-600/40 text-purple-200 border-purple-500',
+                  legendary: 'bg-yellow-500/40 text-yellow-200 border-yellow-400',
+                }
+                return (
+                  <button
+                    key={tier}
+                    type="button"
+                    onClick={() => onChange({ ...data, canonTier: tier })}
+                    className={`px-2 py-0.5 rounded border text-xs font-semibold transition-opacity ${colors[tier]} ${data.canonTier === tier ? 'opacity-100 ring-1 ring-current' : 'opacity-40'}`}
+                  >
+                    {tier}
+                  </button>
+                )
+              })}
+            </div>
           </div>
 
           <div>
@@ -233,13 +254,26 @@ function PlayerForm({ data, onChange, onSave, onCancel }: PlayerFormProps) {
           </div>
 
           <div>
-            <label className={LABEL_CLS}>ID equipo</label>
-            <input
-              type="number"
-              value={data.teamId ?? 0}
-              onChange={e => onChange({ ...data, teamId: +e.target.value === 0 ? null : +e.target.value })}
+            <label className={LABEL_CLS}>Equipo</label>
+            <select
+              value={data.teamId ?? ''}
+              onChange={e => onChange({ ...data, teamId: e.target.value === '' ? null : +e.target.value })}
               className={INPUT_CLS}
-            />
+            >
+              <option value="">— agente libre —</option>
+              {teams.map(t => (
+                <option key={t.id} value={t.id}>{t.name}</option>
+              ))}
+            </select>
+            {data.teamId != null && (() => {
+              const t = teams.find(t => t.id === data.teamId)
+              return t ? (
+                <div className="flex items-center gap-1.5 mt-1">
+                  <TeamBadgeImage teamName={t.name} badgeUrl={t.badgeUrl} size="sm" />
+                  <span className="text-gray-400 text-xs">{t.name}</span>
+                </div>
+              ) : null
+            })()}
           </div>
 
           <div>
@@ -516,6 +550,7 @@ function PlayerForm({ data, onChange, onSave, onCancel }: PlayerFormProps) {
 
 export default function DevPlayersScreen() {
   const [players, setPlayers] = useState<Player[]>([])
+  const [teams, setTeams] = useState<Team[]>([])
   const [profileId, setProfileId] = useState<string>('')
   const [search, setSearch] = useState('')
   const [editingId, setEditingId] = useState<number | 'new' | null>(null)
@@ -526,6 +561,7 @@ export default function DevPlayersScreen() {
     if (!p) return
     setProfileId(p.id)
     setPlayers(p.data.players)
+    setTeams(p.data.teams)
   }
 
   useEffect(() => { refresh() }, [])
@@ -609,6 +645,7 @@ export default function DevPlayersScreen() {
         {editingId === 'new' && formData && (
           <PlayerForm
             data={formData}
+            teams={teams}
             onChange={setFormData}
             onSave={handleSave}
             onCancel={() => { setEditingId(null); setFormData(null) }}
@@ -634,9 +671,13 @@ export default function DevPlayersScreen() {
               <span className="text-gray-600 text-xs w-6 shrink-0">#{player.jerseyNumber}</span>
               <span className="text-white text-sm flex-1 min-w-0 truncate">{player.name}</span>
               <span className="text-gray-500 text-xs shrink-0">{player.nameRomaji}</span>
-              <span className={`text-xs font-bold shrink-0 ${positionColor(player.position)}`}>{player.position}</span>
-              <span className="text-gray-400 text-xs shrink-0">{player.element}</span>
-              <span className="text-gray-400 text-xs shrink-0">TOT {statTotal(player.stats)}</span>
+              <PositionSprite position={player.position} size={20} className="shrink-0" />
+              <ElementBadge element={player.element} size="xs" />
+              <span className="text-blue-300 text-xs font-bold shrink-0 tabular-nums">{player.stats.TOT}</span>
+              {(() => {
+                const tierColors: Record<string, string> = { common: 'bg-gray-500', rare: 'bg-blue-500', epic: 'bg-purple-500', legendary: 'bg-yellow-400' }
+                return <span className={`w-2 h-2 rounded-full shrink-0 ${tierColors[player.canonTier] ?? 'bg-gray-600'}`} title={player.canonTier} />
+              })()}
               <button
                 onClick={() => handleEdit(player)}
                 className="text-blue-400 hover:text-blue-300 text-xs shrink-0 px-1.5 py-0.5 rounded hover:bg-blue-900/20"
@@ -661,6 +702,7 @@ export default function DevPlayersScreen() {
             {editingId === player.id && formData && (
               <PlayerForm
                 data={formData}
+                teams={teams}
                 onChange={setFormData}
                 onSave={handleSave}
                 onCancel={() => { setEditingId(null); setFormData(null) }}

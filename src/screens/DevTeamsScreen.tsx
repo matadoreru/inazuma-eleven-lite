@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react'
 import type { Team } from '../types/team'
 import type { League } from '../types/competition'
+import type { Player } from '../types/player'
 import { formations as seedFormations } from '../data/formations'
 import { getActiveProfile, updateProfileData } from '../services/profileService'
 import { formatMoney } from '../utils/formatMoney'
 import TeamBadgeImage from '../components/TeamBadgeImage'
+import PositionSprite from '../components/PositionSprite'
 
 // ─── helpers ────────────────────────────────────────────────────────────────
 
@@ -41,12 +43,24 @@ const LABEL_CLS = 'block text-gray-400 text-xs mb-0.5'
 interface TeamFormProps {
   data: Team
   leagues: League[]
+  players: Player[]
   onChange: (updated: Team) => void
-  onSave: () => void
+  onSave: (team: Team, players: Player[]) => void
   onCancel: () => void
 }
 
-function TeamForm({ data, leagues, onChange, onSave, onCancel }: TeamFormProps) {
+function TeamForm({ data, leagues, players, onChange, onSave, onCancel }: TeamFormProps) {
+  const [squadSearch, setSquadSearch] = useState('')
+
+  function addPlayer(pid: number) {
+    onChange({ ...data, playerIds: [...data.playerIds, pid] })
+    setSquadSearch('')
+  }
+
+  function removePlayer(pid: number) {
+    onChange({ ...data, playerIds: data.playerIds.filter(id => id !== pid) })
+  }
+
   return (
     <div className="bg-dark-800 border border-gray-700/50 rounded-lg mx-3 my-2 p-4 space-y-3">
       <div className="grid grid-cols-2 gap-3">
@@ -159,6 +173,90 @@ function TeamForm({ data, leagues, onChange, onSave, onCancel }: TeamFormProps) 
         </div>
       </div>
 
+      {/* Squad management section */}
+      <div className="border-t border-gray-800 pt-3 space-y-2">
+        <p className="text-gray-300 text-xs font-semibold uppercase tracking-wider">
+          Plantilla ({data.playerIds.length} jugadores)
+        </p>
+
+        {/* Current squad */}
+        {data.playerIds.length > 0 && (
+          <div className="space-y-1 max-h-40 overflow-y-auto">
+            {data.playerIds.map(pid => {
+              const p = players.find(p => p.id === pid)
+              if (!p) return (
+                <div key={pid} className="flex items-center gap-2 px-2 py-1 rounded bg-dark-700/50 text-gray-500 text-xs">
+                  <span>#{pid} (no encontrado)</span>
+                  <button onClick={() => removePlayer(pid)} className="ml-auto text-red-500 hover:text-red-400 text-xs">×</button>
+                </div>
+              )
+              return (
+                <div key={pid} className="flex items-center gap-2 px-2 py-1 rounded bg-dark-700/50 hover:bg-dark-700">
+                  <img
+                    src={p.spriteUrl}
+                    alt={p.name}
+                    className="w-7 h-7 object-contain shrink-0 rounded"
+                    onError={(e) => { (e.currentTarget as HTMLImageElement).src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28'%3E%3Crect width='28' height='28' rx='3' fill='%234b5563'/%3E%3C/svg%3E" }}
+                  />
+                  <PositionSprite position={p.position} size={16} />
+                  <span className="text-white text-xs flex-1 truncate">{p.name}</span>
+                  <span className="text-gray-500 text-xs tabular-nums">#{p.jerseyNumber}</span>
+                  <button
+                    onClick={() => removePlayer(pid)}
+                    className="text-red-500 hover:text-red-400 text-xs px-1 shrink-0"
+                  >×</button>
+                </div>
+              )
+            })}
+          </div>
+        )}
+
+        {/* Search to add players */}
+        <input
+          type="text"
+          placeholder="Buscar jugador para añadir..."
+          value={squadSearch}
+          onChange={e => setSquadSearch(e.target.value)}
+          className="w-full bg-dark-700 border border-gray-700 rounded px-2 py-1 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
+        />
+        {squadSearch.trim() !== '' && (
+          <div className="max-h-32 overflow-y-auto space-y-0.5">
+            {players
+              .filter(p =>
+                !data.playerIds.includes(p.id) &&
+                (p.name.toLowerCase().includes(squadSearch.toLowerCase()) ||
+                 p.nameRomaji.toLowerCase().includes(squadSearch.toLowerCase()))
+              )
+              .slice(0, 8)
+              .map(p => (
+                <button
+                  key={p.id}
+                  onClick={() => addPlayer(p.id)}
+                  className="w-full flex items-center gap-2 px-2 py-1 rounded bg-dark-700/50 hover:bg-blue-900/30 text-left"
+                >
+                  <img
+                    src={p.spriteUrl}
+                    alt={p.name}
+                    className="w-7 h-7 object-contain shrink-0 rounded"
+                    onError={(e) => { (e.currentTarget as HTMLImageElement).src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28'%3E%3Crect width='28' height='28' rx='3' fill='%234b5563'/%3E%3C/svg%3E" }}
+                  />
+                  <PositionSprite position={p.position} size={16} />
+                  <span className="text-white text-xs flex-1 truncate">{p.name}</span>
+                  <span className="text-blue-400 text-xs shrink-0">+ Añadir</span>
+                </button>
+              ))
+            }
+            {players.filter(p =>
+              !data.playerIds.includes(p.id) &&
+              (p.name.toLowerCase().includes(squadSearch.toLowerCase()) ||
+               p.nameRomaji.toLowerCase().includes(squadSearch.toLowerCase()))
+            ).length === 0 && (
+              <p className="text-gray-500 text-xs px-2 py-1">Sin resultados.</p>
+            )}
+          </div>
+        )}
+      </div>
+
       {/* Action buttons */}
       <div className="flex justify-end gap-2 border-t border-gray-800 pt-3">
         <button
@@ -168,7 +266,7 @@ function TeamForm({ data, leagues, onChange, onSave, onCancel }: TeamFormProps) 
           Cancelar
         </button>
         <button
-          onClick={onSave}
+          onClick={() => onSave(data, players)}
           className="px-4 py-1.5 bg-blue-600 hover:bg-blue-500 text-white text-sm rounded-lg font-medium"
         >
           Guardar
@@ -183,6 +281,7 @@ function TeamForm({ data, leagues, onChange, onSave, onCancel }: TeamFormProps) 
 export default function DevTeamsScreen() {
   const [teams, setTeams] = useState<Team[]>([])
   const [leagues, setLeagues] = useState<League[]>([])
+  const [players, setPlayers] = useState<Player[]>([])
   const [profileId, setProfileId] = useState<string>('')
   const [search, setSearch] = useState('')
   const [editingId, setEditingId] = useState<number | 'new' | null>(null)
@@ -194,19 +293,40 @@ export default function DevTeamsScreen() {
     setProfileId(p.id)
     setTeams(p.data.teams)
     setLeagues(p.data.leagues)
+    setPlayers(p.data.players)
   }
 
   useEffect(() => { refresh() }, [])
 
-  function handleSave() {
-    if (!formData || !profileId) return
-    let next: Team[]
-    if (editingId === 'new') {
-      next = [...teams, { ...formData, id: nextId(teams) }]
-    } else {
-      next = teams.map(t => t.id === formData.id ? formData : t)
+  function handleSave(savedTeam: Team, _unused: Player[]) {
+    if (!profileId) return
+
+    const oldTeam = teams.find(t => t.id === savedTeam.id)
+    const oldIds = oldTeam?.playerIds ?? []
+    const newIds = savedTeam.playerIds
+
+    // removed players: were in old squad, not in new → clear teamId if it pointed to this team
+    const removed = oldIds.filter(id => !newIds.includes(id))
+    // added players: in new squad, not in old
+    const added = newIds.filter(id => !oldIds.includes(id))
+
+    let nextPlayers = players
+    if (removed.length > 0 || added.length > 0) {
+      nextPlayers = players.map(p => {
+        if (removed.includes(p.id) && p.teamId === savedTeam.id) return { ...p, teamId: null }
+        if (added.includes(p.id)) return { ...p, teamId: savedTeam.id }
+        return p
+      })
     }
-    updateProfileData(profileId, { teams: next })
+
+    let nextTeams: Team[]
+    if (editingId === 'new') {
+      nextTeams = [...teams, { ...savedTeam, id: nextId(teams) }]
+    } else {
+      nextTeams = teams.map(t => t.id === savedTeam.id ? savedTeam : t)
+    }
+
+    updateProfileData(profileId, { teams: nextTeams, players: nextPlayers })
     refresh()
     setEditingId(null)
     setFormData(null)
@@ -282,6 +402,7 @@ export default function DevTeamsScreen() {
           <TeamForm
             data={formData}
             leagues={leagues}
+            players={players}
             onChange={setFormData}
             onSave={handleSave}
             onCancel={handleCancel}
@@ -301,6 +422,7 @@ export default function DevTeamsScreen() {
               <TeamBadgeImage teamName={team.name} badgeUrl={team.badgeUrl} size="sm" className="shrink-0" />
               <span className="text-gray-500 text-xs shrink-0">#{team.id}</span>
               <span className="text-white text-sm flex-1 min-w-0 truncate">{team.name}</span>
+              <span className="text-gray-500 text-xs shrink-0">{team.playerIds.length}j</span>
               <span className="text-gray-400 text-xs shrink-0">T{team.tier}</span>
               <span className="text-gray-400 text-xs shrink-0">Rep {team.reputation}</span>
               <span className="text-gray-500 text-xs shrink-0">{formatMoney(team.budget)}</span>
@@ -329,6 +451,7 @@ export default function DevTeamsScreen() {
               <TeamForm
                 data={formData}
                 leagues={leagues}
+                players={players}
                 onChange={setFormData}
                 onSave={handleSave}
                 onCancel={handleCancel}
