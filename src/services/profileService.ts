@@ -215,7 +215,7 @@ export function importProfile(profile: Profile, overwrite = false): void {
   const index = getIndex()
   const exists = index.profileIds.includes(profile.id)
   if (exists && !overwrite) throw new Error('Profile ID conflict — use overwrite=true')
-  writeProfile({ ...profile, isBuiltIn: false })
+  writeProfile({ ...profile, isBuiltIn: profile.id === BASE_PROFILE_ID })
   if (!exists) setIndex({ ...index, profileIds: [...index.profileIds, profile.id] })
 }
 

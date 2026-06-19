@@ -153,6 +153,33 @@ describe('profileService', () => {
     }
   })
 
+  it('importProfile(overwrite=true) replaces an existing profile', () => {
+    svc.init()
+    const p = svc.createProfile('Original', 'desc', ['custom'])
+    const json = svc.exportProfile(p.id)
+    const parsed = svc.validateAndParseImport(json)
+    expect(parsed.ok).toBe(true)
+    if (parsed.ok) {
+      // Modify the name on the in-memory profile then overwrite
+      const modified = { ...parsed.profile, name: 'Overwritten' }
+      svc.importProfile(modified, true)
+      expect(svc.getProfile(p.id)!.name).toBe('Overwritten')
+      expect(svc.getProfile(p.id)!.isBuiltIn).toBe(false)
+    }
+  })
+
+  it('importProfile(overwrite=true) on base profile keeps isBuiltIn=true', () => {
+    svc.init()
+    const json = svc.exportProfile(BASE_PROFILE_ID)
+    const parsed = svc.validateAndParseImport(json)
+    expect(parsed.ok).toBe(true)
+    if (parsed.ok) {
+      // Try to overwrite base — isBuiltIn should be preserved
+      svc.importProfile({ ...parsed.profile, isBuiltIn: false }, true)
+      expect(svc.getProfile(BASE_PROFILE_ID)!.isBuiltIn).toBe(true)
+    }
+  })
+
   it('isDevModeActive() returns false initially', () => {
     expect(svc.isDevModeActive()).toBe(false)
   })
