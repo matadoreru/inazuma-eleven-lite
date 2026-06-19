@@ -30,9 +30,11 @@ const ELEMENT_ADVANTAGES: Record<Element, Element> = {
 }
 
 function elementMatchupBonus(atkElement?: Element | '', defElement?: Element | ''): number {
-  if (!atkElement || !defElement || atkElement === '' || defElement === '') return 0
-  if (ELEMENT_ADVANTAGES[atkElement as Element] === defElement) return 0.05
-  if (ELEMENT_ADVANTAGES[defElement as Element] === atkElement) return -0.05
+  const normalizedAtk = atkElement || null
+  const normalizedDef = defElement || null
+  if (!normalizedAtk || !normalizedDef) return 0
+  if (ELEMENT_ADVANTAGES[normalizedAtk] === normalizedDef) return 0.05
+  if (ELEMENT_ADVANTAGES[normalizedDef] === normalizedAtk) return -0.05
   return 0
 }
 
@@ -452,8 +454,9 @@ export function simulateCupTiebreak(
   ]
 
   const updatedEvents = [...regular.events, ...etEvents].sort((a, b) => a.minute - b.minute)
-  const updatedStoppage = {
-    ...regular.stoppageTime,
+  const updatedStoppage: NonNullable<MatchResult['stoppageTime']> = {
+    firstHalf: regular.stoppageTime?.firstHalf ?? 0,
+    secondHalf: regular.stoppageTime?.secondHalf ?? 0,
     etFirst: etStoppage1,
     etSecond: etStoppage2,
   }

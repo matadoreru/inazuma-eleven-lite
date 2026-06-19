@@ -39,7 +39,7 @@ import {
 } from '../services/transferService'
 import { checkObjectives, canClaimObjective } from '../services/objectiveService'
 import { markRead, markAllRead, addEvent } from '../services/inboxService'
-import { endSeason, initSeason, initLeagueSeason } from '../services/seasonService'
+import { endSeason, initSeason, initLeagueSeason, getSeasonFinalDate } from '../services/seasonService'
 import { computeSeasonStats } from '../services/statsService'
 import {
   advanceDay as advanceDayService,
@@ -191,15 +191,139 @@ function simulateExternalForDate(
   return { allLeagueSeasons: updatedLeagues, cup: updatedCup }
 }
 
+function hasPendingExternalEventOnDate(
+  career: Pick<Career, 'allLeagueSeasons' | 'cup' | 'teamId'>,
+  date: string,
+): boolean {
+  const externalLeaguePending = Object.values(career.allLeagueSeasons).some((ls) =>
+    ls.matches.some((m) => !m.played && m.date === date),
+  )
+  if (externalLeaguePending) return true
+
+  if (!career.cup || career.cup.finished) return false
+
+  return career.cup.rounds.some((round) =>
+    round.matches.some(
+      (m) =>
+        !m.played &&
+        m.date === date &&
+        m.homeTeamId !== -1 &&
+        m.awayTeamId !== -1 &&
+        m.homeTeamId !== career.teamId &&
+        m.awayTeamId !== career.teamId,
+    ),
+  )
+}
+
+function hasPendingNpcLeagueMatchOnDate(
+  career: Pick<Career, 'season' | 'teamId'>,
+  date: string,
+): boolean {
+  return career.season.matches.some(
+    (m) =>
+      !m.played &&
+      m.date === date &&
+      m.homeTeamId !== career.teamId &&
+      m.awayTeamId !== career.teamId,
+  )
+}
+
+function hasPendingNonUserEventsOnDate(
+  career: Pick<Career, 'season' | 'allLeagueSeasons' | 'cup' | 'teamId'>,
+  date: string,
+): boolean {
+  return hasPendingNpcLeagueMatchOnDate(career, date) || hasPendingExternalEventOnDate(career, date)
+}
+
+function getNextExternalEventDate(
+  career: Pick<Career, 'allLeagueSeasons' | 'cup' | 'teamId'>,
+  afterDate: string,
+): string | null {
+  const dates = Object.values(career.allLeagueSeasons)
+    .flatMap((ls) => ls.matches)
+    .filter((m) => !m.played && m.date > afterDate)
+    .map((m) => m.date)
+
+  if (career.cup && !career.cup.finished) {
+    dates.push(
+      ...career.cup.rounds
+        .flatMap((round) => round.matches)
+        .filter(
+          (m) =>
+            !m.played &&
+            m.date > afterDate &&
+            m.homeTeamId !== -1 &&
+            m.awayTeamId !== -1 &&
+            m.homeTeamId !== career.teamId &&
+            m.awayTeamId !== career.teamId,
+        )
+        .map((m) => m.date),
+    )
+  }
+
+  if (dates.length === 0) return null
+  return dates.sort((a, b) => a.localeCompare(b))[0]
+}
+
+function hasPendingUserMatches(
+  career: Pick<Career, 'season' | 'cup' | 'teamId'>,
+): boolean {
+  const currentDate = career.season.currentDate
+  const pendingLeague = career.season.matches.some(
+    (m) =>
+      !m.played &&
+      m.date >= currentDate &&
+      (m.homeTeamId === career.teamId || m.awayTeamId === career.teamId),
+  )
+  if (pendingLeague) return true
+
+  if (!career.cup) return false
+
+  return career.cup.rounds.some((round) =>
+    round.matches.some(
+      (m) =>
+        !m.played &&
+        m.date >= currentDate &&
+        m.homeTeamId !== -1 &&
+        m.awayTeamId !== -1 &&
+        (m.homeTeamId === career.teamId || m.awayTeamId === career.teamId),
+    ),
+  )
+}
+
+function simulateNpcLeagueMatchesForDate(
+  matches: Career['season']['matches'],
+  standings: Career['season']['standings'],
+  date: string,
+  userTeamId: number,
+  teams: Team[],
+  players: Player[],
+): { matches: Career['season']['matches']; standings: Career['season']['standings'] } {
+  let nextMatches = matches
+  let nextStandings = standings
+
+  for (const m of nextMatches) {
+    if (m.date === date && !m.played && m.homeTeamId !== userTeamId && m.awayTeamId !== userTeamId) {
+      const simmed = simulateLeagueMatchFn(m, teams, players)
+      nextMatches = nextMatches.map((x) => x.id === m.id ? simmed : x)
+      nextStandings = updateStandings(nextStandings, simmed)
+    }
+  }
+
+  return { matches: nextMatches, standings: nextStandings }
+}
+
 export function computeSeasonStatus(
-  career: Pick<Career, 'season' | 'allLeagueSeasons' | 'cup' | 'seasonStatus'>,
+  career: Pick<Career, 'season' | 'allLeagueSeasons' | 'cup' | 'seasonStatus' | 'teamId'>,
 ): SeasonStatus {
   if (career.seasonStatus === 'review') return 'review'
-  const userDone = career.season.finished
-  const externalDone = Object.values(career.allLeagueSeasons).every((ls) => ls.finished)
-  const cupDone = !career.cup || career.cup.finished
-  if (userDone && externalDone && cupDone) return 'all_finished'
-  if (userDone) return 'user_finished'
+  const finalDate = getSeasonFinalDate(career.season, career.allLeagueSeasons, career.cup)
+  const pendingUserMatches = hasPendingUserMatches(career)
+  if (career.season.currentDate >= finalDate) {
+    if (pendingUserMatches) return 'active'
+    return hasPendingNonUserEventsOnDate(career, career.season.currentDate) ? 'user_finished' : 'all_finished'
+  }
+  if (!pendingUserMatches) return 'user_finished'
   return 'active'
 }
 
@@ -534,6 +658,11 @@ function commitMatchResult(
   // simulated yet. advanceDay() will detect when all matches are played and
   // call applySeasonEnd() at that point.
 
+  updatedCareer = {
+    ...updatedCareer,
+    seasonStatus: computeSeasonStatus(updatedCareer),
+  }
+
   return { career: updatedCareer, teams: updatedTeams, players: updatedPlayers }
 }
 
@@ -590,6 +719,7 @@ interface CareerState {
 
   // Season lifecycle
   closeSeason(): void
+  advanceToNextSeason(): void
   startNewSeason(objectiveDifficulty?: 'easy' | 'normal' | 'hard' | 'very_hard'): void
   simulateAllRemainingAndClose(): void
 
@@ -764,22 +894,32 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
       scoutLevel: t.scoutLevel ?? Math.max(1, Math.ceil(t.reputation / 20)),
       facilitiesLevel: t.facilitiesLevel ?? Math.max(1, Math.ceil(t.reputation / 20)),
     }))
+    const allLeagueSeasons = data.career.allLeagueSeasons ?? {}
+    const cup = data.career.cup ?? null
+    const normalizedSeason = {
+      ...data.career.season,
+      endDate: getSeasonFinalDate(data.career.season, allLeagueSeasons, cup),
+    }
+    const normalizedCareer = {
+      ...data.career,
+      season: normalizedSeason,
+      playerPotential: data.career.playerPotential ?? {},
+      weeklyTrainingPlan: data.career.weeklyTrainingPlan ?? null,
+      lastCompletedTrainingSlots: data.career.lastCompletedTrainingSlots ?? null,
+      inventory: data.career.inventory ?? { ...EMPTY_INVENTORY },
+      allLeagueSeasons,
+      cup,
+      lastSeasonReview: data.career.lastSeasonReview ?? null,
+      outgoingNegotiations: data.career.outgoingNegotiations ?? [],
+      incomingOffers: data.career.incomingOffers ?? [],
+      nameStyle: data.career.nameStyle ?? 'western',
+      objectiveDifficulty: data.career.objectiveDifficulty ?? 'normal',
+    }
     const { leagues: profileLeagues } = getActiveProfileData()
     set({
       career: {
-        ...data.career,
-        playerPotential: data.career.playerPotential ?? {},
-        weeklyTrainingPlan: data.career.weeklyTrainingPlan ?? null,
-        lastCompletedTrainingSlots: data.career.lastCompletedTrainingSlots ?? null,
-        inventory: data.career.inventory ?? { ...EMPTY_INVENTORY },
-        allLeagueSeasons: data.career.allLeagueSeasons ?? {},
-        cup: data.career.cup ?? null,
-        seasonStatus: data.career.seasonStatus ?? 'active',
-        lastSeasonReview: data.career.lastSeasonReview ?? null,
-        outgoingNegotiations: data.career.outgoingNegotiations ?? [],
-        incomingOffers: data.career.incomingOffers ?? [],
-        nameStyle: data.career.nameStyle ?? 'western',
-        objectiveDifficulty: data.career.objectiveDifficulty ?? 'normal',
+        ...normalizedCareer,
+        seasonStatus: computeSeasonStatus({ ...normalizedCareer, seasonStatus: normalizedCareer.seasonStatus ?? 'active' }),
       },
       players,
       teams,
@@ -830,23 +970,33 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
         scoutLevel: t.scoutLevel ?? Math.max(1, Math.ceil(t.reputation / 20)),
         facilitiesLevel: t.facilitiesLevel ?? Math.max(1, Math.ceil(t.reputation / 20)),
       }))
+      const allLeagueSeasons = data.career.allLeagueSeasons ?? {}
+      const cup = data.career.cup ?? null
+      const normalizedSeason = {
+        ...data.career.season,
+        endDate: getSeasonFinalDate(data.career.season, allLeagueSeasons, cup),
+      }
+      const normalizedCareer = {
+        ...data.career,
+        season: normalizedSeason,
+        difficulty: data.career.difficulty ?? DEFAULT_DIFFICULTY,
+        nameStyle: data.career.nameStyle ?? 'western',
+        objectiveDifficulty: data.career.objectiveDifficulty ?? 'normal',
+        playerPotential: data.career.playerPotential ?? {},
+        weeklyTrainingPlan: data.career.weeklyTrainingPlan ?? null,
+        lastCompletedTrainingSlots: data.career.lastCompletedTrainingSlots ?? null,
+        inventory: data.career.inventory ?? { ...EMPTY_INVENTORY },
+        allLeagueSeasons,
+        cup,
+        lastSeasonReview: data.career.lastSeasonReview ?? null,
+        outgoingNegotiations: data.career.outgoingNegotiations ?? [],
+        incomingOffers: data.career.incomingOffers ?? [],
+      }
       const { leagues: profileLeagues } = getActiveProfileData()
       set({
         career: {
-          ...data.career,
-          difficulty: data.career.difficulty ?? DEFAULT_DIFFICULTY,
-          nameStyle: data.career.nameStyle ?? 'western',
-          objectiveDifficulty: data.career.objectiveDifficulty ?? 'normal',
-          playerPotential: data.career.playerPotential ?? {},
-          weeklyTrainingPlan: data.career.weeklyTrainingPlan ?? null,
-          lastCompletedTrainingSlots: data.career.lastCompletedTrainingSlots ?? null,
-          inventory: data.career.inventory ?? { ...EMPTY_INVENTORY },
-          allLeagueSeasons: data.career.allLeagueSeasons ?? {},
-          cup: data.career.cup ?? null,
-          seasonStatus: data.career.seasonStatus ?? 'active',
-          lastSeasonReview: data.career.lastSeasonReview ?? null,
-          outgoingNegotiations: data.career.outgoingNegotiations ?? [],
-          incomingOffers: data.career.incomingOffers ?? [],
+          ...normalizedCareer,
+          seasonStatus: computeSeasonStatus({ ...normalizedCareer, seasonStatus: normalizedCareer.seasonStatus ?? 'active' }),
         },
         players,
         teams,
@@ -1023,29 +1173,109 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     if (todayLeagueMatch || todayCupMatchIsToday) return
 
     const currentDateStr = career.season.currentDate
+    const finalDate = getSeasonFinalDate(career.season, career.allLeagueSeasons, career.cup)
+    if (currentDateStr >= finalDate) {
+      if (hasPendingNonUserEventsOnDate(career, currentDateStr)) {
+        const simulatedCurrentDate = simulateNpcLeagueMatchesForDate(
+          career.season.matches,
+          career.season.standings,
+          currentDateStr,
+          career.teamId,
+          teams,
+          players,
+        )
+        const currentDateExternal = simulateExternalForDate(
+          career.allLeagueSeasons,
+          career.cup,
+          currentDateStr,
+          career.teamId,
+          teams,
+          players,
+        )
+        const baseCareer: Career = {
+          ...career,
+          season: {
+            ...career.season,
+            matches: simulatedCurrentDate.matches,
+            standings: simulatedCurrentDate.standings,
+          },
+          allLeagueSeasons: currentDateExternal.allLeagueSeasons,
+          cup: currentDateExternal.cup,
+        }
+        const allNowPlayed = simulatedCurrentDate.matches.every((m) => m.played)
+        if (allNowPlayed && !career.season.finished) {
+          const finished = applySeasonEnd(baseCareer, teams, players, simulatedCurrentDate.matches, simulatedCurrentDate.standings)
+          set({ career: finished.career, players: finished.players, teams: finished.teams })
+        } else {
+          set({
+            career: {
+              ...baseCareer,
+              seasonStatus: computeSeasonStatus(baseCareer),
+            },
+          })
+        }
+      }
+      get().advanceToNextSeason()
+      return
+    }
+
     const nextDate = addDaysStr(currentDateStr, 1)
+    let allLeagueSeasons = career.allLeagueSeasons
+    let cup = career.cup
+
+    // When the user's league has already ended, external matches on the current
+    // date still need to be resolved before moving to the next day.
+    if (career.season.finished) {
+      const currentDateExternal = simulateExternalForDate(
+        allLeagueSeasons,
+        cup,
+        currentDateStr,
+        career.teamId,
+        teams,
+        players,
+      )
+      allLeagueSeasons = currentDateExternal.allLeagueSeasons
+      cup = currentDateExternal.cup
+    }
 
     // Simulate NPC vs NPC matches in user's league for current date (before leaving it)
     let seasonMatches = career.season.matches
     let seasonStandings = career.season.standings
-    for (const m of seasonMatches) {
-      if (m.date === currentDateStr && !m.played &&
-          m.homeTeamId !== career.teamId && m.awayTeamId !== career.teamId) {
-        const simmed = simulateLeagueMatchFn(m, teams, players)
-        seasonMatches = seasonMatches.map((x) => x.id === m.id ? simmed : x)
-        seasonStandings = updateStandings(seasonStandings, simmed)
-      }
-    }
+    const simulatedCurrentDate = simulateNpcLeagueMatchesForDate(
+      seasonMatches,
+      seasonStandings,
+      currentDateStr,
+      career.teamId,
+      teams,
+      players,
+    )
+    seasonMatches = simulatedCurrentDate.matches
+    seasonStandings = simulatedCurrentDate.standings
 
     // Simulate external leagues for the new date
-    const { allLeagueSeasons, cup } = simulateExternalForDate(
-      career.allLeagueSeasons,
-      career.cup,
+    const nextDateExternal = simulateExternalForDate(
+      allLeagueSeasons,
+      cup,
       nextDate,
       career.teamId,
       teams,
       players,
     )
+    allLeagueSeasons = nextDateExternal.allLeagueSeasons
+    cup = nextDateExternal.cup
+
+    if (nextDate >= finalDate) {
+      const simulatedFinalDate = simulateNpcLeagueMatchesForDate(
+        seasonMatches,
+        seasonStandings,
+        nextDate,
+        career.teamId,
+        teams,
+        players,
+      )
+      seasonMatches = simulatedFinalDate.matches
+      seasonStandings = simulatedFinalDate.standings
+    }
 
     const updatedSeason = advanceDayService({ ...career.season, matches: seasonMatches, standings: seasonStandings })
     const recoveredPlayers = recoverStaminaForDays(players, 1, career.difficulty.staminaRecoveryPerDay)
@@ -1064,6 +1294,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
       const base: Career = { ...career, season: updatedSeason, allLeagueSeasons, cup }
       const finished = applySeasonEnd(base, teams, advancedPlayers, seasonMatches, seasonStandings)
       set({ career: finished.career, players: finished.players, teams: finished.teams })
+      if (finished.career.season.currentDate >= finalDate) get().advanceToNextSeason()
       return
     }
 
@@ -1077,6 +1308,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     const negResult = resolveNegotiationsService(preNegCareer, nextDate, advancedPlayers, teams)
     const counterResult = resolveIncomingCounters(negResult.career, nextDate, negResult.players, negResult.teams)
     set({ career: counterResult.career, players: counterResult.players, teams: counterResult.teams })
+    if (counterResult.career.season.currentDate >= finalDate) get().advanceToNextSeason()
   },
 
   advanceToNextMatch() {
@@ -1084,18 +1316,27 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     if (!career) return
 
     const prevDate = career.season.currentDate
+    const seasonStatus = computeSeasonStatus(career)
+
+    if (seasonStatus === 'user_finished' && hasPendingExternalEventOnDate(career, prevDate)) {
+      get().advanceDay()
+      return
+    }
 
     // Find next user match: league or cup, whichever is earlier
     const nextLeague = getNextMatch(career.season, career.teamId)
     const nextCup = getNextUserCupMatch(career.cup, career.teamId, '9999-12-31')
-    const candidates = [nextLeague, nextCup]
+    const nextUserTarget = [nextLeague, nextCup]
       .filter((m): m is Match => m !== null && m.date > prevDate)
-      .sort((a, b) => a.date.localeCompare(b.date))
+      .sort((a, b) => a.date.localeCompare(b.date))[0] ?? null
 
-    const target = candidates[0]
-    if (!target) return
+    const targetDate = nextUserTarget?.date
+      ?? (seasonStatus === 'user_finished' ? getNextExternalEventDate(career, prevDate) : null)
 
-    const targetDate = target.date
+    if (!targetDate) {
+      if (seasonStatus === 'all_finished') get().advanceToNextSeason()
+      return
+    }
 
     // Simulate external leagues + NPC vs NPC in user's league for each skipped day
     let allLeagueSeasons = career.allLeagueSeasons
@@ -1837,7 +2078,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
   // --- Season lifecycle ---
   closeSeason() {
     const { career, teams } = get()
-    if (!career || career.seasonStatus !== 'all_finished') return
+    if (!career || computeSeasonStatus(career) !== 'all_finished') return
 
     const leagues = get().leagues
     const { teams: updatedTeams, promotedIds, relegatedIds } =
@@ -1887,6 +2128,25 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     set({ career: updatedCareer, teams: updatedTeams, screen: 'season_review' })
   },
 
+  advanceToNextSeason() {
+    const { career } = get()
+    if (!career) return
+    const seasonStatus = computeSeasonStatus(career)
+
+    if (seasonStatus === 'all_finished') {
+      const objectiveDifficulty = career.objectiveDifficulty ?? 'normal'
+      get().closeSeason()
+      if (get().career?.seasonStatus === 'review') {
+        get().startNewSeason(objectiveDifficulty)
+      }
+      return
+    }
+
+    if (seasonStatus === 'review') {
+      get().startNewSeason(career.objectiveDifficulty ?? 'normal')
+    }
+  },
+
   startNewSeason(objectiveDifficulty: 'easy' | 'normal' | 'hard' | 'very_hard' = 'normal') {
     const { career, players, teams } = get()
     if (!career || career.seasonStatus !== 'review') return
@@ -1900,7 +2160,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     const league = leagues.find((l) => l.id === newLeagueId)
 
     // New user season
-    const newSeason = initSeason(career.teamId, newLeagueId, teams, leagues, newYear)
+    let newSeason = initSeason(career.teamId, newLeagueId, teams, leagues, newYear)
 
     // New external league seasons
     const newAllLeagueSeasons: Career['allLeagueSeasons'] = {}
@@ -1916,6 +2176,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
       ...Object.values(newAllLeagueSeasons).flatMap((ls) => ls.matches),
     ]
     const newCup = deconflictCupSchedule(initCup(teams, newYear, newSeason.startDate), newAllLeagueMatches)
+    newSeason = { ...newSeason, endDate: getSeasonFinalDate(newSeason, newAllLeagueSeasons, newCup) }
 
     // New objectives (scaled by chosen difficulty)
     const newObjectives = league && userTeam
@@ -1978,7 +2239,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     // After loop, close if ready
     const { career } = get()
     if (career && computeSeasonStatus(career) === 'all_finished') {
-      get().closeSeason()
+      get().advanceToNextSeason()
     }
   },
 }))

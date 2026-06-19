@@ -13,9 +13,8 @@ import type { Match } from '../types/competition'
 import type { Team } from '../types/team'
 
 
-function UserFinishedBanner({ onAdvanceDay, onAdvanceToNextMatch, onSimulateAll, hasCupMatchPending }: {
+function UserFinishedBanner({ onAdvanceDay, onSimulateAll, hasCupMatchPending }: {
   onAdvanceDay: () => void
-  onAdvanceToNextMatch: () => void
   onSimulateAll: () => void
   hasCupMatchPending?: boolean
 }) {
@@ -34,15 +33,12 @@ function UserFinishedBanner({ onAdvanceDay, onAdvanceToNextMatch, onSimulateAll,
         </div>
       ) : (
         <p className="text-gray-400 text-xs">
-          Otras competiciones siguen en curso. Avanza días para simularlas o simúlalas todas de golpe.
+          Ya no tienes partidos pendientes antes del final de temporada. Avanza día a día o simula directamente hasta esa fecha.
         </p>
       )}
       <div className="flex gap-2">
         <button onClick={onAdvanceDay} disabled={hasCupMatchPending} className={`btn-secondary flex-1 py-2 ${hasCupMatchPending ? 'opacity-40 cursor-not-allowed' : ''}`}>
-          +1 día
-        </button>
-        <button onClick={onAdvanceToNextMatch} disabled={hasCupMatchPending} className={`flex-1 py-2 bg-blue-800/60 hover:bg-blue-700/70 text-gold-400 text-xs font-semibold rounded border border-blue-600/40 hover:border-blue-500 transition-colors uppercase tracking-wide ${hasCupMatchPending ? 'opacity-40 cursor-not-allowed' : ''}`}>
-          Sig. evento
+          Avanzar un día
         </button>
       </div>
       <button
@@ -50,13 +46,13 @@ function UserFinishedBanner({ onAdvanceDay, onAdvanceToNextMatch, onSimulateAll,
         className="w-full py-2.5 bg-green-800/60 hover:bg-green-700/70 text-green-300 text-xs font-semibold rounded border border-green-600/40 hover:border-green-500 transition-colors uppercase tracking-wide flex items-center justify-center gap-1.5"
       >
         <Icon name="fast_forward" size="xs" />
-        Simular todo y cerrar temporada
+        Avanzar a la siguiente temporada...
       </button>
     </div>
   )
 }
 
-function AllFinishedBanner({ onCloseSeason }: { onCloseSeason: () => void }) {
+function AllFinishedBanner({ onAdvanceToNextSeason }: { onAdvanceToNextSeason: () => void }) {
   return (
     <div className="panel p-5 flex flex-col gap-4 border-green-600/40">
       <div className="flex items-center gap-3">
@@ -65,15 +61,15 @@ function AllFinishedBanner({ onCloseSeason }: { onCloseSeason: () => void }) {
         </div>
         <div>
           <p className="text-green-300 font-bold text-sm">Todas las competiciones han terminado</p>
-          <p className="text-gray-400 text-xs mt-0.5">La temporada está lista para cerrarse</p>
+          <p className="text-gray-400 text-xs mt-0.5">Todo está listo para pasar a la siguiente temporada</p>
         </div>
       </div>
       <button
-        onClick={onCloseSeason}
+        onClick={onAdvanceToNextSeason}
         className="w-full bg-green-800/60 hover:bg-green-700/70 text-green-300 text-xs font-semibold py-3 rounded border border-green-600/40 hover:border-green-500 flex items-center justify-center gap-2 transition-colors uppercase tracking-wide"
       >
         <Icon name="done_all" size="sm" />
-        Cerrar temporada · Ver resumen
+        Avanzar a la siguiente temporada
       </button>
     </div>
   )
@@ -117,7 +113,7 @@ export default function CareerHomeScreen() {
   const startLiveCupMatch = useCareerStore((s) => s.startLiveCupMatch)
   const advanceDay = useCareerStore((s) => s.advanceDay)
   const advanceToNextMatch = useCareerStore((s) => s.advanceToNextMatch)
-  const closeSeason = useCareerStore((s) => s.closeSeason)
+  const advanceToNextSeason = useCareerStore((s) => s.advanceToNextSeason)
   const simulateAllRemainingAndClose = useCareerStore((s) => s.simulateAllRemainingAndClose)
   const navigate = useCareerStore((s) => s.navigate)
   const isSimulating = useCareerStore((s) => s.isSimulating)
@@ -174,11 +170,10 @@ export default function CareerHomeScreen() {
     <GameLayout>
       <main className="h-full overflow-y-auto p-4 space-y-4">
         {/* Season banners */}
-        {seasonStatus === 'all_finished' && <AllFinishedBanner onCloseSeason={closeSeason} />}
+        {seasonStatus === 'all_finished' && <AllFinishedBanner onAdvanceToNextSeason={advanceToNextSeason} />}
         {seasonStatus === 'user_finished' && (
           <UserFinishedBanner
             onAdvanceDay={advanceDay}
-            onAdvanceToNextMatch={advanceToNextMatch}
             onSimulateAll={simulateAllRemainingAndClose}
             hasCupMatchPending={nextMatch?.isCup && nextMatch.match.date <= career.season.currentDate}
           />

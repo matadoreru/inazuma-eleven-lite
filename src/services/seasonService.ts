@@ -3,7 +3,7 @@ import type { Team } from '../types/team'
 import type { League } from '../types/competition'
 import type { Player } from '../types/player'
 import type { PotentialAnalysis, DifficultySettings } from '../types/career'
-import type { LeagueSeason } from '../types/season'
+import type { LeagueSeason, Cup } from '../types/season'
 import { initStandings } from './standingsService'
 import { applySeasonGrowth } from './growthService'
 
@@ -147,6 +147,24 @@ export function initLeagueSeason(
     : matches.reduce((m, r) => Math.max(m, r.round), 0)
 
   return { leagueId, teamIds, matches, standings, totalRounds, finished: false }
+}
+
+export function getSeasonFinalDate(
+  season: Season,
+  allLeagueSeasons: Record<string, LeagueSeason> = {},
+  cup: Cup | null = null,
+): string {
+  const allDates = [
+    ...season.matches.map((m) => m.date),
+    ...Object.values(allLeagueSeasons).flatMap((ls) => ls.matches.map((m) => m.date)),
+    ...(cup?.rounds.flatMap((round) =>
+      round.matches
+        .filter((m) => m.homeTeamId !== -1 && m.awayTeamId !== -1)
+        .map((m) => m.date),
+    ) ?? []),
+  ]
+
+  return allDates.sort((a, b) => a.localeCompare(b))[allDates.length - 1] ?? season.endDate
 }
 
 export function endSeason(

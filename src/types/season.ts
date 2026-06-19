@@ -4,8 +4,8 @@ import type { Match, StandingRow } from './competition'
 
 export type SeasonStatus =
   | 'active'         // season in progress
-  | 'user_finished'  // user's league done, some external competitions still running
-  | 'all_finished'   // all competitions done — ready to close the season
+  | 'user_finished'  // user has no more matches before the season final day
+  | 'all_finished'   // season final day reached — ready to advance
   | 'review'         // season summary shown, waiting for user to start next season
 
 // ─── Multi-league tracking ────────────────────────────────────────────────────

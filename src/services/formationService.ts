@@ -79,13 +79,20 @@ export function buildTeamSnapshot(team: Team, players: Player[]): TeamSnapshot {
     }
   }
 
-  const starterPlayers: SnapshotPlayer[] = starters
-    .map((slot) => {
-      const p = playerMap.get(slot.playerId)
-      if (!p) return null
-      return { id: p.id, name: p.name, nameRomaji: p.nameRomaji, spriteUrl: p.spriteUrl, position: slot.assignedPosition, element: p.element, techniques: p.techniques }
+  const starterPlayers: SnapshotPlayer[] = []
+  for (const slot of starters) {
+    const p = playerMap.get(slot.playerId)
+    if (!p) continue
+    starterPlayers.push({
+      id: p.id,
+      name: p.name,
+      nameRomaji: p.nameRomaji,
+      spriteUrl: p.spriteUrl,
+      position: slot.assignedPosition,
+      element: p.element,
+      techniques: p.techniques,
     })
-    .filter((p): p is SnapshotPlayer => p !== null)
+  }
 
   return {
     id: team.id,

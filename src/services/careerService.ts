@@ -14,7 +14,7 @@ import { DEFAULT_DIFFICULTY } from '../types/career'
 import type { Team } from '../types/team'
 import type { League } from '../types/competition'
 import type { Player } from '../types/player'
-import { initSeason, initLeagueSeason } from './seasonService'
+import { initSeason, initLeagueSeason, getSeasonFinalDate } from './seasonService'
 import { initCup, deconflictCupSchedule } from './cupService'
 import { addEvent } from './inboxService'
 import { generatePotentialAnalysis } from './potentialService'
@@ -171,7 +171,7 @@ export function createCareer(
   const league = leagues.find((l) => l.id === team.leagueId)
   if (!league) throw new Error(`League ${team.leagueId} not found`)
 
-  const season = initSeason(teamId, team.leagueId, scaledTeams, leagues, CURRENT_YEAR)
+  let season = initSeason(teamId, team.leagueId, scaledTeams, leagues, CURRENT_YEAR)
   const objectives = buildObjectives(team, league)
 
   // Initialize external leagues (all leagues except user's)
@@ -188,6 +188,7 @@ export function createCareer(
     ...Object.values(allLeagueSeasons).flatMap((ls) => ls.matches),
   ]
   const cup = deconflictCupSchedule(initCup(scaledTeams, CURRENT_YEAR, season.startDate), allLeagueMatches)
+  season = { ...season, endDate: getSeasonFinalDate(season, allLeagueSeasons, cup) }
 
   // Generate potential profiles for all players on the user's squad
   const playerPotential: Record<number, PotentialAnalysis> = {}

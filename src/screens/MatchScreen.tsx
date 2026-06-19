@@ -130,6 +130,11 @@ const EVENT_ICON: Record<MatchEvent['type'], { icon: string; color: string }> = 
   RED:    { icon: 'square',          color: 'text-red-500'    },
   INJURY: { icon: 'healing',         color: 'text-orange-400' },
   PHASE:  { icon: 'schedule',        color: 'text-gray-600'   },
+  STOPPAGE: { icon: 'more_horiz',    color: 'text-gray-500'   },
+  ET_START: { icon: 'timer',         color: 'text-blue-400'   },
+  ET_END: { icon: 'timer_off',       color: 'text-blue-500'   },
+  PENALTY_SHOOTOUT: { icon: 'sports_soccer', color: 'text-purple-400' },
+  TECHNIQUE: { icon: 'auto_awesome', color: 'text-cyan-400'   },
 }
 
 function EventRow({
