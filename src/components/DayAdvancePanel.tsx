@@ -5,6 +5,7 @@ interface Props {
   currentDate: string
   teamId: number
   matches: Match[]
+  cupMatches?: Match[]
   onAdvanceDay: () => void
   onAdvanceToNextMatch: () => void
   hasNextMatch: boolean
@@ -31,15 +32,22 @@ function formatShortDate(dateStr: string): string {
 }
 
 export default function DayAdvancePanel({
-  currentDate, teamId, matches, onAdvanceDay, onAdvanceToNextMatch, hasNextMatch,
+  currentDate, teamId, matches, cupMatches = [], onAdvanceDay, onAdvanceToNextMatch, hasNextMatch,
 }: Props) {
   const weekDays = getWeekDays(currentDate)
+  const allMatches = [...matches, ...cupMatches]
   const matchDates = new Set(
-    matches
+    allMatches
+      .filter((m) => !m.played && (m.homeTeamId === teamId || m.awayTeamId === teamId))
+      .map((m) => m.date),
+  )
+  const cupMatchDates = new Set(
+    cupMatches
       .filter((m) => !m.played && (m.homeTeamId === teamId || m.awayTeamId === teamId))
       .map((m) => m.date),
   )
   const hasMatchToday = matchDates.has(currentDate)
+  const hasCupMatchToday = cupMatchDates.has(currentDate)
 
   return (
     <div className="panel overflow-hidden">
@@ -76,7 +84,11 @@ export default function DayAdvancePanel({
                 <span className="text-[0.5rem] font-pixel">{DAY_LABELS[i]}</span>
                 <span className="text-[0.55rem] font-medium mt-0.5">{formatShortDate(date)}</span>
                 {hasMatch && (
-                  <Icon name="sports_soccer" size="xs" className={`mt-0.5 ${isToday ? 'text-dark-900' : 'text-green-400'}`} />
+                  <Icon
+                    name={cupMatchDates.has(date) ? 'emoji_events' : 'sports_soccer'}
+                    size="xs"
+                    className={`mt-0.5 ${isToday ? 'text-dark-900' : cupMatchDates.has(date) ? 'text-yellow-400' : 'text-green-400'}`}
+                  />
                 )}
                 {isToday && !hasMatch && <div className="w-1 h-1 rounded-full bg-gold-500 mt-0.5" />}
               </div>
@@ -85,10 +97,16 @@ export default function DayAdvancePanel({
         </div>
 
         {hasMatchToday ? (
-          <div className="rounded bg-gold-600/10 border border-gold-600/40 px-4 py-3 flex items-center gap-3">
-            <Icon name="sports_soccer" size="md" className="text-gold-400 shrink-0" />
+          <div className={`rounded px-4 py-3 flex items-center gap-3 ${
+            hasCupMatchToday
+              ? 'bg-yellow-900/15 border border-yellow-600/40'
+              : 'bg-gold-600/10 border border-gold-600/40'
+          }`}>
+            <Icon name={hasCupMatchToday ? 'emoji_events' : 'sports_soccer'} size="md" className={hasCupMatchToday ? 'text-yellow-400 shrink-0' : 'text-gold-400 shrink-0'} />
             <div>
-              <p className="text-gold-300 text-sm font-bold leading-tight">Partido pendiente hoy</p>
+              <p className={`text-sm font-bold leading-tight ${hasCupMatchToday ? 'text-yellow-300' : 'text-gold-300'}`}>
+                {hasCupMatchToday ? 'Partido de Copa hoy' : 'Partido pendiente hoy'}
+              </p>
               <p className="text-gold-500/70 text-xs mt-0.5">Juega el partido antes de continuar</p>
             </div>
           </div>

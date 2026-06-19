@@ -1,5 +1,5 @@
 import type { Season } from './competition'
-import type { WeeklyTrainingPlan } from './training'
+import type { WeeklyTrainingPlan, WeeklyTrainingSlot } from './training'
 import type { ClubInventory } from './inventory'
 import type { LeagueSeason, Cup, SeasonStatus, SeasonReview } from './season'
 
@@ -65,6 +65,7 @@ export type InboxEventType =
   | 'OUTGOING_TRANSFER_CLUB_COUNTER'
   | 'OUTGOING_TRANSFER_PLAYER_ACCEPTED'
   | 'OUTGOING_TRANSFER_PLAYER_REJECTED'
+  | 'TRAINING_AVAILABLE'
 
 export interface InboxEvent {
   id: string
@@ -270,6 +271,7 @@ export interface Career {
   seasonHistory: CareerSeasonStats[]
   playerPotential: Record<number, PotentialAnalysis>
   weeklyTrainingPlan: WeeklyTrainingPlan | null
+  lastCompletedTrainingSlots: WeeklyTrainingSlot[] | null
   inventory: ClubInventory
   // Multi-season / multi-competition fields
   allLeagueSeasons: Record<string, LeagueSeason>  // external leagues (not user's), keyed by leagueId

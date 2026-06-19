@@ -30,50 +30,54 @@ function CupBracket({ cup, teams, userTeamId }: { cup: Cup | null; teams: Team[]
     <div className="space-y-0">
       {cup.rounds.map((round) => (
         <div key={round.name}>
-          <div className="flex items-center gap-3 px-4 py-2.5 bg-dark-900/80 border-b border-gold-600/30 sticky top-0">
+          <div className="flex items-center gap-3 px-4 py-2.5 bg-dark-900 border-b border-gold-600/30 sticky top-0 z-10">
             <span className="material-icons text-yellow-500" style={{ fontSize: 16 }}>emoji_events</span>
-            <h3 className="text-gray-300 text-xs font-bold uppercase tracking-wider">{round.name}</h3>
+            <h3 className="text-gray-200 text-xs font-bold uppercase tracking-wider">{round.name}</h3>
             {round.finished && (
-              <span className="text-[0.55rem] font-bold px-1.5 py-px rounded bg-green-900/40 text-green-400 uppercase">Terminada</span>
+              <span className="text-[0.55rem] font-bold px-1.5 py-px rounded bg-green-900/60 text-green-400 uppercase">Terminada</span>
             )}
           </div>
-          <div className="divide-y divide-gray-700/40">
+          <div className="divide-y divide-gold-600/15">
             {round.matches.map((match) => {
               const home = teams.find((t) => t.id === match.homeTeamId)
               const away = teams.find((t) => t.id === match.awayTeamId)
               const isUserHome = match.homeTeamId === userTeamId
               const isUserAway = match.awayTeamId === userTeamId
               const isUser = isUserHome || isUserAway
+              const dateStr = match.date ? match.date.slice(5).replace('-', '/') : null
               return (
                 <div
                   key={match.id}
-                  className={`flex items-center gap-2 px-4 py-2.5 text-sm ${isUser ? 'bg-blue-900/20' : ''}`}
+                  className={`flex items-center gap-2 px-4 py-3 text-sm ${isUser ? 'bg-blue-900/25 border-l-2 border-l-blue-500/60' : 'bg-dark-800/60 hover:bg-dark-700/50 transition-colors'}`}
                 >
+                  {dateStr && (
+                    <span className="text-gray-600 text-[0.5rem] tabular-nums shrink-0 w-10 font-pixel">{dateStr}</span>
+                  )}
                   <div className="flex-1 min-w-0">
                     {match.homeTeamId === -1
-                      ? <span className="text-gray-500">—</span>
+                      ? <span className="text-gray-600">—</span>
                       : <TeamNameInline
                           teamName={home?.name ?? `Equipo ${match.homeTeamId}`}
                           badgeUrl={home?.badgeUrl}
-                          textClassName={isUserHome ? 'text-gold-300 font-semibold' : 'text-white'}
+                          textClassName={isUserHome ? 'text-gold-300 font-semibold' : 'text-gray-200'}
                         />
                     }
                   </div>
                   <div className="shrink-0 min-w-[44px] text-center">
                     {match.played ? (
-                      <span className="text-white font-black tabular-nums">{match.homeGoals}–{match.awayGoals}</span>
+                      <span className={`font-black tabular-nums ${isUser ? 'text-white text-base' : 'text-gray-200'}`}>{match.homeGoals}–{match.awayGoals}</span>
                     ) : (
-                      <span className="text-gray-600 text-xs font-bold">VS</span>
+                      <span className="text-gray-600 text-xs font-black">VS</span>
                     )}
                   </div>
                   <div className="flex-1 min-w-0">
                     {match.awayTeamId === -1
-                      ? <span className="text-gray-500 block text-right">—</span>
+                      ? <span className="text-gray-600 block text-right">—</span>
                       : <TeamNameInline
                           teamName={away?.name ?? `Equipo ${match.awayTeamId}`}
                           badgeUrl={away?.badgeUrl}
                           align="right"
-                          textClassName={isUserAway ? 'text-gold-300 font-semibold' : 'text-white'}
+                          textClassName={isUserAway ? 'text-gold-300 font-semibold' : 'text-gray-200'}
                         />
                     }
                   </div>
@@ -81,7 +85,7 @@ function CupBracket({ cup, teams, userTeamId }: { cup: Cup | null; teams: Team[]
               )
             })}
             {round.matches.length === 0 && (
-              <div className="px-4 py-3 text-gray-600 text-xs">Pendiente de sorteo</div>
+              <div className="px-4 py-4 text-gray-600 text-xs bg-dark-800/60">Pendiente de sorteo</div>
             )}
           </div>
         </div>

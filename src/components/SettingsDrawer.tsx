@@ -7,7 +7,6 @@ import { APP_VERSION } from '../utils/version'
 const LANGUAGES = [
   { code: 'es', label: 'Español', available: true },
   { code: 'en', label: 'English', available: false },
-  { code: 'pt', label: 'Português', available: false },
 ]
 
 function formatDate(dateStr: string): string {
@@ -176,7 +175,6 @@ export default function SettingsDrawer() {
           <div className="bg-dark-800/70 rounded-xl px-4 py-1 border border-gold-600/20">
             <InfoRow label="Juego" value="Inazuma Eleven Lite" />
             <InfoRow label="Versión" value={APP_VERSION} />
-            <InfoRow label="Modo" value="Carrera" />
           </div>
         </section>
 

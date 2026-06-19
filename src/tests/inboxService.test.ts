@@ -6,9 +6,10 @@ const makeCareer = (): Career => ({
   id: '1', managerName: 'Test', managerAvatar: '', teamId: 1,
   season: {} as any, seasonNumber: 1, totalBudgetSpent: 0, totalBudgetEarned: 0,
   objectives: [], inbox: [], transferHistory: [], watchlist: [], seasonHistory: [],
-  playerPotential: {}, weeklyTrainingPlan: null, inventory: { techniqueBooks: {}, generatedBooks: {}, equipmentItems: [] },
+  playerPotential: {}, weeklyTrainingPlan: null, lastCompletedTrainingSlots: null,
+  inventory: { techniqueBooks: {}, generatedBooks: {}, equipmentItems: [] },
   allLeagueSeasons: {}, cup: null, seasonStatus: 'active', lastSeasonReview: null,
-  outgoingNegotiations: [], difficulty: {} as any, nameStyle: 'western',
+  outgoingNegotiations: [], incomingOffers: [], difficulty: {} as any, nameStyle: 'western',
   createdAt: '2026-01-01', lastSavedAt: '2026-01-01',
 })
 

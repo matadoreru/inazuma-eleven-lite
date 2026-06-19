@@ -216,6 +216,7 @@ export function createCareer(
     seasonHistory: [],
     playerPotential,
     weeklyTrainingPlan: null,
+    lastCompletedTrainingSlots: null,
     inventory: { ...EMPTY_INVENTORY },
     allLeagueSeasons,
     cup,

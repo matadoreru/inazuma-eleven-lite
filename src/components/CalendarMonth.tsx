@@ -10,6 +10,8 @@ interface Props {
   onDayClick?: (date: string) => void
   onPrevMonth?: () => void
   onNextMonth?: () => void
+  canGoPrev?: boolean
+  canGoNext?: boolean
 }
 
 const DAY_LABELS = ['Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa', 'Do']
@@ -23,25 +25,44 @@ function dateStr(year: number, month: number, day: number): string {
   return `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`
 }
 
+type MatchResult = 'win' | 'draw' | 'loss'
+
+interface DayInfo {
+  userLeague: boolean
+  userCup: boolean
+  other: boolean
+  result: MatchResult | null
+}
+
 export default function CalendarMonth({
   year, month, matches, userTeamId, currentDate, selectedDate, onDayClick, onPrevMonth, onNextMonth,
+  canGoPrev = true, canGoNext = true,
 }: Props) {
   const daysInMonth = new Date(year, month, 0).getDate()
   const firstWeekday = new Date(year, month - 1, 1).getDay()
   const startOffset = (firstWeekday + 6) % 7
   const totalCells = Math.ceil((startOffset + daysInMonth) / 7) * 7
 
-  const matchByDate: Record<string, { userLeague: boolean; userCup: boolean; other: boolean }> = {}
+  const matchByDate: Record<string, DayInfo> = {}
   for (const m of matches) {
     if (!m.date) continue
     const y = parseInt(m.date.slice(0, 4), 10)
     const mo = parseInt(m.date.slice(5, 7), 10)
     if (y !== year || mo !== month) continue
     const isUser = m.homeTeamId === userTeamId || m.awayTeamId === userTeamId
-    if (!matchByDate[m.date]) matchByDate[m.date] = { userLeague: false, userCup: false, other: false }
+    if (!matchByDate[m.date]) matchByDate[m.date] = { userLeague: false, userCup: false, other: false, result: null }
     if (isUser) {
       if (m.type === 'cup') matchByDate[m.date].userCup = true
       else matchByDate[m.date].userLeague = true
+
+      if (m.played) {
+        const isHome = m.homeTeamId === userTeamId
+        const hg = m.homeGoals ?? 0
+        const ag = m.awayGoals ?? 0
+        if (hg === ag) matchByDate[m.date].result = 'draw'
+        else if ((isHome && hg > ag) || (!isHome && ag > hg)) matchByDate[m.date].result = 'win'
+        else matchByDate[m.date].result = 'loss'
+      }
     } else {
       matchByDate[m.date].other = true
     }
@@ -59,7 +80,8 @@ export default function CalendarMonth({
       <div className="flex items-center justify-between px-4 py-2.5 border-b border-gold-600/30 shrink-0 bg-dark-900/50">
         <button
           onClick={onPrevMonth}
-          className="flex items-center gap-1 px-3 py-1.5 rounded bg-dark-800/80 border border-gold-600/30 text-gold-500 hover:text-gold-300 hover:border-gold-500 text-[0.45rem] font-pixel uppercase tracking-wide transition-all"
+          disabled={!canGoPrev}
+          className={`flex items-center gap-1 px-3 py-1.5 rounded bg-dark-800/80 border border-gold-600/30 text-gold-500 hover:text-gold-300 hover:border-gold-500 text-[0.45rem] font-pixel uppercase tracking-wide transition-all ${!canGoPrev ? 'opacity-30 cursor-not-allowed pointer-events-none' : ''}`}
         >
           <span className="material-icons select-none leading-none" style={{ fontSize: 14 }}>chevron_left</span>
           Anterior
@@ -71,7 +93,8 @@ export default function CalendarMonth({
 
         <button
           onClick={onNextMonth}
-          className="flex items-center gap-1 px-3 py-1.5 rounded bg-dark-800/80 border border-gold-600/30 text-gold-500 hover:text-gold-300 hover:border-gold-500 text-[0.45rem] font-pixel uppercase tracking-wide transition-all"
+          disabled={!canGoNext}
+          className={`flex items-center gap-1 px-3 py-1.5 rounded bg-dark-800/80 border border-gold-600/30 text-gold-500 hover:text-gold-300 hover:border-gold-500 text-[0.45rem] font-pixel uppercase tracking-wide transition-all ${!canGoNext ? 'opacity-30 cursor-not-allowed pointer-events-none' : ''}`}
         >
           Siguiente
           <span className="material-icons select-none leading-none" style={{ fontSize: 14 }}>chevron_right</span>
@@ -102,6 +125,7 @@ export default function CalendarMonth({
           const hasUserLeagueMatch = info?.userLeague ?? false
           const hasUserCupMatch = info?.userCup ?? false
           const hasUserMatch = hasUserLeagueMatch || hasUserCupMatch
+          const result = info?.result ?? null
           const isToday = date === currentDate
           const isSelected = date === selectedDate
           const isPast = date < currentDate
@@ -111,6 +135,12 @@ export default function CalendarMonth({
           if (isSelected) {
             bgClass = 'bg-gold-600/30'
             ringClass = 'ring-1 ring-inset ring-gold-500'
+          } else if (result === 'win') {
+            bgClass = 'bg-green-900/50'
+          } else if (result === 'draw') {
+            bgClass = 'bg-gray-800/60'
+          } else if (result === 'loss') {
+            bgClass = 'bg-red-900/40'
           } else if (hasUserCupMatch) {
             bgClass = 'bg-yellow-900/50'
           } else if (hasUserLeagueMatch) {
@@ -123,6 +153,15 @@ export default function CalendarMonth({
           const isClickable = !!onDayClick
           const dimmed = isPast && !hasUserMatch && !isSelected
 
+          const dayNumberColor = isSelected
+            ? 'text-gold-300'
+            : result === 'win' ? 'text-green-300'
+            : result === 'draw' ? 'text-gray-300'
+            : result === 'loss' ? 'text-red-300'
+            : hasUserMatch ? 'text-green-100'
+            : isToday ? 'text-gold-400'
+            : 'text-gray-500'
+
           return (
             <div
               key={date}
@@ -132,31 +171,36 @@ export default function CalendarMonth({
                 ${isClickable ? 'cursor-pointer hover:brightness-110' : ''}
                 ${dimmed ? 'opacity-30' : ''}`}
             >
-              <span
-                className={`absolute top-1.5 left-2 text-sm font-bold leading-none
-                  ${isSelected ? 'text-gold-300' : hasUserMatch ? 'text-green-100' : isToday ? 'text-gold-400' : 'text-gray-500'}`}
-              >
+              <span className={`absolute top-1.5 left-2 text-sm font-bold leading-none ${dayNumberColor}`}>
                 {day}
               </span>
 
+              {/* Background icon */}
               {hasUserCupMatch && (
                 <span className="material-icons absolute bottom-5 right-2 text-yellow-400/20 select-none pointer-events-none" style={{ fontSize: 28 }}>
                   emoji_events
                 </span>
               )}
-
               {hasUserLeagueMatch && !hasUserCupMatch && (
-                <span className="material-icons absolute bottom-5 right-2 text-white/15 select-none pointer-events-none" style={{ fontSize: 28 }}>
+                <span className={`material-icons absolute bottom-5 right-2 select-none pointer-events-none ${result ? 'text-white/10' : 'text-white/15'}`} style={{ fontSize: 28 }}>
                   sports_soccer
                 </span>
               )}
 
-              {/* Labels */}
+              {/* Result badge (played matches) or label (upcoming) */}
               {hasUserMatch && (
-                <span className={`absolute bottom-1.5 left-0 right-0 text-center text-[0.4rem] font-pixel uppercase tracking-wide leading-none
-                  ${hasUserCupMatch ? 'text-yellow-300' : 'text-green-300'}`}>
-                  {hasUserCupMatch ? 'Copa' : 'Partido'}
-                </span>
+                result ? (
+                  <div className={`absolute bottom-1 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full flex items-center justify-center text-[0.4rem] font-black text-white
+                    ${result === 'win' ? 'bg-green-500' : result === 'draw' ? 'bg-gray-500' : 'bg-red-600'}`}
+                  >
+                    {result === 'win' ? 'V' : result === 'draw' ? 'D' : 'L'}
+                  </div>
+                ) : (
+                  <span className={`absolute bottom-1.5 left-0 right-0 text-center text-[0.4rem] font-pixel uppercase tracking-wide leading-none
+                    ${hasUserCupMatch ? 'text-yellow-300' : 'text-green-300'}`}>
+                    {hasUserCupMatch ? 'Copa' : 'Partido'}
+                  </span>
+                )
               )}
 
               {!hasUserMatch && !isPast && (

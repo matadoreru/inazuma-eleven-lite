@@ -39,7 +39,7 @@ const RARITY_LABEL_COLOR: Record<RewardRarity, string> = {
 }
 
 const RARITY_BORDER: Record<RewardRarity, string> = {
-  common:    'border-gold-600/30/60',
+  common:    'border-gold-600/30',
   uncommon:  'border-green-600/50',
   special:   'border-cyan-500/55',
   rare:      'border-fuchsia-500/55',
@@ -156,7 +156,7 @@ function EventRow({
   }
 
   return (
-    <div className="flex items-center gap-2 py-1.5 border-b border-gold-600/20/25 last:border-0">
+    <div className="flex items-center gap-2 py-1.5 border-b border-gold-600/20 last:border-0">
       <span className="text-gray-600 text-[0.5rem] tabular-nums w-5 shrink-0 text-right">{event.minute}'</span>
 
       {event.playerSpriteUrl ? (
@@ -418,8 +418,8 @@ export default function MatchScreen() {
       </div>
 
       {/* ── RECOMPENSA ── */}
-      <div className="shrink-0 border-b border-gold-600/20/50">
-        <div className="flex items-center gap-2 px-4 py-2 border-b border-gold-600/20/40">
+      <div className="shrink-0 border-b border-gold-600/20">
+        <div className="flex items-center gap-2 px-4 py-2 border-b border-gold-600/20">
           <Icon name="redeem" size="xs" className={hasRewards ? 'text-amber-400' : 'text-gray-500'} />
           <h2 className={`text-[0.625rem] font-black uppercase tracking-widest ${hasRewards ? 'text-amber-300' : 'text-gray-500'}`}>
             Recompensa - Elige una recompensa para tu club
@@ -449,7 +449,7 @@ export default function MatchScreen() {
             <p className="text-gray-600 text-xs">Sin recompensas pendientes</p>
             <button
               onClick={() => navigate('career_home')}
-              className="px-6 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold text-sm transition-colors"
+              className="px-6 py-2 bg-gold-600 hover:bg-gold-500 text-dark-900 rounded-xl font-bold text-sm transition-colors"
             >
               Continuar
             </button>
@@ -462,7 +462,7 @@ export default function MatchScreen() {
 
         {/* ESTADÍSTICAS */}
         <div className="flex-1 flex flex-col border-r border-gold-600/20 overflow-hidden min-w-0">
-          <div className="shrink-0 px-4 py-2 border-b border-gold-600/20/40 flex items-center gap-2">
+          <div className="shrink-0 px-4 py-2 border-b border-gold-600/20 flex items-center gap-2">
             <Icon name="bar_chart" size="xs" className="text-gray-500" />
             <h2 className="text-gray-400 text-[0.625rem] font-bold uppercase tracking-widest">Estadísticas</h2>
           </div>
@@ -487,7 +487,7 @@ export default function MatchScreen() {
 
         {/* EVENTOS */}
         <div className="flex-1 flex flex-col overflow-hidden min-w-0">
-          <div className="shrink-0 px-4 py-2 border-b border-gold-600/20/40 flex items-center gap-2">
+          <div className="shrink-0 px-4 py-2 border-b border-gold-600/20 flex items-center gap-2">
             <Icon name="timeline" size="xs" className="text-gray-500" />
             <h2 className="text-gray-400 text-[0.625rem] font-bold uppercase tracking-widest">Eventos</h2>
             <span className="ml-auto text-gray-600 text-[0.5625rem] tabular-nums">

@@ -95,6 +95,7 @@ const makeCareer = (teamId: number): Career => ({
   seasonHistory: [],
   playerPotential: {},
   weeklyTrainingPlan: null,
+  lastCompletedTrainingSlots: null,
   inventory: { techniqueBooks: {}, generatedBooks: {}, equipmentItems: [] },
   allLeagueSeasons: {},
   cup: null,

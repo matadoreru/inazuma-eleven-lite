@@ -13,10 +13,11 @@ import type { Match } from '../types/competition'
 import type { Team } from '../types/team'
 
 
-function UserFinishedBanner({ onAdvanceDay, onAdvanceToNextMatch, onSimulateAll }: {
+function UserFinishedBanner({ onAdvanceDay, onAdvanceToNextMatch, onSimulateAll, hasCupMatchPending }: {
   onAdvanceDay: () => void
   onAdvanceToNextMatch: () => void
   onSimulateAll: () => void
+  hasCupMatchPending?: boolean
 }) {
   return (
     <div className="panel p-4 flex flex-col gap-3 border-blue-500/40">
@@ -24,14 +25,23 @@ function UserFinishedBanner({ onAdvanceDay, onAdvanceToNextMatch, onSimulateAll 
         <Icon name="schedule" size="sm" className="text-gold-500" />
         <p className="text-gold-400 font-semibold text-sm">Tu liga ha terminado</p>
       </div>
-      <p className="text-gray-400 text-xs">
-        Otras competiciones siguen en curso. Avanza días para simularlas o simúlalas todas de golpe.
-      </p>
+      {hasCupMatchPending ? (
+        <div className="flex items-center gap-2 px-3 py-2.5 rounded bg-yellow-900/20 border border-yellow-600/40">
+          <Icon name="emoji_events" size="sm" className="text-yellow-400 shrink-0" />
+          <p className="text-yellow-300 text-xs font-semibold leading-snug">
+            Tienes un partido de Copa pendiente. Juégalo desde el panel de próximo partido, o usa "Simular todo".
+          </p>
+        </div>
+      ) : (
+        <p className="text-gray-400 text-xs">
+          Otras competiciones siguen en curso. Avanza días para simularlas o simúlalas todas de golpe.
+        </p>
+      )}
       <div className="flex gap-2">
-        <button onClick={onAdvanceDay} className="btn-secondary flex-1 py-2">
+        <button onClick={onAdvanceDay} disabled={hasCupMatchPending} className={`btn-secondary flex-1 py-2 ${hasCupMatchPending ? 'opacity-40 cursor-not-allowed' : ''}`}>
           +1 día
         </button>
-        <button onClick={onAdvanceToNextMatch} className="flex-1 py-2 bg-blue-800/60 hover:bg-blue-700/70 text-gold-400 text-xs font-semibold rounded border border-blue-600/40 hover:border-blue-500 transition-colors uppercase tracking-wide">
+        <button onClick={onAdvanceToNextMatch} disabled={hasCupMatchPending} className={`flex-1 py-2 bg-blue-800/60 hover:bg-blue-700/70 text-gold-400 text-xs font-semibold rounded border border-blue-600/40 hover:border-blue-500 transition-colors uppercase tracking-wide ${hasCupMatchPending ? 'opacity-40 cursor-not-allowed' : ''}`}>
           Sig. evento
         </button>
       </div>
@@ -131,6 +141,10 @@ export default function CareerHomeScreen() {
 
   const seasonStatus = career.seasonStatus
 
+  const userCupMatches = career.cup?.rounds
+    .flatMap((r) => r.matches)
+    .filter((m) => m.homeTeamId !== -1 && m.awayTeamId !== -1) ?? []
+
   const nextLeagueMatch = getNextMatch(career.season, career.teamId)
   const nextCupMatch = getNextUserCupMatch(career.cup, career.teamId, '9999-12-31')
   const nextMatch: { match: Match; isCup: boolean } | null = (() => {
@@ -162,7 +176,12 @@ export default function CareerHomeScreen() {
         {/* Season banners */}
         {seasonStatus === 'all_finished' && <AllFinishedBanner onCloseSeason={closeSeason} />}
         {seasonStatus === 'user_finished' && (
-          <UserFinishedBanner onAdvanceDay={advanceDay} onAdvanceToNextMatch={advanceToNextMatch} onSimulateAll={simulateAllRemainingAndClose} />
+          <UserFinishedBanner
+            onAdvanceDay={advanceDay}
+            onAdvanceToNextMatch={advanceToNextMatch}
+            onSimulateAll={simulateAllRemainingAndClose}
+            hasCupMatchPending={nextMatch?.isCup && nextMatch.match.date <= career.season.currentDate}
+          />
         )}
 
         {/* Main panels */}
@@ -173,6 +192,7 @@ export default function CareerHomeScreen() {
                 currentDate={career.season.currentDate}
                 teamId={career.teamId}
                 matches={career.season.matches}
+                cupMatches={userCupMatches}
                 onAdvanceDay={advanceDay}
                 onAdvanceToNextMatch={advanceToNextMatch}
                 hasNextMatch={!!nextMatch}

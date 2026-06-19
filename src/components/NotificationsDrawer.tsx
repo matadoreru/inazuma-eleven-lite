@@ -23,6 +23,7 @@ const typeIcon: Record<InboxEventType, string> = {
   OUTGOING_TRANSFER_CLUB_COUNTER: 'compare_arrows',
   OUTGOING_TRANSFER_PLAYER_ACCEPTED: 'done',
   OUTGOING_TRANSFER_PLAYER_REJECTED: 'close',
+  TRAINING_AVAILABLE: 'fitness_center',
 }
 
 const typeColor: Record<InboxEventType, string> = {
@@ -43,6 +44,7 @@ const typeColor: Record<InboxEventType, string> = {
   OUTGOING_TRANSFER_CLUB_COUNTER: 'text-blue-400',
   OUTGOING_TRANSFER_PLAYER_ACCEPTED: 'text-green-400',
   OUTGOING_TRANSFER_PLAYER_REJECTED: 'text-red-400',
+  TRAINING_AVAILABLE: 'text-amber-400',
 }
 
 function NotificationItem({ event, onRead, onDelete, onNavigate }: {

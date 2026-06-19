@@ -21,6 +21,7 @@ export const DEFAULT_PREFS: Record<InboxEventType, boolean> = {
   OUTGOING_TRANSFER_CLUB_COUNTER: true,
   OUTGOING_TRANSFER_PLAYER_ACCEPTED: true,
   OUTGOING_TRANSFER_PLAYER_REJECTED: true,
+  TRAINING_AVAILABLE: true,
 }
 
 export interface NotificationGroup {
@@ -37,6 +38,7 @@ export const NOTIFICATION_GROUPS: NotificationGroup[] = [
   { label: 'Ofertas recibidas',           types: ['TRANSFER_OFFER', 'TRANSFER_ACCEPTED', 'TRANSFER_REJECTED'] },
   { label: 'Mis fichajes',               types: ['OUTGOING_TRANSFER_CLUB_ACCEPTED', 'OUTGOING_TRANSFER_CLUB_REJECTED', 'OUTGOING_TRANSFER_CLUB_COUNTER', 'OUTGOING_TRANSFER_PLAYER_ACCEPTED', 'OUTGOING_TRANSFER_PLAYER_REJECTED'] },
   { label: 'Noticias',                    types: ['NEWS'] },
+  { label: 'Entrenamiento',               types: ['TRAINING_AVAILABLE'] },
 ]
 
 function loadPrefs(): Record<InboxEventType, boolean> {

@@ -336,10 +336,6 @@ export default function ClubScreen() {
               <>
                 {/* Global stats */}
                 <div>
-                  <h2 className="text-gray-300 text-sm font-semibold mb-3 flex items-center gap-1.5">
-                    <Icon name="public" size="xs" className="text-gold-400" />
-                    Estadísticas globales
-                  </h2>
                   <div className="panel overflow-hidden">
                     <div className="panel-header flex items-center gap-1.5 border-b border-gold-600/20">
                       <Icon name="bar_chart" size="xs" className="text-gold-400" />
@@ -372,10 +368,6 @@ export default function ClubScreen() {
 
                 {/* Current season */}
                 <div>
-                  <h2 className="text-gray-300 text-sm font-semibold mb-3 flex items-center gap-1.5">
-                    <Icon name="today" size="xs" className="text-gold-400" />
-                    Temporada actual
-                  </h2>
                   <div className="panel rounded-xl overflow-hidden">
                     <SeasonStatsRow
                       label={`Temporada ${career.seasonNumber}`}

@@ -3,8 +3,13 @@ import { useState } from 'react'
 import { useCareerStore } from '../store/careerStore'
 import TransferPlayerRow from '../components/TransferPlayerRow'
 import Icon from '../components/Icon'
-import { filterPlayers, calcTransferValue } from '../services/transferService'
+import ElementBadge from '../components/ElementBadge'
+import PositionSprite from '../components/PositionSprite'
+import { statColor } from '../components/StatBar'
+import { filterPlayers, calcTransferValue, calcFreeAgentRecommendedOffer } from '../services/transferService'
 import { formatMoney } from '../utils/formatMoney'
+import { getPlayerStatsSummary, playerDisplayName } from '../types/player'
+import { useNameStyle } from '../hooks/useNameStyle'
 import type { Position, Element, Player } from '../types/player'
 import type { IncomingOffer, OutgoingNegotiation } from '../types/career'
 import type { Team } from '../types/team'
@@ -62,6 +67,235 @@ function SortHeader({ label, col, currentKey, currentDir, onClick, className = '
         </span>
       </div>
     </th>
+  )
+}
+
+function TeamDropdown({ marketTeams, value, onChange }: {
+  marketTeams: Team[]
+  value: string
+  onChange: (val: string) => void
+}) {
+  const [isOpen, setIsOpen] = useState(false)
+
+  const selectedTeam = value && value !== 'libre'
+    ? marketTeams.find((t) => t.name.toLowerCase() === value)
+    : null
+
+  const displayLabel = value === ''
+    ? 'Todos'
+    : value === 'libre'
+    ? 'Libre'
+    : (selectedTeam?.name ?? value)
+
+  return (
+    <div className="relative">
+      <button
+        onClick={() => setIsOpen((o) => !o)}
+        className="flex items-center gap-1.5 panel rounded-lg px-2 py-1.5 text-white text-xs min-w-[120px] focus:outline-none"
+      >
+        {selectedTeam?.badgeUrl ? (
+          <img src={selectedTeam.badgeUrl} className="w-4 h-4 object-contain shrink-0" alt="" />
+        ) : value === 'libre' ? (
+          <Icon name="person_off" size="xs" className="text-green-400" />
+        ) : (
+          <Icon name="shield" size="xs" className="text-gray-500" />
+        )}
+        <span className={value === '' ? 'text-gray-500' : 'text-white'}>{displayLabel}</span>
+        <Icon name={isOpen ? 'expand_less' : 'expand_more'} size="xs" className="ml-auto text-gray-500" />
+      </button>
+
+      {isOpen && (
+        <>
+          <div className="fixed inset-0 z-10" onClick={() => setIsOpen(false)} />
+          <div className="absolute top-full left-0 mt-1 z-20 bg-dark-800 border border-gold-600/20 rounded-lg shadow-xl min-w-[160px] max-h-52 overflow-y-auto">
+            <button
+              onClick={() => { onChange(''); setIsOpen(false) }}
+              className={`w-full text-left flex items-center gap-2 px-3 py-2 text-xs hover:bg-dark-700 transition-colors ${value === '' ? 'text-gold-400' : 'text-gray-300'}`}
+            >
+              <Icon name="public" size="xs" className="text-gray-500" />
+              Todos los equipos
+            </button>
+            <button
+              onClick={() => { onChange('libre'); setIsOpen(false) }}
+              className={`w-full text-left flex items-center gap-2 px-3 py-2 text-xs hover:bg-dark-700 transition-colors ${value === 'libre' ? 'text-gold-400' : 'text-green-400'}`}
+            >
+              <Icon name="person_off" size="xs" className="text-green-400" />
+              Libre
+            </button>
+            <div className="border-t border-gold-600/15 my-1" />
+            {marketTeams.map((team) => (
+              <button
+                key={team.id}
+                onClick={() => { onChange(team.name.toLowerCase()); setIsOpen(false) }}
+                className={`w-full text-left flex items-center gap-2 px-3 py-2 text-xs hover:bg-dark-700 transition-colors ${value === team.name.toLowerCase() ? 'text-gold-400' : 'text-gray-300'}`}
+              >
+                {team.badgeUrl ? (
+                  <img src={team.badgeUrl} className="w-4 h-4 object-contain shrink-0" alt="" />
+                ) : (
+                  <span className="w-4 h-4 shrink-0" />
+                )}
+                <span className="truncate">{team.name}</span>
+              </button>
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  )
+}
+
+function PlayerDetailPanel({ player, onClose, onOfferSent }: {
+  player: Player
+  onClose: () => void
+  onOfferSent: () => void
+}) {
+  const nameStyle = useNameStyle()
+  const teams = useCareerStore((s) => s.teams)
+  const selectPlayer = useCareerStore((s) => s.selectPlayer)
+  const navigate = useCareerStore((s) => s.navigate)
+  const initiateTransferNegotiation = useCareerStore((s) => s.initiateTransferNegotiation)
+
+  const [offerAmount, setOfferAmount] = useState('')
+  const [offerSent, setOfferSent] = useState(false)
+
+  const isFreeAgent = player.teamId === null || player.teamId === 0
+  const playerTeam = isFreeAgent ? null : teams.find((t) => t.id === player.teamId)
+  const marketValue = calcTransferValue(player)
+  const recOffer = isFreeAgent ? calcFreeAgentRecommendedOffer(player) : marketValue
+  const { media } = getPlayerStatsSummary(player)
+  const displayName = playerDisplayName(player, nameStyle)
+
+  const STATS: (keyof typeof player.stats)[] = ['POT', 'TEC', 'FIS', 'AGI']
+
+  function sendOffer() {
+    const amount = Number(offerAmount) || recOffer
+    if (amount <= 0) return
+    initiateTransferNegotiation(player.id, amount)
+    setOfferSent(true)
+    onOfferSent()
+  }
+
+  function handleViewFull() {
+    selectPlayer(player.id)
+    navigate('player_detail')
+  }
+
+  if (offerSent) {
+    return (
+      <div className="h-full flex flex-col items-center justify-center gap-3 p-6 text-center">
+        <div className="w-12 h-12 rounded-full bg-green-800/40 border border-green-600/40 flex items-center justify-center">
+          <Icon name="check" size="md" className="text-green-400" />
+        </div>
+        <p className="text-white font-semibold text-sm">¡Oferta enviada!</p>
+        <p className="text-gray-500 text-xs">Puedes ver el estado en "Ofertas enviadas"</p>
+      </div>
+    )
+  }
+
+  return (
+    <div className="h-full flex flex-col">
+      {/* Close button */}
+      <div className="flex items-center justify-between px-4 py-2 border-b border-gold-600/20 shrink-0">
+        <span className="text-gray-500 text-[10px] uppercase tracking-widest font-bold">Ficha</span>
+        <button onClick={onClose} className="text-gray-600 hover:text-gray-400 transition-colors">
+          <Icon name="close" size="xs" />
+        </button>
+      </div>
+
+      <div className="flex-1 overflow-y-auto">
+        {/* Player header */}
+        <div className="p-4 border-b border-gold-600/15">
+          <div className="flex items-start gap-3">
+            <img
+              src={player.spriteUrl}
+              alt={displayName}
+              className="w-16 h-16 object-contain rounded bg-dark-700/40"
+              onError={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = '0' }}
+            />
+            <div className="flex-1 min-w-0">
+              <p className="text-white font-bold text-sm leading-tight truncate">{displayName}</p>
+              <div className="flex items-center gap-1.5 mt-1 flex-wrap">
+                <PositionSprite position={player.position} size={20} />
+                {player.positionAlt && (
+                  <PositionSprite position={player.positionAlt} size={16} className="opacity-60" />
+                )}
+                <ElementBadge element={player.element} size="xs" />
+              </div>
+              <p className="text-gray-500 text-xs mt-1">{player.age} años</p>
+              {playerTeam ? (
+                <div className="flex items-center gap-1 mt-1">
+                  {playerTeam.badgeUrl && (
+                    <img src={playerTeam.badgeUrl} className="w-3.5 h-3.5 object-contain" alt="" />
+                  )}
+                  <span className="text-gray-400 text-xs">{playerTeam.name}</span>
+                </div>
+              ) : (
+                <span className="text-green-400 text-xs font-semibold mt-1 block">Agente libre</span>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Stats */}
+        <div className="p-3 border-b border-gold-600/15">
+          <div className="grid grid-cols-5 gap-1.5">
+            {STATS.map((stat) => (
+              <div key={stat} className="bg-dark-800 rounded p-2 text-center">
+                <p className="text-gray-500 text-[9px] uppercase tracking-wide">{stat}</p>
+                <p className="font-bold tabular-nums text-sm" style={{ color: statColor(player.stats[stat] as number, 250) }}>
+                  {player.stats[stat] as number}
+                </p>
+              </div>
+            ))}
+            <div className="bg-dark-700/60 rounded p-2 text-center border border-gold-600/20">
+              <p className="text-gray-500 text-[9px] uppercase tracking-wide">Media</p>
+              <p className="font-bold tabular-nums text-sm text-gold-400">{media}</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Transfer section */}
+        <div className="p-4 space-y-3">
+          <div>
+            <p className="text-gray-500 text-[10px] uppercase tracking-widest mb-1">Valor de mercado</p>
+            <p className="text-gold-400 font-bold text-lg tabular-nums">{formatMoney(marketValue)}</p>
+            {isFreeAgent && (
+              <p className="text-gray-500 text-xs mt-0.5">Oferta rec.: {formatMoney(recOffer)}</p>
+            )}
+          </div>
+
+          <div className="space-y-2">
+            <p className="text-gray-500 text-[10px] uppercase tracking-widest">
+              {isFreeAgent ? 'Tu oferta al jugador' : 'Tu oferta al club'}
+            </p>
+            <input
+              type="number"
+              placeholder={String(recOffer)}
+              value={offerAmount}
+              onChange={(e) => setOfferAmount(e.target.value)}
+              className="w-full bg-dark-700 border border-gold-600/20 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-gold-500 placeholder-gray-600"
+            />
+            <button
+              onClick={sendOffer}
+              className="w-full py-2 bg-gold-600 hover:bg-gold-500 text-dark-900 text-sm font-bold rounded-lg transition-colors"
+            >
+              {isFreeAgent ? 'Fichar' : 'Hacer oferta'}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* View full profile */}
+      <div className="shrink-0 p-3 border-t border-gold-600/15">
+        <button
+          onClick={handleViewFull}
+          className="w-full py-2 bg-dark-700/60 hover:bg-dark-600/60 text-gray-300 text-xs font-semibold rounded-lg border border-gold-600/15 transition-colors flex items-center justify-center gap-1.5"
+        >
+          <Icon name="open_in_new" size="xs" />
+          Ver ficha completa
+        </button>
+      </div>
+    </div>
   )
 }
 
@@ -133,7 +367,7 @@ function IncomingOfferCard({ offer, players, teams }: { offer: IncomingOffer; pl
             const amt = Number(counterInput)
             if (amt > 0 && amt <= 10_000_000) { counterOffer(offer.id, amt); setCounterInput('') }
           }}
-          className="px-3 py-1.5 bg-blue-800/60 hover:bg-blue-700/60 text-blue-300 text-xs font-semibold rounded border border-blue-600/40 transition-colors"
+          className="px-3 py-1.5 bg-dark-700/60 hover:bg-dark-600/60 text-gray-300 text-xs font-semibold rounded border border-gold-600/20 transition-colors"
         >
           Contraofertar
         </button>
@@ -161,7 +395,6 @@ function OutgoingNegotiationCard({
 }) {
   const isResolved = neg.phase === 'failed' || neg.phase === 'cancelled'
   const isPlayerAccepted = neg.phase === 'player_accepted'
-  const isPlayerPending = neg.phase === 'player_pending'
   const isPlayerCounter = neg.phase === 'player_counter'
   const hasCounter = !!neg.counterAmount
 
@@ -176,7 +409,7 @@ function OutgoingNegotiationCard({
   const statusText = (() => {
     if (neg.phase === 'club_pending' && !hasCounter) return { text: 'Esperando respuesta del club', color: 'text-gray-400' }
     if (neg.phase === 'club_pending' && hasCounter) return { text: `Contraoferta del club: ${formatMoney(neg.counterAmount!)}`, color: 'text-yellow-400' }
-    if (isPlayerPending) return { text: 'El jugador está valorando la oferta', color: 'text-gray-400' }
+    if (neg.phase === 'player_pending') return { text: 'El jugador está valorando la oferta', color: 'text-gray-400' }
     if (isPlayerCounter) return { text: `El jugador pide: ${formatMoney(neg.counterAmount!)}`, color: 'text-yellow-400' }
     if (isPlayerAccepted) return { text: '¡El jugador acepta! Confirma el fichaje', color: 'text-green-400 font-semibold' }
     if (neg.phase === 'failed') return { text: 'Negociación fallida', color: 'text-red-400' }
@@ -284,11 +517,9 @@ export default function TransfersScreen() {
   const career = useCareerStore((s) => s.career)
   const teams = useCareerStore((s) => s.teams)
   const players = useCareerStore((s) => s.players)
-  const screen = useCareerStore((s) => s.screen)
   const navigate = useCareerStore((s) => s.navigate)
   const activeTransferFilter = useCareerStore((s) => s.activeTransferFilter)
   const setTransferFilter = useCareerStore((s) => s.setTransferFilter)
-  const selectPlayer = useCareerStore((s) => s.selectPlayer)
   const respondToCounterOffer = useCareerStore((s) => s.respondToCounterOffer)
   const cancelNegotiation = useCareerStore((s) => s.cancelNegotiation)
   const confirmTransfer = useCareerStore((s) => s.confirmTransfer)
@@ -298,6 +529,7 @@ export default function TransfersScreen() {
   const [sortDir, setSortDir] = useState<SortDir>('desc')
   const [activeTab, setActiveTab] = useState<'market' | 'incoming' | 'outgoing'>('market')
   const [counterInputs, setCounterInputs] = useState<Record<string, string>>({})
+  const [selectedPlayerId, setSelectedPlayerId] = useState<number | null>(null)
 
   if (!career) {
     return (
@@ -317,15 +549,14 @@ export default function TransfersScreen() {
     (n) => n.phase === 'failed' || n.phase === 'cancelled',
   )
 
-  // Available players: not in user team
   const availablePlayers = players.filter((p) => p.teamId !== career.teamId)
   const baseFiltered = filterPlayers(availablePlayers, activeTransferFilter)
-  const teamSearchLower = activeTransferFilter.teamSearch.toLowerCase()
-  const filtered = teamSearchLower
+  const teamSearchVal = activeTransferFilter.teamSearch.toLowerCase()
+  const filtered = teamSearchVal
     ? baseFiltered.filter((p) => {
         const isFree = p.teamId === null || p.teamId === 0
-        const name = isFree ? 'libre' : (teamById.get(p.teamId!)?.name ?? '')
-        return name.toLowerCase().includes(teamSearchLower)
+        const name = isFree ? 'libre' : (teamById.get(p.teamId!)?.name?.toLowerCase() ?? '')
+        return name === teamSearchVal
       })
     : baseFiltered
   const sorted = sortPlayers(filtered, sortKey, sortDir, teamById)
@@ -334,6 +565,11 @@ export default function TransfersScreen() {
     (activeTransferFilter.page + 1) * activeTransferFilter.pageSize,
   )
   const totalPages = Math.ceil(filtered.length / activeTransferFilter.pageSize)
+
+  const marketTeamIds = new Set(availablePlayers.filter((p) => p.teamId && p.teamId !== 0).map((p) => p.teamId!))
+  const marketTeams = teams.filter((t) => marketTeamIds.has(t.id)).sort((a, b) => a.name.localeCompare(b.name))
+
+  const selectedPlayer = selectedPlayerId ? players.find((p) => p.id === selectedPlayerId) : null
 
   function handleSort(col: SortKey) {
     if (col === sortKey) {
@@ -349,46 +585,47 @@ export default function TransfersScreen() {
     <GameLayout>
       <div className="h-full flex flex-col overflow-hidden">
 
-          {/* Tab bar */}
-          <div className="flex-shrink-0 flex border-b border-gray-800 bg-dark-900/80 px-4">
-            <button
-              onClick={() => setActiveTab('market')}
-              className={`px-4 py-2 text-sm font-semibold border-b-2 transition-colors ${
-                activeTab === 'market' ? 'border-gold-500 text-gold-400' : 'border-transparent text-gray-500 hover:text-gray-300'
-              }`}
-            >
-              Mercado
-            </button>
-            <button
-              onClick={() => setActiveTab('incoming')}
-              className={`px-4 py-2 text-sm font-semibold border-b-2 transition-colors flex items-center gap-1.5 ${
-                activeTab === 'incoming' ? 'border-gold-500 text-gold-400' : 'border-transparent text-gray-500 hover:text-gray-300'
-              }`}
-            >
-              Ofertas recibidas
-              {incomingOffers.length > 0 && (
-                <span className="bg-red-600 text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
-                  {incomingOffers.length}
-                </span>
-              )}
-            </button>
-            <button
-              onClick={() => setActiveTab('outgoing')}
-              className={`px-4 py-2 text-sm font-semibold border-b-2 transition-colors flex items-center gap-1.5 ${
-                activeTab === 'outgoing' ? 'border-gold-500 text-gold-400' : 'border-transparent text-gray-500 hover:text-gray-300'
-              }`}
-            >
-              Ofertas enviadas
-              {activeNegotiations.length > 0 && (
-                <span className="bg-blue-600 text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
-                  {activeNegotiations.length}
-                </span>
-              )}
-            </button>
-          </div>
+        {/* Tab bar */}
+        <div className="flex-shrink-0 flex border-b border-gray-800 bg-dark-900/80 px-4">
+          <button
+            onClick={() => setActiveTab('market')}
+            className={`px-4 py-2 text-sm font-semibold border-b-2 transition-colors ${
+              activeTab === 'market' ? 'border-gold-500 text-gold-400' : 'border-transparent text-gray-500 hover:text-gray-300'
+            }`}
+          >
+            Mercado
+          </button>
+          <button
+            onClick={() => setActiveTab('incoming')}
+            className={`px-4 py-2 text-sm font-semibold border-b-2 transition-colors flex items-center gap-1.5 ${
+              activeTab === 'incoming' ? 'border-gold-500 text-gold-400' : 'border-transparent text-gray-500 hover:text-gray-300'
+            }`}
+          >
+            Ofertas recibidas
+            {incomingOffers.length > 0 && (
+              <span className="bg-red-600 text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
+                {incomingOffers.length}
+              </span>
+            )}
+          </button>
+          <button
+            onClick={() => setActiveTab('outgoing')}
+            className={`px-4 py-2 text-sm font-semibold border-b-2 transition-colors flex items-center gap-1.5 ${
+              activeTab === 'outgoing' ? 'border-gold-500 text-gold-400' : 'border-transparent text-gray-500 hover:text-gray-300'
+            }`}
+          >
+            Ofertas enviadas
+            {activeNegotiations.length > 0 && (
+              <span className="bg-blue-600 text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
+                {activeNegotiations.length}
+              </span>
+            )}
+          </button>
+        </div>
 
-          {/* Filters toolbar (market only) */}
-          {activeTab === 'market' && <div className="flex-shrink-0 bg-dark-900/80 border-b border-gold-600/30 px-4 py-2 space-y-2">
+        {/* Filters toolbar (market only) */}
+        {activeTab === 'market' && (
+          <div className="flex-shrink-0 bg-dark-900/80 border-b border-gold-600/30 px-4 py-2 space-y-2">
             <div className="flex flex-wrap gap-x-4 gap-y-2 items-end">
               {/* Position filter */}
               <div className="flex items-center gap-1">
@@ -453,162 +690,169 @@ export default function TransfersScreen() {
                 )}
               </div>
 
-              {/* Team search */}
-              <div className="relative min-w-28">
-                <Icon name="shield" size="xs" className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" />
-                <input
-                  type="text"
-                  value={activeTransferFilter.teamSearch}
-                  onChange={(e) => setTransferFilter({ teamSearch: e.target.value, page: 0 })}
-                  placeholder="Equipo..."
-                  className="w-full panel rounded-lg pl-8 pr-8 py-1.5 text-white text-xs placeholder-gray-600 focus:outline-none focus:border-gray-500"
-                />
-                {activeTransferFilter.teamSearch && (
-                  <button onClick={() => setTransferFilter({ teamSearch: '', page: 0 })} className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300">
-                    <Icon name="close" size="xs" />
-                  </button>
-                )}
-              </div>
+              {/* Team dropdown */}
+              <TeamDropdown
+                marketTeams={marketTeams}
+                value={activeTransferFilter.teamSearch}
+                onChange={(val) => setTransferFilter({ teamSearch: val, page: 0 })}
+              />
 
               <span className="text-gray-600 text-xs ml-auto shrink-0">{filtered.length} jugadores</span>
             </div>
-          </div>}
+          </div>
+        )}
 
-          {/* Market tab */}
-          {activeTab === 'market' && (
-          <div className="flex-1 overflow-y-auto p-3">
-            <div className="panel rounded-xl overflow-hidden mb-3">
-              <table className="w-full">
-                <thead>
-                  <tr className="bg-dark-900/60 text-gold-600/80 text-xs border-b border-gold-600/30">
-                    <th className="py-2 px-2 w-14" />
-                    <SortHeader label="Jugador" col="name" currentKey={sortKey} currentDir={sortDir} onClick={handleSort} />
-                    <th className="py-2 px-2 w-20 text-center text-gray-500">Elem.</th>
-                    <SortHeader label="Edad" col="edad" currentKey={sortKey} currentDir={sortDir} onClick={handleSort} className="w-10 text-center" />
-                    <SortHeader label="POT" col="POT" currentKey={sortKey} currentDir={sortDir} onClick={handleSort} className="w-10 text-right" />
-                    <SortHeader label="TEC" col="TEC" currentKey={sortKey} currentDir={sortDir} onClick={handleSort} className="w-10 text-right" />
-                    <SortHeader label="FIS" col="FIS" currentKey={sortKey} currentDir={sortDir} onClick={handleSort} className="w-10 text-right" />
-                    <SortHeader label="AGI" col="AGI" currentKey={sortKey} currentDir={sortDir} onClick={handleSort} className="w-10 text-right" />
-                    <SortHeader label="Media" col="TOT" currentKey={sortKey} currentDir={sortDir} onClick={handleSort} className="w-14 text-right" />
-                    <SortHeader label="Equipo" col="equipo" currentKey={sortKey} currentDir={sortDir} onClick={handleSort} className="w-32" />
-                    <SortHeader label="Valor" col="valor" currentKey={sortKey} currentDir={sortDir} onClick={handleSort} className="w-20 text-right" />
-                  </tr>
-                </thead>
-                <tbody>
-                  {paginated.map((player) => {
-                    const isFreeAgent = player.teamId === null || player.teamId === 0
-                    const playerTeam = isFreeAgent ? null : teamById.get(player.teamId!)
-                    return (
-                      <TransferPlayerRow
-                        key={player.id}
-                        player={player}
-                        teamName={playerTeam?.name ?? ''}
-                        teamBadgeUrl={playerTeam?.badgeUrl}
-                        isFreeAgent={isFreeAgent}
-                        onView={() => { selectPlayer(player.id); navigate('player_detail') }}
-                      />
-                    )
-                  })}
-                  {paginated.length === 0 && (
-                    <tr>
-                      <td colSpan={11} className="py-10 text-center text-gray-500 text-sm">
-                        No hay jugadores disponibles con los filtros actuales
-                      </td>
+        {/* Market tab */}
+        {activeTab === 'market' && (
+          <div className="flex-1 flex overflow-hidden">
+            {/* Player list */}
+            <div className="flex-1 overflow-y-auto overflow-x-auto p-3 min-w-0">
+              <div className="panel rounded-xl overflow-hidden mb-3">
+                <table className="w-full">
+                  <thead>
+                    <tr className="bg-dark-900/60 text-gold-600/80 text-xs border-b border-gold-600/30">
+                      <th className="py-2 px-2 w-14" />
+                      <SortHeader label="Jugador" col="name" currentKey={sortKey} currentDir={sortDir} onClick={handleSort} />
+                      <th className="py-2 px-3 w-28 text-left text-gray-500">Elem.</th>
+                      <SortHeader label="Edad" col="edad" currentKey={sortKey} currentDir={sortDir} onClick={handleSort} className="w-10 text-center" />
+                      <SortHeader label="POT" col="POT" currentKey={sortKey} currentDir={sortDir} onClick={handleSort} className="w-10 text-right" />
+                      <SortHeader label="TEC" col="TEC" currentKey={sortKey} currentDir={sortDir} onClick={handleSort} className="w-10 text-right" />
+                      <SortHeader label="FIS" col="FIS" currentKey={sortKey} currentDir={sortDir} onClick={handleSort} className="w-10 text-right" />
+                      <SortHeader label="AGI" col="AGI" currentKey={sortKey} currentDir={sortDir} onClick={handleSort} className="w-10 text-right" />
+                      <SortHeader label="Media" col="TOT" currentKey={sortKey} currentDir={sortDir} onClick={handleSort} className="w-14 text-right" />
+                      <SortHeader label="Equipo" col="equipo" currentKey={sortKey} currentDir={sortDir} onClick={handleSort} className="w-36" />
+                      <SortHeader label="Valor" col="valor" currentKey={sortKey} currentDir={sortDir} onClick={handleSort} className="w-20 text-right" />
                     </tr>
-                  )}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {paginated.map((player) => {
+                      const isFreeAgent = player.teamId === null || player.teamId === 0
+                      const playerTeam = isFreeAgent ? null : teamById.get(player.teamId!)
+                      return (
+                        <TransferPlayerRow
+                          key={player.id}
+                          player={player}
+                          teamName={playerTeam?.name ?? ''}
+                          teamBadgeUrl={playerTeam?.badgeUrl}
+                          isFreeAgent={isFreeAgent}
+                          isSelected={player.id === selectedPlayerId}
+                          onView={() => setSelectedPlayerId(player.id === selectedPlayerId ? null : player.id)}
+                        />
+                      )
+                    })}
+                    {paginated.length === 0 && (
+                      <tr>
+                        <td colSpan={11} className="py-10 text-center text-gray-500 text-sm">
+                          No hay jugadores disponibles con los filtros actuales
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+
+              {totalPages > 1 && (
+                <div className="flex items-center justify-center gap-2">
+                  <button
+                    onClick={() => setTransferFilter({ page: Math.max(0, activeTransferFilter.page - 1) })}
+                    disabled={activeTransferFilter.page === 0}
+                    className="text-xs px-3 py-1.5 bg-dark-700/80 hover:bg-dark-600/80 disabled:opacity-40 text-white rounded-lg border border-gold-600/20 transition-colors"
+                  >
+                    Anterior
+                  </button>
+                  <span className="text-gray-400 text-xs tabular-nums">
+                    {activeTransferFilter.page + 1} / {totalPages}
+                  </span>
+                  <button
+                    onClick={() => setTransferFilter({ page: Math.min(totalPages - 1, activeTransferFilter.page + 1) })}
+                    disabled={activeTransferFilter.page >= totalPages - 1}
+                    className="text-xs px-3 py-1.5 bg-dark-700/80 hover:bg-dark-600/80 disabled:opacity-40 text-white rounded-lg border border-gold-600/20 transition-colors"
+                  >
+                    Siguiente
+                  </button>
+                </div>
+              )}
             </div>
 
-            {totalPages > 1 && (
-              <div className="flex items-center justify-center gap-2">
-                <button
-                  onClick={() => setTransferFilter({ page: Math.max(0, activeTransferFilter.page - 1) })}
-                  disabled={activeTransferFilter.page === 0}
-                  className="text-xs px-3 py-1.5 bg-dark-700/80 hover:bg-dark-600/80 disabled:opacity-40 text-white rounded-lg border border-gold-600/20 transition-colors"
-                >
-                  Anterior
-                </button>
-                <span className="text-gray-400 text-xs tabular-nums">
-                  {activeTransferFilter.page + 1} / {totalPages}
-                </span>
-                <button
-                  onClick={() => setTransferFilter({ page: Math.min(totalPages - 1, activeTransferFilter.page + 1) })}
-                  disabled={activeTransferFilter.page >= totalPages - 1}
-                  className="text-xs px-3 py-1.5 bg-dark-700/80 hover:bg-dark-600/80 disabled:opacity-40 text-white rounded-lg border border-gold-600/20 transition-colors"
-                >
-                  Siguiente
-                </button>
+            {/* Right panel */}
+            {selectedPlayer && (
+              <div className="w-72 shrink-0 border-l border-gold-600/20 bg-dark-900/60 overflow-hidden flex flex-col">
+                <PlayerDetailPanel
+                  key={selectedPlayer.id}
+                  player={selectedPlayer}
+                  onClose={() => setSelectedPlayerId(null)}
+                  onOfferSent={() => setTimeout(() => setActiveTab('outgoing'), 1200)}
+                />
               </div>
             )}
           </div>
-          )}
+        )}
 
-          {/* Incoming offers tab */}
-          {activeTab === 'incoming' && (
-            <div className="flex-1 overflow-y-auto p-3 space-y-3">
-              {incomingOffers.length === 0 ? (
-                <p className="text-gray-500 text-sm text-center py-8">No hay ofertas recibidas pendientes.</p>
-              ) : incomingOffers.map((offer) => (
-                <IncomingOfferCard key={offer.id} offer={offer} players={players} teams={teams} />
-              ))}
-            </div>
-          )}
+        {/* Incoming offers tab */}
+        {activeTab === 'incoming' && (
+          <div className="flex-1 overflow-y-auto p-3 space-y-3">
+            {incomingOffers.length === 0 ? (
+              <p className="text-gray-500 text-sm text-center py-8">No hay ofertas recibidas pendientes.</p>
+            ) : incomingOffers.map((offer) => (
+              <IncomingOfferCard key={offer.id} offer={offer} players={players} teams={teams} />
+            ))}
+          </div>
+        )}
 
-          {/* Outgoing offers tab */}
-          {activeTab === 'outgoing' && (
-            <div className="flex-1 overflow-y-auto p-3 space-y-3">
-              {activeNegotiations.length === 0 && resolvedNegotiations.length === 0 ? (
-                <p className="text-gray-500 text-sm text-center py-8">No has enviado ninguna oferta.</p>
-              ) : (
-                <>
-                  {activeNegotiations.length > 0 && (
-                    <div className="space-y-2">
-                      <p className="text-gray-400 text-xs font-semibold uppercase tracking-wide px-1">
-                        Activas ({activeNegotiations.length})
-                      </p>
-                      {activeNegotiations.map((neg) => (
-                        <OutgoingNegotiationCard
-                          key={neg.id}
-                          neg={neg}
-                          counterInput={counterInputs[neg.id] ?? ''}
-                          onCounterInputChange={(val) => setCounterInputs((prev) => ({ ...prev, [neg.id]: val }))}
-                          onRespondCounter={(action, amount) => {
-                            respondToCounterOffer(neg.id, action, amount)
-                            setCounterInputs((prev) => ({ ...prev, [neg.id]: '' }))
-                          }}
-                          onConfirm={() => confirmTransfer(neg.id)}
-                          onCancel={() => cancelNegotiation(neg.id)}
-                          onDismiss={() => dismissNegotiation(neg.id)}
-                        />
-                      ))}
-                    </div>
-                  )}
+        {/* Outgoing offers tab */}
+        {activeTab === 'outgoing' && (
+          <div className="flex-1 overflow-y-auto p-3 space-y-3">
+            {activeNegotiations.length === 0 && resolvedNegotiations.length === 0 ? (
+              <p className="text-gray-500 text-sm text-center py-8">No has enviado ninguna oferta.</p>
+            ) : (
+              <>
+                {activeNegotiations.length > 0 && (
+                  <div className="space-y-2">
+                    <p className="text-gray-400 text-xs font-semibold uppercase tracking-wide px-1">
+                      Activas ({activeNegotiations.length})
+                    </p>
+                    {activeNegotiations.map((neg) => (
+                      <OutgoingNegotiationCard
+                        key={neg.id}
+                        neg={neg}
+                        counterInput={counterInputs[neg.id] ?? ''}
+                        onCounterInputChange={(val) => setCounterInputs((prev) => ({ ...prev, [neg.id]: val }))}
+                        onRespondCounter={(action, amount) => {
+                          respondToCounterOffer(neg.id, action, amount)
+                          setCounterInputs((prev) => ({ ...prev, [neg.id]: '' }))
+                        }}
+                        onConfirm={() => confirmTransfer(neg.id)}
+                        onCancel={() => cancelNegotiation(neg.id)}
+                        onDismiss={() => dismissNegotiation(neg.id)}
+                      />
+                    ))}
+                  </div>
+                )}
 
-                  {resolvedNegotiations.length > 0 && (
-                    <div className="space-y-2">
-                      <p className="text-gray-400 text-xs font-semibold uppercase tracking-wide px-1">
-                        Resueltas ({resolvedNegotiations.length})
-                      </p>
-                      {resolvedNegotiations.map((neg) => (
-                        <OutgoingNegotiationCard
-                          key={neg.id}
-                          neg={neg}
-                          counterInput=""
-                          onCounterInputChange={() => {}}
-                          onRespondCounter={() => {}}
-                          onConfirm={() => {}}
-                          onCancel={() => {}}
-                          onDismiss={() => dismissNegotiation(neg.id)}
-                        />
-                      ))}
-                    </div>
-                  )}
-                </>
-              )}
-            </div>
-          )}
-        </div>
+                {resolvedNegotiations.length > 0 && (
+                  <div className="space-y-2">
+                    <p className="text-gray-400 text-xs font-semibold uppercase tracking-wide px-1">
+                      Resueltas ({resolvedNegotiations.length})
+                    </p>
+                    {resolvedNegotiations.map((neg) => (
+                      <OutgoingNegotiationCard
+                        key={neg.id}
+                        neg={neg}
+                        counterInput=""
+                        onCounterInputChange={() => {}}
+                        onRespondCounter={() => {}}
+                        onConfirm={() => {}}
+                        onCancel={() => {}}
+                        onDismiss={() => dismissNegotiation(neg.id)}
+                      />
+                    ))}
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        )}
+      </div>
     </GameLayout>
   )
 }

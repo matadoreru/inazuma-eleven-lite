@@ -87,7 +87,7 @@ function JerseyModal({
                 onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
                 placeholder="Nuevo dorsal (1–99)"
                 autoFocus
-                className="w-full bg-dark-700/80 border border-gold-600/30 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 text-sm"
+                className="w-full bg-dark-700/80 border border-gold-600/30 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-gold-500 text-sm"
               />
             </>
           ) : (
@@ -233,7 +233,7 @@ function PotentialModal({
                 <p className="text-gray-600 text-xs">Mín</p>
               </div>
               <div className="flex-1 h-1.5 bg-dark-600/80 rounded-full relative">
-                <div className="absolute inset-y-0 bg-purple-600 rounded-full"
+                <div className="absolute inset-y-0 bg-amber-500/60 rounded-full"
                   style={{
                     left: `${((analysis.rangeMin - 1) / 98) * 100}%`,
                     right: `${((99 - analysis.rangeMax) / 98) * 100}%`,
@@ -253,13 +253,13 @@ function PotentialModal({
           {/* Preview after analysis */}
           <div>
             <p className="text-gray-500 text-xs mb-2">Tras el análisis</p>
-            <div className="flex items-center gap-3 bg-purple-900/20 border border-purple-800/30 rounded-xl px-4 py-3">
+            <div className="flex items-center gap-3 bg-gold-900/20 border border-gold-700/30 rounded-xl px-4 py-3">
               <div className="text-center w-10">
-                <p className="text-purple-300 text-lg font-bold">{preview.rangeMin}</p>
+                <p className="text-gold-300 text-lg font-bold">{preview.rangeMin}</p>
                 <p className="text-gray-600 text-xs">Mín</p>
               </div>
               <div className="flex-1 h-1.5 bg-dark-600/80 rounded-full relative">
-                <div className="absolute inset-y-0 bg-purple-400 rounded-full"
+                <div className="absolute inset-y-0 bg-gold-500 rounded-full"
                   style={{
                     left: `${((preview.rangeMin - 1) / 98) * 100}%`,
                     right: `${((99 - preview.rangeMax) / 98) * 100}%`,
@@ -267,11 +267,11 @@ function PotentialModal({
                 />
               </div>
               <div className="text-center w-10">
-                <p className="text-purple-300 text-lg font-bold">{preview.rangeMax}</p>
+                <p className="text-gold-300 text-lg font-bold">{preview.rangeMax}</p>
                 <p className="text-gray-600 text-xs">Máx</p>
               </div>
             </div>
-            <p className="text-purple-400 text-xs mt-1.5 text-center">
+            <p className="text-gold-400 text-xs mt-1.5 text-center">
               Confianza: {getConfidenceLabel(preview.uncertainty)}
             </p>
           </div>
@@ -306,7 +306,7 @@ function PotentialModal({
           <button
             onClick={() => { if (canAfford) { onConfirm(); onClose() } }}
             disabled={!canAfford}
-            className="flex-1 py-2.5 bg-purple-600 hover:bg-purple-500 disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-xl text-sm font-semibold transition-colors"
+            className="flex-1 py-2.5 bg-gold-600 hover:bg-gold-500 disabled:opacity-40 disabled:cursor-not-allowed text-dark-900 rounded-xl text-sm font-bold transition-colors"
           >
             Invertir {fmt(cost)}
           </button>
@@ -353,7 +353,7 @@ function PotentialSection({
       {/* Header */}
       <div className="px-4 py-3 border-b border-gold-600/20 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Icon name="analytics" size="xs" className="text-purple-400" />
+          <Icon name="analytics" size="xs" className="text-gold-500" />
           <h2 className="text-white text-sm font-semibold">Potencial</h2>
         </div>
         {analysis.analysesCompleted.length > 0 && (
@@ -384,7 +384,7 @@ function PotentialSection({
         {/* Visual range bar */}
         <div className="relative h-2 bg-dark-700/70 rounded-full">
           <div
-            className="absolute inset-y-0 bg-purple-500/60 rounded-full"
+            className="absolute inset-y-0 bg-amber-500/60 rounded-full"
             style={{
               left: `${((analysis.rangeMin - 1) / 98) * 100}%`,
               right: `${((99 - analysis.rangeMax) / 98) * 100}%`,
@@ -438,7 +438,7 @@ function PotentialSection({
             <p className="text-gray-500 text-xs mb-1.5">Fortalezas futuras</p>
             <div className="flex flex-wrap gap-1.5">
               {discovered.strengthsFutures.map((s) => (
-                <span key={s} className="text-xs px-2 py-0.5 bg-purple-900/40 border border-purple-700/40 text-purple-300 rounded-md font-medium">
+                <span key={s} className="text-xs px-2 py-0.5 bg-gold-900/30 border border-gold-600/40 text-gold-300 rounded-md font-medium">
                   {s}
                 </span>
               ))}
@@ -448,9 +448,9 @@ function PotentialSection({
 
         {/* Scout recommendation */}
         {discovered.recommendation && (
-          <div className="flex items-start gap-2 p-3 rounded-lg bg-blue-900/20 border border-blue-800/30">
+          <div className="flex items-start gap-2 p-3 rounded-lg bg-dark-700/40 border border-gold-600/20">
             <Icon name="person_pin" size="xs" className="text-gold-500 shrink-0 mt-0.5" />
-            <p className="text-blue-200 text-xs leading-relaxed">{discovered.recommendation}</p>
+            <p className="text-gray-300 text-xs leading-relaxed">{discovered.recommendation}</p>
           </div>
         )}
 
@@ -464,7 +464,7 @@ function PotentialSection({
           <button
             onClick={onAnalyze}
             disabled={budget < cost}
-            className="w-full mt-1 py-2.5 bg-purple-700 hover:bg-purple-600 disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-xl text-sm font-semibold transition-colors flex items-center justify-center gap-2"
+            className="w-full mt-1 py-2.5 bg-gold-600 hover:bg-gold-500 disabled:opacity-40 disabled:cursor-not-allowed text-dark-900 rounded-xl text-sm font-bold transition-colors flex items-center justify-center gap-2"
           >
             <Icon name="search" size="xs" />
             {getTierConfig(nextTier).label} — {fmt(cost)}
@@ -711,7 +711,7 @@ export default function PlayerDetailScreen() {
 
   const statusLabel = isStarter ? 'TIT' : isBench ? 'SUP' : 'NC'
   const statusStyle = isStarter
-    ? 'bg-blue-600/30 text-gold-400 border border-blue-600/40'
+    ? 'bg-gold-600/30 text-gold-400 border border-gold-600/40'
     : isBench
     ? 'bg-dark-700/60 text-gray-400 border border-gold-600/20'
     : 'bg-dark-800/60 text-gray-600 border border-gold-600/10'
@@ -764,7 +764,7 @@ export default function PlayerDetailScreen() {
                 )}
               </div>
               <p className="text-gray-600 text-[0.625rem] truncate leading-tight">{nameStyle === 'japanese' ? player.name : player.nameRomaji}</p>
-              <span className="text-gray-500 text-xs">Stamina <span className="text-cyan-400">{player.stamina}%</span></span>
+              <span className="text-gray-500 text-xs">Stamina <span className="text-amber-400">{player.stamina}%</span></span>
             </div>
 
             {/* Rating */}
@@ -799,7 +799,7 @@ export default function PlayerDetailScreen() {
                 )}
                 <button
                   onClick={() => setShowJerseyModal(true)}
-                  className="flex items-center gap-1 px-2 py-1 bg-blue-700 hover:bg-gold-600/25 text-gold-300 border border-gold-500/60 rounded text-xs font-semibold transition-colors"
+                  className="flex items-center gap-1 px-2 py-1 bg-dark-700/60 hover:bg-gold-600/25 text-gold-300 border border-gold-500/60 rounded text-xs font-semibold transition-colors"
                 >
                   <Icon name="tag" size="xs" />
                   Dorsal
@@ -820,7 +820,7 @@ export default function PlayerDetailScreen() {
                 {!activeNegotiation && !recentNegotiation && (
                   <button
                     onClick={() => { setOfferInput(String(marketValueForOffer)); setShowOfferModal(true) }}
-                    className="flex items-center gap-1 px-2 py-1 bg-blue-700 hover:bg-gold-600/25 text-gold-300 border border-gold-500/60 rounded text-xs font-semibold transition-colors"
+                    className="flex items-center gap-1 px-2 py-1 bg-dark-700/60 hover:bg-gold-600/25 text-gold-300 border border-gold-500/60 rounded text-xs font-semibold transition-colors"
                   >
                     <span className="material-icons leading-none" style={{ fontSize: '14px' }}>
                       {(player.teamId === null || player.teamId === 0) ? 'handshake' : 'send'}
@@ -933,7 +933,7 @@ export default function PlayerDetailScreen() {
                     <span className="text-red-400 text-[0.625rem]">Negociación fallida</span>
                     <button
                       onClick={() => { setOfferInput(String(marketValueForOffer)); setShowOfferModal(true) }}
-                      className="flex items-center gap-1 px-2 py-1 bg-blue-700 hover:bg-gold-600/25 text-gold-300 border border-gold-500/60 rounded text-xs font-semibold transition-colors"
+                      className="flex items-center gap-1 px-2 py-1 bg-dark-700/60 hover:bg-gold-600/25 text-gold-300 border border-gold-500/60 rounded text-xs font-semibold transition-colors"
                     >
                       Reintentar
                     </button>
@@ -945,7 +945,7 @@ export default function PlayerDetailScreen() {
                     <span className="text-gray-500 text-[0.625rem]">Cancelada</span>
                     <button
                       onClick={() => { setOfferInput(String(marketValueForOffer)); setShowOfferModal(true) }}
-                      className="flex items-center gap-1 px-2 py-1 bg-blue-700 hover:bg-gold-600/25 text-gold-300 border border-gold-500/60 rounded text-xs font-semibold transition-colors"
+                      className="flex items-center gap-1 px-2 py-1 bg-dark-700/60 hover:bg-gold-600/25 text-gold-300 border border-gold-500/60 rounded text-xs font-semibold transition-colors"
                     >
                       Nueva oferta
                     </button>
@@ -971,7 +971,7 @@ export default function PlayerDetailScreen() {
                     <StatBar key={stat} label={stat} value={player.stats[stat]} max={250} />
                   ))}
                 </div>
-                <div className="mt-2 pt-2 border-t border-gold-600/15/50 grid grid-cols-2 gap-x-2 text-xs">
+                <div className="mt-2 pt-2 border-t border-gold-600/20 grid grid-cols-2 gap-x-2 text-xs">
                   <span className="text-gray-500">Total</span>
                   <span className="text-gray-300 font-semibold tabular-nums text-right">{total}</span>
                   <span className="text-gray-500">Media</span>
@@ -1113,7 +1113,7 @@ export default function PlayerDetailScreen() {
                 <div className="grid grid-cols-2 gap-1.5">
                   <div className="bg-dark-800/70 rounded-lg px-2 py-1.5">
                     <p className="text-gray-500 text-[0.5625rem]">Potencial base</p>
-                    <p className="text-purple-400 font-bold text-sm">{player.career.potential}</p>
+                    <p className="text-gold-400 font-bold text-sm">{player.career.potential}</p>
                   </div>
                   <div className="bg-dark-800/70 rounded-lg px-2 py-1.5">
                     <p className="text-gray-500 text-[0.5625rem]">Valor</p>
@@ -1177,7 +1177,7 @@ export default function PlayerDetailScreen() {
       {/* ── Offer modal (initiate negotiation / counter-offer) ── */}
       {showOfferModal && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
-          <div className="bg-dark-800/80 rounded-xl border border-gold-600/15 p-5 w-full max-w-sm border border-gold-600/20 space-y-4">
+          <div className="bg-dark-800/80 rounded-xl border border-gold-600/20 p-5 w-full max-w-sm space-y-4">
             <div>
               <h2 className="text-white text-base font-bold">
                 {activeNegotiation?.counterAmount ? 'Contra-oferta' : ((player.teamId === null || player.teamId === 0) ? 'Contactar agente' : 'Enviar oferta al club')}
@@ -1214,7 +1214,7 @@ export default function PlayerDetailScreen() {
                 }
                 setShowOfferModal(false)
               }}
-              className="w-full py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-semibold text-sm transition-colors"
+              className="w-full py-2 bg-gold-600 hover:bg-gold-500 text-dark-900 rounded-lg font-bold text-sm transition-colors"
             >
               Enviar oferta
             </button>
@@ -1232,7 +1232,7 @@ export default function PlayerDetailScreen() {
       {/* ── Sell modal ── */}
       {showSellModal && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
-          <div className="bg-dark-800/80 rounded-xl border border-gold-600/15 p-5 w-full max-w-sm border border-gold-600/20 space-y-4">
+          <div className="bg-dark-800/80 rounded-xl border border-gold-600/20 p-5 w-full max-w-sm space-y-4">
             <div>
               <h2 className="text-white text-base font-bold">Vender jugador</h2>
               <p className="text-gray-400 text-xs mt-0.5">{playerDisplayName(player, nameStyle)}</p>

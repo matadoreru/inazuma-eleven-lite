@@ -602,6 +602,7 @@ interface CareerState {
   setWeeklyTrainingSlot(slot: WeeklyTrainingSlot): void
   removeWeeklyTrainingSlot(playerId: number): void
   commitWeeklyTraining(): void
+  copyLastTraining(): void
 
   // Technique teaching
   teachTechnique(playerId: number, bookId: string, replaceIndex?: number): void
@@ -766,6 +767,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
         ...data.career,
         playerPotential: data.career.playerPotential ?? {},
         weeklyTrainingPlan: data.career.weeklyTrainingPlan ?? null,
+        lastCompletedTrainingSlots: data.career.lastCompletedTrainingSlots ?? null,
         inventory: data.career.inventory ?? { ...EMPTY_INVENTORY },
         allLeagueSeasons: data.career.allLeagueSeasons ?? {},
         cup: data.career.cup ?? null,
@@ -832,6 +834,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
           objectiveDifficulty: data.career.objectiveDifficulty ?? 'normal',
           playerPotential: data.career.playerPotential ?? {},
           weeklyTrainingPlan: data.career.weeklyTrainingPlan ?? null,
+          lastCompletedTrainingSlots: data.career.lastCompletedTrainingSlots ?? null,
           inventory: data.career.inventory ?? { ...EMPTY_INVENTORY },
           allLeagueSeasons: data.career.allLeagueSeasons ?? {},
           cup: data.career.cup ?? null,
@@ -1008,10 +1011,9 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
         !m.played &&
         (m.homeTeamId === career.teamId || m.awayTeamId === career.teamId),
     )
-    // Block if today has an unplayed user cup match
+    // Block if today has an unplayed user cup match (applies even after user's league finishes)
     const todayCupMatch = getNextUserCupMatch(career.cup, career.teamId, career.season.currentDate)
-    // Only block on cup when user's league is still active — once league is done, let days advance freely
-    const todayCupMatchIsToday = !career.season.finished && todayCupMatch?.date === career.season.currentDate
+    const todayCupMatchIsToday = todayCupMatch?.date === career.season.currentDate
     if (todayLeagueMatch || todayCupMatchIsToday) return
 
     const currentDateStr = career.season.currentDate
@@ -1194,6 +1196,8 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     if (!career || !career.weeklyTrainingPlan) return
     if (career.weeklyTrainingPlan.slots.length === 0) return
 
+    const executedSlots = career.weeklyTrainingPlan.slots
+
     const { players: updatedPlayers, career: updatedCareer } = executeWeeklyPlan(
       career.weeklyTrainingPlan,
       players,
@@ -1207,14 +1211,36 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     next.setDate(next.getDate() + 7)
     const newDate = `${next.getFullYear()}-${String(next.getMonth() + 1).padStart(2, '0')}-${String(next.getDate()).padStart(2, '0')}`
 
-    set({
-      players: updatedPlayers,
-      career: {
-        ...updatedCareer,
-        weeklyTrainingPlan: null,
-        season: { ...updatedCareer.season, currentDate: newDate },
-      },
-    })
+    let newCareer: Career = {
+      ...updatedCareer,
+      weeklyTrainingPlan: null,
+      lastCompletedTrainingSlots: executedSlots,
+      season: { ...updatedCareer.season, currentDate: newDate },
+    }
+    newCareer = addEvent(
+      'TRAINING_AVAILABLE',
+      'Entrenamiento disponible',
+      'El entrenamiento semanal ya está listo. ¡Prepara el plan para esta semana!',
+      newCareer,
+      {},
+      'training',
+    )
+    set({ players: updatedPlayers, career: newCareer })
+  },
+
+  copyLastTraining() {
+    const { career, players } = get()
+    if (!career?.lastCompletedTrainingSlots) return
+    const squadIds = new Set(players.filter((p) => p.teamId === career.teamId && !p.isInjured).map((p) => p.id))
+    const existingPlan = career.weeklyTrainingPlan
+    const existingIds = new Set(existingPlan?.slots.map((s) => s.playerId) ?? [])
+    const validSlots = career.lastCompletedTrainingSlots.filter((s) => squadIds.has(s.playerId) && !existingIds.has(s.playerId))
+    if (validSlots.length === 0) return
+    const mergedSlots = [...(existingPlan?.slots ?? []), ...validSlots].slice(0, 5)
+    const plan: import('../types/training').WeeklyTrainingPlan = existingPlan
+      ? { ...existingPlan, slots: mergedSlots }
+      : { slots: mergedSlots, weekStartDate: career.season.currentDate, executed: false }
+    set({ career: { ...career, weeklyTrainingPlan: plan } })
   },
 
   // --- Technique teaching ---
@@ -1914,6 +1940,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
       objectives: newObjectives,
       objectiveDifficulty,
       weeklyTrainingPlan: null,
+      lastCompletedTrainingSlots: null,
       outgoingNegotiations: cleanedNegotiations,
       incomingOffers: cleanedIncoming,
     }
@@ -1928,12 +1955,18 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
   },
 
   simulateAllRemainingAndClose() {
-    const MAX_ITER = 200
+    const MAX_ITER = 400
     for (let i = 0; i < MAX_ITER; i++) {
       const { career } = get()
       if (!career) break
       const status = computeSeasonStatus(career)
       if (status === 'all_finished' || status === 'review') break
+      // If a user cup match is blocking today, auto-simulate it as NPC
+      const todayCupMatch = getNextUserCupMatch(career.cup, career.teamId, career.season.currentDate)
+      if (todayCupMatch?.date === career.season.currentDate) {
+        get().simulateCupMatch(todayCupMatch.id)
+        continue
+      }
       get().advanceDay()
     }
     // After loop, close if ready
