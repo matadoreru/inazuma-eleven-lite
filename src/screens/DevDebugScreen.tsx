@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useCareerStore } from '../store/careerStore'
+import { isDevModeActive } from '../services/profileService'
 import GameLayout from '../components/GameLayout'
 import type { EquipmentItem } from '../types/equipment'
 
@@ -47,10 +48,12 @@ export default function DevDebugScreen() {
   const navigate = useCareerStore((s) => s.navigate)
 
   const [toast, setToast] = useState<string | null>(null)
+  const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   function flash(msg: string) {
+    if (toastTimer.current) clearTimeout(toastTimer.current)
     setToast(msg)
-    setTimeout(() => setToast(null), 1500)
+    toastTimer.current = setTimeout(() => setToast(null), 1500)
   }
 
   if (!career) {
@@ -58,6 +61,16 @@ export default function DevDebugScreen() {
       <GameLayout>
         <div className="h-full flex items-center justify-center">
           <p className="text-gray-500 text-sm">No hay carrera activa.</p>
+        </div>
+      </GameLayout>
+    )
+  }
+
+  if (!isDevModeActive()) {
+    return (
+      <GameLayout>
+        <div className="h-full flex items-center justify-center">
+          <p className="text-gray-500 text-sm">Modo desarrollador no activo.</p>
         </div>
       </GameLayout>
     )
