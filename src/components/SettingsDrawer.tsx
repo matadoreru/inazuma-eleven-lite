@@ -3,8 +3,6 @@ import { useCareerStore } from '../store/careerStore'
 import Drawer from './Drawer'
 import Icon from './Icon'
 import { APP_VERSION } from '../utils/version'
-import { isDevModeActive } from '../services/profileService'
-import type { EquipmentItem } from '../types/equipment'
 
 const LANGUAGES = [
   { code: 'es', label: 'Español', available: true },
@@ -31,15 +29,6 @@ function InfoRow({ label, value }: { label: string; value: string }) {
   )
 }
 
-const CHEAT_ITEM: EquipmentItem = {
-  id: 'dev_cheat_item',
-  slot: 'boots',
-  name: 'Botas del Desarrollador',
-  statBonuses: { POT: 5, CON: 5, TEC: 5, PRE: 5 },
-  tier: 3,
-  rarity: 'legendary',
-}
-
 export default function SettingsDrawer() {
   const uiPanel = useCareerStore((s) => s.uiPanel)
   const setUIPanel = useCareerStore((s) => s.setUIPanel)
@@ -53,40 +42,6 @@ export default function SettingsDrawer() {
   const [saveSlot, setSaveSlot] = useState(0)
   const [saving, setSaving] = useState(false)
   const [savedFeedback, setSavedFeedback] = useState(false)
-  const [devMode] = useState(() => isDevModeActive())
-  const [cheatFeedback, setCheatFeedback] = useState<string | null>(null)
-
-  function flashCheat(msg: string) {
-    setCheatFeedback(msg)
-    setTimeout(() => setCheatFeedback(null), 1500)
-  }
-
-  function cheatAddMoney() {
-    const { career: c, teams: ts } = useCareerStore.getState()
-    if (!c) return
-    useCareerStore.setState({ teams: ts.map(t => t.id === c.teamId ? { ...t, budget: t.budget + 100000 } : t) })
-    flashCheat('+100.000€')
-  }
-
-  function cheatAddReputation() {
-    const { career: c, teams: ts } = useCareerStore.getState()
-    if (!c) return
-    useCareerStore.setState({ teams: ts.map(t => t.id === c.teamId ? { ...t, reputation: Math.min(100, t.reputation + 10) } : t) })
-    flashCheat('+10 Reputación')
-  }
-
-  function cheatAddItem() {
-    const { career: c } = useCareerStore.getState()
-    if (!c) return
-    const item: EquipmentItem = { ...CHEAT_ITEM, id: `dev_cheat_item_${Date.now()}` }
-    useCareerStore.setState({
-      career: {
-        ...c,
-        inventory: { ...c.inventory, equipmentItems: [...c.inventory.equipmentItems, item] },
-      },
-    })
-    flashCheat('Objeto añadido al inventario')
-  }
 
   const userTeam = career ? teams.find((t) => t.id === career.teamId) : null
 
@@ -222,44 +177,6 @@ export default function SettingsDrawer() {
             <InfoRow label="Versión" value={APP_VERSION} />
           </div>
         </section>
-
-        {/* Dev cheats — only visible in dev mode with an active career */}
-        {devMode && career && (
-          <section>
-            <h3 className="text-purple-400 text-xs font-semibold uppercase tracking-wide mb-3 flex items-center gap-1.5">
-              <Icon name="bug_report" size="xs" />
-              Trucos (modo dev)
-            </h3>
-            {cheatFeedback && (
-              <div className="mb-2 px-3 py-2 rounded-lg bg-purple-900/40 border border-purple-600/40 text-purple-300 text-xs font-semibold text-center">
-                {cheatFeedback}
-              </div>
-            )}
-            <div className="flex flex-col gap-2">
-              <button
-                onClick={cheatAddMoney}
-                className="flex items-center gap-2 px-3 py-2.5 rounded-lg border border-purple-600/30 bg-purple-900/20 hover:bg-purple-900/40 text-purple-300 text-sm transition-colors"
-              >
-                <Icon name="payments" size="xs" />
-                +100.000€ al presupuesto
-              </button>
-              <button
-                onClick={cheatAddReputation}
-                className="flex items-center gap-2 px-3 py-2.5 rounded-lg border border-purple-600/30 bg-purple-900/20 hover:bg-purple-900/40 text-purple-300 text-sm transition-colors"
-              >
-                <Icon name="star" size="xs" />
-                +10 Reputación al club
-              </button>
-              <button
-                onClick={cheatAddItem}
-                className="flex items-center gap-2 px-3 py-2.5 rounded-lg border border-purple-600/30 bg-purple-900/20 hover:bg-purple-900/40 text-purple-300 text-sm transition-colors"
-              >
-                <Icon name="sprint" size="xs" />
-                Añadir objeto legendario
-              </button>
-            </div>
-          </section>
-        )}
 
       </div>
     </Drawer>
