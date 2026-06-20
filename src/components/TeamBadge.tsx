@@ -1,37 +1,53 @@
-interface Props {
-  teamId: number
-  teamName: string
-  size?: 'sm' | 'md' | 'lg'
+import { useEffect, useState } from 'react'
+import type { Team } from '../types/team'
+import Icon from './Icon'
+
+type BadgeSize = 'sm' | 'md' | 'calendar' | 'lg'
+
+const SIZE_CLASSES: Record<BadgeSize, string> = {
+  sm: 'w-7 h-7',
+  md: 'w-9 h-9',
+  calendar: 'w-10 h-10',
+  lg: 'w-12 h-12',
 }
 
-const HUE_PALETTE = [
-  'bg-red-600',
-  'bg-orange-500',
-  'bg-yellow-500',
-  'bg-green-600',
-  'bg-teal-500',
-  'bg-blue-600',
-  'bg-violet-600',
-  'bg-pink-600',
-]
-
-const sizeMap = {
-  sm: { circle: 'w-6 h-6 text-xs', text: 'text-xs' },
-  md: { circle: 'w-8 h-8 text-sm', text: 'text-sm' },
-  lg: { circle: 'w-12 h-12 text-lg', text: 'text-base' },
+interface TeamBadgeProps {
+  team?: Pick<Team, 'id' | 'name' | 'badgeUrl'>
+  size?: BadgeSize
+  className?: string
 }
 
-export default function TeamBadge({ teamId, teamName, size = 'md' }: Props) {
-  const hue = HUE_PALETTE[teamId % 8]
-  const { circle, text } = sizeMap[size]
-  const initial = teamName.charAt(0).toUpperCase()
+export default function TeamBadge({
+  team,
+  size = 'sm',
+  className = '',
+}: TeamBadgeProps) {
+  const [imageFailed, setImageFailed] = useState(false)
+
+  useEffect(() => {
+    setImageFailed(false)
+  }, [team?.id, team?.badgeUrl])
+
+  const sizeClass = SIZE_CLASSES[size]
+
+  if (!team?.badgeUrl || imageFailed) {
+    return (
+      <div
+        className={`${sizeClass} shrink-0 rounded bg-dark-900 border border-gold-600/20 flex items-center justify-center ${className}`}
+        title={team?.name ?? 'Equipo desconocido'}
+      >
+        <Icon name="shield" size="xs" className="text-gray-500" />
+      </div>
+    )
+  }
 
   return (
-    <div className="flex items-center gap-2">
-      <div className={`${circle} ${hue} rounded-full flex items-center justify-center font-bold text-white shrink-0`}>
-        {initial}
-      </div>
-      <span className={`${text} text-white font-medium`}>{teamName}</span>
-    </div>
+    <img
+      src={team.badgeUrl}
+      alt={team.name}
+      className={`${sizeClass} shrink-0 rounded object-contain ${className}`}
+      onError={() => setImageFailed(true)}
+    />
   )
 }
+

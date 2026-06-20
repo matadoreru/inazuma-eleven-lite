@@ -301,30 +301,37 @@ export default function DevTeamsScreen() {
   function handleSave(savedTeam: Team, _unused: Player[]) {
     if (!profileId) return
 
-    const oldTeam = teams.find(t => t.id === savedTeam.id)
-    const oldIds = oldTeam?.playerIds ?? []
-    const newIds = savedTeam.playerIds
+    // A team with id === 0 is a placeholder that never got a real ID assigned — treat as new
+    const needsNewId = editingId === 'new' || savedTeam.id === 0
+    const oldId = savedTeam.id  // the ID before migration (may be 0)
+    const actualId = needsNewId ? nextId(teams) : savedTeam.id
+    const teamWithId = { ...savedTeam, id: actualId }
 
-    // removed players: were in old squad, not in new → clear teamId if it pointed to this team
+    const oldTeam = teams.find(t => t.id === oldId)
+    const oldIds = oldTeam?.playerIds ?? []
+    const newIds = teamWithId.playerIds
+
+    // removed players: were in old squad, not in new → free agent
     const removed = oldIds.filter(id => !newIds.includes(id))
     // added players: in new squad, not in old
     const added = newIds.filter(id => !oldIds.includes(id))
 
-    let nextPlayers = players
-    if (removed.length > 0 || added.length > 0) {
-      nextPlayers = players.map(p => {
-        if (removed.includes(p.id) && p.teamId === savedTeam.id) return { ...p, teamId: null }
-        if (added.includes(p.id)) return { ...p, teamId: savedTeam.id }
-        return p
-      })
-    }
+    const needsPlayerUpdate = removed.length > 0 || added.length > 0 || needsNewId
+    const nextPlayers = needsPlayerUpdate
+      ? players.map(p => {
+          // Removed from squad → free agent (match against old ID)
+          if (removed.includes(p.id) && p.teamId === oldId) return { ...p, teamId: null }
+          // Newly added to squad → assign actual ID
+          if (added.includes(p.id)) return { ...p, teamId: actualId }
+          // Migration: player was already in squad under the old ID → update to new ID
+          if (needsNewId && oldIds.includes(p.id) && p.teamId === oldId) return { ...p, teamId: actualId }
+          return p
+        })
+      : players
 
-    let nextTeams: Team[]
-    if (editingId === 'new') {
-      nextTeams = [...teams, { ...savedTeam, id: nextId(teams) }]
-    } else {
-      nextTeams = teams.map(t => t.id === savedTeam.id ? savedTeam : t)
-    }
+    const nextTeams: Team[] = editingId === 'new'
+      ? [...teams, teamWithId]
+      : teams.map(t => t.id === oldId ? teamWithId : t)
 
     updateProfileData(profileId, { teams: nextTeams, players: nextPlayers })
     refresh()
@@ -333,8 +340,13 @@ export default function DevTeamsScreen() {
   }
 
   function handleDelete(id: number) {
-    const next = teams.filter(t => t.id !== id)
-    updateProfileData(profileId, { teams: next })
+    const team = teams.find(t => t.id === id)
+    const squadIds = new Set(team?.playerIds ?? [])
+    const nextTeams = teams.filter(t => t.id !== id)
+    const nextPlayers = squadIds.size > 0
+      ? players.map(p => squadIds.has(p.id) && p.teamId === id ? { ...p, teamId: null } : p)
+      : players
+    updateProfileData(profileId, { teams: nextTeams, players: nextPlayers })
     if (editingId === id) { setEditingId(null); setFormData(null) }
     refresh()
   }

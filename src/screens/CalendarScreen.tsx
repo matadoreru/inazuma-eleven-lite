@@ -135,28 +135,23 @@ function DayDetailPanel({
   teams: Team[]
   userTeamId: number
 }) {
-  const [expandedMatchId, setExpandedMatchId] = useState<string | null>(null)
   const teamById = (id: number) => teams.find((t) => t.id === id)
+  const isUserMatch = (match: Match) =>
+    match.homeTeamId === userTeamId || match.awayTeamId === userTeamId
 
   const dayMatches = allMatches
     .filter((m) => m.date === selectedDate)
-    .sort((a, b) => {
-      const au = a.homeTeamId === userTeamId || a.awayTeamId === userTeamId ? 1 : 0
-      const bu = b.homeTeamId === userTeamId || b.awayTeamId === userTeamId ? 1 : 0
-      return bu - au
-    })
 
-  const userMatch = dayMatches.find(
-    (m) => m.homeTeamId === userTeamId || m.awayTeamId === userTeamId,
-  )
+  const userMatch = dayMatches.find(isUserMatch)
+  const otherMatches = dayMatches.filter((match) => !isUserMatch(match))
   const isHome = userMatch?.homeTeamId === userTeamId
   const userResult = userMatch ? getMatchResult(userMatch, userTeamId) : null
 
   return (
-    <div className="flex flex-col h-full overflow-hidden">
+    <div className="flex flex-col h-full overflow-hidden bg-dark-900 border-l border-gold-600/30">
 
       {/* Header */}
-      <div className="shrink-0 px-4 py-4 border-b border-gold-600/20">
+      <div className="shrink-0 px-4 py-4 border-b border-gold-600/25 bg-dark-900">
         <div className="flex items-center gap-2">
           <h2 className="text-white font-black text-xl leading-tight">{fmtLong(selectedDate)}</h2>
           {userResult && <ResultBadge result={userResult} />}
@@ -174,7 +169,7 @@ function DayDetailPanel({
       </div>
 
       {/* Scrollable content */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto bg-dark-900">
 
         {/* RESUMEN */}
         <div className="px-3 pt-3 pb-1">
@@ -184,15 +179,15 @@ function DayDetailPanel({
         {!userMatch ? (
           <div className="flex flex-col items-center justify-center py-10 px-4 text-center">
             <Icon name="sports_soccer" size="lg" className="text-gray-700 mb-2" />
-            <p className="text-gray-600 text-sm">Sin partidos este día</p>
+            <p className="text-gray-600 text-sm">Tu equipo no juega este día</p>
           </div>
         ) : (
           <div className="px-3 pb-2">
-            <div className={`mt-1.5 p-3 rounded-xl border ${
-              userResult === 'win' ? 'border-green-600/40 bg-green-900/15'
-              : userResult === 'draw' ? 'border-gray-600/30 bg-gray-800/20'
-              : userResult === 'loss' ? 'border-red-700/40 bg-red-900/15'
-              : 'border-green-700/30 bg-green-900/10'
+            <div className={`mt-1.5 p-3 rounded-xl border bg-dark-800 ${
+              userResult === 'win' ? 'border-green-600/55'
+              : userResult === 'draw' ? 'border-gray-600/50'
+              : userResult === 'loss' ? 'border-red-700/55'
+              : 'border-gold-600/35'
             }`}>
               {/* Teams row */}
               <div className="flex items-center gap-2 min-w-0">
@@ -233,25 +228,20 @@ function DayDetailPanel({
         )}
 
         {/* PARTIDOS list */}
-        {dayMatches.length > 0 && (
+        {otherMatches.length > 0 && (
           <div className="px-3 pt-2 pb-4">
-            <SectionLabel label={`Partidos (${dayMatches.length})`} />
-            <div className="mt-2 rounded-xl border border-gold-600/15 overflow-hidden">
-              {dayMatches.map((match, i) => {
-                const isUser = match.homeTeamId === userTeamId || match.awayTeamId === userTeamId
+            <SectionLabel label={`Otros partidos (${otherMatches.length})`} />
+            <div className="mt-2 rounded-xl border border-gold-600/30 overflow-hidden bg-dark-800">
+              {otherMatches.map((match, i) => {
                 const home = teamById(match.homeTeamId)
                 const away = teamById(match.awayTeamId)
-                const isExpanded = expandedMatchId === match.id
-                const matchResult = isUser ? getMatchResult(match, userTeamId) : null
 
                 return (
                   <div key={match.id}>
                     <button
-                      onClick={() => setExpandedMatchId(isExpanded ? null : match.id)}
-                      className={`w-full flex items-center gap-2 px-3 py-2.5 text-left transition-colors
+                      className={`w-full flex items-center gap-2 px-3 py-2.5 text-left
                         ${i > 0 ? 'border-t border-gold-600/15' : ''}
-                        ${isUser ? 'bg-green-900/15' : 'bg-dark-800/30'}
-                        ${isExpanded ? 'bg-dark-700/50' : 'hover:bg-dark-700/30'}`}
+                        bg-dark-800 hover:bg-dark-700 transition-colors`}
                     >
                       <TeamBadge team={home} size="sm" />
                       <span className="text-gray-300 text-xs flex-1 min-w-0 text-left truncate">
@@ -270,55 +260,7 @@ function DayDetailPanel({
                         {away?.name ?? `Eq. ${match.awayTeamId}`}
                       </span>
                       <TeamBadge team={away} size="sm" />
-                      {matchResult && (
-                        <ResultBadge result={matchResult} />
-                      )}
                     </button>
-
-                    {/* Expanded score detail */}
-                    {isExpanded && (
-                      <div className={`border-t border-gold-600/15 px-4 py-3
-                        ${isUser ? 'bg-green-900/10' : 'bg-dark-800/40'}`}>
-                        {match.played ? (
-                          <div className="flex items-center gap-3">
-                            <div className="flex items-center gap-2 flex-1 min-w-0">
-                              <TeamBadge team={home} size="md" />
-                              <span className="text-white text-xs font-semibold truncate">
-                                {home?.name ?? `Eq. ${match.homeTeamId}`}
-                              </span>
-                            </div>
-                            <span className="text-white font-black text-2xl tabular-nums shrink-0">
-                              {match.homeGoals}–{match.awayGoals}
-                            </span>
-                            <div className="flex items-center gap-2 flex-1 min-w-0 justify-end">
-                              <span className="text-white text-xs font-semibold truncate text-right">
-                                {away?.name ?? `Eq. ${match.awayTeamId}`}
-                              </span>
-                              <TeamBadge team={away} size="md" />
-                            </div>
-                          </div>
-                        ) : (
-                          <div className="flex items-center gap-3">
-                            <div className="flex items-center gap-2 flex-1 min-w-0">
-                              <TeamBadge team={home} size="md" />
-                              <span className="text-white text-xs font-semibold truncate">
-                                {home?.name ?? `Eq. ${match.homeTeamId}`}
-                              </span>
-                            </div>
-                            <span className="text-gray-500 text-xs font-black shrink-0">VS</span>
-                            <div className="flex items-center gap-2 flex-1 min-w-0 justify-end">
-                              <span className="text-white text-xs font-semibold truncate text-right">
-                                {away?.name ?? `Eq. ${match.awayTeamId}`}
-                              </span>
-                              <TeamBadge team={away} size="md" />
-                            </div>
-                          </div>
-                        )}
-                        <p className="text-gray-600 text-[0.5625rem] text-center mt-2">
-                          {matchLabel(match)}{match.type !== 'cup' && match.round ? ` · J${match.round}` : ''}
-                        </p>
-                      </div>
-                    )}
                   </div>
                 )
               })}
@@ -400,7 +342,7 @@ export default function CalendarScreen() {
           </div>
 
           {/* Right: day detail */}
-          <div className="w-80 shrink-0 border-l border-gold-600/20 overflow-hidden bg-dark-900/98">
+          <div className="w-80 shrink-0 border-l border-gold-600/30 overflow-hidden bg-dark-900">
             <DayDetailPanel
               selectedDate={selectedDate}
               allMatches={allMatches}
@@ -411,16 +353,8 @@ export default function CalendarScreen() {
         </div>
 
         {/* ── Bottom: upcoming 4 matches ── */}
-        <div className="shrink-0 border-t border-gold-600/20 bg-dark-900/80">
+        <div className="shrink-0 border-t border-gold-600/20 bg-dark-950">
           <div className="flex items-stretch gap-3 px-4 py-3">
-
-            {/* Label */}
-            <div className="shrink-0 flex items-center justify-center pr-3 border-r border-gold-600/15">
-              <span className="text-gray-600 text-[0.45rem] font-black uppercase tracking-widest leading-snug text-center">
-                Próximos<br />Partidos
-              </span>
-            </div>
-
             {/* Match cards */}
             {upcoming.map((match) => {
               const isHome = match.homeTeamId === career.teamId
@@ -438,8 +372,8 @@ export default function CalendarScreen() {
                   }}
                   className={`flex-1 flex flex-col items-center gap-1 px-2 py-2 rounded-xl border transition-all min-w-0
                     ${isSel
-                      ? 'border-gold-500/60 bg-gold-900/15'
-                      : 'border-gold-600/20 bg-dark-800/40 hover:bg-dark-700/40 hover:border-gold-600/30'}`}
+                      ? 'border-gold-500/75 bg-dark-950'
+                      : 'border-gold-600/25 bg-dark-950 hover:bg-dark-950 hover:border-gold-600/35'}`}
                 >
                   <div className="flex flex-col items-center gap-0.5">
                     <span className={`text-xs font-black tabular-nums ${isSel ? 'text-gold-400' : 'text-gray-400'}`}>
@@ -462,7 +396,7 @@ export default function CalendarScreen() {
             {Array.from({ length: Math.max(0, 4 - upcoming.length) }, (_, i) => (
               <div
                 key={`pad-${i}`}
-                className="flex-1 rounded-xl border border-gold-600/20 flex items-center justify-center"
+                className="flex-1 rounded-xl border border-gold-600/20 bg-dark-950 flex items-center justify-center"
               >
                 <span className="text-gray-700 text-xs">—</span>
               </div>

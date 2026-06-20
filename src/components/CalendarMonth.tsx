@@ -142,7 +142,6 @@ export default function CalendarMonth({
           let bgClass = 'bg-dark-800/95'
           let ringClass = ''
           if (isSelected) {
-            bgClass = 'bg-gold-700/45'
             ringClass = 'ring-1 ring-inset ring-gold-500'
           } else if (result === 'win') {
             bgClass = 'bg-green-900/75'
@@ -155,7 +154,7 @@ export default function CalendarMonth({
           } else if (hasUserLeagueMatch) {
             bgClass = 'bg-green-900/80'
           } else if (isToday) {
-            bgClass = 'bg-dark-700/85'
+            bgClass = 'bg-dark-800/95'
             ringClass = 'ring-1 ring-inset ring-gold-600/50'
           }
 
@@ -178,7 +177,7 @@ export default function CalendarMonth({
               className={`relative overflow-hidden transition-all select-none
                 ${bgClass} ${ringClass}
                 ${isClickable ? 'cursor-pointer hover:brightness-110' : ''}
-                ${dimmed ? 'opacity-30' : ''}`}
+                ${dimmed ? 'opacity-65' : ''}`}
             >
               <span className={`absolute top-1.5 left-2 text-sm font-bold leading-none ${dayNumberColor}`}>
                 {day}
@@ -200,7 +199,7 @@ export default function CalendarMonth({
                 <img
                   src={info.opponentBadgeUrl ?? '/teams/default_team_icon.png'}
                   alt={info.opponentName}
-                  className="absolute top-1 right-1 w-10 h-10 object-contain rounded bg-black/20"
+                  className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[42%] w-10 h-10 object-contain rounded bg-black/20 p-1 opacity-95"
                   onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/teams/default_team_icon.png' }}
                 />
               )}

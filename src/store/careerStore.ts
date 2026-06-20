@@ -850,9 +850,13 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
         scoutLevel: customTeam.scoutLevel ?? Math.max(1, Math.ceil(customTeam.reputation / 20)),
         facilitiesLevel: customTeam.facilitiesLevel ?? Math.max(1, Math.ceil(customTeam.reputation / 20)),
       })
+      const squadSet = new Set(squadPlayerIds)
       for (let i = 0; i < playersCopy.length; i++) {
-        if (squadPlayerIds.includes(playersCopy[i].id)) {
+        if (squadSet.has(playersCopy[i].id)) {
           playersCopy[i] = { ...playersCopy[i], teamId: customTeam.id }
+        } else if (playersCopy[i].teamId === customTeam.id) {
+          // Clear any player that accidentally shares the team's ID (e.g. free agents with teamId: 0 when team id is 0)
+          playersCopy[i] = { ...playersCopy[i], teamId: null }
         }
       }
       resolvedTeamId = customTeam.id

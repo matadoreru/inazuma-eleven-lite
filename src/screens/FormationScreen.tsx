@@ -350,31 +350,15 @@ function FieldPlayerToken({
             {media}
         </div>
 
-        {isCaptain && (
-          <div className="absolute -left-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-yellow-400 shadow">
-            <span className="text-[0.55rem] font-black leading-none text-black">C</span>
-          </div>
-        )}
-
-        {isKeyPlayer && (
-          <div className="absolute -left-1.5 -bottom-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-blue-400 shadow">
-            <span className="material-icons select-none leading-none text-white" style={{ fontSize: '10px' }}>star</span>
-          </div>
-        )}
-
         {isInjured && (
-          <div className="absolute -bottom-2 -right-2 flex items-center gap-0.5 rounded-md border border-yellow-300/80 bg-yellow-500 px-1 py-0.5 text-[0.48rem] font-black leading-none text-dark-950 shadow-lg">
+          <div className="absolute top-1 flex items-center gap-0.5 rounded-md border border-yellow-300/80 bg-yellow-500 px-1 py-0.5 text-[0.48rem] font-black leading-none text-dark-950 shadow-lg">
             <span className="material-icons leading-none" style={{ fontSize: '9px' }}>healing</span>
-            {player.injuryDaysRemaining ?? 0}d
+            {player.injuryDaysRemaining ?? 0}dias
           </div>
         )}
       </div>
 
-      <div className={`max-w-[5.75rem] rounded border px-1.5 py-0.5 text-center text-[0.52rem] font-bold leading-tight shadow ${nameClass}`}>
-        <span className="line-clamp-2">{playerDisplayName(player, nameStyle)}</span>
-      </div>
-
-      <div className="flex items-center gap-1 rounded-full border border-gold-600/25 bg-dark-950/80 px-1.5 py-0.5">
+      <div className="flex items-center top-15 gap-1 rounded-full border border-gold-600/25 bg-dark-950/80 px-1.5 py-0.5">
         <PositionSprite position={player.position} size={20} />
         <span className="text-[0.65rem] font-black text-gold-300">{slotPosition}</span>
       </div>
@@ -489,6 +473,7 @@ interface ContextMenuState {
 }
 
 export default function FormationScreen() {
+  const nameStyle = useNameStyle()
   const career = useCareerStore((s) => s.career)
   const teams = useCareerStore((s) => s.teams)
   const players = useCareerStore((s) => s.players)
@@ -601,6 +586,8 @@ export default function FormationScreen() {
   const startersCount = slotAssignment.filter((id) => id !== null).length
   const isCtxCaptain = contextMenu !== null && contextMenu.playerId === userTeam?.captainId
   const isCtxKeyPlayer = contextMenu !== null && contextMenu.playerId === userTeam?.keyPlayerId
+  const captain = players.find((player) => player.id === userTeam?.captainId)
+  const keyPlayer = players.find((player) => player.id === userTeam?.keyPlayerId)
 
   return (
     <GameLayout>
@@ -636,6 +623,48 @@ export default function FormationScreen() {
                                   </option>
                                 ))}
                               </select>
+                            </div>
+
+                            <div className="rounded-lg border border-gold-600/20 bg-dark-950/35 px-3 py-2">
+                              <p className="text-gray-500 text-[0.625rem] uppercase tracking-wide mb-1">Capitán</p>
+                              {captain ? (
+                                <div className="flex items-center gap-2 min-w-0">
+                                  <img
+                                    src={captain.spriteUrl}
+                                    alt={playerDisplayName(captain, nameStyle)}
+                                    className="w-9 h-9 rounded-full object-cover bg-dark-700/60 shrink-0"
+                                    onError={(e) => {
+                                      ;(e.currentTarget as HTMLImageElement).src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36'%3E%3Crect width='36' height='36' rx='18' fill='%234b5563'/%3E%3C/svg%3E"
+                                    }}
+                                  />
+                                  <p className="text-sm font-semibold text-white truncate min-w-0">
+                                    {playerDisplayName(captain, nameStyle)}
+                                  </p>
+                                </div>
+                              ) : (
+                                <p className="text-sm font-semibold text-white truncate">Sin asignar</p>
+                              )}
+                            </div>
+
+                            <div className="rounded-lg border border-gold-600/20 bg-dark-950/35 px-3 py-2">
+                              <p className="text-gray-500 text-[0.625rem] uppercase tracking-wide mb-1">Jugador clave</p>
+                              {keyPlayer ? (
+                                <div className="flex items-center gap-2 min-w-0">
+                                  <img
+                                    src={keyPlayer.spriteUrl}
+                                    alt={playerDisplayName(keyPlayer, nameStyle)}
+                                    className="w-9 h-9 rounded-full object-cover bg-dark-700/60 shrink-0"
+                                    onError={(e) => {
+                                      ;(e.currentTarget as HTMLImageElement).src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36'%3E%3Crect width='36' height='36' rx='18' fill='%234b5563'/%3E%3C/svg%3E"
+                                    }}
+                                  />
+                                  <p className="text-sm font-semibold text-white truncate min-w-0">
+                                    {playerDisplayName(keyPlayer, nameStyle)}
+                                  </p>
+                                </div>
+                              ) : (
+                                <p className="text-sm font-semibold text-white truncate">Sin asignar</p>
+                              )}
                             </div>
 
                             <div className="rounded-lg border border-gold-600/20 bg-dark-950/35 px-3 py-2">
