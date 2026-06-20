@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useCareerStore } from '../store/careerStore'
 import { isDevModeActive } from '../services/profileService'
 import GameLayout from '../components/GameLayout'
@@ -50,6 +50,12 @@ export default function DevDebugScreen() {
   const [toast, setToast] = useState<string | null>(null)
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
+  useEffect(() => {
+    return () => {
+      if (toastTimer.current) clearTimeout(toastTimer.current)
+    }
+  }, [])
+
   function flash(msg: string) {
     if (toastTimer.current) clearTimeout(toastTimer.current)
     setToast(msg)
@@ -76,7 +82,17 @@ export default function DevDebugScreen() {
     )
   }
 
-  const userTeam = teams.find((t) => t.id === career.teamId)!
+  const userTeam = teams.find((t) => t.id === career.teamId)
+  if (!userTeam) {
+    return (
+      <GameLayout>
+        <div className="h-full flex items-center justify-center">
+          <p className="text-gray-500 text-sm">Equipo no encontrado.</p>
+        </div>
+      </GameLayout>
+    )
+  }
+
   const currentLeague = leagues.find((l) => l.id === userTeam.leagueId)
   const promotionLeague = currentLeague?.promotionTo
     ? leagues.find((l) => l.id === currentLeague.promotionTo)
@@ -253,24 +269,33 @@ export default function DevDebugScreen() {
         {/* Liga */}
         <section>
           <SectionHeader icon="leaderboard" label="Liga" />
-          <p className="text-gray-500 text-[0.625rem] mb-2">
-            El cambio afecta a la siguiente temporada.
-            Liga actual: <span className="text-gray-300">{currentLeague?.name ?? userTeam.leagueId}</span>
-          </p>
-          <div className="grid grid-cols-2 gap-2">
-            <CheatBtn
-              label={promotionLeague ? `↑ ${promotionLeague.name}` : 'Sin ascenso'}
-              icon="arrow_upward"
-              onClick={() => changeLeague(promotionLeague)}
-              disabled={!promotionLeague}
-            />
-            <CheatBtn
-              label={relegationLeague ? `↓ ${relegationLeague.name}` : 'Sin descenso'}
-              icon="arrow_downward"
-              onClick={() => changeLeague(relegationLeague)}
-              disabled={!relegationLeague}
-            />
-          </div>
+          {(() => {
+            const leagueChangeAvailable = career.season.finished
+            return (
+              <>
+                <p className="text-gray-500 text-[0.625rem] mb-2">
+                  {leagueChangeAvailable
+                    ? 'Liga actual: '
+                    : 'Disponible cuando tu liga haya terminado. Liga actual: '}
+                  <span className="text-gray-300">{currentLeague?.name ?? userTeam.leagueId}</span>
+                </p>
+                <div className="grid grid-cols-2 gap-2">
+                  <CheatBtn
+                    label={promotionLeague ? `↑ ${promotionLeague.name}` : 'Sin ascenso'}
+                    icon="arrow_upward"
+                    onClick={() => changeLeague(promotionLeague)}
+                    disabled={!promotionLeague || !leagueChangeAvailable}
+                  />
+                  <CheatBtn
+                    label={relegationLeague ? `↓ ${relegationLeague.name}` : 'Sin descenso'}
+                    icon="arrow_downward"
+                    onClick={() => changeLeague(relegationLeague)}
+                    disabled={!relegationLeague || !leagueChangeAvailable}
+                  />
+                </div>
+              </>
+            )
+          })()}
         </section>
 
         {/* Dev Menu link */}

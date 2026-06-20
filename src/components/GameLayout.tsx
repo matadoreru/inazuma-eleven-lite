@@ -24,10 +24,6 @@ const BASE_NAV_ITEMS: NavItem[] = [
   { screen: 'transfers', label: 'Fichajes', icon: 'swap_horiz' },
 ]
 
-const NAV_ITEMS: NavItem[] = isDevModeActive()
-  ? [...BASE_NAV_ITEMS, { screen: 'debug' as Screen, label: 'Debug', icon: 'bug_report' }]
-  : BASE_NAV_ITEMS
-
 function formatDate(d: string): string {
   const [y, m, day] = d.split('-')
   const months = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic']
@@ -43,6 +39,11 @@ interface Props {
 }
 
 export default function GameLayout({ children, bg = 'career', noNav = false }: Props) {
+  const devMode = isDevModeActive()
+  const navItems = devMode
+    ? [...BASE_NAV_ITEMS, { screen: 'debug' as Screen, label: 'Debug', icon: 'bug_report' }]
+    : BASE_NAV_ITEMS
+
   const career = useCareerStore((s) => s.career)
   const teams = useCareerStore((s) => s.teams)
   const screen = useCareerStore((s) => s.screen)
@@ -126,7 +127,7 @@ export default function GameLayout({ children, bg = 'career', noNav = false }: P
 
             {/* Horizontal nav tabs */}
             <nav className="shrink-0 bg-dark-900/80 border-b border-gold-600/30 px-2 flex gap-0.5 overflow-x-auto">
-              {NAV_ITEMS.map(({ screen: s, label, icon }) => {
+              {navItems.map(({ screen: s, label, icon }) => {
                 const isActive = screen === s
                 return (
                   <button
