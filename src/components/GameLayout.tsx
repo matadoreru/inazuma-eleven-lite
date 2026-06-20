@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import { useCareerStore } from '../store/careerStore'
 import { useNotificationPreferences } from '../hooks/useNotificationPreferences'
+import { isDevModeActive } from '../services/profileService'
 import Icon from './Icon'
 import TeamBadgeImage from './TeamBadgeImage'
 import type { Screen } from '../App'
@@ -12,7 +13,7 @@ interface NavItem {
   icon: string
 }
 
-const NAV_ITEMS: NavItem[] = [
+const BASE_NAV_ITEMS: NavItem[] = [
   { screen: 'career_home', label: 'Inicio', icon: 'home' },
   { screen: 'club', label: 'Club', icon: 'shield' },
   { screen: 'squad', label: 'Plantilla', icon: 'groups' },
@@ -22,6 +23,10 @@ const NAV_ITEMS: NavItem[] = [
   { screen: 'standings', label: 'Clasificación', icon: 'leaderboard' },
   { screen: 'transfers', label: 'Fichajes', icon: 'swap_horiz' },
 ]
+
+const NAV_ITEMS: NavItem[] = isDevModeActive()
+  ? [...BASE_NAV_ITEMS, { screen: 'debug' as Screen, label: 'Debug', icon: 'bug_report' }]
+  : BASE_NAV_ITEMS
 
 function formatDate(d: string): string {
   const [y, m, day] = d.split('-')
