@@ -1,9 +1,11 @@
 import type { Match } from '../types/competition'
+import type { Team } from '../types/team'
 
 interface Props {
   year: number
   month: number
   matches: Match[]
+  teams: Team[]
   userTeamId: number
   currentDate: string
   selectedDate?: string | null
@@ -14,7 +16,7 @@ interface Props {
   canGoNext?: boolean
 }
 
-const DAY_LABELS = ['Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa', 'Do']
+const DAY_LABELS = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo']
 
 export const MONTH_NAMES = [
   'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
@@ -32,10 +34,12 @@ interface DayInfo {
   userCup: boolean
   other: boolean
   result: MatchResult | null
+  opponentBadgeUrl?: string
+  opponentName?: string
 }
 
 export default function CalendarMonth({
-  year, month, matches, userTeamId, currentDate, selectedDate, onDayClick, onPrevMonth, onNextMonth,
+  year, month, matches, teams, userTeamId, currentDate, selectedDate, onDayClick, onPrevMonth, onNextMonth,
   canGoPrev = true, canGoNext = true,
 }: Props) {
   const daysInMonth = new Date(year, month, 0).getDate()
@@ -43,6 +47,7 @@ export default function CalendarMonth({
   const startOffset = (firstWeekday + 6) % 7
   const totalCells = Math.ceil((startOffset + daysInMonth) / 7) * 7
 
+  const teamById = new Map(teams.map((team) => [team.id, team]))
   const matchByDate: Record<string, DayInfo> = {}
   for (const m of matches) {
     if (!m.date) continue
@@ -52,8 +57,12 @@ export default function CalendarMonth({
     const isUser = m.homeTeamId === userTeamId || m.awayTeamId === userTeamId
     if (!matchByDate[m.date]) matchByDate[m.date] = { userLeague: false, userCup: false, other: false, result: null }
     if (isUser) {
+      const opponentId = m.homeTeamId === userTeamId ? m.awayTeamId : m.homeTeamId
+      const opponent = teamById.get(opponentId)
       if (m.type === 'cup') matchByDate[m.date].userCup = true
       else matchByDate[m.date].userLeague = true
+      matchByDate[m.date].opponentBadgeUrl = opponent?.badgeUrl
+      matchByDate[m.date].opponentName = opponent?.name ?? `Equipo ${opponentId}`
 
       if (m.played) {
         const isHome = m.homeTeamId === userTeamId
@@ -77,7 +86,7 @@ export default function CalendarMonth({
   return (
     <div className="flex flex-col h-full">
       {/* Month nav */}
-      <div className="flex items-center justify-between px-4 py-2.5 border-b border-gold-600/30 shrink-0 bg-dark-900/50">
+      <div className="flex items-center justify-between px-4 py-2.5 border-b border-gold-600/30 shrink-0 bg-dark-900/90">
         <button
           onClick={onPrevMonth}
           disabled={!canGoPrev}
@@ -102,7 +111,7 @@ export default function CalendarMonth({
       </div>
 
       {/* Day labels */}
-      <div className="grid grid-cols-7 shrink-0 border-b border-gold-600/20 bg-dark-900/40">
+      <div className="grid grid-cols-7 shrink-0 border-b border-gold-600/20 bg-dark-900/80">
         {DAY_LABELS.map((d) => (
           <div key={d} className="text-center text-gold-700 text-[0.4rem] font-pixel uppercase tracking-widest py-1.5">
             {d}
@@ -117,7 +126,7 @@ export default function CalendarMonth({
       >
         {cells.map((day, idx) => {
           if (day === null) {
-            return <div key={`pad-${idx}`} className="bg-dark-900/70" />
+             return <div key={`pad-${idx}`} className="bg-dark-900/90" />
           }
 
           const date = dateStr(year, month, day)
@@ -130,23 +139,23 @@ export default function CalendarMonth({
           const isSelected = date === selectedDate
           const isPast = date < currentDate
 
-          let bgClass = 'bg-dark-800/70'
+          let bgClass = 'bg-dark-800/95'
           let ringClass = ''
           if (isSelected) {
-            bgClass = 'bg-gold-600/30'
+            bgClass = 'bg-gold-700/45'
             ringClass = 'ring-1 ring-inset ring-gold-500'
           } else if (result === 'win') {
-            bgClass = 'bg-green-900/50'
+            bgClass = 'bg-green-900/75'
           } else if (result === 'draw') {
-            bgClass = 'bg-gray-800/60'
+            bgClass = 'bg-gray-800/85'
           } else if (result === 'loss') {
-            bgClass = 'bg-red-900/40'
+            bgClass = 'bg-red-900/70'
           } else if (hasUserCupMatch) {
-            bgClass = 'bg-yellow-900/50'
+            bgClass = 'bg-yellow-900/75'
           } else if (hasUserLeagueMatch) {
-            bgClass = 'bg-green-900/70'
+            bgClass = 'bg-green-900/80'
           } else if (isToday) {
-            bgClass = 'bg-dark-700/60'
+            bgClass = 'bg-dark-700/85'
             ringClass = 'ring-1 ring-inset ring-gold-600/50'
           }
 
@@ -187,6 +196,15 @@ export default function CalendarMonth({
                 </span>
               )}
 
+              {hasUserMatch && info?.opponentName && (
+                <img
+                  src={info.opponentBadgeUrl ?? '/teams/default_team_icon.png'}
+                  alt={info.opponentName}
+                  className="absolute top-1 right-1 w-10 h-10 object-contain rounded bg-black/20"
+                  onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/teams/default_team_icon.png' }}
+                />
+              )}
+
               {/* Result badge (played matches) or label (upcoming) */}
               {hasUserMatch && (
                 result ? (
@@ -204,7 +222,7 @@ export default function CalendarMonth({
               )}
 
               {!hasUserMatch && !isPast && (
-                <span className="absolute bottom-1.5 left-0 right-0 text-center text-[0.35rem] text-gray-700 uppercase tracking-wide leading-none">
+                <span className="absolute bottom-1.5 left-0 right-0 text-center text-[0.65rem] text-gray-700 uppercase tracking-wide leading-none">
                   Libre
                 </span>
               )}

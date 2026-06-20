@@ -387,6 +387,7 @@ export default function CalendarScreen() {
               year={year}
               month={month}
               matches={allMatches}
+              teams={teams}
               userTeamId={career.teamId}
               currentDate={career.season.currentDate}
               selectedDate={selectedDate}
@@ -399,7 +400,7 @@ export default function CalendarScreen() {
           </div>
 
           {/* Right: day detail */}
-          <div className="w-80 shrink-0 border-l border-gold-600/20 overflow-hidden bg-dark-900/95">
+          <div className="w-80 shrink-0 border-l border-gold-600/20 overflow-hidden bg-dark-900/98">
             <DayDetailPanel
               selectedDate={selectedDate}
               allMatches={allMatches}

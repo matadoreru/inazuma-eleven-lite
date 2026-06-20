@@ -142,7 +142,7 @@ afterEach(() => {
 })
 
 describe('careerStore season end flow', () => {
-  it('advanceDay resolves pending external matches until the season final day', () => {
+  it('advanceDay resolves pending external matches and transitions to season review', () => {
     useCareerStore.setState({
       career: {
         ...makeCareer([makeMatch('ext-today', '2026-08-10', 3, 4)]),
@@ -157,9 +157,10 @@ describe('careerStore season end flow', () => {
     useCareerStore.getState().advanceDay()
 
     const state = useCareerStore.getState()
-    expect(state.career?.seasonNumber).toBe(2)
-    expect(state.career?.season.year).toBe(2027)
-    expect(state.career?.seasonStatus).toBe('active')
+    expect(state.career?.allLeagueSeasons['league-2'].matches[0].played).toBe(true)
+    expect(state.career?.allLeagueSeasons['league-2'].finished).toBe(true)
+    expect(state.career?.seasonStatus).toBe('review')
+    expect(state.screen).toBe('season_review')
   })
 
   it('advanceToNextMatch falls back to the next external event after the user league ends', () => {

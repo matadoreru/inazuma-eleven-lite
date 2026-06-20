@@ -1215,7 +1215,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
           })
         }
       }
-      get().advanceToNextSeason()
+      get().closeSeason()
       return
     }
 
@@ -1294,7 +1294,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
       const base: Career = { ...career, season: updatedSeason, allLeagueSeasons, cup }
       const finished = applySeasonEnd(base, teams, advancedPlayers, seasonMatches, seasonStandings)
       set({ career: finished.career, players: finished.players, teams: finished.teams })
-      if (finished.career.season.currentDate >= finalDate) get().advanceToNextSeason()
+      if (finished.career.season.currentDate >= finalDate) get().closeSeason()
       return
     }
 
@@ -1308,7 +1308,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     const negResult = resolveNegotiationsService(preNegCareer, nextDate, advancedPlayers, teams)
     const counterResult = resolveIncomingCounters(negResult.career, nextDate, negResult.players, negResult.teams)
     set({ career: counterResult.career, players: counterResult.players, teams: counterResult.teams })
-    if (counterResult.career.season.currentDate >= finalDate) get().advanceToNextSeason()
+    if (counterResult.career.season.currentDate >= finalDate) get().closeSeason()
   },
 
   advanceToNextMatch() {
@@ -1334,7 +1334,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
       ?? (seasonStatus === 'user_finished' ? getNextExternalEventDate(career, prevDate) : null)
 
     if (!targetDate) {
-      if (seasonStatus === 'all_finished') get().advanceToNextSeason()
+      if (seasonStatus === 'all_finished') get().closeSeason()
       return
     }
 
@@ -2236,9 +2236,11 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
       }
       get().advanceDay()
     }
-    // After loop, close if ready
+    // Fast path: skip review and go directly to next season
     const { career } = get()
-    if (career && computeSeasonStatus(career) === 'all_finished') {
+    if (!career) return
+    const finalStatus = computeSeasonStatus(career)
+    if (finalStatus === 'all_finished' || finalStatus === 'review') {
       get().advanceToNextSeason()
     }
   },

@@ -113,6 +113,12 @@ export type NegotiationPhase =
   | 'failed'            // rejected definitively
   | 'cancelled'         // cancelled by user
 
+export type NegotiationFailureReason =
+  | 'club_rejected'
+  | 'player_rejected'
+  | 'player_unavailable'
+  | 'budget_failed'
+
 export interface OutgoingNegotiation {
   id: string
   playerId: number
@@ -125,6 +131,7 @@ export interface OutgoingNegotiation {
   offerRound: number            // 1–3 (initial + max 2 counters)
   isFreeAgent: boolean
   resolutionDate: string        // ISO date when this phase resolves
+  failureReason?: NegotiationFailureReason
 }
 
 export interface CareerSeasonStats {

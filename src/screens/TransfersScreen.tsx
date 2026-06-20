@@ -6,7 +6,7 @@ import Icon from '../components/Icon'
 import ElementBadge from '../components/ElementBadge'
 import PositionSprite from '../components/PositionSprite'
 import { statColor } from '../components/StatBar'
-import { filterPlayers, calcTransferValue, calcFreeAgentRecommendedOffer } from '../services/transferService'
+import { filterPlayers, calcTransferValue, calcFreeAgentRecommendedOffer, getNegotiationFailureFeedback } from '../services/transferService'
 import { formatMoney } from '../utils/formatMoney'
 import { getPlayerStatsSummary, playerDisplayName } from '../types/player'
 import { useNameStyle } from '../hooks/useNameStyle'
@@ -412,7 +412,7 @@ function OutgoingNegotiationCard({
     if (neg.phase === 'player_pending') return { text: 'El jugador está valorando la oferta', color: 'text-gray-400' }
     if (isPlayerCounter) return { text: `El jugador pide: ${formatMoney(neg.counterAmount!)}`, color: 'text-yellow-400' }
     if (isPlayerAccepted) return { text: '¡El jugador acepta! Confirma el fichaje', color: 'text-green-400 font-semibold' }
-    if (neg.phase === 'failed') return { text: 'Negociación fallida', color: 'text-red-400' }
+    if (neg.phase === 'failed') return { text: getNegotiationFailureFeedback(neg).title, color: 'text-red-400' }
     if (neg.phase === 'cancelled') return { text: 'Cancelada', color: 'text-gray-500' }
     return { text: '', color: '' }
   })()
@@ -431,7 +431,12 @@ function OutgoingNegotiationCard({
             </p>
           )}
           {isResolved && (
-            <p className="text-gray-600 text-[0.625rem] mt-0.5">Oferta final: {formatMoney(neg.currentOffer)}</p>
+            <>
+              <p className="text-gray-600 text-[0.625rem] mt-0.5">Oferta final: {formatMoney(neg.currentOffer)}</p>
+              {neg.phase === 'failed' && (
+                <p className="text-red-300/80 text-[0.625rem] mt-1 leading-relaxed">{getNegotiationFailureFeedback(neg).body}</p>
+              )}
+            </>
           )}
         </div>
 

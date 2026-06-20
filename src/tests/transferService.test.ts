@@ -791,6 +791,7 @@ describe('resolveNegotiations', () => {
     }
     const result = resolveNegotiations(career, '2026-01-01', allPlayers, [userTeam, sellingTeam])
     expect(result.career.outgoingNegotiations[0].phase).toBe('failed')
+    expect(result.career.outgoingNegotiations[0].failureReason).toBe('club_rejected')
     expect(result.career.inbox.some((e) => e.type === 'OUTGOING_TRANSFER_CLUB_REJECTED')).toBe(true)
   })
 
@@ -818,6 +819,7 @@ describe('resolveNegotiations', () => {
     }
     const result = resolveNegotiations(career, '2026-01-01', [starPlayer, otherFW1, otherFW2], [poorRepTeam, sellingTeam])
     expect(result.career.outgoingNegotiations[0].phase).toBe('failed')
+    expect(result.career.outgoingNegotiations[0].failureReason).toBe('player_rejected')
     expect(result.career.inbox.some((e) => e.type === 'OUTGOING_TRANSFER_PLAYER_REJECTED')).toBe(true)
   })
 

@@ -23,7 +23,7 @@ import {
 } from '../services/potentialService'
 import type { EquipmentSlot, EquipmentItem } from '../types/equipment'
 import { EQUIPMENT_SLOT_LABELS, EQUIPMENT_SLOT_ICONS, EMPTY_EQUIPMENT } from '../types/equipment'
-import { calcTransferValue } from '../services/transferService'
+import { calcTransferValue, getNegotiationFailureFeedback } from '../services/transferService'
 import { getNormalTechniques, getImprovementTechniques, MAX_NORMAL_TECHNIQUES, MAX_IMPROVEMENT_TECHNIQUES } from '../services/techniqueService'
 import type { TechniqueBook } from '../types/inventory'
 
@@ -930,7 +930,8 @@ export default function PlayerDetailScreen() {
 
                 {recentNegotiation && recentNegotiation.phase === 'failed' && (
                   <div className="flex flex-col gap-1">
-                    <span className="text-red-400 text-[0.625rem]">Negociación fallida</span>
+                    <span className="text-red-400 text-[0.625rem]">{getNegotiationFailureFeedback(recentNegotiation).title}</span>
+                    <span className="text-red-300/80 text-[0.625rem] leading-relaxed max-w-[14rem]">{getNegotiationFailureFeedback(recentNegotiation).body}</span>
                     <button
                       onClick={() => { setOfferInput(String(marketValueForOffer)); setShowOfferModal(true) }}
                       className="flex items-center gap-1 px-2 py-1 bg-dark-700/60 hover:bg-gold-600/25 text-gold-300 border border-gold-500/60 rounded text-xs font-semibold transition-colors"

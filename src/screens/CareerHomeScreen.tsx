@@ -52,7 +52,7 @@ function UserFinishedBanner({ onAdvanceDay, onSimulateAll, hasCupMatchPending }:
   )
 }
 
-function AllFinishedBanner({ onAdvanceToNextSeason }: { onAdvanceToNextSeason: () => void }) {
+function AllFinishedBanner({ onCloseSeason }: { onCloseSeason: () => void }) {
   return (
     <div className="panel p-5 flex flex-col gap-4 border-green-600/40">
       <div className="flex items-center gap-3">
@@ -61,15 +61,15 @@ function AllFinishedBanner({ onAdvanceToNextSeason }: { onAdvanceToNextSeason: (
         </div>
         <div>
           <p className="text-green-300 font-bold text-sm">Todas las competiciones han terminado</p>
-          <p className="text-gray-400 text-xs mt-0.5">Todo está listo para pasar a la siguiente temporada</p>
+          <p className="text-gray-400 text-xs mt-0.5">Revisa el resumen y prepara la siguiente temporada</p>
         </div>
       </div>
       <button
-        onClick={onAdvanceToNextSeason}
+        onClick={onCloseSeason}
         className="w-full bg-green-800/60 hover:bg-green-700/70 text-green-300 text-xs font-semibold py-3 rounded border border-green-600/40 hover:border-green-500 flex items-center justify-center gap-2 transition-colors uppercase tracking-wide"
       >
-        <Icon name="done_all" size="sm" />
-        Avanzar a la siguiente temporada
+        <Icon name="summarize" size="sm" />
+        Cerrar temporada
       </button>
     </div>
   )
@@ -113,7 +113,7 @@ export default function CareerHomeScreen() {
   const startLiveCupMatch = useCareerStore((s) => s.startLiveCupMatch)
   const advanceDay = useCareerStore((s) => s.advanceDay)
   const advanceToNextMatch = useCareerStore((s) => s.advanceToNextMatch)
-  const advanceToNextSeason = useCareerStore((s) => s.advanceToNextSeason)
+  const closeSeason = useCareerStore((s) => s.closeSeason)
   const simulateAllRemainingAndClose = useCareerStore((s) => s.simulateAllRemainingAndClose)
   const navigate = useCareerStore((s) => s.navigate)
   const isSimulating = useCareerStore((s) => s.isSimulating)
@@ -170,7 +170,7 @@ export default function CareerHomeScreen() {
     <GameLayout>
       <main className="h-full overflow-y-auto p-4 space-y-4">
         {/* Season banners */}
-        {seasonStatus === 'all_finished' && <AllFinishedBanner onAdvanceToNextSeason={advanceToNextSeason} />}
+        {seasonStatus === 'all_finished' && <AllFinishedBanner onCloseSeason={closeSeason} />}
         {seasonStatus === 'user_finished' && (
           <UserFinishedBanner
             onAdvanceDay={advanceDay}
