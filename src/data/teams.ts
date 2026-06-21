@@ -2,7 +2,7 @@ import type { Team } from '../types/team'
 
 export const teams: Team[] = [
   {
-    id: 0,
+    id: 17,
     name: "Brain",
     tier: 3,
     reputation: 50,
@@ -191,7 +191,7 @@ export const teams: Team[] = [
     budget: 500000,
     leagueId: "second_division",
     captainId: 10010,
-    badgeUrl: '/teams/default_team_icon.png',
+    badgeUrl: '/teams/ServicioSecreto.png',
     formation: { id: 101, name: "Diamante", tacticalType: "DEFENSIVE", GK: 1, DF: 4, MD: 4, FW: 2 },
     lineup: [{ playerId: 10002, assignedPosition: "DF", isStarter: true }, { playerId: 10001, assignedPosition: "GK", isStarter: true }, { playerId: 10003, assignedPosition: "DF", isStarter: true }, { playerId: 10004, assignedPosition: "DF", isStarter: true }, { playerId: 10005, assignedPosition: "DF", isStarter: true }, { playerId: 10006, assignedPosition: "MD", isStarter: true }, { playerId: 10007, assignedPosition: "MD", isStarter: true }, { playerId: 10008, assignedPosition: "MD", isStarter: true }, { playerId: 10009, assignedPosition: "FW", isStarter: true }, { playerId: 10010, assignedPosition: "MD", isStarter: true }, { playerId: 10011, assignedPosition: "FW", isStarter: true }],
     playerIds: [10002, 10001, 10003, 10004, 10005, 10006, 10007, 10008, 10009, 10010, 10011]
@@ -204,7 +204,7 @@ export const teams: Team[] = [
     budget: 150000,
     leagueId: "first_division",
     captainId: 10026,
-    badgeUrl: '/teams/default_team_icon.png',
+    badgeUrl: '/teams/TormentaGeminis.png',
     formation: { id: 106, name: "Death Zone", tacticalType: "DEFENSIVE", GK: 1, DF: 5, MD: 3, FW: 2 },
     lineup: [{ playerId: 10017, assignedPosition: "GK", isStarter: true }, { playerId: 10018, assignedPosition: "DF", isStarter: true }, { playerId: 10019, assignedPosition: "DF", isStarter: true }, { playerId: 10020, assignedPosition: "DF", isStarter: true }, { playerId: 10021, assignedPosition: "DF", isStarter: true }, { playerId: 10022, assignedPosition: "DF", isStarter: true }, { playerId: 10023, assignedPosition: "MD", isStarter: true }, { playerId: 10024, assignedPosition: "MD", isStarter: true }, { playerId: 10025, assignedPosition: "FW", isStarter: true }, { playerId: 10026, assignedPosition: "MD", isStarter: true }, { playerId: 10027, assignedPosition: "FW", isStarter: true }],
     playerIds: [10017, 10018, 10019, 10020, 10021, 10022, 10023, 10024, 10025, 10026, 10027]
@@ -217,7 +217,7 @@ export const teams: Team[] = [
     budget: 150000,
     leagueId: "first_division",
     captainId: 10036,
-    badgeUrl: '/teams/default_team_icon.png',
+    badgeUrl: '/teams/Alpino.png',
     formation: { id: 101, name: "Diamante", tacticalType: "DEFENSIVE", GK: 1, DF: 4, MD: 4, FW: 2 },
     lineup: [{ playerId: 10028, assignedPosition: "GK", isStarter: true }, { playerId: 10029, assignedPosition: "DF", isStarter: true }, { playerId: 10030, assignedPosition: "DF", isStarter: true }, { playerId: 10031, assignedPosition: "DF", isStarter: true }, { playerId: 10032, assignedPosition: "DF", isStarter: true }, { playerId: 10033, assignedPosition: "MD", isStarter: true }, { playerId: 10034, assignedPosition: "MD", isStarter: true }, { playerId: 10035, assignedPosition: "MD", isStarter: true }, { playerId: 10036, assignedPosition: "FW", isStarter: true }, { playerId: 10037, assignedPosition: "FW", isStarter: true }, { playerId: 10038, assignedPosition: "MD", isStarter: true }],
     playerIds: [10028, 10029, 10030, 10031, 10032, 10033, 10034, 10035, 10036, 10037, 10038]
