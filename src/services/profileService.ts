@@ -28,10 +28,18 @@ function profileKey(id: string): string {
   return `${PROFILE_KEY_PREFIX}${id}`
 }
 
+function patchTeamsFromSeed(profile: Profile): Profile {
+  const patched = profile.data.teams.map(t => {
+    const seed = seedTeams.find(s => s.id === t.id)
+    return seed ? { ...t, badgeUrl: seed.badgeUrl } : t
+  })
+  return { ...profile, data: { ...profile.data, teams: patched } }
+}
+
 function readProfile(id: string): Profile | null {
   try {
     const raw = localStorage.getItem(profileKey(id))
-    if (raw) return JSON.parse(raw) as Profile
+    if (raw) return patchTeamsFromSeed(JSON.parse(raw) as Profile)
   } catch { /* ignore */ }
   return null
 }

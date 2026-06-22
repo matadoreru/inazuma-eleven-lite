@@ -13,7 +13,6 @@ type Speed = 1 | 2 | 4
 type SubReason = 'halftime' | 'injury' | 'tactical'
 
 const SPEED_INTERVAL: Record<Speed, number> = { 1: 600, 2: 200, 4: 50 }
-const MATCH_DURATION = 90
 const MAX_SUBS = 3
 
 const EVENT_ICON: Record<MatchEvent['type'], string> = {
@@ -261,33 +260,70 @@ export default function LiveMatchScreen() {
   const [injuredForSub, setInjuredForSub]   = useState<number | undefined>(undefined)
   const [swapsUsed, setSwapsUsed]           = useState(0)
   const [matchExclusions, setMatchExclusions] = useState<Set<number>>(new Set())
+  const [extraTimeDone, setExtraTimeDone]       = useState(false)
+  const [penaltyPhaseDone, setPenaltyPhaseDone] = useState(false)
+  const [phaseOverlay, setPhaseOverlay]         = useState<{
+    title: string; subtitle: string; buttonText: string
+  } | null>(null)
 
   const handledInjuries = useRef<Set<string>>(new Set())
   const eventListRef    = useRef<HTMLDivElement>(null)
 
-  const result   = pendingMatch?.result
-  const events   = result?.events ?? []
-  const isFinished = currentMinute >= MATCH_DURATION
+  const result        = pendingMatch?.result
+  const events        = result?.events ?? []
+  const isCupMatch    = pendingMatch?.isCupMatch ?? false
+  const matchEndMinute = isCupMatch && result?.penalties ? 122
+    : isCupMatch && result?.extraTime ? 121
+    : 90
+  const isFinished = currentMinute >= matchEndMinute
 
   // Tick
   useEffect(() => {
     if (!isPlaying || isFinished) return
     const id = setInterval(() => {
-      setCurrentMinute((m) => (m >= MATCH_DURATION ? m : m + 1))
+      setCurrentMinute((m) => (m >= matchEndMinute ? m : m + 1))
     }, SPEED_INTERVAL[speed])
     return () => clearInterval(id)
-  }, [isPlaying, speed, isFinished])
+  }, [isPlaying, speed, isFinished, matchEndMinute])
 
   // Halftime detection — pause once when crossing minute 45
   useEffect(() => {
-    if (currentMinute >= 45 && currentMinute < MATCH_DURATION && !halftimeDone) {
+    if (currentMinute >= 45 && currentMinute < matchEndMinute && !halftimeDone) {
       setIsPlaying(false)
       setHalftimeDone(true)
       setSubReason('halftime')
       setInjuredForSub(undefined)
       setSubPanelOpen(true)
     }
-  }, [currentMinute, halftimeDone])
+  }, [currentMinute, halftimeDone, matchEndMinute])
+
+  // Extra-time phase overlay
+  useEffect(() => {
+    if (!isCupMatch || !result?.extraTime) return
+    if (currentMinute >= 90 && !extraTimeDone) {
+      setIsPlaying(false)
+      setExtraTimeDone(true)
+      setPhaseOverlay({
+        title: '¡Se va a prórroga!',
+        subtitle: 'El partido está empatado. Se jugarán dos tiempos de 15 minutos.',
+        buttonText: 'Continuar — Prórroga',
+      })
+    }
+  }, [currentMinute, extraTimeDone, isCupMatch, result?.extraTime])
+
+  // Penalty-phase overlay
+  useEffect(() => {
+    if (!isCupMatch || !result?.penalties) return
+    if (currentMinute >= 120 && !penaltyPhaseDone) {
+      setIsPlaying(false)
+      setPenaltyPhaseDone(true)
+      setPhaseOverlay({
+        title: '¡Tanda de penaltis!',
+        subtitle: 'El partido sigue empatado. Se decide desde el punto de penalty.',
+        buttonText: 'Ver penaltis',
+      })
+    }
+  }, [currentMinute, penaltyPhaseDone, isCupMatch, result?.penalties])
 
   // Auto-scroll
   const processedEvents = events.filter((e) => e.minute <= currentMinute)
@@ -357,9 +393,12 @@ export default function LiveMatchScreen() {
   const oppGoals  = isHome ? awayGoals : homeGoals
 
   function handleSkip() {
-    setCurrentMinute(MATCH_DURATION)
+    setCurrentMinute(matchEndMinute)
     setIsPlaying(false)
     setHalftimeDone(true)
+    setExtraTimeDone(true)
+    setPenaltyPhaseDone(true)
+    setPhaseOverlay(null)
     setSubPanelOpen(false)
   }
 
@@ -557,6 +596,24 @@ export default function LiveMatchScreen() {
           </button>
         )}
       </div>
+
+      {/* Phase-break overlay for ET and penalty transitions in cup matches */}
+      {phaseOverlay && (
+        <div className="fixed inset-0 z-[100] bg-dark-950/95 flex flex-col items-center justify-center gap-6 px-6">
+          <span className="material-icons text-yellow-400 leading-none" style={{ fontSize: 64 }}>
+            more_time
+          </span>
+          <h2 className="text-white text-2xl font-black text-center">{phaseOverlay.title}</h2>
+          <p className="text-gray-400 text-sm text-center">{phaseOverlay.subtitle}</p>
+          <button
+            onClick={() => { setPhaseOverlay(null); setIsPlaying(true) }}
+            className="w-full flex items-center justify-center gap-2 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold text-base transition-colors"
+          >
+            <Icon name="play_arrow" size="sm" />
+            {phaseOverlay.buttonText}
+          </button>
+        </div>
+      )}
 
       {/* Substitution overlay */}
       {subPanelOpen && userTeam && (

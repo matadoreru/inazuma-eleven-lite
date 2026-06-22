@@ -26,18 +26,23 @@ export default function MatchResultCard({ match, homeTeamName, awayTeamName, hom
   }
 
   const { homeGoals, awayGoals, extraTime, penalties } = match.result
-  const isHome = isUserTeam // caller sets isUserTeam based on which side user is
-  const userGoals = isHome ? homeGoals : awayGoals
-  const oppGoals = isHome ? awayGoals : homeGoals
+  const isHome = isUserTeam
+  const userTeamId = isHome ? match.homeTeamId : match.awayTeamId
 
   let resultColor = 'text-gray-400'
   let borderColor = 'border-gold-600/20'
-  if (userGoals > oppGoals) {
-    resultColor = 'text-green-400'
-    borderColor = 'border-green-600'
-  } else if (userGoals < oppGoals) {
-    resultColor = 'text-red-400'
-    borderColor = 'border-red-600'
+
+  if (penalties) {
+    const userWon = penalties.winnerId === userTeamId
+    resultColor = userWon ? 'text-green-400' : 'text-red-400'
+    borderColor = userWon ? 'border-green-600' : 'border-red-600'
+  } else {
+    const totalHome = homeGoals + (extraTime?.homeGoals ?? 0)
+    const totalAway = awayGoals + (extraTime?.awayGoals ?? 0)
+    const userGoals = isHome ? totalHome : totalAway
+    const oppGoals  = isHome ? totalAway : totalHome
+    if (userGoals > oppGoals) { resultColor = 'text-green-400'; borderColor = 'border-green-600' }
+    if (userGoals < oppGoals) { resultColor = 'text-red-400';   borderColor = 'border-red-600' }
   }
 
   return (
@@ -74,7 +79,7 @@ export default function MatchResultCard({ match, homeTeamName, awayTeamName, hom
             PENALTIS
           </span>
           <p className="text-gray-400 text-xs mt-1">
-            {penalties.homeScore} – {penalties.awayScore}
+            ({penalties.homeScore}) {homeGoals}–{awayGoals} ({penalties.awayScore})
           </p>
         </div>
       )}

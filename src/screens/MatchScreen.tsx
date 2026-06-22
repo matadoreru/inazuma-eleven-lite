@@ -355,16 +355,26 @@ export default function MatchScreen() {
   const homeTeamName = homeTeam?.name ?? 'Local'
   const awayTeamName = awayTeam?.name ?? 'Visitante'
 
-  const { homeGoals, awayGoals } = lastMatchResult
-  const isHome    = lastMatch?.homeTeamId === career.teamId
-  const userGoals = isHome ? homeGoals : awayGoals
-  const oppGoals  = isHome ? awayGoals : homeGoals
+  const { homeGoals, awayGoals, extraTime, penalties } = lastMatchResult
+  const totalHomeGoals = homeGoals + (extraTime?.homeGoals ?? 0)
+  const totalAwayGoals = awayGoals + (extraTime?.awayGoals ?? 0)
+  const isHome = lastMatch?.homeTeamId === career.teamId
 
   let resultLabel = 'EMPATE'
   let resultColor = 'text-yellow-400'
   let resultBg    = 'bg-yellow-900/20'
-  if (userGoals > oppGoals) { resultLabel = 'VICTORIA'; resultColor = 'text-green-400'; resultBg = 'bg-green-900/20' }
-  if (userGoals < oppGoals) { resultLabel = 'DERROTA';  resultColor = 'text-red-400';   resultBg = 'bg-red-900/20'  }
+
+  if (penalties) {
+    const userWon = penalties.winnerId === career.teamId
+    resultLabel = userWon ? 'VICTORIA' : 'DERROTA'
+    resultColor = userWon ? 'text-green-400' : 'text-red-400'
+    resultBg    = userWon ? 'bg-green-900/20' : 'bg-red-900/20'
+  } else {
+    const userGoals = isHome ? totalHomeGoals : totalAwayGoals
+    const oppGoals  = isHome ? totalAwayGoals : totalHomeGoals
+    if (userGoals > oppGoals) { resultLabel = 'VICTORIA'; resultColor = 'text-green-400'; resultBg = 'bg-green-900/20' }
+    if (userGoals < oppGoals) { resultLabel = 'DERROTA';  resultColor = 'text-red-400';   resultBg = 'bg-red-900/20'  }
+  }
 
   const hasRewards = pendingRewards && pendingRewards.length > 0
   const r = lastMatchResult
@@ -399,17 +409,29 @@ export default function MatchScreen() {
           </div>
 
           <div className="flex items-center gap-2 shrink-0">
-            <span className="text-white text-3xl font-black tabular-nums">{homeGoals}</span>
+            <div className="flex items-center gap-1.5">
+              {penalties && (
+                <span className="text-gray-400 text-lg font-bold tabular-nums">({penalties.homeScore})</span>
+              )}
+              <span className="text-white text-3xl font-black tabular-nums">{totalHomeGoals}</span>
+            </div>
             <div className="flex flex-col items-center">
               <span className={`text-[0.5625rem] font-extrabold tracking-widest leading-none mb-0.5 ${resultColor}`}>
                 {resultLabel}
               </span>
               <span className="text-gray-600 text-xl leading-none font-light">–</span>
               {lastMatch && (
-                <span className="text-gray-600 text-[0.5rem] leading-none mt-0.5 tabular-nums">J{lastMatch.round}</span>
+                <span className="text-gray-600 text-[0.5rem] leading-none mt-0.5 tabular-nums">
+                  {lastMatch.type === 'cup' ? (lastMatch.cupRound ?? `J${lastMatch.round}`) : `J${lastMatch.round}`}
+                </span>
               )}
             </div>
-            <span className="text-white text-3xl font-black tabular-nums">{awayGoals}</span>
+            <div className="flex items-center gap-1.5">
+              <span className="text-white text-3xl font-black tabular-nums">{totalAwayGoals}</span>
+              {penalties && (
+                <span className="text-gray-400 text-lg font-bold tabular-nums">({penalties.awayScore})</span>
+              )}
+            </div>
           </div>
 
           <div className="flex-1 min-w-0">
@@ -420,6 +442,13 @@ export default function MatchScreen() {
             />
           </div>
         </div>
+        {extraTime && (
+          <div className="flex justify-center mt-1">
+            <span className="text-[0.5rem] font-bold text-blue-400 bg-blue-900/20 border border-blue-700/30 rounded px-2 py-0.5 uppercase tracking-wider">
+              A.E.T.
+            </span>
+          </div>
+        )}
       </div>
 
       {/* ── RECOMPENSA ── */}

@@ -207,7 +207,7 @@ export default function DevDebugScreen() {
 
   return (
     <GameLayout>
-      <main className="h-full overflow-y-auto p-4 space-y-5">
+      <main className="h-full overflow-y-auto p-4 space-y-5 bg-dark-900/70">
 
         {/* Header */}
         <div className="flex items-center justify-between">

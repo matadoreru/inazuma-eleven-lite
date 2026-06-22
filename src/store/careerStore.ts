@@ -484,7 +484,14 @@ function commitMatchResult(
 
     const homeTeamName = teams.find((t) => t.id === match.homeTeamId)?.name ?? 'Local'
     const awayTeamName = teams.find((t) => t.id === match.awayTeamId)?.name ?? 'Visitante'
-    const matchTitle = `${homeTeamName} ${result.homeGoals} - ${result.awayGoals} ${awayTeamName} (Copa)`
+    const totalHome = result.homeGoals + (result.extraTime?.homeGoals ?? 0)
+    const totalAway = result.awayGoals + (result.extraTime?.awayGoals ?? 0)
+    const scoreStr = result.penalties
+      ? `(${result.penalties.homeScore}) ${totalHome}-${totalAway} (${result.penalties.awayScore})`
+      : result.extraTime
+        ? `${totalHome}-${totalAway} a.e.t.`
+        : `${totalHome}-${totalAway}`
+    const matchTitle = `${homeTeamName} ${scoreStr} ${awayTeamName} (Copa)`
     let updatedCareer: Career = {
       ...career,
       cup: updatedCup,
