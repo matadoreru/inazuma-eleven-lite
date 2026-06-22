@@ -1,4 +1,5 @@
 import type { Player } from '../types/player'
+import { getSupertechniques } from './supertechniques'
 
 export const players: Player[] = [
   {
@@ -27,7 +28,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 693, name: "STRONG PUNCH", type: "Parada", element: "", POT: 50, PP: 50 }, { id: 135, name: "MANO CELESTIAL", type: "Parada", element: "WOOD", POT: 60, PP: 60 }, { id: 242, name: "DESPEJE DE FUEGO", type: "Parada", element: "FIRE", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["693:STRONG PUNCH","135:MANO CELESTIAL","242:DESPEJE DE FUEGO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/d/w/dwho-wi8ruk.png",
     stamina: 100,
     morale: 100,
@@ -73,7 +74,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 29, name: "TORNADO DE FUEGO", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }, { id: 85, name: "ENTRADA DE LLAMAS", type: "Regate", element: "FIRE", POT: 60, PP: 60 }, { id: 27, name: "TRAMPOLÍN RELÁMPAGO", type: "Tiro", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["29:TORNADO DE FUEGO","85:ENTRADA DE LLAMAS","27:TRAMPOLÍN RELÁMPAGO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/f/1/f1kh7d67sbs.png",
     stamina: 100,
     morale: 100,
@@ -119,7 +120,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 668, name: "SHOULDER TACKLE", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 101, name: "EL MURO", type: "Bloqueo", element: "MOUNTAIN", POT: 60, PP: 60 }, { id: 114, name: "LA MONTAÑA", type: "Bloqueo", element: "MOUNTAIN", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["668:SHOULDER TACKLE","101:EL MURO","114:LA MONTAÑA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/m/r/mrvaa0xojh8.png",
     stamina: 100,
     morale: 100,
@@ -165,7 +166,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 670, name: "CUNNING PULL", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 83, name: "ENTRADA HURACÁN", type: "Regate", element: "WIND", POT: 60, PP: 60 }, { id: 37, name: "PÁJARO DE FUEGO", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["670:CUNNING PULL","83:ENTRADA HURACÁN","37:PÁJARO DE FUEGO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/9/5/95k7tlx0k0u.png",
     stamina: 100,
     morale: 100,
@@ -211,7 +212,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 603, name: "CHIP SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 31, name: "REMATE DRAGÓN", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }, { id: 36, name: "TORNADO DRAGÓN", type: "Tiro", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["603:CHIP SHOT","31:REMATE DRAGÓN","36:TORNADO DRAGÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/0/d/0dvmw8cb_ye.png",
     stamina: 100,
     morale: 100,
@@ -257,7 +258,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 669, name: "CURVING CUT", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 676, name: "CORTE GIRATORIO", type: "Bloqueo", element: "WIND", POT: 50, PP: 50 }, { id: 566, name: "GIRO DE MONO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["669:CURVING CUT","676:CORTE GIRATORIO","566:GIRO DE MONO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/_/y/_yjndsfyhyu.png",
     stamina: 100,
     morale: 100,
@@ -303,7 +304,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 233, name: "CICLÓN", type: "Bloqueo", element: "WIND", POT: 60, PP: 60 }, { id: 541, name: "PATADA RODANTE", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","233:CICLÓN","541:PATADA RODANTE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/f/3/f3asqpwqusk.png",
     stamina: 100,
     morale: 100,
@@ -349,7 +350,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 231, name: "DESENFUNDE RÁPIDO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }, { id: 543, name: "IMPULSO CRUZADO", type: "Tiro", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["645:NUTMEG","231:DESENFUNDE RÁPIDO","543:IMPULSO CRUZADO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/r/d/rd_khczyztm.png",
     stamina: 100,
     morale: 100,
@@ -395,7 +396,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 564, name: "TORBELLINO GIRATORIO", type: "Regate", element: "WIND", POT: 50, PP: 50 }, { id: 614, name: "CABEZAZO KUNG FU", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","564:TORBELLINO GIRATORIO","614:CABEZAZO KUNG FU"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/u/f/ufxz9wwq5hm.png",
     stamina: 100,
     morale: 100,
@@ -441,7 +442,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 86, name: "CONFUSIÓN", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","609:TIRO GRANADA","86:CONFUSIÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/a/1/a1orm9vieek.png",
     stamina: 100,
     morale: 100,
@@ -487,7 +488,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "GK"
     },
-    techniques: [{ id: 667, name: "FEINT PLAY", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 673, name: "GIRO DE BOBINA", type: "Bloqueo", element: "WIND", POT: 50, PP: 50 }, { id: 234, name: "PUNTADA DE SOMBRA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["667:FEINT PLAY","673:GIRO DE BOBINA","234:PUNTADA DE SOMBRA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/o/w/owsgutjimb8.png",
     stamina: 100,
     morale: 100,
@@ -533,7 +534,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 605, name: "BOUNCE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 51, name: "REMATE GAFAS", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 615, name: "FLECHAS DIVINAS", type: "Tiro", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["605:BOUNCE SHOT","51:REMATE GAFAS","615:FLECHAS DIVINAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/u/y/uy2tfhpjks0.png",
     stamina: 100,
     morale: 100,
@@ -579,7 +580,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 610, name: "TIRO GIRATORIO", type: "Tiro", element: "WIND", POT: 50, PP: 50 }, { id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","610:TIRO GIRATORIO","84:ESPEJISMO DE BALÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/e/4/e4qtt3lwf_m.png",
     stamina: 100,
     morale: 100,
@@ -625,7 +626,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 671, name: "ROLLING STEAL", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 672, name: "BARRIDO DEFENSIVO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }, { id: 678, name: "CORTE VOLCÁN", type: "Bloqueo", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["671:ROLLING STEAL","672:BARRIDO DEFENSIVO","678:CORTE VOLCÁN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/-/x/-xzmaq-eqf8.png",
     stamina: 100,
     morale: 100,
@@ -671,7 +672,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 695, name: "MIGHTY SAVE", type: "Parada", element: "", POT: 50, PP: 50 }, { id: 696, name: "ESCUDO DE PODER", type: "Parada", element: "FIRE", POT: 60, PP: 60 }, { id: 699, name: "ESCUDO DE FUERZA TOTAL ", type: "Parada", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["695:MIGHTY SAVE","696:ESCUDO DE PODER","699:ESCUDO DE FUERZA TOTAL "]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/9/w/9wtikebapts.png",
     stamina: 100,
     morale: 100,
@@ -717,7 +718,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 667, name: "FEINT PLAY", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 674, name: "TERREMOTO", type: "Bloqueo", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["667:FEINT PLAY","674:TERREMOTO","84:ESPEJISMO DE BALÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/d/5/d5w9zd0i6nc.png",
     stamina: 100,
     morale: 100,
@@ -763,7 +764,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 671, name: "ROLLING STEAL", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 233, name: "CICLÓN", type: "Bloqueo", element: "WIND", POT: 60, PP: 60 }, { id: 672, name: "BARRIDO DEFENSIVO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["671:ROLLING STEAL","233:CICLÓN","672:BARRIDO DEFENSIVO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/s/r/srbc08syx-0.png",
     stamina: 100,
     morale: 100,
@@ -809,7 +810,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 672, name: "BARRIDO DEFENSIVO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }, { id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["645:NUTMEG","672:BARRIDO DEFENSIVO","84:ESPEJISMO DE BALÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/u/w/uwgaalaes40.png",
     stamina: 100,
     morale: 100,
@@ -855,7 +856,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 669, name: "CURVING CUT", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 672, name: "BARRIDO DEFENSIVO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }, { id: 501, name: "CLON FALSO", type: "Regate", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["669:CURVING CUT","672:BARRIDO DEFENSIVO","501:CLON FALSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/f/y/fy3h3amk_lc.png",
     stamina: 100,
     morale: 100,
@@ -901,7 +902,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 672, name: "BARRIDO DEFENSIVO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }, { id: 233, name: "CICLÓN", type: "Bloqueo", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["645:NUTMEG","672:BARRIDO DEFENSIVO","233:CICLÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/_/3/_3uukhtskrs.png",
     stamina: 100,
     morale: 100,
@@ -947,7 +948,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 672, name: "BARRIDO DEFENSIVO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }, { id: 608, name: "TIRO DE FURIA", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["642:DUST KICK","672:BARRIDO DEFENSIVO","608:TIRO DE FURIA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/o/f/ofl1j41wnye.png",
     stamina: 100,
     morale: 100,
@@ -993,7 +994,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 501, name: "CLON FALSO", type: "Regate", element: "WOOD", POT: 50, PP: 50 }, { id: 672, name: "BARRIDO DEFENSIVO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","501:CLON FALSO","672:BARRIDO DEFENSIVO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/6/1/61at4120ans.png",
     stamina: 100,
     morale: 100,
@@ -1039,7 +1040,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 607, name: "LOW DRIVE", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 608, name: "TIRO DE FURIA", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }, { id: 672, name: "BARRIDO DEFENSIVO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["607:LOW DRIVE","608:TIRO DE FURIA","672:BARRIDO DEFENSIVO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/l/d/ldrmvkqotue.png",
     stamina: 100,
     morale: 100,
@@ -1085,7 +1086,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }, { id: 28, name: "REMATE COMBINADO", type: "Tiro", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","84:ESPEJISMO DE BALÓN","28:REMATE COMBINADO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/l/1/l1wbplzhm4k.png",
     stamina: 100,
     morale: 100,
@@ -1131,7 +1132,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 605, name: "BOUNCE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 672, name: "BARRIDO DEFENSIVO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }, { id: 39, name: "PINGUINO EMPERADOR Nº2", type: "Tiro", element: "WOOD", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["605:BOUNCE SHOT","672:BARRIDO DEFENSIVO","39:PINGUINO EMPERADOR Nº2"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/u/d/udbgi0_9hlm.png",
     stamina: 100,
     morale: 100,
@@ -1177,7 +1178,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 693, name: "STRONG PUNCH", type: "Parada", element: "", POT: 50, PP: 50 }, { id: 696, name: "ESCUDO DE PODER", type: "Parada", element: "FIRE", POT: 60, PP: 60 }, { id: 242, name: "DESPEJE DE FUEGO", type: "Parada", element: "FIRE", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["693:STRONG PUNCH","696:ESCUDO DE PODER","242:DESPEJE DE FUEGO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/0/y/0yivxpk1ur8.png",
     stamina: 100,
     morale: 100,
@@ -1223,7 +1224,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 607, name: "LOW DRIVE", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 672, name: "BARRIDO DEFENSIVO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["607:LOW DRIVE","609:TIRO GRANADA","672:BARRIDO DEFENSIVO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/f/a/fat0cwsp5yu.png",
     stamina: 100,
     morale: 100,
@@ -1269,7 +1270,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 605, name: "BOUNCE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 612, name: "TIRO ESPIRAL", type: "Tiro", element: "WIND", POT: 50, PP: 50 }, { id: 608, name: "TIRO DE FURIA", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["605:BOUNCE SHOT","612:TIRO ESPIRAL","608:TIRO DE FURIA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/h/7/h7uoyp-j8eu.png",
     stamina: 100,
     morale: 100,
@@ -1315,7 +1316,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 672, name: "BARRIDO DEFENSIVO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }, { id: 564, name: "TORBELLINO GIRATORIO", type: "Regate", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["642:DUST KICK","672:BARRIDO DEFENSIVO","564:TORBELLINO GIRATORIO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/2/t/2tljfwyzrt8.png",
     stamina: 100,
     morale: 100,
@@ -1361,7 +1362,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 605, name: "BOUNCE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 102, name: "TIRÓN FANTASMA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }, { id: 28, name: "REMATE COMBINADO", type: "Tiro", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["605:BOUNCE SHOT","102:TIRÓN FANTASMA","28:REMATE COMBINADO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/w/8/w8g8mttrknm.png",
     stamina: 100,
     morale: 100,
@@ -1407,7 +1408,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 693, name: "STRONG PUNCH", type: "Parada", element: "", POT: 50, PP: 50 }, { id: 243, name: "ESPIRAL DE DISTORSIÓN ", type: "Parada", element: "WOOD", POT: 50, PP: 50 }, { id: 591, name: "EL FÉNIX", type: "Parada", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["693:STRONG PUNCH","243:ESPIRAL DE DISTORSIÓN ","591:EL FÉNIX"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/a/vaeuza7dvs8.png",
     stamina: 100,
     morale: 100,
@@ -1453,7 +1454,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 668, name: "SHOULDER TACKLE", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 102, name: "TIRÓN FANTASMA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }, { id: 601, name: "TIRO FANTASMA", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["668:SHOULDER TACKLE","102:TIRÓN FANTASMA","601:TIRO FANTASMA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/p/v/pv9hgholaym.png",
     stamina: 100,
     morale: 100,
@@ -1499,7 +1500,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 671, name: "ROLLING STEAL", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 102, name: "TIRÓN FANTASMA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }, { id: 577, name: "BALÓN FALSO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["671:ROLLING STEAL","102:TIRÓN FANTASMA","577:BALÓN FALSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/-/h/-hman4ox3bk.png",
     stamina: 100,
     morale: 100,
@@ -1545,7 +1546,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "GK"
     },
-    techniques: [{ id: 671, name: "ROLLING STEAL", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 674, name: "TERREMOTO", type: "Bloqueo", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 102, name: "TIRÓN FANTASMA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["671:ROLLING STEAL","674:TERREMOTO","102:TIRÓN FANTASMA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/8/m/8mlcjh6dyhk.png",
     stamina: 100,
     morale: 100,
@@ -1591,7 +1592,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 667, name: "FEINT PLAY", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 234, name: "PUNTADA DE SOMBRA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }, { id: 601, name: "TIRO FANTASMA", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["667:FEINT PLAY","234:PUNTADA DE SOMBRA","601:TIRO FANTASMA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/n/o/no69oecnf0m.png",
     stamina: 100,
     morale: 100,
@@ -1637,7 +1638,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 102, name: "TIRÓN FANTASMA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }, { id: 234, name: "PUNTADA DE SOMBRA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["642:DUST KICK","102:TIRÓN FANTASMA","234:PUNTADA DE SOMBRA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/t/h/thziddpvqu8.png",
     stamina: 100,
     morale: 100,
@@ -1683,7 +1684,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 102, name: "TIRÓN FANTASMA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }, { id: 232, name: "TELARAÑA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["642:DUST KICK","102:TIRÓN FANTASMA","232:TELARAÑA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/c/j/cjopw8pvhnu.png",
     stamina: 100,
     morale: 100,
@@ -1729,7 +1730,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 234, name: "PUNTADA DE SOMBRA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }, { id: 601, name: "TIRO FANTASMA", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["646:FEINT DASH","234:PUNTADA DE SOMBRA","601:TIRO FANTASMA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/o/j/ojxxbxm3gy8.png",
     stamina: 100,
     morale: 100,
@@ -1775,7 +1776,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 605, name: "BOUNCE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 601, name: "TIRO FANTASMA", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }, { id: 44, name: "ASTRORREMATE", type: "Tiro", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["605:BOUNCE SHOT","601:TIRO FANTASMA","44:ASTRORREMATE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/z/l/zlmqsoqnnru.png",
     stamina: 100,
     morale: 100,
@@ -1821,7 +1822,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 601, name: "TIRO FANTASMA", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }, { id: 102, name: "TIRÓN FANTASMA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","601:TIRO FANTASMA","102:TIRÓN FANTASMA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/3/j/3j9d2pjesh0.png",
     stamina: 100,
     morale: 100,
@@ -1867,7 +1868,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 601, name: "TIRO FANTASMA", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }, { id: 102, name: "TIRÓN FANTASMA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["642:DUST KICK","601:TIRO FANTASMA","102:TIRÓN FANTASMA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/g/l/glm8bwf-b0c.png",
     stamina: 100,
     morale: 100,
@@ -1913,7 +1914,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 695, name: "MIGHTY SAVE", type: "Parada", element: "", POT: 50, PP: 50 }, { id: 243, name: "ESPIRAL DE DISTORSIÓN ", type: "Parada", element: "WOOD", POT: 50, PP: 50 }, { id: 578, name: "PISOTÓN DE SUMO", type: "Bloqueo", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["695:MIGHTY SAVE","243:ESPIRAL DE DISTORSIÓN ","578:PISOTÓN DE SUMO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/m/k/mkvjitw20us.png",
     stamina: 100,
     morale: 100,
@@ -1959,7 +1960,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 604, name: "CURVE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 601, name: "TIRO FANTASMA", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }, { id: 232, name: "TELARAÑA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["604:CURVE SHOT","601:TIRO FANTASMA","232:TELARAÑA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/x/m/xmeolswmzne.png",
     stamina: 100,
     morale: 100,
@@ -2005,7 +2006,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 605, name: "BOUNCE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 102, name: "TIRÓN FANTASMA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }, { id: 44, name: "ASTRORREMATE", type: "Tiro", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["605:BOUNCE SHOT","102:TIRÓN FANTASMA","44:ASTRORREMATE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/t/vtz0llegche.png",
     stamina: 100,
     morale: 100,
@@ -2051,7 +2052,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 606, name: "POWER SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 102, name: "TIRÓN FANTASMA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }, { id: 652, name: "REGATE ENGAÑOSO", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["606:POWER SHOT","102:TIRÓN FANTASMA","652:REGATE ENGAÑOSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/k/f/kfovm0iaxss.png",
     stamina: 100,
     morale: 100,
@@ -2097,7 +2098,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 102, name: "TIRÓN FANTASMA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }, { id: 232, name: "TELARAÑA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","102:TIRÓN FANTASMA","232:TELARAÑA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/e/q/eqlg1pxseyc.png",
     stamina: 100,
     morale: 100,
@@ -2143,7 +2144,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 694, name: "Parada Fuerte", type: "Parada", element: "", POT: 50, PP: 50 }, { id: 528, name: "VOLTEADOR DE MESAS", type: "Parada", element: "MOUNTAIN", POT: 60, PP: 60 }, { id: 246, name: "PUÑO ARDIENTE", type: "Parada", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["694:Parada Fuerte","528:VOLTEADOR DE MESAS","246:PUÑO ARDIENTE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/p/a/pakshsy_xr0.png",
     stamina: 100,
     morale: 100,
@@ -2189,7 +2190,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 565, name: "ACELERADOR DE CARRERA", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 544, name: "PICADA DEL CÓNDOR", type: "Tiro", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["646:FEINT DASH","565:ACELERADOR DE CARRERA","544:PICADA DEL CÓNDOR"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/v/vvpnupt3ele.png",
     stamina: 100,
     morale: 100,
@@ -2235,7 +2236,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 667, name: "FEINT PLAY", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 231, name: "DESENFUNDE RÁPIDO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }, { id: 676, name: "CORTE GIRATORIO", type: "Bloqueo", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["667:FEINT PLAY","231:DESENFUNDE RÁPIDO","676:CORTE GIRATORIO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/e/h/ehyg5wlnp4s.png",
     stamina: 100,
     morale: 100,
@@ -2281,7 +2282,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 668, name: "SHOULDER TACKLE", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 565, name: "ACELERADOR DE CARRERA", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 672, name: "BARRIDO DEFENSIVO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["668:SHOULDER TACKLE","565:ACELERADOR DE CARRERA","672:BARRIDO DEFENSIVO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/c/m/cmfaxpzhs-s.png",
     stamina: 100,
     morale: 100,
@@ -2327,7 +2328,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 670, name: "CUNNING PULL", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 649, name: "SÚPER ARMADILLO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 520, name: "SIN ESCAPE", type: "Bloqueo", element: "MOUNTAIN", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["670:CUNNING PULL","649:SÚPER ARMADILLO","520:SIN ESCAPE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/t/o/tou76w_bbne.png",
     stamina: 100,
     morale: 100,
@@ -2373,7 +2374,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 231, name: "DESENFUNDE RÁPIDO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }, { id: 650, name: "IMAGEN RESIDUAL", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["645:NUTMEG","231:DESENFUNDE RÁPIDO","650:IMAGEN RESIDUAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/n/h/nhnoplkt0t0.png",
     stamina: 100,
     morale: 100,
@@ -2419,7 +2420,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 544, name: "PICADA DEL CÓNDOR", type: "Tiro", element: "WIND", POT: 50, PP: 50 }, { id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","544:PICADA DEL CÓNDOR","84:ESPEJISMO DE BALÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/8/j/8j8ve0spzec.png",
     stamina: 100,
     morale: 100,
@@ -2465,7 +2466,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 566, name: "GIRO DE MONO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 547, name: "PATADA TARZÁN", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["642:DUST KICK","566:GIRO DE MONO","547:PATADA TARZÁN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/i/j/ijd315vl-h0.png",
     stamina: 100,
     morale: 100,
@@ -2511,7 +2512,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 604, name: "CURVE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 547, name: "PATADA TARZÁN", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 649, name: "SÚPER ARMADILLO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["604:CURVE SHOT","547:PATADA TARZÁN","649:SÚPER ARMADILLO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/5/l/5lywygjxtsc.png",
     stamina: 100,
     morale: 100,
@@ -2557,7 +2558,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 607, name: "LOW DRIVE", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 0, name: "Zigzag Spark", type: "Tiro", element: "", POT: 0, PP: 0 }, { id: 543, name: "IMPULSO CRUZADO", type: "Tiro", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["607:LOW DRIVE","0:Zigzag Spark","543:IMPULSO CRUZADO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/x/j/xjpbcha4y-8.png",
     stamina: 100,
     morale: 100,
@@ -2603,7 +2604,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 604, name: "CURVE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 83, name: "ENTRADA HURACÁN", type: "Regate", element: "WIND", POT: 60, PP: 60 }, { id: 547, name: "PATADA TARZÁN", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["604:CURVE SHOT","83:ENTRADA HURACÁN","547:PATADA TARZÁN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/m/l/mly6v4mcfnu.png",
     stamina: 100,
     morale: 100,
@@ -2649,7 +2650,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 547, name: "PATADA TARZÁN", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 566, name: "GIRO DE MONO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["646:FEINT DASH","547:PATADA TARZÁN","566:GIRO DE MONO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/g/k/gk7p8ltkqtk.png",
     stamina: 100,
     morale: 100,
@@ -2695,7 +2696,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 603, name: "CHIP SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 672, name: "BARRIDO DEFENSIVO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }, { id: 565, name: "ACELERADOR DE CARRERA", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["603:CHIP SHOT","672:BARRIDO DEFENSIVO","565:ACELERADOR DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/3/m/3mkura1whem.png",
     stamina: 100,
     morale: 100,
@@ -2741,7 +2742,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 669, name: "CURVING CUT", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 649, name: "SÚPER ARMADILLO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["669:CURVING CUT","649:SÚPER ARMADILLO","609:TIRO GRANADA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/1/t/1tny_dnccym.png",
     stamina: 100,
     morale: 100,
@@ -2787,7 +2788,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 577, name: "BALÓN FALSO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }, { id: 86, name: "CONFUSIÓN", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["646:FEINT DASH","577:BALÓN FALSO","86:CONFUSIÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/e/f/ef8ts8bmvrk.png",
     stamina: 100,
     morale: 100,
@@ -2833,7 +2834,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 694, name: "Parada Fuerte", type: "Parada", element: "", POT: 50, PP: 50 }, { id: 698, name: "BLOQUE DUREZA ", type: "Parada", element: "MOUNTAIN", POT: 60, PP: 60 }, { id: 246, name: "PUÑO ARDIENTE", type: "Parada", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["694:Parada Fuerte","698:BLOQUE DUREZA ","246:PUÑO ARDIENTE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/k/q/kqfmbh0ualu.png",
     stamina: 100,
     morale: 100,
@@ -2879,7 +2880,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 694, name: "Parada Fuerte", type: "Parada", element: "", POT: 50, PP: 50 }, { id: 592, name: "PUÑO COHETE", type: "Parada", element: "FIRE", POT: 60, PP: 60 }, { id: 697, name: "CAMPO DE FUERZA DEFENSIVO ", type: "Parada", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["694:Parada Fuerte","592:PUÑO COHETE","697:CAMPO DE FUERZA DEFENSIVO "]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/l/s/lsetbtpeusc.png",
     stamina: 100,
     morale: 100,
@@ -2925,7 +2926,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 667, name: "FEINT PLAY", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 542, name: "TIRO PATRIOTA", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }, { id: 584, name: "OJO DEL LADRÓN", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["667:FEINT PLAY","542:TIRO PATRIOTA","584:OJO DEL LADRÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/r/d/rdnyso6mbms.png",
     stamina: 100,
     morale: 100,
@@ -2971,7 +2972,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 667, name: "FEINT PLAY", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 678, name: "CORTE VOLCÁN", type: "Bloqueo", element: "FIRE", POT: 60, PP: 60 }, { id: 93, name: "MIRADA AL FUTURO", type: "Regate", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["667:FEINT PLAY","678:CORTE VOLCÁN","93:MIRADA AL FUTURO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/a/r/arw5_xc22_e.png",
     stamina: 100,
     morale: 100,
@@ -3017,7 +3018,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 669, name: "CURVING CUT", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 231, name: "DESENFUNDE RÁPIDO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }, { id: 585, name: "CORTAR Y TROCEAR", type: "Bloqueo", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["669:CURVING CUT","231:DESENFUNDE RÁPIDO","585:CORTAR Y TROCEAR"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/y/k/ykrlrooaz5e.png",
     stamina: 100,
     morale: 100,
@@ -3063,7 +3064,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 671, name: "ROLLING STEAL", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 511, name: "ZONA PERIMETRAL", type: "Bloqueo", element: "WIND", POT: 50, PP: 50 }, { id: 674, name: "TERREMOTO", type: "Bloqueo", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["671:ROLLING STEAL","511:ZONA PERIMETRAL","674:TERREMOTO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/p/i/pige8xogeks.png",
     stamina: 100,
     morale: 100,
@@ -3109,7 +3110,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 542, name: "TIRO PATRIOTA", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }, { id: 95, name: "VISTO Y NO VISTO", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","542:TIRO PATRIOTA","95:VISTO Y NO VISTO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/j/n/jndxvkdorqc.png",
     stamina: 100,
     morale: 100,
@@ -3155,7 +3156,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 234, name: "PUNTADA DE SOMBRA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }, { id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","234:PUNTADA DE SOMBRA","84:ESPEJISMO DE BALÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/4/l/4lyqc17sgz0.png",
     stamina: 100,
     morale: 100,
@@ -3201,7 +3202,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 85, name: "ENTRADA DE LLAMAS", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","609:TIRO GRANADA","85:ENTRADA DE LLAMAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/m/p/mpniz44whmc.png",
     stamina: 100,
     morale: 100,
@@ -3247,7 +3248,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 604, name: "CURVE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 29, name: "TORNADO DE FUEGO", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }, { id: 501, name: "CLON FALSO", type: "Regate", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["604:CURVE SHOT","29:TORNADO DE FUEGO","501:CLON FALSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/9/n/9n8pehekmv0.png",
     stamina: 100,
     morale: 100,
@@ -3293,7 +3294,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 28, name: "REMATE COMBINADO", type: "Tiro", element: "FIRE", POT: 70, PP: 70 }, { id: 234, name: "PUNTADA DE SOMBRA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["642:DUST KICK","28:REMATE COMBINADO","234:PUNTADA DE SOMBRA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/t/p/tpnkegxdt5u.png",
     stamina: 100,
     morale: 100,
@@ -3339,7 +3340,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 605, name: "BOUNCE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 542, name: "TIRO PATRIOTA", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }, { id: 29, name: "TORNADO DE FUEGO", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["605:BOUNCE SHOT","542:TIRO PATRIOTA","29:TORNADO DE FUEGO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/i/n/inwfp5x5ak8.png",
     stamina: 100,
     morale: 100,
@@ -3385,7 +3386,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: null
     },
-    techniques: [{ id: 0, name: "#N/A", type: "Tiro", element: "", POT: 0, PP: 0 }],
+    techniques: getSupertechniques(["0:#N/A"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/i/n/inwfp5x5ak8.png",
     stamina: 100,
     morale: 100,
@@ -3431,7 +3432,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 694, name: "Parada Fuerte", type: "Parada", element: "", POT: 50, PP: 50 }, { id: 697, name: "CAMPO DE FUERZA DEFENSIVO ", type: "Parada", element: "WOOD", POT: 50, PP: 50 }, { id: 592, name: "PUÑO COHETE", type: "Parada", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["694:Parada Fuerte","697:CAMPO DE FUERZA DEFENSIVO ","592:PUÑO COHETE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/c/i/ci1w6kex1qm.png",
     stamina: 100,
     morale: 100,
@@ -3477,7 +3478,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 231, name: "DESENFUNDE RÁPIDO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }, { id: 204, name: "TIRO CONGELANTE", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["646:FEINT DASH","231:DESENFUNDE RÁPIDO","204:TIRO CONGELANTE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/z/g/zgerxbilyzk.png",
     stamina: 100,
     morale: 100,
@@ -3523,7 +3524,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 83, name: "ENTRADA HURACÁN", type: "Regate", element: "WIND", POT: 60, PP: 60 }, { id: 542, name: "TIRO PATRIOTA", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","83:ENTRADA HURACÁN","542:TIRO PATRIOTA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/x/b/xbdn5cwndfk.png",
     stamina: 100,
     morale: 100,
@@ -3569,7 +3570,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 605, name: "BOUNCE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 542, name: "TIRO PATRIOTA", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }, { id: 672, name: "BARRIDO DEFENSIVO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["605:BOUNCE SHOT","542:TIRO PATRIOTA","672:BARRIDO DEFENSIVO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/a/p/apysu9wdwsm.png",
     stamina: 100,
     morale: 100,
@@ -3615,7 +3616,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 668, name: "SHOULDER TACKLE", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 578, name: "PISOTÓN DE SUMO", type: "Bloqueo", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 542, name: "TIRO PATRIOTA", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["668:SHOULDER TACKLE","578:PISOTÓN DE SUMO","542:TIRO PATRIOTA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/g/g/ggrzhgjvfm8.png",
     stamina: 100,
     morale: 100,
@@ -3661,7 +3662,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 693, name: "STRONG PUNCH", type: "Parada", element: "", POT: 50, PP: 50 }, { id: 126, name: "DESLIZAMIENTO DE PORTERÍA ", type: "Parada", element: "MOUNTAIN", POT: 60, PP: 60 }, { id: 698, name: "BLOQUE DUREZA ", type: "Parada", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["693:STRONG PUNCH","126:DESLIZAMIENTO DE PORTERÍA ","698:BLOQUE DUREZA "]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/n/b/nbqrnz0o4lc.png",
     stamina: 100,
     morale: 100,
@@ -3707,7 +3708,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 670, name: "CUNNING PULL", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 577, name: "BALÓN FALSO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }, { id: 0, name: "Zigzag Spark", type: "Tiro", element: "", POT: 0, PP: 0 }],
+    techniques: getSupertechniques(["670:CUNNING PULL","577:BALÓN FALSO","0:Zigzag Spark"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/t/u/tujeeebgnfs.png",
     stamina: 100,
     morale: 100,
@@ -3753,7 +3754,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 577, name: "BALÓN FALSO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }, { id: 34, name: "BATEO TOTAL", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","577:BALÓN FALSO","34:BATEO TOTAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/c/g/cg4_z7n8g2e.png",
     stamina: 100,
     morale: 100,
@@ -3799,7 +3800,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 577, name: "BALÓN FALSO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }, { id: 650, name: "IMAGEN RESIDUAL", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["642:DUST KICK","577:BALÓN FALSO","650:IMAGEN RESIDUAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/e/n/en_jdi1qlwe.png",
     stamina: 100,
     morale: 100,
@@ -3845,7 +3846,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 670, name: "CUNNING PULL", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 34, name: "BATEO TOTAL", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }, { id: 577, name: "BALÓN FALSO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["670:CUNNING PULL","34:BATEO TOTAL","577:BALÓN FALSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/p/vpocwdtqids.png",
     stamina: 100,
     morale: 100,
@@ -3891,7 +3892,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 606, name: "POWER SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 86, name: "CONFUSIÓN", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 102, name: "TIRÓN FANTASMA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["606:POWER SHOT","86:CONFUSIÓN","102:TIRÓN FANTASMA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/p/g/pgt3jami9jc.png",
     stamina: 100,
     morale: 100,
@@ -3937,7 +3938,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 607, name: "LOW DRIVE", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 86, name: "CONFUSIÓN", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 233, name: "CICLÓN", type: "Bloqueo", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["607:LOW DRIVE","86:CONFUSIÓN","233:CICLÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/-/i/-icwo_ayqq0.png",
     stamina: 100,
     morale: 100,
@@ -3983,7 +3984,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 86, name: "CONFUSIÓN", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 34, name: "BATEO TOTAL", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["645:NUTMEG","86:CONFUSIÓN","34:BATEO TOTAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/k/i/kijo_yd63vc.png",
     stamina: 100,
     morale: 100,
@@ -4029,7 +4030,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 607, name: "LOW DRIVE", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 34, name: "BATEO TOTAL", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }, { id: 86, name: "CONFUSIÓN", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["607:LOW DRIVE","34:BATEO TOTAL","86:CONFUSIÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/7/k/7ksvsnlaac0.png",
     stamina: 100,
     morale: 100,
@@ -4075,7 +4076,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 604, name: "CURVE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 86, name: "CONFUSIÓN", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 34, name: "BATEO TOTAL", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["604:CURVE SHOT","86:CONFUSIÓN","34:BATEO TOTAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/i/vijiimsj7wu.png",
     stamina: 100,
     morale: 100,
@@ -4121,7 +4122,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 606, name: "POWER SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 86, name: "CONFUSIÓN", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 543, name: "IMPULSO CRUZADO", type: "Tiro", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["606:POWER SHOT","86:CONFUSIÓN","543:IMPULSO CRUZADO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/k/k/kk4dlzkzwd8.png",
     stamina: 100,
     morale: 100,
@@ -4167,7 +4168,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 86, name: "CONFUSIÓN", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 673, name: "GIRO DE BOBINA", type: "Bloqueo", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","86:CONFUSIÓN","673:GIRO DE BOBINA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/e/l/elb22u_7jjm.png",
     stamina: 100,
     morale: 100,
@@ -4213,7 +4214,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 671, name: "ROLLING STEAL", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 232, name: "TELARAÑA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }, { id: 86, name: "CONFUSIÓN", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["671:ROLLING STEAL","232:TELARAÑA","86:CONFUSIÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/1/n/1nqxbrzboqk.png",
     stamina: 100,
     morale: 100,
@@ -4259,7 +4260,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 695, name: "MIGHTY SAVE", type: "Parada", element: "", POT: 50, PP: 50 }, { id: 696, name: "ESCUDO DE PODER", type: "Parada", element: "FIRE", POT: 60, PP: 60 }, { id: 702, name: "GANCHO RELÁMPAGO", type: "Parada", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["695:MIGHTY SAVE","696:ESCUDO DE PODER","702:GANCHO RELÁMPAGO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/3/s/3stl1iltlwk.png",
     stamina: 100,
     morale: 100,
@@ -4305,7 +4306,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 670, name: "CUNNING PULL", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 577, name: "BALÓN FALSO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }, { id: 83, name: "ENTRADA HURACÁN", type: "Regate", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["670:CUNNING PULL","577:BALÓN FALSO","83:ENTRADA HURACÁN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/g/e/gecqy3txmlm.png",
     stamina: 100,
     morale: 100,
@@ -4351,7 +4352,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 670, name: "CUNNING PULL", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 85, name: "ENTRADA DE LLAMAS", type: "Regate", element: "FIRE", POT: 60, PP: 60 }, { id: 543, name: "IMPULSO CRUZADO", type: "Tiro", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["670:CUNNING PULL","85:ENTRADA DE LLAMAS","543:IMPULSO CRUZADO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/m/r/mr_flqyftf8.png",
     stamina: 100,
     morale: 100,
@@ -4397,7 +4398,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 695, name: "MIGHTY SAVE", type: "Parada", element: "", POT: 50, PP: 50 }, { id: 591, name: "EL FÉNIX", type: "Parada", element: "WIND", POT: 50, PP: 50 }, { id: 243, name: "ESPIRAL DE DISTORSIÓN ", type: "Parada", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["695:MIGHTY SAVE","591:EL FÉNIX","243:ESPIRAL DE DISTORSIÓN "]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/t/b/tb-t5rxymcu.png",
     stamina: 100,
     morale: 100,
@@ -4443,7 +4444,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 668, name: "SHOULDER TACKLE", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 234, name: "PUNTADA DE SOMBRA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }, { id: 501, name: "CLON FALSO", type: "Regate", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["668:SHOULDER TACKLE","234:PUNTADA DE SOMBRA","501:CLON FALSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/n/u/nudyqmi6t8k.png",
     stamina: 100,
     morale: 100,
@@ -4489,7 +4490,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 668, name: "SHOULDER TACKLE", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 650, name: "IMAGEN RESIDUAL", type: "Regate", element: "WOOD", POT: 60, PP: 60 }, { id: 232, name: "TELARAÑA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["668:SHOULDER TACKLE","650:IMAGEN RESIDUAL","232:TELARAÑA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/8/g/8gs5hzea-pm.png",
     stamina: 100,
     morale: 100,
@@ -4535,7 +4536,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 667, name: "FEINT PLAY", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 578, name: "PISOTÓN DE SUMO", type: "Bloqueo", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 234, name: "PUNTADA DE SOMBRA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["667:FEINT PLAY","578:PISOTÓN DE SUMO","234:PUNTADA DE SOMBRA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/-/n/-nrlpqws7jm.png",
     stamina: 100,
     morale: 100,
@@ -4581,7 +4582,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 669, name: "CURVING CUT", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 578, name: "PISOTÓN DE SUMO", type: "Bloqueo", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 234, name: "PUNTADA DE SOMBRA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["669:CURVING CUT","578:PISOTÓN DE SUMO","234:PUNTADA DE SOMBRA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/p/p/ppaeevwww6k.png",
     stamina: 100,
     morale: 100,
@@ -4627,7 +4628,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 232, name: "TELARAÑA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }, { id: 650, name: "IMAGEN RESIDUAL", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","232:TELARAÑA","650:IMAGEN RESIDUAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/g/vg5xxifejau.png",
     stamina: 100,
     morale: 100,
@@ -4673,7 +4674,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 501, name: "CLON FALSO", type: "Regate", element: "WOOD", POT: 50, PP: 50 }, { id: 601, name: "TIRO FANTASMA", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","501:CLON FALSO","601:TIRO FANTASMA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/e/i/eiiq63jkop8.png",
     stamina: 100,
     morale: 100,
@@ -4719,7 +4720,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 566, name: "GIRO DE MONO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 548, name: "BOLA DE TIERRA", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["645:NUTMEG","566:GIRO DE MONO","548:BOLA DE TIERRA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/q/i/qi3il6ggpwu.png",
     stamina: 100,
     morale: 100,
@@ -4765,7 +4766,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 606, name: "POWER SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 231, name: "DESENFUNDE RÁPIDO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }, { id: 234, name: "PUNTADA DE SOMBRA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["606:POWER SHOT","231:DESENFUNDE RÁPIDO","234:PUNTADA DE SOMBRA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/b/k/bkgpmfg8el8.png",
     stamina: 100,
     morale: 100,
@@ -4811,7 +4812,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 650, name: "IMAGEN RESIDUAL", type: "Regate", element: "WOOD", POT: 60, PP: 60 }, { id: 83, name: "ENTRADA HURACÁN", type: "Regate", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","650:IMAGEN RESIDUAL","83:ENTRADA HURACÁN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/1/i/1idk8ep1ljc.png",
     stamina: 100,
     morale: 100,
@@ -4857,7 +4858,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 607, name: "LOW DRIVE", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 548, name: "BOLA DE TIERRA", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 650, name: "IMAGEN RESIDUAL", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["607:LOW DRIVE","548:BOLA DE TIERRA","650:IMAGEN RESIDUAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/e/k/eksfr7ppi60.png",
     stamina: 100,
     morale: 100,
@@ -4903,7 +4904,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 607, name: "LOW DRIVE", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 83, name: "ENTRADA HURACÁN", type: "Regate", element: "WIND", POT: 60, PP: 60 }, { id: 650, name: "IMAGEN RESIDUAL", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["607:LOW DRIVE","83:ENTRADA HURACÁN","650:IMAGEN RESIDUAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/k/l/klpwcmch9ae.png",
     stamina: 100,
     morale: 100,
@@ -4949,7 +4950,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 670, name: "CUNNING PULL", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 578, name: "PISOTÓN DE SUMO", type: "Bloqueo", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 544, name: "PICADA DEL CÓNDOR", type: "Tiro", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["670:CUNNING PULL","578:PISOTÓN DE SUMO","544:PICADA DEL CÓNDOR"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/n/vn-rvz69qps.png",
     stamina: 100,
     morale: 100,
@@ -4995,7 +4996,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 650, name: "IMAGEN RESIDUAL", type: "Regate", element: "WOOD", POT: 60, PP: 60 }, { id: 28, name: "REMATE COMBINADO", type: "Tiro", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["642:DUST KICK","650:IMAGEN RESIDUAL","28:REMATE COMBINADO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/x/s/xs5nbaorvvs.png",
     stamina: 100,
     morale: 100,
@@ -5041,7 +5042,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 650, name: "IMAGEN RESIDUAL", type: "Regate", element: "WOOD", POT: 60, PP: 60 }, { id: 232, name: "TELARAÑA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["642:DUST KICK","650:IMAGEN RESIDUAL","232:TELARAÑA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/m/e/meiss_or4ce.png",
     stamina: 100,
     morale: 100,
@@ -5087,7 +5088,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 693, name: "STRONG PUNCH", type: "Parada", element: "", POT: 50, PP: 50 }, { id: 698, name: "BLOQUE DUREZA ", type: "Parada", element: "MOUNTAIN", POT: 60, PP: 60 }, { id: 591, name: "EL FÉNIX", type: "Parada", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["693:STRONG PUNCH","698:BLOQUE DUREZA ","591:EL FÉNIX"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/g/r/grrz_i7jn80.png",
     stamina: 100,
     morale: 100,
@@ -5133,7 +5134,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 693, name: "STRONG PUNCH", type: "Parada", element: "", POT: 50, PP: 50 }, { id: 590, name: "DESPEJE DE LEÑADOR ", type: "Parada", element: "MOUNTAIN", POT: 60, PP: 60 }, { id: 129, name: "MURALLA INFINITA ", type: "Parada", element: "MOUNTAIN", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["693:STRONG PUNCH","590:DESPEJE DE LEÑADOR ","129:MURALLA INFINITA "]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/_/x/_xzxavtxgje.png",
     stamina: 100,
     morale: 100,
@@ -5179,7 +5180,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 671, name: "ROLLING STEAL", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 614, name: "CABEZAZO KUNG FU", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }, { id: 564, name: "TORBELLINO GIRATORIO", type: "Regate", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["671:ROLLING STEAL","614:CABEZAZO KUNG FU","564:TORBELLINO GIRATORIO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/f/4/f4qetiy5zd0.png",
     stamina: 100,
     morale: 100,
@@ -5225,7 +5226,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 671, name: "ROLLING STEAL", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 231, name: "DESENFUNDE RÁPIDO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }, { id: 103, name: "PATRÓN DE BAMBÚ", type: "Bloqueo", element: "MOUNTAIN", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["671:ROLLING STEAL","231:DESENFUNDE RÁPIDO","103:PATRÓN DE BAMBÚ"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/u/q/uqhl-3-dewc.png",
     stamina: 100,
     morale: 100,
@@ -5271,7 +5272,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "GK"
     },
-    techniques: [{ id: 669, name: "CURVING CUT", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 515, name: "COSECHA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }, { id: 674, name: "TERREMOTO", type: "Bloqueo", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["669:CURVING CUT","515:COSECHA","674:TERREMOTO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/s/x/sxm5qusvb2c.png",
     stamina: 100,
     morale: 100,
@@ -5317,7 +5318,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 669, name: "CURVING CUT", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 515, name: "COSECHA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["669:CURVING CUT","515:COSECHA","609:TIRO GRANADA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/d/z/dzxy9rkv2f0.png",
     stamina: 100,
     morale: 100,
@@ -5363,7 +5364,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 515, name: "COSECHA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }, { id: 676, name: "CORTE GIRATORIO", type: "Bloqueo", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","515:COSECHA","676:CORTE GIRATORIO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/9/2/920tum_ddle.png",
     stamina: 100,
     morale: 100,
@@ -5409,7 +5410,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 651, name: "FINTA DEL TOPO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 546, name: "IMPULSO BRILLANTE", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","651:FINTA DEL TOPO","546:IMPULSO BRILLANTE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/m/e/mefmdzznuws.png",
     stamina: 100,
     morale: 100,
@@ -5455,7 +5456,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 614, name: "CABEZAZO KUNG FU", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }, { id: 211, name: "TIRO DE CAMPANARIO", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["646:FEINT DASH","614:CABEZAZO KUNG FU","211:TIRO DE CAMPANARIO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/4/0/406uy-afjpe.png",
     stamina: 100,
     morale: 100,
@@ -5501,7 +5502,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 545, name: "CORRE BALÓN CORRE", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }, { id: 564, name: "TORBELLINO GIRATORIO", type: "Regate", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","545:CORRE BALÓN CORRE","564:TORBELLINO GIRATORIO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/j/c/jcl1fb8_kas.png",
     stamina: 100,
     morale: 100,
@@ -5547,7 +5548,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 651, name: "FINTA DEL TOPO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 545, name: "CORRE BALÓN CORRE", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","651:FINTA DEL TOPO","545:CORRE BALÓN CORRE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/n/0/n0q4fa12f2m.png",
     stamina: 100,
     morale: 100,
@@ -5593,7 +5594,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 604, name: "CURVE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 546, name: "IMPULSO BRILLANTE", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }, { id: 83, name: "ENTRADA HURACÁN", type: "Regate", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["604:CURVE SHOT","546:IMPULSO BRILLANTE","83:ENTRADA HURACÁN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/w/c/wchzo_tmofk.png",
     stamina: 100,
     morale: 100,
@@ -5639,7 +5640,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 694, name: "Parada Fuerte", type: "Parada", element: "", POT: 50, PP: 50 }, { id: 590, name: "DESPEJE DE LEÑADOR ", type: "Parada", element: "MOUNTAIN", POT: 60, PP: 60 }, { id: 528, name: "VOLTEADOR DE MESAS", type: "Parada", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["694:Parada Fuerte","590:DESPEJE DE LEÑADOR ","528:VOLTEADOR DE MESAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/2/z/2zcs7imedlu.png",
     stamina: 100,
     morale: 100,
@@ -5685,7 +5686,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 671, name: "ROLLING STEAL", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 651, name: "FINTA DEL TOPO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 676, name: "CORTE GIRATORIO", type: "Bloqueo", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["671:ROLLING STEAL","651:FINTA DEL TOPO","676:CORTE GIRATORIO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/h/b/hbznwda-ww8.png",
     stamina: 100,
     morale: 100,
@@ -5731,7 +5732,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 671, name: "ROLLING STEAL", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 231, name: "DESENFUNDE RÁPIDO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }, { id: 566, name: "GIRO DE MONO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["671:ROLLING STEAL","231:DESENFUNDE RÁPIDO","566:GIRO DE MONO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/f/6/f60r4ess1q8.png",
     stamina: 100,
     morale: 100,
@@ -5777,7 +5778,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 670, name: "CUNNING PULL", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 578, name: "PISOTÓN DE SUMO", type: "Bloqueo", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 515, name: "COSECHA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["670:CUNNING PULL","578:PISOTÓN DE SUMO","515:COSECHA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/0/s/0sfwv70oyju.png",
     stamina: 100,
     morale: 100,
@@ -5823,7 +5824,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 668, name: "SHOULDER TACKLE", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 547, name: "PATADA TARZÁN", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 232, name: "TELARAÑA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["668:SHOULDER TACKLE","547:PATADA TARZÁN","232:TELARAÑA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/u/9/u9mfgmbgtdk.png",
     stamina: 100,
     morale: 100,
@@ -5869,7 +5870,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 694, name: "Parada Fuerte", type: "Parada", element: "", POT: 50, PP: 50 }, { id: 698, name: "BLOQUE DUREZA ", type: "Parada", element: "MOUNTAIN", POT: 60, PP: 60 }, { id: 590, name: "DESPEJE DE LEÑADOR ", type: "Parada", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["694:Parada Fuerte","698:BLOQUE DUREZA ","590:DESPEJE DE LEÑADOR "]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/f/x/fxn30donyam.png",
     stamina: 100,
     morale: 100,
@@ -5915,7 +5916,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 668, name: "SHOULDER TACKLE", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 565, name: "ACELERADOR DE CARRERA", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 676, name: "CORTE GIRATORIO", type: "Bloqueo", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["668:SHOULDER TACKLE","565:ACELERADOR DE CARRERA","676:CORTE GIRATORIO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/_/4/_4ecna7ft68.png",
     stamina: 100,
     morale: 100,
@@ -5961,7 +5962,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 669, name: "CURVING CUT", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 231, name: "DESENFUNDE RÁPIDO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }, { id: 675, name: "FLECHAS HURACÁN", type: "Bloqueo", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["669:CURVING CUT","231:DESENFUNDE RÁPIDO","675:FLECHAS HURACÁN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/o/q/oq1jk_d_aju.png",
     stamina: 100,
     morale: 100,
@@ -6007,7 +6008,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 667, name: "FEINT PLAY", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 676, name: "CORTE GIRATORIO", type: "Bloqueo", element: "WIND", POT: 50, PP: 50 }, { id: 674, name: "TERREMOTO", type: "Bloqueo", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["667:FEINT PLAY","676:CORTE GIRATORIO","674:TERREMOTO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/m/x/mxy_kmptfpu.png",
     stamina: 100,
     morale: 100,
@@ -6053,7 +6054,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 670, name: "CUNNING PULL", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 673, name: "GIRO DE BOBINA", type: "Bloqueo", element: "WIND", POT: 50, PP: 50 }, { id: 675, name: "FLECHAS HURACÁN", type: "Bloqueo", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["670:CUNNING PULL","673:GIRO DE BOBINA","675:FLECHAS HURACÁN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/9/z/9zdejzppo88.png",
     stamina: 100,
     morale: 100,
@@ -6099,7 +6100,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 616, name: "TORNADO TRASERO", type: "Tiro", element: "WIND", POT: 60, PP: 60 }, { id: 231, name: "DESENFUNDE RÁPIDO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["642:DUST KICK","616:TORNADO TRASERO","231:DESENFUNDE RÁPIDO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/d/2/d2graechdcm.png",
     stamina: 100,
     morale: 100,
@@ -6145,7 +6146,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 566, name: "GIRO DE MONO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 616, name: "TORNADO TRASERO", type: "Tiro", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","566:GIRO DE MONO","616:TORNADO TRASERO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/s/e/serk376bwvk.png",
     stamina: 100,
     morale: 100,
@@ -6191,7 +6192,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }, { id: 28, name: "REMATE COMBINADO", type: "Tiro", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["646:FEINT DASH","84:ESPEJISMO DE BALÓN","28:REMATE COMBINADO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/y/0/y0usg255xqm.png",
     stamina: 100,
     morale: 100,
@@ -6237,7 +6238,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 607, name: "LOW DRIVE", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 33, name: "TRIANGULO Z", type: "Tiro", element: "FIRE", POT: 70, PP: 70 }, { id: 616, name: "TORNADO TRASERO", type: "Tiro", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["607:LOW DRIVE","33:TRIANGULO Z","616:TORNADO TRASERO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/p/c/pcfzrjfd6jk.png",
     stamina: 100,
     morale: 100,
@@ -6283,7 +6284,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 604, name: "CURVE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 616, name: "TORNADO TRASERO", type: "Tiro", element: "WIND", POT: 60, PP: 60 }, { id: 672, name: "BARRIDO DEFENSIVO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["604:CURVE SHOT","616:TORNADO TRASERO","672:BARRIDO DEFENSIVO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/h/0/h0e-xiwkbpe.png",
     stamina: 100,
     morale: 100,
@@ -6329,7 +6330,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 607, name: "LOW DRIVE", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 676, name: "CORTE GIRATORIO", type: "Bloqueo", element: "WIND", POT: 50, PP: 50 }, { id: 616, name: "TORNADO TRASERO", type: "Tiro", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["607:LOW DRIVE","676:CORTE GIRATORIO","616:TORNADO TRASERO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/2/c/2c1fc3ww28s.png",
     stamina: 100,
     morale: 100,
@@ -6375,7 +6376,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 694, name: "Parada Fuerte", type: "Parada", element: "", POT: 50, PP: 50 }, { id: 699, name: "ESCUDO DE FUERZA TOTAL ", type: "Parada", element: "FIRE", POT: 70, PP: 70 }, { id: 565, name: "ACELERADOR DE CARRERA", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["694:Parada Fuerte","699:ESCUDO DE FUERZA TOTAL ","565:ACELERADOR DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/w/z/wzwqpqf4dcc.png",
     stamina: 100,
     morale: 100,
@@ -6421,7 +6422,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 565, name: "ACELERADOR DE CARRERA", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 102, name: "TIRÓN FANTASMA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","565:ACELERADOR DE CARRERA","102:TIRÓN FANTASMA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/n/b/nbnlivjcuv0.png",
     stamina: 100,
     morale: 100,
@@ -6467,7 +6468,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 564, name: "TORBELLINO GIRATORIO", type: "Regate", element: "WIND", POT: 50, PP: 50 }, { id: 676, name: "CORTE GIRATORIO", type: "Bloqueo", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","564:TORBELLINO GIRATORIO","676:CORTE GIRATORIO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/l/6/l6gxmmxurp0.png",
     stamina: 100,
     morale: 100,
@@ -6513,7 +6514,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 667, name: "FEINT PLAY", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 102, name: "TIRÓN FANTASMA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }, { id: 579, name: "ATAQUE DE CUCHILLA", type: "Bloqueo", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["667:FEINT PLAY","102:TIRÓN FANTASMA","579:ATAQUE DE CUCHILLA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/u/s/usr2hzxugac.png",
     stamina: 100,
     morale: 100,
@@ -6559,7 +6560,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 667, name: "FEINT PLAY", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 672, name: "BARRIDO DEFENSIVO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }, { id: 610, name: "TIRO GIRATORIO", type: "Tiro", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["667:FEINT PLAY","672:BARRIDO DEFENSIVO","610:TIRO GIRATORIO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/0/9/09ydyuicz6s.png",
     stamina: 100,
     morale: 100,
@@ -6605,7 +6606,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 693, name: "STRONG PUNCH", type: "Parada", element: "", POT: 50, PP: 50 }, { id: 127, name: "MURO TSUNAMI", type: "Parada", element: "WIND", POT: 70, PP: 70 }, { id: 245, name: "MURALLA GIGANTE ", type: "Parada", element: "MOUNTAIN", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["693:STRONG PUNCH","127:MURO TSUNAMI","245:MURALLA GIGANTE "]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/b/7/b7piycz2hdk.png",
     stamina: 100,
     morale: 100,
@@ -6651,7 +6652,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 670, name: "CUNNING PULL", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 546, name: "IMPULSO BRILLANTE", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }, { id: 505, name: "TORMENTA DE CARRERA", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["670:CUNNING PULL","546:IMPULSO BRILLANTE","505:TORMENTA DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/7/u/7uk9hbs-y9u.png",
     stamina: 100,
     morale: 100,
@@ -6697,7 +6698,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 671, name: "ROLLING STEAL", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 505, name: "TORMENTA DE CARRERA", type: "Regate", element: "WIND", POT: 70, PP: 70 }, { id: 235, name: "BAILE DE LLAMAS", type: "Bloqueo", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["671:ROLLING STEAL","505:TORMENTA DE CARRERA","235:BAILE DE LLAMAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/k/8/k87cm-kefo8.png",
     stamina: 100,
     morale: 100,
@@ -6743,7 +6744,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 670, name: "CUNNING PULL", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 102, name: "TIRÓN FANTASMA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }, { id: 87, name: "HORA CELESTIAL", type: "Regate", element: "WIND", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["670:CUNNING PULL","102:TIRÓN FANTASMA","87:HORA CELESTIAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/i/d/id8ainyoai8.png",
     stamina: 100,
     morale: 100,
@@ -6789,7 +6790,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 670, name: "CUNNING PULL", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 677, name: "MEGA TERREMOTO", type: "Bloqueo", element: "MOUNTAIN", POT: 70, PP: 70 }, { id: 0, name: "Zigzag Spark", type: "Tiro", element: "", POT: 0, PP: 0 }],
+    techniques: getSupertechniques(["670:CUNNING PULL","677:MEGA TERREMOTO","0:Zigzag Spark"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/5/1/51nhpy-s37u.png",
     stamina: 100,
     morale: 100,
@@ -6835,7 +6836,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 87, name: "HORA CELESTIAL", type: "Regate", element: "WIND", POT: 80, PP: 80 }, { id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["645:NUTMEG","87:HORA CELESTIAL","84:ESPEJISMO DE BALÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/z/a/zauucflacbk.png",
     stamina: 100,
     morale: 100,
@@ -6881,7 +6882,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 87, name: "HORA CELESTIAL", type: "Regate", element: "WIND", POT: 80, PP: 80 }, { id: 233, name: "CICLÓN", type: "Bloqueo", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","87:HORA CELESTIAL","233:CICLÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/o/y/oyf1x6tgvom.png",
     stamina: 100,
     morale: 100,
@@ -6927,7 +6928,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 505, name: "TORMENTA DE CARRERA", type: "Regate", element: "WIND", POT: 70, PP: 70 }, { id: 676, name: "CORTE GIRATORIO", type: "Bloqueo", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["642:DUST KICK","505:TORMENTA DE CARRERA","676:CORTE GIRATORIO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/c/y/cygta3ucixk.png",
     stamina: 100,
     morale: 100,
@@ -6973,7 +6974,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 607, name: "LOW DRIVE", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 613, name: "ROMPEDOR REFLEJO", type: "Tiro", element: "MOUNTAIN", POT: 60, PP: 60 }, { id: 505, name: "TORMENTA DE CARRERA", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["607:LOW DRIVE","613:ROMPEDOR REFLEJO","505:TORMENTA DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/t/w/twrmtii4lkm.png",
     stamina: 100,
     morale: 100,
@@ -7019,7 +7020,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 35, name: "SABIDURÍA DIVINA", type: "Tiro", element: "WIND", POT: 70, PP: 70 }, { id: 87, name: "HORA CELESTIAL", type: "Regate", element: "WIND", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["642:DUST KICK","35:SABIDURÍA DIVINA","87:HORA CELESTIAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/d/y/dykb3jbxeis.png",
     stamina: 100,
     morale: 100,
@@ -7065,7 +7066,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 615, name: "FLECHAS DIVINAS", type: "Tiro", element: "WIND", POT: 60, PP: 60 }, { id: 672, name: "BARRIDO DEFENSIVO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["646:FEINT DASH","615:FLECHAS DIVINAS","672:BARRIDO DEFENSIVO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/y/w/yw7ga2nlp7e.png",
     stamina: 100,
     morale: 100,
@@ -7111,7 +7112,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 693, name: "STRONG PUNCH", type: "Parada", element: "", POT: 50, PP: 50 }, { id: 127, name: "MURO TSUNAMI", type: "Parada", element: "WIND", POT: 70, PP: 70 }, { id: 596, name: "DESCENSO ESTELAR", type: "Parada", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["693:STRONG PUNCH","127:MURO TSUNAMI","596:DESCENSO ESTELAR"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/s/f/sfyvjrsdcb0.png",
     stamina: 100,
     morale: 100,
@@ -7157,7 +7158,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 603, name: "CHIP SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 579, name: "ATAQUE DE CUCHILLA", type: "Bloqueo", element: "WIND", POT: 50, PP: 50 }, { id: 102, name: "TIRÓN FANTASMA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["603:CHIP SHOT","579:ATAQUE DE CUCHILLA","102:TIRÓN FANTASMA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/j/3/j3p0ku05xoc.png",
     stamina: 100,
     morale: 100,
@@ -7203,7 +7204,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 670, name: "CUNNING PULL", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 578, name: "PISOTÓN DE SUMO", type: "Bloqueo", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 674, name: "TERREMOTO", type: "Bloqueo", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["670:CUNNING PULL","578:PISOTÓN DE SUMO","674:TERREMOTO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/h/w/hwuoknmv0uc.png",
     stamina: 100,
     morale: 100,
@@ -7249,7 +7250,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 671, name: "ROLLING STEAL", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 87, name: "HORA CELESTIAL", type: "Regate", element: "WIND", POT: 80, PP: 80 }, { id: 614, name: "CABEZAZO KUNG FU", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["671:ROLLING STEAL","87:HORA CELESTIAL","614:CABEZAZO KUNG FU"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/q/-/q-fjnyavzd0.png",
     stamina: 100,
     morale: 100,
@@ -7295,7 +7296,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 232, name: "TELARAÑA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }, { id: 204, name: "TIRO CONGELANTE", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["646:FEINT DASH","232:TELARAÑA","204:TIRO CONGELANTE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/w/r/wr880v1ns9e.png",
     stamina: 100,
     morale: 100,
@@ -7341,7 +7342,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 695, name: "MIGHTY SAVE", type: "Parada", element: "", POT: 50, PP: 50 }, { id: 242, name: "DESPEJE DE FUEGO", type: "Parada", element: "FIRE", POT: 50, PP: 50 }, { id: 592, name: "PUÑO COHETE", type: "Parada", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["695:MIGHTY SAVE","242:DESPEJE DE FUEGO","592:PUÑO COHETE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/9/5/95cfyipzc3u.png",
     stamina: 100,
     morale: 100,
@@ -7387,7 +7388,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 668, name: "SHOULDER TACKLE", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 565, name: "ACELERADOR DE CARRERA", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 672, name: "BARRIDO DEFENSIVO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["668:SHOULDER TACKLE","565:ACELERADOR DE CARRERA","672:BARRIDO DEFENSIVO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/d/w/dw_wlv6r3xk.png",
     stamina: 100,
     morale: 100,
@@ -7433,7 +7434,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 667, name: "FEINT PLAY", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 83, name: "ENTRADA HURACÁN", type: "Regate", element: "WIND", POT: 60, PP: 60 }, { id: 86, name: "CONFUSIÓN", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["667:FEINT PLAY","83:ENTRADA HURACÁN","86:CONFUSIÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/s/-/s-ormqcrakm.png",
     stamina: 100,
     morale: 100,
@@ -7479,7 +7480,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 669, name: "CURVING CUT", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 232, name: "TELARAÑA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }, { id: 584, name: "OJO DEL LADRÓN", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["669:CURVING CUT","232:TELARAÑA","584:OJO DEL LADRÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/u/f/ufjnizohfim.png",
     stamina: 100,
     morale: 100,
@@ -7525,7 +7526,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 670, name: "CUNNING PULL", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 565, name: "ACELERADOR DE CARRERA", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 674, name: "TERREMOTO", type: "Bloqueo", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["670:CUNNING PULL","565:ACELERADOR DE CARRERA","674:TERREMOTO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/f/3/f34slmo9yrk.png",
     stamina: 100,
     morale: 100,
@@ -7571,7 +7572,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 565, name: "ACELERADOR DE CARRERA", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 86, name: "CONFUSIÓN", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["645:NUTMEG","565:ACELERADOR DE CARRERA","86:CONFUSIÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/_/y/_ybz2rd1hxu.png",
     stamina: 100,
     morale: 100,
@@ -7617,7 +7618,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 673, name: "GIRO DE BOBINA", type: "Bloqueo", element: "WIND", POT: 50, PP: 50 }, { id: 0, name: "Zigzag Spark", type: "Tiro", element: "", POT: 0, PP: 0 }],
+    techniques: getSupertechniques(["646:FEINT DASH","673:GIRO DE BOBINA","0:Zigzag Spark"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/o/w/owq4bu7pqc8.png",
     stamina: 100,
     morale: 100,
@@ -7663,7 +7664,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 83, name: "ENTRADA HURACÁN", type: "Regate", element: "WIND", POT: 60, PP: 60 }, { id: 231, name: "DESENFUNDE RÁPIDO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["646:FEINT DASH","83:ENTRADA HURACÁN","231:DESENFUNDE RÁPIDO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/6/a/6avgqj4tn9u.png",
     stamina: 100,
     morale: 100,
@@ -7709,7 +7710,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 605, name: "BOUNCE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 565, name: "ACELERADOR DE CARRERA", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 0, name: "Zigzag Spark", type: "Tiro", element: "", POT: 0, PP: 0 }],
+    techniques: getSupertechniques(["605:BOUNCE SHOT","565:ACELERADOR DE CARRERA","0:Zigzag Spark"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/l/y/lykbhcexgo8.png",
     stamina: 100,
     morale: 100,
@@ -7755,7 +7756,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 565, name: "ACELERADOR DE CARRERA", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 231, name: "DESENFUNDE RÁPIDO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","565:ACELERADOR DE CARRERA","231:DESENFUNDE RÁPIDO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/l/a/la_mddxebic.png",
     stamina: 100,
     morale: 100,
@@ -7801,7 +7802,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 607, name: "LOW DRIVE", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 565, name: "ACELERADOR DE CARRERA", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 618, name: "ARCO IRIS", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["607:LOW DRIVE","565:ACELERADOR DE CARRERA","618:ARCO IRIS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/u/y/uyotwixksr0.png",
     stamina: 100,
     morale: 100,
@@ -7847,7 +7848,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 83, name: "ENTRADA HURACÁN", type: "Regate", element: "WIND", POT: 60, PP: 60 }, { id: 577, name: "BALÓN FALSO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","83:ENTRADA HURACÁN","577:BALÓN FALSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/0/d/0dtyj_eszxe.png",
     stamina: 100,
     morale: 100,
@@ -7893,7 +7894,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 603, name: "CHIP SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 564, name: "TORBELLINO GIRATORIO", type: "Regate", element: "WIND", POT: 50, PP: 50 }, { id: 676, name: "CORTE GIRATORIO", type: "Bloqueo", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["603:CHIP SHOT","564:TORBELLINO GIRATORIO","676:CORTE GIRATORIO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/f/1/f1c5oaiw0cs.png",
     stamina: 100,
     morale: 100,
@@ -7939,7 +7940,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 606, name: "POWER SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 612, name: "TIRO ESPIRAL", type: "Tiro", element: "WIND", POT: 50, PP: 50 }, { id: 578, name: "PISOTÓN DE SUMO", type: "Bloqueo", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["606:POWER SHOT","612:TIRO ESPIRAL","578:PISOTÓN DE SUMO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/h/u/hublgzw6xes.png",
     stamina: 100,
     morale: 100,
@@ -7985,7 +7986,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }, { id: 0, name: "Zigzag Spark", type: "Tiro", element: "", POT: 0, PP: 0 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","84:ESPEJISMO DE BALÓN","0:Zigzag Spark"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/2/8/28qenmwac3e.png",
     stamina: 100,
     morale: 100,
@@ -8031,7 +8032,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 693, name: "STRONG PUNCH", type: "Parada", element: "", POT: 50, PP: 50 }, { id: 698, name: "BLOQUE DUREZA ", type: "Parada", element: "MOUNTAIN", POT: 60, PP: 60 }, { id: 117, name: "TREN DESBOCADO", type: "Bloqueo", element: "FIRE", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["693:STRONG PUNCH","698:BLOQUE DUREZA ","117:TREN DESBOCADO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/w/t/wtjxe7jipx0.png",
     stamina: 100,
     morale: 100,
@@ -8077,7 +8078,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 669, name: "CURVING CUT", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 233, name: "CICLÓN", type: "Bloqueo", element: "WIND", POT: 60, PP: 60 }, { id: 0, name: "Zigzag Spark", type: "Tiro", element: "", POT: 0, PP: 0 }],
+    techniques: getSupertechniques(["669:CURVING CUT","233:CICLÓN","0:Zigzag Spark"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/p/a/paysyrasxo0.png",
     stamina: 100,
     morale: 100,
@@ -8123,7 +8124,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 669, name: "CURVING CUT", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 676, name: "CORTE GIRATORIO", type: "Bloqueo", element: "WIND", POT: 50, PP: 50 }, { id: 37, name: "PÁJARO DE FUEGO", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["669:CURVING CUT","676:CORTE GIRATORIO","37:PÁJARO DE FUEGO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/-/o/-odnfumo6bc.png",
     stamina: 100,
     morale: 100,
@@ -8169,7 +8170,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 671, name: "ROLLING STEAL", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 233, name: "CICLÓN", type: "Bloqueo", element: "WIND", POT: 60, PP: 60 }, { id: 31, name: "REMATE DRAGÓN", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["671:ROLLING STEAL","233:CICLÓN","31:REMATE DRAGÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/8/j/8jerx30e_dc.png",
     stamina: 100,
     morale: 100,
@@ -8215,7 +8216,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 579, name: "ATAQUE DE CUCHILLA", type: "Bloqueo", element: "WIND", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["642:DUST KICK","579:ATAQUE DE CUCHILLA","609:TIRO GRANADA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/n/h/nh1wcis-su0.png",
     stamina: 100,
     morale: 100,
@@ -8261,7 +8262,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 0, name: "Zigzag Spark", type: "Tiro", element: "", POT: 0, PP: 0 }, { id: 34, name: "BATEO TOTAL", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["645:NUTMEG","0:Zigzag Spark","34:BATEO TOTAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/t/o/towfpvn2noe.png",
     stamina: 100,
     morale: 100,
@@ -8307,7 +8308,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 543, name: "IMPULSO CRUZADO", type: "Tiro", element: "WIND", POT: 50, PP: 50 }, { id: 676, name: "CORTE GIRATORIO", type: "Bloqueo", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["645:NUTMEG","543:IMPULSO CRUZADO","676:CORTE GIRATORIO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/c/m/cmnkiqbmk9s.png",
     stamina: 100,
     morale: 100,
@@ -8353,7 +8354,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 543, name: "IMPULSO CRUZADO", type: "Tiro", element: "WIND", POT: 50, PP: 50 }, { id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","543:IMPULSO CRUZADO","84:ESPEJISMO DE BALÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/o/m/omy8tncutce.png",
     stamina: 100,
     morale: 100,
@@ -8399,7 +8400,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 607, name: "LOW DRIVE", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 601, name: "TIRO FANTASMA", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }, { id: 27, name: "TRAMPOLÍN RELÁMPAGO", type: "Tiro", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["607:LOW DRIVE","601:TIRO FANTASMA","27:TRAMPOLÍN RELÁMPAGO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/z/k/zkpd-ykuaxs.png",
     stamina: 100,
     morale: 100,
@@ -8445,7 +8446,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 0, name: "Zigzag Spark", type: "Tiro", element: "", POT: 0, PP: 0 }, { id: 85, name: "ENTRADA DE LLAMAS", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","0:Zigzag Spark","85:ENTRADA DE LLAMAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/3/m/3myqkztdhdm.png",
     stamina: 100,
     morale: 100,
@@ -8491,7 +8492,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 604, name: "CURVE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 37, name: "PÁJARO DE FUEGO", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }, { id: 85, name: "ENTRADA DE LLAMAS", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["604:CURVE SHOT","37:PÁJARO DE FUEGO","85:ENTRADA DE LLAMAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/g/k/gkdxjmlnmuk.png",
     stamina: 100,
     morale: 100,
@@ -8537,7 +8538,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 605, name: "BOUNCE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 579, name: "ATAQUE DE CUCHILLA", type: "Bloqueo", element: "WIND", POT: 50, PP: 50 }, { id: 234, name: "PUNTADA DE SOMBRA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["605:BOUNCE SHOT","579:ATAQUE DE CUCHILLA","234:PUNTADA DE SOMBRA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/m/l/mlgea7-v5ou.png",
     stamina: 100,
     morale: 100,
@@ -8583,7 +8584,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 603, name: "CHIP SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 579, name: "ATAQUE DE CUCHILLA", type: "Bloqueo", element: "WIND", POT: 50, PP: 50 }, { id: 614, name: "CABEZAZO KUNG FU", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["603:CHIP SHOT","579:ATAQUE DE CUCHILLA","614:CABEZAZO KUNG FU"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/x/j/xjrl3eyvu98.png",
     stamina: 100,
     morale: 100,
@@ -8629,7 +8630,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 564, name: "TORBELLINO GIRATORIO", type: "Regate", element: "WIND", POT: 50, PP: 50 }, { id: 548, name: "BOLA DE TIERRA", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["642:DUST KICK","564:TORBELLINO GIRATORIO","548:BOLA DE TIERRA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/c/vcw5zdk5r78.png",
     stamina: 100,
     morale: 100,
@@ -8675,7 +8676,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 669, name: "CURVING CUT", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 672, name: "BARRIDO DEFENSIVO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }, { id: 674, name: "TERREMOTO", type: "Bloqueo", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["669:CURVING CUT","672:BARRIDO DEFENSIVO","674:TERREMOTO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/k/q/kqny0isd8iu.png",
     stamina: 100,
     morale: 100,
@@ -8721,7 +8722,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 669, name: "CURVING CUT", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 0, name: "Zigzag Spark", type: "Tiro", element: "", POT: 0, PP: 0 }, { id: 673, name: "GIRO DE BOBINA", type: "Bloqueo", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["669:CURVING CUT","0:Zigzag Spark","673:GIRO DE BOBINA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/e/f/efetn_zljok.png",
     stamina: 100,
     morale: 100,
@@ -8767,7 +8768,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 695, name: "MIGHTY SAVE", type: "Parada", element: "", POT: 50, PP: 50 }, { id: 591, name: "EL FÉNIX", type: "Parada", element: "WIND", POT: 50, PP: 50 }, { id: 590, name: "DESPEJE DE LEÑADOR ", type: "Parada", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["695:MIGHTY SAVE","591:EL FÉNIX","590:DESPEJE DE LEÑADOR "]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/d/5/d5idsaslcoc.png",
     stamina: 100,
     morale: 100,
@@ -8813,7 +8814,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 669, name: "CURVING CUT", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 676, name: "CORTE GIRATORIO", type: "Bloqueo", element: "WIND", POT: 50, PP: 50 }, { id: 564, name: "TORBELLINO GIRATORIO", type: "Regate", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["669:CURVING CUT","676:CORTE GIRATORIO","564:TORBELLINO GIRATORIO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/9/w/9wr2_dztpus.png",
     stamina: 100,
     morale: 100,
@@ -8859,7 +8860,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 667, name: "FEINT PLAY", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 231, name: "DESENFUNDE RÁPIDO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }, { id: 541, name: "PATADA RODANTE", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["667:FEINT PLAY","231:DESENFUNDE RÁPIDO","541:PATADA RODANTE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/m/-/m-axsi_xede.png",
     stamina: 100,
     morale: 100,
@@ -8905,7 +8906,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 670, name: "CUNNING PULL", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 672, name: "BARRIDO DEFENSIVO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }, { id: 101, name: "EL MURO", type: "Bloqueo", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["670:CUNNING PULL","672:BARRIDO DEFENSIVO","101:EL MURO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/o/f/ofdl87t7bbe.png",
     stamina: 100,
     morale: 100,
@@ -8951,7 +8952,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 668, name: "SHOULDER TACKLE", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 673, name: "GIRO DE BOBINA", type: "Bloqueo", element: "WIND", POT: 50, PP: 50 }, { id: 579, name: "ATAQUE DE CUCHILLA", type: "Bloqueo", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["668:SHOULDER TACKLE","673:GIRO DE BOBINA","579:ATAQUE DE CUCHILLA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/_/3/_3sqrelbsos.png",
     stamina: 100,
     morale: 100,
@@ -8997,7 +8998,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 34, name: "BATEO TOTAL", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","609:TIRO GRANADA","34:BATEO TOTAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/f/y/fypfcz-jzic.png",
     stamina: 100,
     morale: 100,
@@ -9043,7 +9044,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 565, name: "ACELERADOR DE CARRERA", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 564, name: "TORBELLINO GIRATORIO", type: "Regate", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["646:FEINT DASH","565:ACELERADOR DE CARRERA","564:TORBELLINO GIRATORIO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/u/w/uw--vmyz070.png",
     stamina: 100,
     morale: 100,
@@ -9089,7 +9090,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 577, name: "BALÓN FALSO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }, { id: 565, name: "ACELERADOR DE CARRERA", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["642:DUST KICK","577:BALÓN FALSO","565:ACELERADOR DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/a/a/aabmerbrtec.png",
     stamina: 100,
     morale: 100,
@@ -9135,7 +9136,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 604, name: "CURVE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 565, name: "ACELERADOR DE CARRERA", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 610, name: "TIRO GIRATORIO", type: "Tiro", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["604:CURVE SHOT","565:ACELERADOR DE CARRERA","610:TIRO GIRATORIO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/r/y/rywhzu9r-30.png",
     stamina: 100,
     morale: 100,
@@ -9181,7 +9182,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 83, name: "ENTRADA HURACÁN", type: "Regate", element: "WIND", POT: 60, PP: 60 }, { id: 610, name: "TIRO GIRATORIO", type: "Tiro", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["642:DUST KICK","83:ENTRADA HURACÁN","610:TIRO GIRATORIO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/f/a/farkpv0ifbu.png",
     stamina: 100,
     morale: 100,
@@ -9227,7 +9228,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 603, name: "CHIP SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 0, name: "Zigzag Spark", type: "Tiro", element: "", POT: 0, PP: 0 }, { id: 542, name: "TIRO PATRIOTA", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["603:CHIP SHOT","0:Zigzag Spark","542:TIRO PATRIOTA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/0/y/0yareqsyyo8.png",
     stamina: 100,
     morale: 100,
@@ -9273,7 +9274,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 695, name: "MIGHTY SAVE", type: "Parada", element: "", POT: 50, PP: 50 }, { id: 697, name: "CAMPO DE FUERZA DEFENSIVO ", type: "Parada", element: "WOOD", POT: 50, PP: 50 }, { id: 610, name: "TIRO GIRATORIO", type: "Tiro", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["695:MIGHTY SAVE","697:CAMPO DE FUERZA DEFENSIVO ","610:TIRO GIRATORIO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/u/d/ud5ex3nqhim.png",
     stamina: 100,
     morale: 100,
@@ -9319,7 +9320,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 612, name: "TIRO ESPIRAL", type: "Tiro", element: "WIND", POT: 50, PP: 50 }, { id: 547, name: "PATADA TARZÁN", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["646:FEINT DASH","612:TIRO ESPIRAL","547:PATADA TARZÁN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/l/1/l1i_6ibqq7k.png",
     stamina: 100,
     morale: 100,
@@ -9365,7 +9366,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 671, name: "ROLLING STEAL", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 565, name: "ACELERADOR DE CARRERA", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 649, name: "SÚPER ARMADILLO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["671:ROLLING STEAL","565:ACELERADOR DE CARRERA","649:SÚPER ARMADILLO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/n/u/nupjurtgv9k.png",
     stamina: 100,
     morale: 100,
@@ -9411,7 +9412,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 671, name: "ROLLING STEAL", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 672, name: "BARRIDO DEFENSIVO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }, { id: 698, name: "BLOQUE DUREZA ", type: "Parada", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["671:ROLLING STEAL","672:BARRIDO DEFENSIVO","698:BLOQUE DUREZA "]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/w/8/w8-c5u18com.png",
     stamina: 100,
     morale: 100,
@@ -9457,7 +9458,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 671, name: "ROLLING STEAL", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 541, name: "PATADA RODANTE", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }, { id: 83, name: "ENTRADA HURACÁN", type: "Regate", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["671:ROLLING STEAL","541:PATADA RODANTE","83:ENTRADA HURACÁN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/2/t/2td3qza03u8.png",
     stamina: 100,
     morale: 100,
@@ -9503,7 +9504,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 694, name: "Parada Fuerte", type: "Parada", element: "", POT: 50, PP: 50 }, { id: 698, name: "BLOQUE DUREZA ", type: "Parada", element: "MOUNTAIN", POT: 60, PP: 60 }, { id: 590, name: "DESPEJE DE LEÑADOR ", type: "Parada", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["694:Parada Fuerte","698:BLOQUE DUREZA ","590:DESPEJE DE LEÑADOR "]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/p/v/pvffvewm8xm.png",
     stamina: 100,
     morale: 100,
@@ -9549,7 +9550,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 667, name: "FEINT PLAY", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 650, name: "IMAGEN RESIDUAL", type: "Regate", element: "WOOD", POT: 60, PP: 60 }, { id: 234, name: "PUNTADA DE SOMBRA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["667:FEINT PLAY","650:IMAGEN RESIDUAL","234:PUNTADA DE SOMBRA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/a/vamqgzjujr8.png",
     stamina: 100,
     morale: 100,
@@ -9595,7 +9596,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 669, name: "CURVING CUT", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 564, name: "TORBELLINO GIRATORIO", type: "Regate", element: "WIND", POT: 50, PP: 50 }, { id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["669:CURVING CUT","564:TORBELLINO GIRATORIO","84:ESPEJISMO DE BALÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/e/o/eoxlrmfukiu.png",
     stamina: 100,
     morale: 100,
@@ -9641,7 +9642,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 668, name: "SHOULDER TACKLE", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 578, name: "PISOTÓN DE SUMO", type: "Bloqueo", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 674, name: "TERREMOTO", type: "Bloqueo", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["668:SHOULDER TACKLE","578:PISOTÓN DE SUMO","674:TERREMOTO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/c/j/cjqxf_x4hku.png",
     stamina: 100,
     morale: 100,
@@ -9687,7 +9688,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "GK"
     },
-    techniques: [{ id: 668, name: "SHOULDER TACKLE", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 578, name: "PISOTÓN DE SUMO", type: "Bloqueo", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 590, name: "DESPEJE DE LEÑADOR ", type: "Parada", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["668:SHOULDER TACKLE","578:PISOTÓN DE SUMO","590:DESPEJE DE LEÑADOR "]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/t/h/thh2oaxcmx8.png",
     stamina: 100,
     morale: 100,
@@ -9733,7 +9734,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 565, name: "ACELERADOR DE CARRERA", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 672, name: "BARRIDO DEFENSIVO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["646:FEINT DASH","565:ACELERADOR DE CARRERA","672:BARRIDO DEFENSIVO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/n/o/nocd7dek53m.png",
     stamina: 100,
     morale: 100,
@@ -9779,7 +9780,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 672, name: "BARRIDO DEFENSIVO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }, { id: 83, name: "ENTRADA HURACÁN", type: "Regate", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","672:BARRIDO DEFENSIVO","83:ENTRADA HURACÁN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/8/m/8mziwiiwuek.png",
     stamina: 100,
     morale: 100,
@@ -9825,7 +9826,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 565, name: "ACELERADOR DE CARRERA", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","609:TIRO GRANADA","565:ACELERADOR DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/i/m/imm6nvhsz7m.png",
     stamina: 100,
     morale: 100,
@@ -9871,7 +9872,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 607, name: "LOW DRIVE", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 543, name: "IMPULSO CRUZADO", type: "Tiro", element: "WIND", POT: 50, PP: 50 }, { id: 85, name: "ENTRADA DE LLAMAS", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["607:LOW DRIVE","543:IMPULSO CRUZADO","85:ENTRADA DE LLAMAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/5/k/5k9bkqhoeik.png",
     stamina: 100,
     morale: 100,
@@ -9917,7 +9918,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 31, name: "REMATE DRAGÓN", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","609:TIRO GRANADA","31:REMATE DRAGÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/x/m/xmmwqroh_ke.png",
     stamina: 100,
     morale: 100,
@@ -9963,7 +9964,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 607, name: "LOW DRIVE", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 85, name: "ENTRADA DE LLAMAS", type: "Regate", element: "FIRE", POT: 60, PP: 60 }, { id: 28, name: "REMATE COMBINADO", type: "Tiro", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["607:LOW DRIVE","85:ENTRADA DE LLAMAS","28:REMATE COMBINADO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/m/k/mkx39uobsxs.png",
     stamina: 100,
     morale: 100,
@@ -10009,7 +10010,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 694, name: "Parada Fuerte", type: "Parada", element: "", POT: 50, PP: 50 }, { id: 590, name: "DESPEJE DE LEÑADOR ", type: "Parada", element: "MOUNTAIN", POT: 60, PP: 60 }, { id: 565, name: "ACELERADOR DE CARRERA", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["694:Parada Fuerte","590:DESPEJE DE LEÑADOR ","565:ACELERADOR DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/g/l/gl0cuzdtn3c.png",
     stamina: 100,
     morale: 100,
@@ -10055,7 +10056,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 670, name: "CUNNING PULL", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 577, name: "BALÓN FALSO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }, { id: 34, name: "BATEO TOTAL", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["670:CUNNING PULL","577:BALÓN FALSO","34:BATEO TOTAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/3/j/3jfjdm7pke0.png",
     stamina: 100,
     morale: 100,
@@ -10101,7 +10102,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 669, name: "CURVING CUT", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 231, name: "DESENFUNDE RÁPIDO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }, { id: 564, name: "TORBELLINO GIRATORIO", type: "Regate", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["669:CURVING CUT","231:DESENFUNDE RÁPIDO","564:TORBELLINO GIRATORIO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/1/c/1cc_tvpfpc0.png",
     stamina: 100,
     morale: 100,
@@ -10147,7 +10148,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 604, name: "CURVE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 614, name: "CABEZAZO KUNG FU", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["604:CURVE SHOT","609:TIRO GRANADA","614:CABEZAZO KUNG FU"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/e/q/eqzeaqp_ixc.png",
     stamina: 100,
     morale: 100,
@@ -10193,7 +10194,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 670, name: "CUNNING PULL", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 673, name: "GIRO DE BOBINA", type: "Bloqueo", element: "WIND", POT: 50, PP: 50 }, { id: 577, name: "BALÓN FALSO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["670:CUNNING PULL","673:GIRO DE BOBINA","577:BALÓN FALSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/k/f/kfqrt363xrs.png",
     stamina: 100,
     morale: 100,
@@ -10239,7 +10240,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 603, name: "CHIP SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 234, name: "PUNTADA DE SOMBRA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }, { id: 617, name: "TORNADO OSCURO", type: "Tiro", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["603:CHIP SHOT","234:PUNTADA DE SOMBRA","617:TORNADO OSCURO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/z/b/zbz2hc8iq1m.png",
     stamina: 100,
     morale: 100,
@@ -10285,7 +10286,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "GK"
     },
-    techniques: [{ id: 667, name: "FEINT PLAY", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 501, name: "CLON FALSO", type: "Regate", element: "WOOD", POT: 50, PP: 50 }, { id: 676, name: "CORTE GIRATORIO", type: "Bloqueo", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["667:FEINT PLAY","501:CLON FALSO","676:CORTE GIRATORIO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/p/_/p_chtvykhsu.png",
     stamina: 100,
     morale: 100,
@@ -10331,7 +10332,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 693, name: "STRONG PUNCH", type: "Parada", element: "", POT: 50, PP: 50 }, { id: 249, name: "MURALLA DE ESCUDOS", type: "Parada", element: "WIND", POT: 50, PP: 50 }, { id: 698, name: "BLOQUE DUREZA", type: "Parada", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["693:STRONG PUNCH","249:MURALLA DE ESCUDOS","698:BLOQUE DUREZA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/y/i/yi2p3e1leik.png",
     stamina: 100,
     morale: 100,
@@ -10377,7 +10378,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 671, name: "ROLLING STEAL", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 566, name: "GIRO DE MONO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 511, name: "ZONA PERIMETRAL", type: "Bloqueo", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["671:ROLLING STEAL","566:GIRO DE MONO","511:ZONA PERIMETRAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/4/n/4nv6kdadxou.png",
     stamina: 100,
     morale: 100,
@@ -10423,7 +10424,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 670, name: "CUNNING PULL", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 83, name: "ENTRADA HURACÁN", type: "Regate", element: "WIND", POT: 60, PP: 60 }, { id: 511, name: "ZONA PERIMETRAL", type: "Bloqueo", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["670:CUNNING PULL","83:ENTRADA HURACÁN","511:ZONA PERIMETRAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/j/l/jlkbj8m5cb8.png",
     stamina: 100,
     morale: 100,
@@ -10469,7 +10470,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 670, name: "CUNNING PULL", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 511, name: "ZONA PERIMETRAL", type: "Bloqueo", element: "WIND", POT: 50, PP: 50 }, { id: 519, name: "BLOQUEO CIRCENSE", type: "Bloqueo", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["670:CUNNING PULL","511:ZONA PERIMETRAL","519:BLOQUEO CIRCENSE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/l/e/lejhnl0vzd8.png",
     stamina: 100,
     morale: 100,
@@ -10515,7 +10516,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "GK"
     },
-    techniques: [{ id: 668, name: "SHOULDER TACKLE", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 522, name: "ESCUDO CORPORAL", type: "Bloqueo", element: "MOUNTAIN", POT: 80, PP: 80 }, { id: 511, name: "ZONA PERIMETRAL", type: "Bloqueo", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["668:SHOULDER TACKLE","522:ESCUDO CORPORAL","511:ZONA PERIMETRAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/6/s/6ssmkasv0uu.png",
     stamina: 100,
     morale: 100,
@@ -10561,7 +10562,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 542, name: "TIRO PATRIOTA", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }, { id: 183, name: "AIKIDO", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","542:TIRO PATRIOTA","183:AIKIDO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/a/d/adxtzhnnbok.png",
     stamina: 100,
     morale: 100,
@@ -10607,7 +10608,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 183, name: "AIKIDO", type: "Regate", element: "WIND", POT: 70, PP: 70 }, { id: 105, name: "LA TORRE", type: "Bloqueo", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","183:AIKIDO","105:LA TORRE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/r/r/rray04bds9m.png",
     stamina: 100,
     morale: 100,
@@ -10653,7 +10654,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 577, name: "BALÓN FALSO", type: "Bloqueo", element: "WOOD", POT: 50, PP: 50 }, { id: 511, name: "ZONA PERIMETRAL", type: "Bloqueo", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["642:DUST KICK","577:BALÓN FALSO","511:ZONA PERIMETRAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/f/b/fb_qf1c_lck.png",
     stamina: 100,
     morale: 100,
@@ -10699,7 +10700,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 605, name: "BOUNCE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 552, name: "TIRO DE SEGURIDAD", type: "Tiro", element: "WOOD", POT: 60, PP: 60 }, { id: 612, name: "TIRO ESPIRAL", type: "Tiro", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["605:BOUNCE SHOT","552:TIRO DE SEGURIDAD","612:TIRO ESPIRAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/u/p/upolokkfmxm.png",
     stamina: 100,
     morale: 100,
@@ -10745,7 +10746,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 105, name: "LA TORRE", type: "Bloqueo", element: "WIND", POT: 60, PP: 60 }, { id: 618, name: "ARCO IRIS", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","105:LA TORRE","618:ARCO IRIS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/a/b/abvgyltmhds.png",
     stamina: 100,
     morale: 100,
@@ -10791,7 +10792,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 605, name: "BOUNCE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 619, name: "BOMBARDERO ACROBÁTICO", type: "Tiro", element: "WOOD", POT: 60, PP: 60 }, { id: 542, name: "TIRO PATRIOTA", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["605:BOUNCE SHOT","619:BOMBARDERO ACROBÁTICO","542:TIRO PATRIOTA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/x/p/xpknf0l2que.png",
     stamina: 100,
     morale: 100,
@@ -10837,7 +10838,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 693, name: "STRONG PUNCH", type: "Parada", element: "", POT: 50, PP: 50 }, { id: 594, name: "AGUJERO NEGRO", type: "Parada", element: "WOOD", POT: 60, PP: 60 }, { id: 131, name: "AGUJERO DE GUSANO", type: "Parada", element: "WOOD", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["693:STRONG PUNCH","594:AGUJERO NEGRO","131:AGUJERO DE GUSANO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/4/n/4nterayuxru.png",
     stamina: 100,
     morale: 100,
@@ -10883,7 +10884,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 667, name: "FEINT PLAY", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 109, name: "CINTO ASTRAL", type: "Bloqueo", element: "WOOD", POT: 70, PP: 70 }, { id: 106, name: "CHOQUE FOTÓNICO", type: "Bloqueo", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["667:FEINT PLAY","109:CINTO ASTRAL","106:CHOQUE FOTÓNICO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/y/i/yioxcdtmilk.png",
     stamina: 100,
     morale: 100,
@@ -10929,7 +10930,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 670, name: "CUNNING PULL", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 107, name: "GRAVITACIÓN", type: "Bloqueo", element: "MOUNTAIN", POT: 70, PP: 70 }, { id: 581, name: "SÚPER PISOTÓN DE SUMO", type: "Bloqueo", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["670:CUNNING PULL","107:GRAVITACIÓN","581:SÚPER PISOTÓN DE SUMO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/p/k/pk_qvilcp4m.png",
     stamina: 100,
     morale: 100,
@@ -10975,7 +10976,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 668, name: "SHOULDER TACKLE", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 107, name: "GRAVITACIÓN", type: "Bloqueo", element: "MOUNTAIN", POT: 70, PP: 70 }, { id: 207, name: "RAYO GANÍMEDES", type: "Tiro", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["668:SHOULDER TACKLE","107:GRAVITACIÓN","207:RAYO GANÍMEDES"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/r/r/rr4mb7zwk-m.png",
     stamina: 100,
     morale: 100,
@@ -11021,7 +11022,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 670, name: "CUNNING PULL", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 106, name: "CHOQUE FOTÓNICO", type: "Bloqueo", element: "FIRE", POT: 60, PP: 60 }, { id: 233, name: "CICLÓN", type: "Bloqueo", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["670:CUNNING PULL","106:CHOQUE FOTÓNICO","233:CICLÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/a/d/adjtse_knnk.png",
     stamina: 100,
     morale: 100,
@@ -11067,7 +11068,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "GK"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 107, name: "GRAVITACIÓN", type: "Bloqueo", element: "MOUNTAIN", POT: 70, PP: 70 }, { id: 507, name: "VELO DE AGUA", type: "Regate", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","107:GRAVITACIÓN","507:VELO DE AGUA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/6/s/6sqy_zkcstu.png",
     stamina: 100,
     morale: 100,
@@ -11113,7 +11114,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 107, name: "GRAVITACIÓN", type: "Bloqueo", element: "MOUNTAIN", POT: 70, PP: 70 }, { id: 48, name: "LANZA DE ODÍN", type: "Tiro", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["645:NUTMEG","107:GRAVITACIÓN","48:LANZA DE ODÍN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/l/e/leb5sms4_e8.png",
     stamina: 100,
     morale: 100,
@@ -11159,7 +11160,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 107, name: "GRAVITACIÓN", type: "Bloqueo", element: "MOUNTAIN", POT: 70, PP: 70 }, { id: 109, name: "CINTO ASTRAL", type: "Bloqueo", element: "WOOD", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","107:GRAVITACIÓN","109:CINTO ASTRAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/_/u/_ukhjrvayhu.png",
     stamina: 100,
     morale: 100,
@@ -11205,7 +11206,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 606, name: "POWER SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 208, name: "EXPLOSIÓN CÓSMICA", type: "Tiro", element: "WOOD", POT: 70, PP: 70 }, { id: 601, name: "TIRO FANTASMA", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["606:POWER SHOT","208:EXPLOSIÓN CÓSMICA","601:TIRO FANTASMA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/o/g/ogvaoujg1s8.png",
     stamina: 100,
     morale: 100,
@@ -11251,7 +11252,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 44, name: "ASTRORREMATE", type: "Tiro", element: "WOOD", POT: 60, PP: 60 }, { id: 208, name: "EXPLOSIÓN CÓSMICA", type: "Tiro", element: "WOOD", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","44:ASTRORREMATE","208:EXPLOSIÓN CÓSMICA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/g/u/guonuvapu-c.png",
     stamina: 100,
     morale: 100,
@@ -11297,7 +11298,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 603, name: "CHIP SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 44, name: "ASTRORREMATE", type: "Tiro", element: "WOOD", POT: 60, PP: 60 }, { id: 109, name: "CINTO ASTRAL", type: "Bloqueo", element: "WOOD", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["603:CHIP SHOT","44:ASTRORREMATE","109:CINTO ASTRAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/r/g/rg_s5qmt5n0.png",
     stamina: 100,
     morale: 100,
@@ -11343,7 +11344,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 693, name: "STRONG PUNCH", type: "Parada", element: "", POT: 50, PP: 50 }, { id: 698, name: "BLOQUE DUREZA", type: "Parada", element: "MOUNTAIN", POT: 60, PP: 60 }, { id: 701, name: "BLOQUE DE HIELO", type: "Parada", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["693:STRONG PUNCH","698:BLOQUE DUREZA","701:BLOQUE DE HIELO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/4/i/4iijdww3axs.png",
     stamina: 100,
     morale: 100,
@@ -11389,7 +11390,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 669, name: "CURVING CUT", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 580, name: "PAISAJE HELADO", type: "Bloqueo", element: "WIND", POT: 60, PP: 60 }, { id: 618, name: "ARCO IRIS", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["669:CURVING CUT","580:PAISAJE HELADO","618:ARCO IRIS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/y/n/ynb8qlj_vrc.png",
     stamina: 100,
     morale: 100,
@@ -11435,7 +11436,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 670, name: "CUNNING PULL", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 102, name: "TIRÓN FANTASMA", type: "Bloqueo", element: "WOOD", POT: 60, PP: 60 }, { id: 580, name: "PAISAJE HELADO", type: "Bloqueo", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["670:CUNNING PULL","102:TIRÓN FANTASMA","580:PAISAJE HELADO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/p/l/plwd90ffci0.png",
     stamina: 100,
     morale: 100,
@@ -11481,7 +11482,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 671, name: "ROLLING STEAL", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 676, name: "CORTE GIRATORIO", type: "Bloqueo", element: "WIND", POT: 50, PP: 50 }, { id: 567, name: "REGATE AURORA", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["671:ROLLING STEAL","676:CORTE GIRATORIO","567:REGATE AURORA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/r/e/re3bttxphk0.png",
     stamina: 100,
     morale: 100,
@@ -11527,7 +11528,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 581, name: "SÚPER PISOTÓN DE SUMO", type: "Bloqueo", element: "FIRE", POT: 60, PP: 60 }, { id: 677, name: "MEGA TERREMOTO", type: "Bloqueo", element: "MOUNTAIN", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","581:SÚPER PISOTÓN DE SUMO","677:MEGA TERREMOTO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/a/s/asgg-sxtqxc.png",
     stamina: 100,
     morale: 100,
@@ -11573,7 +11574,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 564, name: "TORBELLINO GIRATORIO", type: "Regate", element: "WIND", POT: 50, PP: 50 }, { id: 652, name: "REGATE ENGAÑOSO", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["645:NUTMEG","564:TORBELLINO GIRATORIO","652:REGATE ENGAÑOSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/6/d/6dlvtpebf3s.png",
     stamina: 100,
     morale: 100,
@@ -11619,7 +11620,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 652, name: "REGATE ENGAÑOSO", type: "Regate", element: "WOOD", POT: 60, PP: 60 }, { id: 653, name: "DOBLE TOQUE", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["642:DUST KICK","652:REGATE ENGAÑOSO","653:DOBLE TOQUE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/l/r/lru0awihyee.png",
     stamina: 100,
     morale: 100,
@@ -11665,7 +11666,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 543, name: "IMPULSO CRUZADO", type: "Tiro", element: "WIND", POT: 50, PP: 50 }, { id: 652, name: "REGATE ENGAÑOSO", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","543:IMPULSO CRUZADO","652:REGATE ENGAÑOSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/_/b/_brsx9hdv7s.png",
     stamina: 100,
     morale: 100,
@@ -11711,7 +11712,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 671, name: "ROLLING STEAL", type: "Bloqueo", element: "", POT: 50, PP: 50 }, { id: 40, name: "VENTISCA ETERNA", type: "Tiro", element: "WIND", POT: 60, PP: 60 }, { id: 580, name: "PAISAJE HELADO", type: "Bloqueo", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["671:ROLLING STEAL","40:VENTISCA ETERNA","580:PAISAJE HELADO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/o/p/opancch54ie.png",
     stamina: 100,
     morale: 100,
@@ -11757,7 +11758,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 603, name: "CHIP SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 580, name: "PAISAJE HELADO", type: "Bloqueo", element: "WIND", POT: 60, PP: 60 }, { id: 204, name: "TIRO CONGELANTE", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["603:CHIP SHOT","580:PAISAJE HELADO","204:TIRO CONGELANTE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/g/b/gbbagdowzkk.png",
     stamina: 100,
     morale: 100,
@@ -11803,7 +11804,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 605, name: "BOUNCE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 204, name: "TIRO CONGELANTE", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }, { id: 83, name: "ENTRADA HURACÁN", type: "Regate", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["605:BOUNCE SHOT","204:TIRO CONGELANTE","83:ENTRADA HURACÁN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/r/p/rpwhr8ok0xm.png",
     stamina: 100,
     morale: 100,
@@ -11850,7 +11851,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 86, name: "CONFUSIÓN", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["86:CONFUSIÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/i/1/i196n_yyx2m.png",
     stamina: 100,
     morale: 100,
@@ -11896,7 +11897,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 649, name: "SÚPER ARMADILLO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["649:SÚPER ARMADILLO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/b/m/bmcm1zzvdqm.png",
     stamina: 100,
     morale: 100,
@@ -11942,7 +11943,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 605, name: "BOUNCE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 650, name: "IMAGEN RESIDUAL", type: "Regate", element: "WOOD", POT: 60, PP: 60 }, { id: 216, name: "TIRO PEGASO", type: "Tiro", element: "WOOD", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["605:BOUNCE SHOT","650:IMAGEN RESIDUAL","216:TIRO PEGASO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/3/z/3zc77d1rxzs.png",
     stamina: 100,
     morale: 100,
@@ -11988,7 +11989,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 606, name: "POWER SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 548, name: "BOLA DE TIERRA", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["606:POWER SHOT","548:BOLA DE TIERRA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/b/4/b46_kjkltge.png",
     stamina: 100,
     morale: 100,
@@ -12034,7 +12035,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 502, name: "CARRERA A TRES PIERNAS", type: "Regate", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["645:NUTMEG","502:CARRERA A TRES PIERNAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/q/j/qjkgazrnpwu.png",
     stamina: 100,
     morale: 100,
@@ -12080,7 +12081,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 570, name: "CAÍDA DE TACÓN", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","570:CAÍDA DE TACÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/o/-/o-zths6qnws.png",
     stamina: 100,
     morale: 100,
@@ -12126,7 +12127,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 183, name: "AIKIDO", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","183:AIKIDO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/l/v/lvvaea_3mzm.png",
     stamina: 100,
     morale: 100,
@@ -12172,7 +12173,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "GK"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/n/a/najoscd4sgc.png",
     stamina: 100,
     morale: 100,
@@ -12218,7 +12219,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 570, name: "CAÍDA DE TACÓN", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","570:CAÍDA DE TACÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/s/p/spzsmlai5ue.png",
     stamina: 100,
     morale: 100,
@@ -12264,7 +12265,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 568, name: "PATADA CANGURO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["568:PATADA CANGURO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/8/n/8ncf8ktryck.png",
     stamina: 100,
     morale: 100,
@@ -12310,7 +12311,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 612, name: "TIRO ESPIRAL", type: "Tiro", element: "WIND", POT: 50, PP: 50 }, { id: 183, name: "AIKIDO", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","612:TIRO ESPIRAL","183:AIKIDO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/e/g/egp7t26wl-s.png",
     stamina: 100,
     morale: 100,
@@ -12356,7 +12357,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 90, name: "COZ 3", type: "Regate", element: "FIRE", POT: 100, PP: 100 }],
+    techniques: getSupertechniques(["646:FEINT DASH","90:COZ 3"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/p/s/psgm3lec330.png",
     stamina: 100,
     morale: 100,
@@ -12402,7 +12403,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 90, name: "COZ 3", type: "Regate", element: "FIRE", POT: 100, PP: 100 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","609:TIRO GRANADA","90:COZ 3"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/-/v/-vn_p-rqg9u.png",
     stamina: 100,
     morale: 100,
@@ -12448,7 +12449,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 209, name: "RUPTURA GAIA", type: "Tiro", element: "MOUNTAIN", POT: 80, PP: 80 }, { id: 651, name: "FINTA DEL TOPO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","209:RUPTURA GAIA","651:FINTA DEL TOPO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/m/q/mqknqyavfb8.png",
     stamina: 100,
     morale: 100,
@@ -12494,7 +12495,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 605, name: "BOUNCE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 566, name: "GIRO DE MONO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 51, name: "REMATE GAFAS", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["605:BOUNCE SHOT","566:GIRO DE MONO","51:REMATE GAFAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/i/p/ipx_ghbjn0m.png",
     stamina: 100,
     morale: 100,
@@ -12540,7 +12541,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 90, name: "COZ 3", type: "Regate", element: "FIRE", POT: 100, PP: 100 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","90:COZ 3"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/l/-/l-vslvml5qs.png",
     stamina: 100,
     morale: 100,
@@ -12586,7 +12587,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 603, name: "CHIP SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 88, name: "ACELERRELÁMPAGO", type: "Regate", element: "FIRE", POT: 70, PP: 70 }, { id: 213, name: "FUEGO INFERNAL", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["603:CHIP SHOT","88:ACELERRELÁMPAGO","213:FUEGO INFERNAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/i/e/ief72q6ece8.png",
     stamina: 100,
     morale: 100,
@@ -12632,7 +12633,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 649, name: "SÚPER ARMADILLO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["649:SÚPER ARMADILLO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/_/v_ylvnhbld0.png",
     stamina: 100,
     morale: 100,
@@ -12678,7 +12679,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 209, name: "RUPTURA GAIA", type: "Tiro", element: "MOUNTAIN", POT: 80, PP: 80 }, { id: 502, name: "CARRERA A TRES PIERNAS", type: "Regate", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","209:RUPTURA GAIA","502:CARRERA A TRES PIERNAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/3/c/3ct7ny0vkkc.png",
     stamina: 100,
     morale: 100,
@@ -12724,7 +12725,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 652, name: "REGATE ENGAÑOSO", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["652:REGATE ENGAÑOSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/a/o/ao7vl4_rapm.png",
     stamina: 100,
     morale: 100,
@@ -12770,7 +12771,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 649, name: "SÚPER ARMADILLO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["649:SÚPER ARMADILLO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/p/o/pothbqzg8_k.png",
     stamina: 100,
     morale: 100,
@@ -12816,7 +12817,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 565, name: "ACELERADOR DE CARRERA", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["565:ACELERADOR DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/j/h/jhx3nuclg-s.png",
     stamina: 100,
     morale: 100,
@@ -12862,7 +12863,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 567, name: "REGATE AURORA", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["567:REGATE AURORA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/g/b/gb1fb9vyccs.png",
     stamina: 100,
     morale: 100,
@@ -12908,7 +12909,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/f/z/fzgcdcx_znc.png",
     stamina: 100,
     morale: 100,
@@ -12954,7 +12955,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 567, name: "REGATE AURORA", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["567:REGATE AURORA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/h/j/hjyyybdfnqm.png",
     stamina: 100,
     morale: 100,
@@ -13000,7 +13001,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/_/2/_2lpobi3gts.png",
     stamina: 100,
     morale: 100,
@@ -13046,7 +13047,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 649, name: "SÚPER ARMADILLO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["649:SÚPER ARMADILLO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/w/m/wmygyydarzu.png",
     stamina: 100,
     morale: 100,
@@ -13092,7 +13093,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 658, name: "ULTRA LUNA", type: "Regate", element: "WOOD", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","658:ULTRA LUNA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/n/vngvaaiq2qs.png",
     stamina: 100,
     morale: 100,
@@ -13138,7 +13139,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 649, name: "SÚPER ARMADILLO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["649:SÚPER ARMADILLO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/-/g/-g99n-zq7hk.png",
     stamina: 100,
     morale: 100,
@@ -13184,7 +13185,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 650, name: "IMAGEN RESIDUAL", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["650:IMAGEN RESIDUAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/h/e/hefxull0jss.png",
     stamina: 100,
     morale: 100,
@@ -13230,7 +13231,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 603, name: "CHIP SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 568, name: "PATADA CANGURO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 548, name: "BOLA DE TIERRA", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["603:CHIP SHOT","568:PATADA CANGURO","548:BOLA DE TIERRA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/f/u/fuyf1x19spe.png",
     stamina: 100,
     morale: 100,
@@ -13276,7 +13277,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/3/s/3sv1altatvk.png",
     stamina: 100,
     morale: 100,
@@ -13322,7 +13323,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/e/e/eenu46w9jtk.png",
     stamina: 100,
     morale: 100,
@@ -13368,7 +13369,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 649, name: "SÚPER ARMADILLO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["649:SÚPER ARMADILLO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/z/f/zfhygptxm1s.png",
     stamina: 100,
     morale: 100,
@@ -13414,7 +13415,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 614, name: "CABEZAZO KUNG FU", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }, { id: 658, name: "ULTRA LUNA", type: "Regate", element: "WOOD", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","614:CABEZAZO KUNG FU","658:ULTRA LUNA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/i/y/iyeqd-xi2nc.png",
     stamina: 100,
     morale: 100,
@@ -13460,7 +13461,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 605, name: "BOUNCE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 616, name: "TORNADO TRASERO", type: "Tiro", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["605:BOUNCE SHOT","616:TORNADO TRASERO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/k/k/kkgzdj1xxfe.png",
     stamina: 100,
     morale: 100,
@@ -13506,7 +13507,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 86, name: "CONFUSIÓN", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["86:CONFUSIÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/6/f/6f8pzpaipa0.png",
     stamina: 100,
     morale: 100,
@@ -13552,7 +13553,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 651, name: "FINTA DEL TOPO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["645:NUTMEG","651:FINTA DEL TOPO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/7/g/7ghcfhvflbk.png",
     stamina: 100,
     morale: 100,
@@ -13598,7 +13599,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 607, name: "LOW DRIVE", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 88, name: "ACELERRELÁMPAGO", type: "Regate", element: "FIRE", POT: 70, PP: 70 }, { id: 546, name: "IMPULSO BRILLANTE", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["607:LOW DRIVE","88:ACELERRELÁMPAGO","546:IMPULSO BRILLANTE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/7/m/7mgnhvrcpjm.png",
     stamina: 100,
     morale: 100,
@@ -13644,7 +13645,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 651, name: "FINTA DEL TOPO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["646:FEINT DASH","651:FINTA DEL TOPO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/h/x/hxfvglxo4oc.png",
     stamina: 100,
     morale: 100,
@@ -13690,7 +13691,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 85, name: "ENTRADA DE LLAMAS", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["645:NUTMEG","85:ENTRADA DE LLAMAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/t/p/tpfgqqoanle.png",
     stamina: 100,
     morale: 100,
@@ -13736,7 +13737,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 571, name: "CARRERA DE PERRO", type: "Regate", element: "FIRE", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","609:TIRO GRANADA","571:CARRERA DE PERRO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/m/l/mle0irbt4ss.png",
     stamina: 100,
     morale: 100,
@@ -13782,7 +13783,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 87, name: "HORA CELESTIAL", type: "Regate", element: "WIND", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","87:HORA CELESTIAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/w/o/wottymvvuzk.png",
     stamina: 100,
     morale: 100,
@@ -13828,7 +13829,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/n/f/nfkhlwld2h8.png",
     stamina: 100,
     morale: 100,
@@ -13874,7 +13875,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 505, name: "TORMENTA DE CARRERA", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["642:DUST KICK","505:TORMENTA DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/g/u/gu6mjmg0swm.png",
     stamina: 100,
     morale: 100,
@@ -13920,7 +13921,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 544, name: "PICADA DEL CÓNDOR", type: "Tiro", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["544:PICADA DEL CÓNDOR"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/p/m/pm5_qysgo2k.png",
     stamina: 100,
     morale: 100,
@@ -13966,7 +13967,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 570, name: "CAÍDA DE TACÓN", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["646:FEINT DASH","570:CAÍDA DE TACÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/h/1/h1n9un_8xke.png",
     stamina: 100,
     morale: 100,
@@ -14012,7 +14013,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 610, name: "TIRO GIRATORIO", type: "Tiro", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["610:TIRO GIRATORIO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/p/z/pzq-5fra35c.png",
     stamina: 100,
     morale: 100,
@@ -14058,7 +14059,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 87, name: "HORA CELESTIAL", type: "Regate", element: "WIND", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","87:HORA CELESTIAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/d/n/dn81_sfkkkk.png",
     stamina: 100,
     morale: 100,
@@ -14104,7 +14105,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 547, name: "PATADA TARZÁN", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 651, name: "FINTA DEL TOPO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","547:PATADA TARZÁN","651:FINTA DEL TOPO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/c/3/c376h8cjdfe.png",
     stamina: 100,
     morale: 100,
@@ -14150,7 +14151,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 655, name: "LLUVIA DE METEOROS", type: "Regate", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["655:LLUVIA DE METEOROS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/r/-/r-fennta1hm.png",
     stamina: 100,
     morale: 100,
@@ -14196,7 +14197,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 209, name: "RUPTURA GAIA", type: "Tiro", element: "MOUNTAIN", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["209:RUPTURA GAIA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/2/j/2jdrusul4qk.png",
     stamina: 100,
     morale: 100,
@@ -14242,7 +14243,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 44, name: "ASTRORREMATE", type: "Tiro", element: "WOOD", POT: 60, PP: 60 }, { id: 504, name: "FINTA DEL MATADOR", type: "Regate", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","44:ASTRORREMATE","504:FINTA DEL MATADOR"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/a/q/aqf6g01ac6e.png",
     stamina: 100,
     morale: 100,
@@ -14288,7 +14289,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 485, name: "BALON ICEBERG", type: "Tiro", element: "WIND", POT: 70, PP: 70 }, { id: 505, name: "TORMENTA DE CARRERA", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","485:BALON ICEBERG","505:TORMENTA DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/7/v/7v7alhdl-7u.png",
     stamina: 100,
     morale: 100,
@@ -14334,7 +14335,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 88, name: "ACELERRELÁMPAGO", type: "Regate", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["88:ACELERRELÁMPAGO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/2/q/2qgyl96vjh8.png",
     stamina: 100,
     morale: 100,
@@ -14380,7 +14381,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["84:ESPEJISMO DE BALÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/j/q/jqsddvfxbf8.png",
     stamina: 100,
     morale: 100,
@@ -14426,7 +14427,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 90, name: "COZ 3", type: "Regate", element: "FIRE", POT: 100, PP: 100 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","90:COZ 3"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/b/m/bmitxftb7bk.png",
     stamina: 100,
     morale: 100,
@@ -14472,7 +14473,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 500, name: "TRUCO DEL BALÓN GRANDE", type: "Regate", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["500:TRUCO DEL BALÓN GRANDE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/_/p/_py5t_gcyv8.png",
     stamina: 100,
     morale: 100,
@@ -14518,7 +14519,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 606, name: "POWER SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }, { id: 204, name: "TIRO CONGELANTE", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["606:POWER SHOT","84:ESPEJISMO DE BALÓN","204:TIRO CONGELANTE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/l/8/l87lmbzrzye.png",
     stamina: 100,
     morale: 100,
@@ -14564,7 +14565,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 183, name: "AIKIDO", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["645:NUTMEG","183:AIKIDO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/j/z/jze4nxympau.png",
     stamina: 100,
     morale: 100,
@@ -14610,7 +14611,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 652, name: "REGATE ENGAÑOSO", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["652:REGATE ENGAÑOSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/l/x/lx_emskmeb8.png",
     stamina: 100,
     morale: 100,
@@ -14656,7 +14657,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 547, name: "PATADA TARZÁN", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 651, name: "FINTA DEL TOPO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","547:PATADA TARZÁN","651:FINTA DEL TOPO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/f/z/fz-iofpsvoc.png",
     stamina: 100,
     morale: 100,
@@ -14702,7 +14703,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 547, name: "PATADA TARZÁN", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 502, name: "CARRERA A TRES PIERNAS", type: "Regate", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","547:PATADA TARZÁN","502:CARRERA A TRES PIERNAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/s/j/sjng0ovomks.png",
     stamina: 100,
     morale: 100,
@@ -14748,7 +14749,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 605, name: "BOUNCE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 548, name: "BOLA DE TIERRA", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["605:BOUNCE SHOT","548:BOLA DE TIERRA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/g/q/gqiagnsvn50.png",
     stamina: 100,
     morale: 100,
@@ -14794,7 +14795,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/2/d/2d8cdyzgc5s.png",
     stamina: 100,
     morale: 100,
@@ -14840,7 +14841,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 543, name: "IMPULSO CRUZADO", type: "Tiro", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["543:IMPULSO CRUZADO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/t/s/tscnjh8ldu0.png",
     stamina: 100,
     morale: 100,
@@ -14886,7 +14887,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 564, name: "TORBELLINO GIRATORIO", type: "Regate", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["564:TORBELLINO GIRATORIO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/t/z/tzy35fqo9om.png",
     stamina: 100,
     morale: 100,
@@ -14932,7 +14933,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 610, name: "TIRO GIRATORIO", type: "Tiro", element: "WIND", POT: 50, PP: 50 }, { id: 87, name: "HORA CELESTIAL", type: "Regate", element: "WIND", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","610:TIRO GIRATORIO","87:HORA CELESTIAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/7/u/7uyduc0tu-u.png",
     stamina: 100,
     morale: 100,
@@ -14978,7 +14979,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 31, name: "REMATE DRAGÓN", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }, { id: 501, name: "CLON FALSO", type: "Regate", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","31:REMATE DRAGÓN","501:CLON FALSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/9/x/9xalvbo2los.png",
     stamina: 100,
     morale: 100,
@@ -15024,7 +15025,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 505, name: "TORMENTA DE CARRERA", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["645:NUTMEG","505:TORMENTA DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/o/x/oxbfxokume8.png",
     stamina: 100,
     morale: 100,
@@ -15070,7 +15071,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 571, name: "CARRERA DE PERRO", type: "Regate", element: "FIRE", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","571:CARRERA DE PERRO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/o/c/och2y6fs--8.png",
     stamina: 100,
     morale: 100,
@@ -15116,7 +15117,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 655, name: "LLUVIA DE METEOROS", type: "Regate", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["655:LLUVIA DE METEOROS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/h/x/hxnrvipjerc.png",
     stamina: 100,
     morale: 100,
@@ -15162,7 +15163,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/t/v/tvadbbownas.png",
     stamina: 100,
     morale: 100,
@@ -15208,7 +15209,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 604, name: "CURVE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 616, name: "TORNADO TRASERO", type: "Tiro", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["604:CURVE SHOT","616:TORNADO TRASERO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/u/_/u_uoshwatqk.png",
     stamina: 100,
     morale: 100,
@@ -15254,7 +15255,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["84:ESPEJISMO DE BALÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/z/q/zq2x1fjotnu.png",
     stamina: 100,
     morale: 100,
@@ -15300,7 +15301,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 564, name: "TORBELLINO GIRATORIO", type: "Regate", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["564:TORBELLINO GIRATORIO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/h/a/hacw8bxl8q8.png",
     stamina: 100,
     morale: 100,
@@ -15346,7 +15347,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 85, name: "ENTRADA DE LLAMAS", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["646:FEINT DASH","85:ENTRADA DE LLAMAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/c/6/c65q6w5nueu.png",
     stamina: 100,
     morale: 100,
@@ -15392,7 +15393,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 504, name: "FINTA DEL MATADOR", type: "Regate", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","504:FINTA DEL MATADOR"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/o/_/o_6uyptmnts.png",
     stamina: 100,
     morale: 100,
@@ -15438,7 +15439,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/h/v/hvsm_czmbbs.png",
     stamina: 100,
     morale: 100,
@@ -15484,7 +15485,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 652, name: "REGATE ENGAÑOSO", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["652:REGATE ENGAÑOSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/s/u/supkoxvk5gs.png",
     stamina: 100,
     morale: 100,
@@ -15530,7 +15531,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 502, name: "CARRERA A TRES PIERNAS", type: "Regate", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","502:CARRERA A TRES PIERNAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/a/q/aqnev3tt65e.png",
     stamina: 100,
     morale: 100,
@@ -15576,7 +15577,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 566, name: "GIRO DE MONO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["566:GIRO DE MONO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/i/v/ivafptmfb-k.png",
     stamina: 100,
     morale: 100,
@@ -15622,7 +15623,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 501, name: "CLON FALSO", type: "Regate", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["646:FEINT DASH","501:CLON FALSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/f/q/fq773obyk_e.png",
     stamina: 100,
     morale: 100,
@@ -15668,7 +15669,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 605, name: "BOUNCE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 565, name: "ACELERADOR DE CARRERA", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 554, name: "GOLPE DE PALADÍN", type: "Tiro", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["605:BOUNCE SHOT","565:ACELERADOR DE CARRERA","554:GOLPE DE PALADÍN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/o/y/oynle51njrm.png",
     stamina: 100,
     morale: 100,
@@ -15714,7 +15715,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 44, name: "ASTRORREMATE", type: "Tiro", element: "WOOD", POT: 60, PP: 60 }, { id: 658, name: "ULTRA LUNA", type: "Regate", element: "WOOD", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["646:FEINT DASH","44:ASTRORREMATE","658:ULTRA LUNA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/p/j/pjphjsbw0ps.png",
     stamina: 100,
     morale: 100,
@@ -15760,7 +15761,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["84:ESPEJISMO DE BALÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/e/m/em2gcncmp1e.png",
     stamina: 100,
     morale: 100,
@@ -15806,7 +15807,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/p/u/pu0i_cn9w3m.png",
     stamina: 100,
     morale: 100,
@@ -15852,7 +15853,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 541, name: "PATADA RODANTE", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["541:PATADA RODANTE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/p/p/ppi6xwo7w5k.png",
     stamina: 100,
     morale: 100,
@@ -15898,7 +15899,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 566, name: "GIRO DE MONO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["566:GIRO DE MONO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/-/x/-xnhi2gqs0u.png",
     stamina: 100,
     morale: 100,
@@ -15944,7 +15945,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["84:ESPEJISMO DE BALÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/a/q/aqrxaw0rogm.png",
     stamina: 100,
     morale: 100,
@@ -15990,7 +15991,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 603, name: "CHIP SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 507, name: "VELO DE AGUA", type: "Regate", element: "WIND", POT: 60, PP: 60 }, { id: 214, name: "LA BESTIA TRUENO", type: "Tiro", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["603:CHIP SHOT","507:VELO DE AGUA","214:LA BESTIA TRUENO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/s/f/sfgr8oku6y0.png",
     stamina: 100,
     morale: 100,
@@ -16036,7 +16037,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/-/n/-ntbcpobdkm.png",
     stamina: 100,
     morale: 100,
@@ -16082,7 +16083,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 658, name: "ULTRA LUNA", type: "Regate", element: "WOOD", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","658:ULTRA LUNA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/u/v/uvn6igcb6_u.png",
     stamina: 100,
     morale: 100,
@@ -16128,7 +16129,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 603, name: "CHIP SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 204, name: "TIRO CONGELANTE", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["603:CHIP SHOT","204:TIRO CONGELANTE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/_/4/_488sdjol58.png",
     stamina: 100,
     morale: 100,
@@ -16174,7 +16175,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 605, name: "BOUNCE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 216, name: "TIRO PEGASO", type: "Tiro", element: "WOOD", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["605:BOUNCE SHOT","216:TIRO PEGASO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/k/9/k9yft7jy1l8.png",
     stamina: 100,
     morale: 100,
@@ -16220,7 +16221,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/0/c/0cclj513v3e.png",
     stamina: 100,
     morale: 100,
@@ -16266,7 +16267,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 502, name: "CARRERA A TRES PIERNAS", type: "Regate", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["645:NUTMEG","502:CARRERA A TRES PIERNAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/x/z/xzpx5wnbgr8.png",
     stamina: 100,
     morale: 100,
@@ -16312,7 +16313,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/5/f/5frdeeiuegm.png",
     stamina: 100,
     morale: 100,
@@ -16358,7 +16359,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 571, name: "CARRERA DE PERRO", type: "Regate", element: "FIRE", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["646:FEINT DASH","609:TIRO GRANADA","571:CARRERA DE PERRO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/l/e/lei3bhy41ye.png",
     stamina: 100,
     morale: 100,
@@ -16404,7 +16405,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 541, name: "PATADA RODANTE", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }, { id: 501, name: "CLON FALSO", type: "Regate", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["646:FEINT DASH","541:PATADA RODANTE","501:CLON FALSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/u/8/u8rn7_2y_tm.png",
     stamina: 100,
     morale: 100,
@@ -16450,7 +16451,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 485, name: "BALON ICEBERG", type: "Tiro", element: "WIND", POT: 70, PP: 70 }, { id: 87, name: "HORA CELESTIAL", type: "Regate", element: "WIND", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","485:BALON ICEBERG","87:HORA CELESTIAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/_/x/_xlp1w1cgge.png",
     stamina: 100,
     morale: 100,
@@ -16496,7 +16497,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["609:TIRO GRANADA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/2/y/2ylvknpy3gu.png",
     stamina: 100,
     morale: 100,
@@ -16542,7 +16543,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 566, name: "GIRO DE MONO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["566:GIRO DE MONO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/b/7/b7r2hfbbhek.png",
     stamina: 100,
     morale: 100,
@@ -16588,7 +16589,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/w/q/wqlej2cf-ts.png",
     stamina: 100,
     morale: 100,
@@ -16634,7 +16635,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 655, name: "LLUVIA DE METEOROS", type: "Regate", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["655:LLUVIA DE METEOROS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/q/o/qo5rsu2twgs.png",
     stamina: 100,
     morale: 100,
@@ -16680,7 +16681,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["84:ESPEJISMO DE BALÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/4/y/4yucbmuh688.png",
     stamina: 100,
     morale: 100,
@@ -16726,7 +16727,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 209, name: "RUPTURA GAIA", type: "Tiro", element: "MOUNTAIN", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["209:RUPTURA GAIA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/k/d/kd1wxmm83h0.png",
     stamina: 100,
     morale: 100,
@@ -16772,7 +16773,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 607, name: "LOW DRIVE", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 86, name: "CONFUSIÓN", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 205, name: "COMBATE KUNG FU", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["607:LOW DRIVE","86:CONFUSIÓN","205:COMBATE KUNG FU"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/7/l/7llnvus4iyc.png",
     stamina: 100,
     morale: 100,
@@ -16818,7 +16819,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 485, name: "BALON ICEBERG", type: "Tiro", element: "WIND", POT: 70, PP: 70 }, { id: 183, name: "AIKIDO", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","485:BALON ICEBERG","183:AIKIDO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/5/h/5hb7pmduspm.png",
     stamina: 100,
     morale: 100,
@@ -16864,7 +16865,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 566, name: "GIRO DE MONO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["566:GIRO DE MONO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/f/b/fba3dtf5tdu.png",
     stamina: 100,
     morale: 100,
@@ -16910,7 +16911,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 655, name: "LLUVIA DE METEOROS", type: "Regate", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["655:LLUVIA DE METEOROS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/u/x/ux39wjxfe-0.png",
     stamina: 100,
     morale: 100,
@@ -16956,7 +16957,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 209, name: "RUPTURA GAIA", type: "Tiro", element: "MOUNTAIN", POT: 80, PP: 80 }, { id: 502, name: "CARRERA A TRES PIERNAS", type: "Regate", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["646:FEINT DASH","209:RUPTURA GAIA","502:CARRERA A TRES PIERNAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/q/d/qdhqfuvapy8.png",
     stamina: 100,
     morale: 100,
@@ -17002,7 +17003,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 652, name: "REGATE ENGAÑOSO", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["652:REGATE ENGAÑOSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/8/n/8n6hjnlg-bk.png",
     stamina: 100,
     morale: 100,
@@ -17048,7 +17049,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 606, name: "POWER SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 30, name: "SUPERRELÁMPAGO", type: "Tiro", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["606:POWER SHOT","30:SUPERRELÁMPAGO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/s/q/sqifr57e970.png",
     stamina: 100,
     morale: 100,
@@ -17094,7 +17095,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 88, name: "ACELERRELÁMPAGO", type: "Regate", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["88:ACELERRELÁMPAGO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/f/2/f2xv6jblyuk.png",
     stamina: 100,
     morale: 100,
@@ -17140,7 +17141,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 651, name: "FINTA DEL TOPO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","651:FINTA DEL TOPO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/i/g/iggmh0n9mt0.png",
     stamina: 100,
     morale: 100,
@@ -17186,7 +17187,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 614, name: "CABEZAZO KUNG FU", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }, { id: 501, name: "CLON FALSO", type: "Regate", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","614:CABEZAZO KUNG FU","501:CLON FALSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/q/o/qoja4iueads.png",
     stamina: 100,
     morale: 100,
@@ -17232,7 +17233,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/g/f/gfvphyehmgm.png",
     stamina: 100,
     morale: 100,
@@ -17278,7 +17279,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 652, name: "REGATE ENGAÑOSO", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["652:REGATE ENGAÑOSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/z/a/zawqpgt3kyk.png",
     stamina: 100,
     morale: 100,
@@ -17324,7 +17325,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 612, name: "TIRO ESPIRAL", type: "Tiro", element: "WIND", POT: 50, PP: 50 }, { id: 183, name: "AIKIDO", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","612:TIRO ESPIRAL","183:AIKIDO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/p/_/p_8mpjgq_h8.png",
     stamina: 100,
     morale: 100,
@@ -17370,7 +17371,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 501, name: "CLON FALSO", type: "Regate", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","501:CLON FALSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/f/7/f7fsscjj5w8.png",
     stamina: 100,
     morale: 100,
@@ -17416,7 +17417,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 571, name: "CARRERA DE PERRO", type: "Regate", element: "FIRE", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["645:NUTMEG","571:CARRERA DE PERRO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/u/-/u-nrzkzs5vk.png",
     stamina: 100,
     morale: 100,
@@ -17462,7 +17463,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["609:TIRO GRANADA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/k/r/krwlekdywou.png",
     stamina: 100,
     morale: 100,
@@ -17508,7 +17509,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 570, name: "CAÍDA DE TACÓN", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["645:NUTMEG","570:CAÍDA DE TACÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/x/c/xc_dmtp-ywu.png",
     stamina: 100,
     morale: 100,
@@ -17554,7 +17555,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/i/t/itkdlnwalem.png",
     stamina: 100,
     morale: 100,
@@ -17600,7 +17601,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 605, name: "BOUNCE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 653, name: "DOBLE TOQUE", type: "Regate", element: "FIRE", POT: 60, PP: 60 }, { id: 36, name: "TORNADO DRAGÓN", type: "Tiro", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["605:BOUNCE SHOT","653:DOBLE TOQUE","36:TORNADO DRAGÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/j/l/jlclas3ymus.png",
     stamina: 100,
     morale: 100,
@@ -17646,7 +17647,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 606, name: "POWER SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 652, name: "REGATE ENGAÑOSO", type: "Regate", element: "WOOD", POT: 60, PP: 60 }, { id: 545, name: "CORRE BALÓN CORRE", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["606:POWER SHOT","652:REGATE ENGAÑOSO","545:CORRE BALÓN CORRE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/l/7/l7rqmka1nv0.png",
     stamina: 100,
     morale: 100,
@@ -17692,7 +17693,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 607, name: "LOW DRIVE", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 551, name: "LECHO DE ROSAS", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["607:LOW DRIVE","551:LECHO DE ROSAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/d/l/dl8nzxj0h5e.png",
     stamina: 100,
     morale: 100,
@@ -17738,7 +17739,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 651, name: "FINTA DEL TOPO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","651:FINTA DEL TOPO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/d/h/dhlx5c_3-hk.png",
     stamina: 100,
     morale: 100,
@@ -17784,7 +17785,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 570, name: "CAÍDA DE TACÓN", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","609:TIRO GRANADA","570:CAÍDA DE TACÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/o/-/o-ltyvi9bvs.png",
     stamina: 100,
     morale: 100,
@@ -17830,7 +17831,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 652, name: "REGATE ENGAÑOSO", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["652:REGATE ENGAÑOSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/e/l/ellgo-a5i_0.png",
     stamina: 100,
     morale: 100,
@@ -17876,7 +17877,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 567, name: "REGATE AURORA", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["567:REGATE AURORA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/t/f/tfycjubswnm.png",
     stamina: 100,
     morale: 100,
@@ -17922,7 +17923,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/u/8/u8vgzjowhgk.png",
     stamina: 100,
     morale: 100,
@@ -17968,7 +17969,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/x/c/xch95qxtuzu.png",
     stamina: 100,
     morale: 100,
@@ -18014,7 +18015,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 604, name: "CURVE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }, { id: 545, name: "CORRE BALÓN CORRE", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["604:CURVE SHOT","84:ESPEJISMO DE BALÓN","545:CORRE BALÓN CORRE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/o/z/ozw2u_ewftm.png",
     stamina: 100,
     morale: 100,
@@ -18060,7 +18061,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 568, name: "PATADA CANGURO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["568:PATADA CANGURO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/k/l/kl3o3leqbze.png",
     stamina: 100,
     morale: 100,
@@ -18106,7 +18107,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 614, name: "CABEZAZO KUNG FU", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }, { id: 658, name: "ULTRA LUNA", type: "Regate", element: "WOOD", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["645:NUTMEG","614:CABEZAZO KUNG FU","658:ULTRA LUNA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/_/w/_w6yfqehsme.png",
     stamina: 100,
     morale: 100,
@@ -18152,7 +18153,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 603, name: "CHIP SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 88, name: "ACELERRELÁMPAGO", type: "Regate", element: "FIRE", POT: 70, PP: 70 }, { id: 546, name: "IMPULSO BRILLANTE", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["603:CHIP SHOT","88:ACELERRELÁMPAGO","546:IMPULSO BRILLANTE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/9/v9msgzspb_c.png",
     stamina: 100,
     morale: 100,
@@ -18198,7 +18199,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 601, name: "TIRO FANTASMA", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }, { id: 658, name: "ULTRA LUNA", type: "Regate", element: "WOOD", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","601:TIRO FANTASMA","658:ULTRA LUNA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/t/f/tfedelhpupk.png",
     stamina: 100,
     morale: 100,
@@ -18244,7 +18245,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 606, name: "POWER SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 88, name: "ACELERRELÁMPAGO", type: "Regate", element: "FIRE", POT: 70, PP: 70 }, { id: 211, name: "TIRO DE CAMPANARIO", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["606:POWER SHOT","88:ACELERRELÁMPAGO","211:TIRO DE CAMPANARIO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/n/a/naui9qk0eq0.png",
     stamina: 100,
     morale: 100,
@@ -18290,7 +18291,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 31, name: "REMATE DRAGÓN", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["31:REMATE DRAGÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/l/t/lt1qrv-fiqc.png",
     stamina: 100,
     morale: 100,
@@ -18336,7 +18337,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/w/j/wjwm07ib3jc.png",
     stamina: 100,
     morale: 100,
@@ -18382,7 +18383,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 604, name: "CURVE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 566, name: "GIRO DE MONO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 205, name: "COMBATE KUNG FU", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["604:CURVE SHOT","566:GIRO DE MONO","205:COMBATE KUNG FU"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/g/0/g0ddh0epe4k.png",
     stamina: 100,
     morale: 100,
@@ -18428,7 +18429,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 547, name: "PATADA TARZÁN", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 651, name: "FINTA DEL TOPO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["646:FEINT DASH","547:PATADA TARZÁN","651:FINTA DEL TOPO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/j/g/jg-rfozeute.png",
     stamina: 100,
     morale: 100,
@@ -18474,7 +18475,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 658, name: "ULTRA LUNA", type: "Regate", element: "WOOD", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","658:ULTRA LUNA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/w/s/wsgw38gyqym.png",
     stamina: 100,
     morale: 100,
@@ -18520,7 +18521,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 502, name: "CARRERA A TRES PIERNAS", type: "Regate", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["645:NUTMEG","502:CARRERA A TRES PIERNAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/j/d/jd8xiylh20e.png",
     stamina: 100,
     morale: 100,
@@ -18566,7 +18567,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 652, name: "REGATE ENGAÑOSO", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["652:REGATE ENGAÑOSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/u/8/u8x4sgw7hfk.png",
     stamina: 100,
     morale: 100,
@@ -18612,7 +18613,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 571, name: "CARRERA DE PERRO", type: "Regate", element: "FIRE", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["642:DUST KICK","609:TIRO GRANADA","571:CARRERA DE PERRO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/l/0/l05cqowxm9k.png",
     stamina: 100,
     morale: 100,
@@ -18658,7 +18659,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 604, name: "CURVE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 88, name: "ACELERRELÁMPAGO", type: "Regate", element: "FIRE", POT: 70, PP: 70 }, { id: 28, name: "REMATE COMBINADO", type: "Tiro", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["604:CURVE SHOT","88:ACELERRELÁMPAGO","28:REMATE COMBINADO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/d/3/d3rwwct6ram.png",
     stamina: 100,
     morale: 100,
@@ -18704,7 +18705,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 88, name: "ACELERRELÁMPAGO", type: "Regate", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["88:ACELERRELÁMPAGO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/s/q/sqwhe6jpb40.png",
     stamina: 100,
     morale: 100,
@@ -18750,7 +18751,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["646:FEINT DASH","84:ESPEJISMO DE BALÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/z/p/zpndk6oxjls.png",
     stamina: 100,
     morale: 100,
@@ -18796,7 +18797,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 547, name: "PATADA TARZÁN", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 502, name: "CARRERA A TRES PIERNAS", type: "Regate", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["642:DUST KICK","547:PATADA TARZÁN","502:CARRERA A TRES PIERNAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/m/w/mw787jmlvku.png",
     stamina: 100,
     morale: 100,
@@ -18842,7 +18843,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 547, name: "PATADA TARZÁN", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 651, name: "FINTA DEL TOPO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["642:DUST KICK","547:PATADA TARZÁN","651:FINTA DEL TOPO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/e/6/e6ek6jeyvdk.png",
     stamina: 100,
     morale: 100,
@@ -18888,7 +18889,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["84:ESPEJISMO DE BALÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/k/x/kxdqcyh7muc.png",
     stamina: 100,
     morale: 100,
@@ -18934,7 +18935,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 606, name: "POWER SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 650, name: "IMAGEN RESIDUAL", type: "Regate", element: "WOOD", POT: 60, PP: 60 }, { id: 617, name: "TORNADO OSCURO", type: "Tiro", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["606:POWER SHOT","650:IMAGEN RESIDUAL","617:TORNADO OSCURO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/s/i/siezk4hwg-8.png",
     stamina: 100,
     morale: 100,
@@ -18980,7 +18981,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 209, name: "RUPTURA GAIA", type: "Tiro", element: "MOUNTAIN", POT: 80, PP: 80 }, { id: 502, name: "CARRERA A TRES PIERNAS", type: "Regate", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","209:RUPTURA GAIA","502:CARRERA A TRES PIERNAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/2/z/2z6soh-p7mu.png",
     stamina: 100,
     morale: 100,
@@ -19026,7 +19027,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/w/q/wqnbepe8g7e.png",
     stamina: 100,
     morale: 100,
@@ -19072,7 +19073,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 650, name: "IMAGEN RESIDUAL", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["650:IMAGEN RESIDUAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/n/e/nefbdmkicqu.png",
     stamina: 100,
     morale: 100,
@@ -19118,7 +19119,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 571, name: "CARRERA DE PERRO", type: "Regate", element: "FIRE", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","609:TIRO GRANADA","571:CARRERA DE PERRO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/b/r/brmi9wq8wyc.png",
     stamina: 100,
     morale: 100,
@@ -19164,7 +19165,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 655, name: "LLUVIA DE METEOROS", type: "Regate", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["655:LLUVIA DE METEOROS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/e/6/e60g47b9zse.png",
     stamina: 100,
     morale: 100,
@@ -19210,7 +19211,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 650, name: "IMAGEN RESIDUAL", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["650:IMAGEN RESIDUAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/d/g/dgqtxgqikqm.png",
     stamina: 100,
     morale: 100,
@@ -19256,7 +19257,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 604, name: "CURVE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 86, name: "CONFUSIÓN", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 212, name: "IMPULSO DEL TIGRE", type: "Tiro", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["604:CURVE SHOT","86:CONFUSIÓN","212:IMPULSO DEL TIGRE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/3/x/3xwisjgl77e.png",
     stamina: 100,
     morale: 100,
@@ -19302,7 +19303,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["84:ESPEJISMO DE BALÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/x/s/xsbz0dw8zss.png",
     stamina: 100,
     morale: 100,
@@ -19348,7 +19349,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 652, name: "REGATE ENGAÑOSO", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["652:REGATE ENGAÑOSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/t/g/tgqlcgazar8.png",
     stamina: 100,
     morale: 100,
@@ -19394,7 +19395,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/m/vm3swctl6ss.png",
     stamina: 100,
     morale: 100,
@@ -19440,7 +19441,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 658, name: "ULTRA LUNA", type: "Regate", element: "WOOD", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["642:DUST KICK","658:ULTRA LUNA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/c/1/c1p853rkjpe.png",
     stamina: 100,
     morale: 100,
@@ -19486,7 +19487,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 652, name: "REGATE ENGAÑOSO", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["652:REGATE ENGAÑOSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/n/u/nulmfp6x1_k.png",
     stamina: 100,
     morale: 100,
@@ -19532,7 +19533,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 543, name: "IMPULSO CRUZADO", type: "Tiro", element: "WIND", POT: 50, PP: 50 }, { id: 183, name: "AIKIDO", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["645:NUTMEG","543:IMPULSO CRUZADO","183:AIKIDO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/f/x/fxfjbewg-zm.png",
     stamina: 100,
     morale: 100,
@@ -19578,7 +19579,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 209, name: "RUPTURA GAIA", type: "Tiro", element: "MOUNTAIN", POT: 80, PP: 80 }, { id: 502, name: "CARRERA A TRES PIERNAS", type: "Regate", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","209:RUPTURA GAIA","502:CARRERA A TRES PIERNAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/4/b/4b1zgoucez8.png",
     stamina: 100,
     morale: 100,
@@ -19624,7 +19625,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 86, name: "CONFUSIÓN", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["86:CONFUSIÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/0/z/0zrwusjd-u8.png",
     stamina: 100,
     morale: 100,
@@ -19670,7 +19671,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 565, name: "ACELERADOR DE CARRERA", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["565:ACELERADOR DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/w/s/ws4m09stlr0.png",
     stamina: 100,
     morale: 100,
@@ -19716,7 +19717,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 547, name: "PATADA TARZÁN", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["547:PATADA TARZÁN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/o/t/otpvjsiq8sc.png",
     stamina: 100,
     morale: 100,
@@ -19762,7 +19763,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 606, name: "POWER SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 83, name: "ENTRADA HURACÁN", type: "Regate", element: "WIND", POT: 60, PP: 60 }, { id: 215, name: "EL TUBO", type: "Tiro", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["606:POWER SHOT","83:ENTRADA HURACÁN","215:EL TUBO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/x/c/xchooaaje5c.png",
     stamina: 100,
     morale: 100,
@@ -19808,7 +19809,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 209, name: "RUPTURA GAIA", type: "Tiro", element: "MOUNTAIN", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["209:RUPTURA GAIA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/y/x/yxkdwwwql9e.png",
     stamina: 100,
     morale: 100,
@@ -19854,7 +19855,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 568, name: "PATADA CANGURO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["568:PATADA CANGURO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/f/7/f79snb7kfv8.png",
     stamina: 100,
     morale: 100,
@@ -19900,7 +19901,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 607, name: "LOW DRIVE", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 83, name: "ENTRADA HURACÁN", type: "Regate", element: "WIND", POT: 60, PP: 60 }, { id: 58, name: "GRAN TIFÓN", type: "Tiro", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["607:LOW DRIVE","83:ENTRADA HURACÁN","58:GRAN TIFÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/k/s/ks6bjwcl67m.png",
     stamina: 100,
     morale: 100,
@@ -19946,7 +19947,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "GK"
     },
-    techniques: [{ id: 608, name: "TIRO DE FURIA", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["608:TIRO DE FURIA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/k/t/kttlw44rtb8.png",
     stamina: 100,
     morale: 100,
@@ -19992,7 +19993,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 544, name: "PICADA DEL CÓNDOR", type: "Tiro", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["544:PICADA DEL CÓNDOR"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/f/u/fu0aiizemns.png",
     stamina: 100,
     morale: 100,
@@ -20038,7 +20039,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 86, name: "CONFUSIÓN", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["86:CONFUSIÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/6/2/625ws4ucyrs.png",
     stamina: 100,
     morale: 100,
@@ -20084,7 +20085,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 547, name: "PATADA TARZÁN", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 651, name: "FINTA DEL TOPO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","547:PATADA TARZÁN","651:FINTA DEL TOPO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/o/z/ozuib8c7jum.png",
     stamina: 100,
     morale: 100,
@@ -20130,7 +20131,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/s/g/sgwf0zu7008.png",
     stamina: 100,
     morale: 100,
@@ -20176,7 +20177,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 614, name: "CABEZAZO KUNG FU", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }, { id: 501, name: "CLON FALSO", type: "Regate", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["646:FEINT DASH","614:CABEZAZO KUNG FU","501:CLON FALSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/i/3/i3pjkrnwduk.png",
     stamina: 100,
     morale: 100,
@@ -20222,7 +20223,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 209, name: "RUPTURA GAIA", type: "Tiro", element: "MOUNTAIN", POT: 80, PP: 80 }, { id: 651, name: "FINTA DEL TOPO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["642:DUST KICK","209:RUPTURA GAIA","651:FINTA DEL TOPO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/y/c/yc36aia3ypc.png",
     stamina: 100,
     morale: 100,
@@ -20268,7 +20269,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 655, name: "LLUVIA DE METEOROS", type: "Regate", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["655:LLUVIA DE METEOROS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/c/i/cizua6-olhu.png",
     stamina: 100,
     morale: 100,
@@ -20314,7 +20315,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 541, name: "PATADA RODANTE", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }, { id: 504, name: "FINTA DEL MATADOR", type: "Regate", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["646:FEINT DASH","541:PATADA RODANTE","504:FINTA DEL MATADOR"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/8/g/8guhywctymm.png",
     stamina: 100,
     morale: 100,
@@ -20360,7 +20361,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/c/p/cp3yhtplts8.png",
     stamina: 100,
     morale: 100,
@@ -20406,7 +20407,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 567, name: "REGATE AURORA", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["567:REGATE AURORA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/-/m/-mim2v_armm.png",
     stamina: 100,
     morale: 100,
@@ -20452,7 +20453,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 44, name: "ASTRORREMATE", type: "Tiro", element: "WOOD", POT: 60, PP: 60 }, { id: 658, name: "ULTRA LUNA", type: "Regate", element: "WOOD", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","44:ASTRORREMATE","658:ULTRA LUNA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/1/q/1qr-8qyj-9e.png",
     stamina: 100,
     morale: 100,
@@ -20498,7 +20499,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/9/4/94vghnmvoyu.png",
     stamina: 100,
     morale: 100,
@@ -20544,7 +20545,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 564, name: "TORBELLINO GIRATORIO", type: "Regate", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["564:TORBELLINO GIRATORIO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/m/_/m_tunnwhuye.png",
     stamina: 100,
     morale: 100,
@@ -20590,7 +20591,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 605, name: "BOUNCE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 624, name: "TIRO ESPEJISMO", type: "Tiro", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["605:BOUNCE SHOT","624:TIRO ESPEJISMO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/k/l/klxa62jf8g8.png",
     stamina: 100,
     morale: 100,
@@ -20636,7 +20637,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 87, name: "HORA CELESTIAL", type: "Regate", element: "WIND", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","87:HORA CELESTIAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/p/q/pqse8dvcf-0.png",
     stamina: 100,
     morale: 100,
@@ -20682,7 +20683,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/y/w/ywdev1_mp4e.png",
     stamina: 100,
     morale: 100,
@@ -20728,7 +20729,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 44, name: "ASTRORREMATE", type: "Tiro", element: "WOOD", POT: 60, PP: 60 }, { id: 658, name: "ULTRA LUNA", type: "Regate", element: "WOOD", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","44:ASTRORREMATE","658:ULTRA LUNA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/d/l/dlwn0auk4tk.png",
     stamina: 100,
     morale: 100,
@@ -20774,7 +20775,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/i/c/icn9ihpzwo8.png",
     stamina: 100,
     morale: 100,
@@ -20820,7 +20821,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 605, name: "BOUNCE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 86, name: "CONFUSIÓN", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 548, name: "BOLA DE TIERRA", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["605:BOUNCE SHOT","86:CONFUSIÓN","548:BOLA DE TIERRA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/o/r/or8gv60jqmu.png",
     stamina: 100,
     morale: 100,
@@ -20866,7 +20867,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 571, name: "CARRERA DE PERRO", type: "Regate", element: "FIRE", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","571:CARRERA DE PERRO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/h/v/hvqykfbh9cs.png",
     stamina: 100,
     morale: 100,
@@ -20912,7 +20913,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 649, name: "SÚPER ARMADILLO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["649:SÚPER ARMADILLO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/9/3/93dptvilrls.png",
     stamina: 100,
     morale: 100,
@@ -20958,7 +20959,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/3/d/3dignef0gmc.png",
     stamina: 100,
     morale: 100,
@@ -21004,7 +21005,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/q/t/qtgxqgnhmtm.png",
     stamina: 100,
     morale: 100,
@@ -21050,7 +21051,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 183, name: "AIKIDO", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","183:AIKIDO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/x/d/xd2atwmiy1u.png",
     stamina: 100,
     morale: 100,
@@ -21096,7 +21097,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 614, name: "CABEZAZO KUNG FU", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["614:CABEZAZO KUNG FU"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/w/q/wqs0_1ztxy0.png",
     stamina: 100,
     morale: 100,
@@ -21142,7 +21143,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/_/f/_fyoktuqrf0.png",
     stamina: 100,
     morale: 100,
@@ -21188,7 +21189,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 565, name: "ACELERADOR DE CARRERA", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["565:ACELERADOR DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/8/p/8pj0vlkzzv0.png",
     stamina: 100,
     morale: 100,
@@ -21234,7 +21235,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["84:ESPEJISMO DE BALÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/y/i/yiqf-wkq-h0.png",
     stamina: 100,
     morale: 100,
@@ -21280,7 +21281,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 650, name: "IMAGEN RESIDUAL", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["650:IMAGEN RESIDUAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/m/w/mwdcog-ijju.png",
     stamina: 100,
     morale: 100,
@@ -21326,7 +21327,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 543, name: "IMPULSO CRUZADO", type: "Tiro", element: "WIND", POT: 50, PP: 50 }, { id: 183, name: "AIKIDO", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","543:IMPULSO CRUZADO","183:AIKIDO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/y/l/ylgy7u_b__e.png",
     stamina: 100,
     morale: 100,
@@ -21372,7 +21373,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 612, name: "TIRO ESPIRAL", type: "Tiro", element: "WIND", POT: 50, PP: 50 }, { id: 87, name: "HORA CELESTIAL", type: "Regate", element: "WIND", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["646:FEINT DASH","612:TIRO ESPIRAL","87:HORA CELESTIAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/e/m/emoe3kelp2e.png",
     stamina: 100,
     morale: 100,
@@ -21418,7 +21419,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 652, name: "REGATE ENGAÑOSO", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["652:REGATE ENGAÑOSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/j/3/j3rkrxsuxrc.png",
     stamina: 100,
     morale: 100,
@@ -21464,7 +21465,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 44, name: "ASTRORREMATE", type: "Tiro", element: "WOOD", POT: 60, PP: 60 }, { id: 658, name: "ULTRA LUNA", type: "Regate", element: "WOOD", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","44:ASTRORREMATE","658:ULTRA LUNA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/h/m/hmikbrqpdte.png",
     stamina: 100,
     morale: 100,
@@ -21510,7 +21511,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 571, name: "CARRERA DE PERRO", type: "Regate", element: "FIRE", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["646:FEINT DASH","571:CARRERA DE PERRO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/i/y/iygxhivsom0.png",
     stamina: 100,
     morale: 100,
@@ -21556,7 +21557,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 544, name: "PICADA DEL CÓNDOR", type: "Tiro", element: "WIND", POT: 50, PP: 50 }, { id: 87, name: "HORA CELESTIAL", type: "Regate", element: "WIND", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","544:PICADA DEL CÓNDOR","87:HORA CELESTIAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/7/r/7re3czqgasc.png",
     stamina: 100,
     morale: 100,
@@ -21602,7 +21603,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/j/2/j2g37rdpbtc.png",
     stamina: 100,
     morale: 100,
@@ -21648,7 +21649,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 606, name: "POWER SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 83, name: "ENTRADA HURACÁN", type: "Regate", element: "WIND", POT: 60, PP: 60 }, { id: 616, name: "TORNADO TRASERO", type: "Tiro", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["606:POWER SHOT","83:ENTRADA HURACÁN","616:TORNADO TRASERO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/s/a/sa3lh-sfmu8.png",
     stamina: 100,
     morale: 100,
@@ -21694,7 +21695,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 604, name: "CURVE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 650, name: "IMAGEN RESIDUAL", type: "Regate", element: "WOOD", POT: 60, PP: 60 }, { id: 624, name: "TIRO ESPEJISMO", type: "Tiro", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["604:CURVE SHOT","650:IMAGEN RESIDUAL","624:TIRO ESPEJISMO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/s/v/svawgr6xnne.png",
     stamina: 100,
     morale: 100,
@@ -21740,7 +21741,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/p/b/pbdryxxjbu0.png",
     stamina: 100,
     morale: 100,
@@ -21786,7 +21787,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 565, name: "ACELERADOR DE CARRERA", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["565:ACELERADOR DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/p/vp28felhuas.png",
     stamina: 100,
     morale: 100,
@@ -21832,7 +21833,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 653, name: "DOBLE TOQUE", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["653:DOBLE TOQUE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/p/h/phk08fpuxmc.png",
     stamina: 100,
     morale: 100,
@@ -21878,7 +21879,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 31, name: "REMATE DRAGÓN", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["31:REMATE DRAGÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/z/d/zdydui3ek8s.png",
     stamina: 100,
     morale: 100,
@@ -21924,7 +21925,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 571, name: "CARRERA DE PERRO", type: "Regate", element: "FIRE", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["642:DUST KICK","609:TIRO GRANADA","571:CARRERA DE PERRO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/0/8/08d-yoth_8s.png",
     stamina: 100,
     morale: 100,
@@ -21970,7 +21971,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 88, name: "ACELERRELÁMPAGO", type: "Regate", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["88:ACELERRELÁMPAGO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/t/p/tpn4ltwtrie.png",
     stamina: 100,
     morale: 100,
@@ -22016,7 +22017,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 183, name: "AIKIDO", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","183:AIKIDO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/a/u/auugxudimje.png",
     stamina: 100,
     morale: 100,
@@ -22062,7 +22063,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["84:ESPEJISMO DE BALÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/m/q/mqczfxy4jc8.png",
     stamina: 100,
     morale: 100,
@@ -22108,7 +22109,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/5/1/511f6bm_r4u.png",
     stamina: 100,
     morale: 100,
@@ -22154,7 +22155,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 566, name: "GIRO DE MONO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["566:GIRO DE MONO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/m/f/mfyu-quf84e.png",
     stamina: 100,
     morale: 100,
@@ -22200,7 +22201,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 565, name: "ACELERADOR DE CARRERA", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["565:ACELERADOR DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/p/y/pyfixf-pdu0.png",
     stamina: 100,
     morale: 100,
@@ -22246,7 +22247,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 571, name: "CARRERA DE PERRO", type: "Regate", element: "FIRE", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["646:FEINT DASH","571:CARRERA DE PERRO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/3/c/3ctaveqhyh0.png",
     stamina: 100,
     morale: 100,
@@ -22292,7 +22293,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["642:DUST KICK"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/z/h/zhv97egsy2e.png",
     stamina: 100,
     morale: 100,
@@ -22338,7 +22339,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 86, name: "CONFUSIÓN", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["86:CONFUSIÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/a/2/a2tqyw3-gsk.png",
     stamina: 100,
     morale: 100,
@@ -22384,7 +22385,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/h/b/hblzjeytwv8.png",
     stamina: 100,
     morale: 100,
@@ -22430,7 +22431,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 85, name: "ENTRADA DE LLAMAS", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","609:TIRO GRANADA","85:ENTRADA DE LLAMAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/e/k/eku7k4xiu50.png",
     stamina: 100,
     morale: 100,
@@ -22476,7 +22477,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 653, name: "DOBLE TOQUE", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["653:DOBLE TOQUE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/d/y/dymlxx7o6d0.png",
     stamina: 100,
     morale: 100,
@@ -22522,7 +22523,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 88, name: "ACELERRELÁMPAGO", type: "Regate", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["88:ACELERRELÁMPAGO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/r/q/rqnxicqhqvc.png",
     stamina: 100,
     morale: 100,
@@ -22568,7 +22569,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 567, name: "REGATE AURORA", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["567:REGATE AURORA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/-/p/-pkoarpeqec.png",
     stamina: 100,
     morale: 100,
@@ -22614,7 +22615,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 566, name: "GIRO DE MONO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["566:GIRO DE MONO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/g/r/grtnkhjor_0.png",
     stamina: 100,
     morale: 100,
@@ -22660,7 +22661,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 564, name: "TORBELLINO GIRATORIO", type: "Regate", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["564:TORBELLINO GIRATORIO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/2/h/2hptfkllkzk.png",
     stamina: 100,
     morale: 100,
@@ -22706,7 +22707,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 651, name: "FINTA DEL TOPO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","651:FINTA DEL TOPO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/n/b/nbf1xw7vis0.png",
     stamina: 100,
     morale: 100,
@@ -22752,7 +22753,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 614, name: "CABEZAZO KUNG FU", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }, { id: 501, name: "CLON FALSO", type: "Regate", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","614:CABEZAZO KUNG FU","501:CLON FALSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/e/j/ej_yhuucchu.png",
     stamina: 100,
     morale: 100,
@@ -22798,7 +22799,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 502, name: "CARRERA A TRES PIERNAS", type: "Regate", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","502:CARRERA A TRES PIERNAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/z/f/zfme9ciquee.png",
     stamina: 100,
     morale: 100,
@@ -22844,7 +22845,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/4/k/4kdtozkjkf0.png",
     stamina: 100,
     morale: 100,
@@ -22890,7 +22891,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 44, name: "ASTRORREMATE", type: "Tiro", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["44:ASTRORREMATE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/i/m/imfg28ypqp8.png",
     stamina: 100,
     morale: 100,
@@ -22936,7 +22937,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 653, name: "DOBLE TOQUE", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["653:DOBLE TOQUE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/x/n/xnvvpunxvhe.png",
     stamina: 100,
     morale: 100,
@@ -22982,7 +22983,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 604, name: "CURVE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 27, name: "TRAMPOLÍN RELÁMPAGO", type: "Tiro", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["604:CURVE SHOT","27:TRAMPOLÍN RELÁMPAGO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/d/z/dzvmiss4qg0.png",
     stamina: 100,
     morale: 100,
@@ -23028,7 +23029,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 612, name: "TIRO ESPIRAL", type: "Tiro", element: "WIND", POT: 50, PP: 50 }, { id: 87, name: "HORA CELESTIAL", type: "Regate", element: "WIND", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","612:TIRO ESPIRAL","87:HORA CELESTIAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/p/u/pumckb_qw0m.png",
     stamina: 100,
     morale: 100,
@@ -23074,7 +23075,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 86, name: "CONFUSIÓN", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["86:CONFUSIÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/u/vugklkebuoe.png",
     stamina: 100,
     morale: 100,
@@ -23120,7 +23121,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 567, name: "REGATE AURORA", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["567:REGATE AURORA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/x/e/xe1xbuvtob0.png",
     stamina: 100,
     morale: 100,
@@ -23166,7 +23167,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 604, name: "CURVE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 564, name: "TORBELLINO GIRATORIO", type: "Regate", element: "WIND", POT: 50, PP: 50 }, { id: 40, name: "VENTISCA ETERNA", type: "Tiro", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["604:CURVE SHOT","564:TORBELLINO GIRATORIO","40:VENTISCA ETERNA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/0/r/0rmlb2weavu.png",
     stamina: 100,
     morale: 100,
@@ -23212,7 +23213,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/d/x/dxonhtlk7rk.png",
     stamina: 100,
     morale: 100,
@@ -23258,7 +23259,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 547, name: "PATADA TARZÁN", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 651, name: "FINTA DEL TOPO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","547:PATADA TARZÁN","651:FINTA DEL TOPO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/l/r/lryhcaarsju.png",
     stamina: 100,
     morale: 100,
@@ -23304,7 +23305,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["84:ESPEJISMO DE BALÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/b/e/berradgi9rk.png",
     stamina: 100,
     morale: 100,
@@ -23350,7 +23351,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 209, name: "RUPTURA GAIA", type: "Tiro", element: "MOUNTAIN", POT: 80, PP: 80 }, { id: 502, name: "CARRERA A TRES PIERNAS", type: "Regate", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","209:RUPTURA GAIA","502:CARRERA A TRES PIERNAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/7/k/7ks-ibemjrk.png",
     stamina: 100,
     morale: 100,
@@ -23396,7 +23397,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 209, name: "RUPTURA GAIA", type: "Tiro", element: "MOUNTAIN", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["209:RUPTURA GAIA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/1/m/1mbqxxoacwk.png",
     stamina: 100,
     morale: 100,
@@ -23442,7 +23443,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 653, name: "DOBLE TOQUE", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["653:DOBLE TOQUE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/p/b/pb7vtupk9t0.png",
     stamina: 100,
     morale: 100,
@@ -23488,7 +23489,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 501, name: "CLON FALSO", type: "Regate", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","501:CLON FALSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/z/y/zyvuzdhqplu.png",
     stamina: 100,
     morale: 100,
@@ -23534,7 +23535,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 612, name: "TIRO ESPIRAL", type: "Tiro", element: "WIND", POT: 50, PP: 50 }, { id: 505, name: "TORMENTA DE CARRERA", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["645:NUTMEG","612:TIRO ESPIRAL","505:TORMENTA DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/l/u/lumzbfwbm2m.png",
     stamina: 100,
     morale: 100,
@@ -23580,7 +23581,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 649, name: "SÚPER ARMADILLO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["649:SÚPER ARMADILLO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/s/vsojhn17qne.png",
     stamina: 100,
     morale: 100,
@@ -23626,7 +23627,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 86, name: "CONFUSIÓN", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["86:CONFUSIÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/g/4/g4wql9mbhm0.png",
     stamina: 100,
     morale: 100,
@@ -23672,7 +23673,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 603, name: "CHIP SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 652, name: "REGATE ENGAÑOSO", type: "Regate", element: "WOOD", POT: 60, PP: 60 }, { id: 617, name: "TORNADO OSCURO", type: "Tiro", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["603:CHIP SHOT","652:REGATE ENGAÑOSO","617:TORNADO OSCURO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/n/a/nabwnffv0jc.png",
     stamina: 100,
     morale: 100,
@@ -23718,7 +23719,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 655, name: "LLUVIA DE METEOROS", type: "Regate", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["655:LLUVIA DE METEOROS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/c/l/cl8hdk7x0ys.png",
     stamina: 100,
     morale: 100,
@@ -23764,7 +23765,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 610, name: "TIRO GIRATORIO", type: "Tiro", element: "WIND", POT: 50, PP: 50 }, { id: 505, name: "TORMENTA DE CARRERA", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","610:TIRO GIRATORIO","505:TORMENTA DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/m/vmt5kqxcqps.png",
     stamina: 100,
     morale: 100,
@@ -23810,7 +23811,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 570, name: "CAÍDA DE TACÓN", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","609:TIRO GRANADA","570:CAÍDA DE TACÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/4/k/4k7tdwsksc0.png",
     stamina: 100,
     morale: 100,
@@ -23856,7 +23857,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 605, name: "BOUNCE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 652, name: "REGATE ENGAÑOSO", type: "Regate", element: "WOOD", POT: 60, PP: 60 }, { id: 619, name: "BOMBARDERO ACROBÁTICO", type: "Tiro", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["605:BOUNCE SHOT","652:REGATE ENGAÑOSO","619:BOMBARDERO ACROBÁTICO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/n/k/nkpbfnl6ga8.png",
     stamina: 100,
     morale: 100,
@@ -23902,7 +23903,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 608, name: "TIRO DE FURIA", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }, { id: 501, name: "CLON FALSO", type: "Regate", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","608:TIRO DE FURIA","501:CLON FALSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/m/k/mkr5w9p01iu.png",
     stamina: 100,
     morale: 100,
@@ -23948,7 +23949,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 544, name: "PICADA DEL CÓNDOR", type: "Tiro", element: "WIND", POT: 50, PP: 50 }, { id: 505, name: "TORMENTA DE CARRERA", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","544:PICADA DEL CÓNDOR","505:TORMENTA DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/k/j/kjuscr0clb0.png",
     stamina: 100,
     morale: 100,
@@ -23994,7 +23995,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "GK"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/b/vbvpzckyju8.png",
     stamina: 100,
     morale: 100,
@@ -24040,7 +24041,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 608, name: "TIRO DE FURIA", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }, { id: 501, name: "CLON FALSO", type: "Regate", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["646:FEINT DASH","608:TIRO DE FURIA","501:CLON FALSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/f/v/fv7cqscl4ke.png",
     stamina: 100,
     morale: 100,
@@ -24086,7 +24087,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/m/q/mqoihspefd8.png",
     stamina: 100,
     morale: 100,
@@ -24132,7 +24133,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/u/s/uspiuwp5gzc.png",
     stamina: 100,
     morale: 100,
@@ -24178,7 +24179,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 652, name: "REGATE ENGAÑOSO", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["652:REGATE ENGAÑOSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/u/e/ueaox2nx1nm.png",
     stamina: 100,
     morale: 100,
@@ -24224,7 +24225,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 87, name: "HORA CELESTIAL", type: "Regate", element: "WIND", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["642:DUST KICK","87:HORA CELESTIAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/z/b/zbfp2d6bodk.png",
     stamina: 100,
     morale: 100,
@@ -24270,7 +24271,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/g/h/gh_rm6ph-pm.png",
     stamina: 100,
     morale: 100,
@@ -24316,7 +24317,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/h/a/ha6ojypiat8.png",
     stamina: 100,
     morale: 100,
@@ -24362,7 +24363,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 603, name: "CHIP SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 658, name: "ULTRA LUNA", type: "Regate", element: "WOOD", POT: 70, PP: 70 }, { id: 82, name: "TIRO AMASADO", type: "Tiro", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["603:CHIP SHOT","658:ULTRA LUNA","82:TIRO AMASADO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/n/z/nz2ghxvgpic.png",
     stamina: 100,
     morale: 100,
@@ -24408,7 +24409,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 606, name: "POWER SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 655, name: "LLUVIA DE METEOROS", type: "Regate", element: "FIRE", POT: 70, PP: 70 }, { id: 213, name: "FUEGO INFERNAL", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["606:POWER SHOT","655:LLUVIA DE METEOROS","213:FUEGO INFERNAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/x/x/xxlvyegb0i8.png",
     stamina: 100,
     morale: 100,
@@ -24454,7 +24455,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 541, name: "PATADA RODANTE", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }, { id: 658, name: "ULTRA LUNA", type: "Regate", element: "WOOD", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","541:PATADA RODANTE","658:ULTRA LUNA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/n/1/n1z7afcavzm.png",
     stamina: 100,
     morale: 100,
@@ -24500,7 +24501,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 571, name: "CARRERA DE PERRO", type: "Regate", element: "FIRE", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","609:TIRO GRANADA","571:CARRERA DE PERRO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/3/n/3n7t7cerlym.png",
     stamina: 100,
     morale: 100,
@@ -24546,7 +24547,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 44, name: "ASTRORREMATE", type: "Tiro", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["44:ASTRORREMATE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/7/e/7el6opkfxik.png",
     stamina: 100,
     morale: 100,
@@ -24592,7 +24593,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/y/n/ynnszlyevem.png",
     stamina: 100,
     morale: 100,
@@ -24638,7 +24639,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 501, name: "CLON FALSO", type: "Regate", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["645:NUTMEG","501:CLON FALSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/8/v8pood9a1s0.png",
     stamina: 100,
     morale: 100,
@@ -24684,7 +24685,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/m/e/mewsz8wgefe.png",
     stamina: 100,
     morale: 100,
@@ -24730,7 +24731,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 543, name: "IMPULSO CRUZADO", type: "Tiro", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["543:IMPULSO CRUZADO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/m/y/myrewrtlddu.png",
     stamina: 100,
     morale: 100,
@@ -24776,7 +24777,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 653, name: "DOBLE TOQUE", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["653:DOBLE TOQUE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/8/h/8hl6y2t2ukm.png",
     stamina: 100,
     morale: 100,
@@ -24822,7 +24823,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 604, name: "CURVE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 86, name: "CONFUSIÓN", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 212, name: "IMPULSO DEL TIGRE", type: "Tiro", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["604:CURVE SHOT","86:CONFUSIÓN","212:IMPULSO DEL TIGRE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/x/i/xigydcpoy78.png",
     stamina: 100,
     morale: 100,
@@ -24868,7 +24869,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["84:ESPEJISMO DE BALÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/l/b/lbox3bmfnkc.png",
     stamina: 100,
     morale: 100,
@@ -24914,7 +24915,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 650, name: "IMAGEN RESIDUAL", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["650:IMAGEN RESIDUAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/4/6/46jbu8bae9u.png",
     stamina: 100,
     morale: 100,
@@ -24960,7 +24961,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 35, name: "SABIDURÍA DIVINA", type: "Tiro", element: "WIND", POT: 70, PP: 70 }, { id: 87, name: "HORA CELESTIAL", type: "Regate", element: "WIND", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["646:FEINT DASH","35:SABIDURÍA DIVINA","87:HORA CELESTIAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/l/h/lh8bpfk7xm8.png",
     stamina: 100,
     morale: 100,
@@ -25006,7 +25007,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 566, name: "GIRO DE MONO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["566:GIRO DE MONO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/w/y/wyfpqvsopzc.png",
     stamina: 100,
     morale: 100,
@@ -25052,7 +25053,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 83, name: "ENTRADA HURACÁN", type: "Regate", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["83:ENTRADA HURACÁN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/q/o/qohkoyodile.png",
     stamina: 100,
     morale: 100,
@@ -25098,7 +25099,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/g/l/glkywjirmrk.png",
     stamina: 100,
     morale: 100,
@@ -25144,7 +25145,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 90, name: "COZ 3", type: "Regate", element: "FIRE", POT: 100, PP: 100 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","609:TIRO GRANADA","90:COZ 3"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/u/-/u-fvgnbbfsk.png",
     stamina: 100,
     morale: 100,
@@ -25190,7 +25191,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 85, name: "ENTRADA DE LLAMAS", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["642:DUST KICK","85:ENTRADA DE LLAMAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/y/x/yxyjfzo9d-e.png",
     stamina: 100,
     morale: 100,
@@ -25236,7 +25237,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 653, name: "DOBLE TOQUE", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["653:DOBLE TOQUE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/g/k/gk9bx20lnyc.png",
     stamina: 100,
     morale: 100,
@@ -25282,7 +25283,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 610, name: "TIRO GIRATORIO", type: "Tiro", element: "WIND", POT: 50, PP: 50 }, { id: 183, name: "AIKIDO", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","610:TIRO GIRATORIO","183:AIKIDO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/q/vqntpxrpskm.png",
     stamina: 100,
     morale: 100,
@@ -25328,7 +25329,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 608, name: "TIRO DE FURIA", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }, { id: 501, name: "CLON FALSO", type: "Regate", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","608:TIRO DE FURIA","501:CLON FALSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/p/g/pgvjwd-pbgc.png",
     stamina: 100,
     morale: 100,
@@ -25374,7 +25375,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 502, name: "CARRERA A TRES PIERNAS", type: "Regate", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","502:CARRERA A TRES PIERNAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/m/l/mlmkxozaers.png",
     stamina: 100,
     morale: 100,
@@ -25420,7 +25421,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 603, name: "CHIP SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 507, name: "VELO DE AGUA", type: "Regate", element: "WIND", POT: 60, PP: 60 }, { id: 210, name: "PINGÜINO ESPACIAL", type: "Tiro", element: "WIND", POT: 100, PP: 100 }],
+    techniques: getSupertechniques(["603:CHIP SHOT","507:VELO DE AGUA","210:PINGÜINO ESPACIAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/s/_/s__smstwwim.png",
     stamina: 100,
     morale: 100,
@@ -25466,7 +25467,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/c/3/c39lqjeqdts.png",
     stamina: 100,
     morale: 100,
@@ -25512,7 +25513,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 655, name: "LLUVIA DE METEOROS", type: "Regate", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["655:LLUVIA DE METEOROS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/p/j/pjr5wrz7sms.png",
     stamina: 100,
     morale: 100,
@@ -25558,7 +25559,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 612, name: "TIRO ESPIRAL", type: "Tiro", element: "WIND", POT: 50, PP: 50 }, { id: 87, name: "HORA CELESTIAL", type: "Regate", element: "WIND", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["645:NUTMEG","612:TIRO ESPIRAL","87:HORA CELESTIAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/j/vjahxjf_r1u.png",
     stamina: 100,
     morale: 100,
@@ -25604,7 +25605,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 606, name: "POWER SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 564, name: "TORBELLINO GIRATORIO", type: "Regate", element: "WIND", POT: 50, PP: 50 }, { id: 27, name: "TRAMPOLÍN RELÁMPAGO", type: "Tiro", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["606:POWER SHOT","564:TORBELLINO GIRATORIO","27:TRAMPOLÍN RELÁMPAGO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/x/c/xcg2tpsrftk.png",
     stamina: 100,
     morale: 100,
@@ -25650,7 +25651,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 570, name: "CAÍDA DE TACÓN", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["642:DUST KICK","570:CAÍDA DE TACÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/u/z/uzl7ooiok00.png",
     stamina: 100,
     morale: 100,
@@ -25696,7 +25697,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 547, name: "PATADA TARZÁN", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 651, name: "FINTA DEL TOPO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","547:PATADA TARZÁN","651:FINTA DEL TOPO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/l/t/ltm4rupfyr8.png",
     stamina: 100,
     morale: 100,
@@ -25742,7 +25743,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 564, name: "TORBELLINO GIRATORIO", type: "Regate", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["564:TORBELLINO GIRATORIO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/8/i/8insuydyvyc.png",
     stamina: 100,
     morale: 100,
@@ -25788,7 +25789,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 544, name: "PICADA DEL CÓNDOR", type: "Tiro", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["544:PICADA DEL CÓNDOR"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/y/6/y63ha04maec.png",
     stamina: 100,
     morale: 100,
@@ -25834,7 +25835,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 605, name: "BOUNCE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 652, name: "REGATE ENGAÑOSO", type: "Regate", element: "WOOD", POT: 60, PP: 60 }, { id: 552, name: "TIRO DE SEGURIDAD", type: "Tiro", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["605:BOUNCE SHOT","652:REGATE ENGAÑOSO","552:TIRO DE SEGURIDAD"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/q/s/qsudx4hzkce.png",
     stamina: 100,
     morale: 100,
@@ -25880,7 +25881,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: null
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/z/l/zl7wdsxluuk.png",
     stamina: 100,
     morale: 100,
@@ -25926,7 +25927,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 607, name: "LOW DRIVE", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 567, name: "REGATE AURORA", type: "Regate", element: "WIND", POT: 70, PP: 70 }, { id: 30, name: "SUPERRELÁMPAGO", type: "Tiro", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["607:LOW DRIVE","567:REGATE AURORA","30:SUPERRELÁMPAGO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/d/a/da0jpcojuj0.png",
     stamina: 100,
     morale: 100,
@@ -25972,7 +25973,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 507, name: "VELO DE AGUA", type: "Regate", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["507:VELO DE AGUA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/k/u/kuyvj8bgyhc.png",
     stamina: 100,
     morale: 100,
@@ -26018,7 +26019,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 90, name: "COZ 3", type: "Regate", element: "FIRE", POT: 100, PP: 100 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","90:COZ 3"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/k/u/kuqjo4jliym.png",
     stamina: 100,
     morale: 100,
@@ -26064,7 +26065,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 571, name: "CARRERA DE PERRO", type: "Regate", element: "FIRE", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","571:CARRERA DE PERRO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/k/v/kvxzrm01sm0.png",
     stamina: 100,
     morale: 100,
@@ -26110,7 +26111,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 502, name: "CARRERA A TRES PIERNAS", type: "Regate", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","502:CARRERA A TRES PIERNAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/g/2/g2pf5_nekyk.png",
     stamina: 100,
     morale: 100,
@@ -26156,7 +26157,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 566, name: "GIRO DE MONO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["566:GIRO DE MONO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/u/z/uzhuvnysgu0.png",
     stamina: 100,
     morale: 100,
@@ -26202,7 +26203,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "GK"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/g/w/gwu_ky16ysk.png",
     stamina: 100,
     morale: 100,
@@ -26248,7 +26249,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/t/v/tv4j0cwdbds.png",
     stamina: 100,
     morale: 100,
@@ -26294,7 +26295,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 571, name: "CARRERA DE PERRO", type: "Regate", element: "FIRE", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["642:DUST KICK","609:TIRO GRANADA","571:CARRERA DE PERRO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/r/v/rvrfaz00k5u.png",
     stamina: 100,
     morale: 100,
@@ -26340,7 +26341,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/r/r/rrmn2i5tmwc.png",
     stamina: 100,
     morale: 100,
@@ -26386,7 +26387,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 652, name: "REGATE ENGAÑOSO", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["652:REGATE ENGAÑOSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/2/d/2dei2xbr66s.png",
     stamina: 100,
     morale: 100,
@@ -26432,7 +26433,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/f/5/f5h55opi_f0.png",
     stamina: 100,
     morale: 100,
@@ -26478,7 +26479,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 653, name: "DOBLE TOQUE", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["653:DOBLE TOQUE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/5/n/5nmere9zghk.png",
     stamina: 100,
     morale: 100,
@@ -26524,7 +26525,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 653, name: "DOBLE TOQUE", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["653:DOBLE TOQUE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/r/e/re-kuar-nbm.png",
     stamina: 100,
     morale: 100,
@@ -26570,7 +26571,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 652, name: "REGATE ENGAÑOSO", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["652:REGATE ENGAÑOSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/k/l/klj-p17oaf8.png",
     stamina: 100,
     morale: 100,
@@ -26616,7 +26617,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 507, name: "VELO DE AGUA", type: "Regate", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["507:VELO DE AGUA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/c/j/cj8zlhthfvm.png",
     stamina: 100,
     morale: 100,
@@ -26662,7 +26663,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/a/2/a2bdn3u4uls.png",
     stamina: 100,
     morale: 100,
@@ -26708,7 +26709,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 507, name: "VELO DE AGUA", type: "Regate", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["507:VELO DE AGUA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/c/a/caepeihqiw8.png",
     stamina: 100,
     morale: 100,
@@ -26754,7 +26755,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["84:ESPEJISMO DE BALÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/t/n/tnnaubdtzbe.png",
     stamina: 100,
     morale: 100,
@@ -26800,7 +26801,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 607, name: "LOW DRIVE", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 653, name: "DOBLE TOQUE", type: "Regate", element: "FIRE", POT: 60, PP: 60 }, { id: 36, name: "TORNADO DRAGÓN", type: "Tiro", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["607:LOW DRIVE","653:DOBLE TOQUE","36:TORNADO DRAGÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/8/i/8i1sbxffzbc.png",
     stamina: 100,
     morale: 100,
@@ -26846,7 +26847,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 652, name: "REGATE ENGAÑOSO", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["652:REGATE ENGAÑOSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/z/h/zhnsiel9yck.png",
     stamina: 100,
     morale: 100,
@@ -26892,7 +26893,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 570, name: "CAÍDA DE TACÓN", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["645:NUTMEG","570:CAÍDA DE TACÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/b/g/bg1expmj74s.png",
     stamina: 100,
     morale: 100,
@@ -26938,7 +26939,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/k/n/knsdtknj61k.png",
     stamina: 100,
     morale: 100,
@@ -26984,7 +26985,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/3/z/3zeksczivxe.png",
     stamina: 100,
     morale: 100,
@@ -27030,7 +27031,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 650, name: "IMAGEN RESIDUAL", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["650:IMAGEN RESIDUAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/r/8/r8lhozgo_dk.png",
     stamina: 100,
     morale: 100,
@@ -27076,7 +27077,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 507, name: "VELO DE AGUA", type: "Regate", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["507:VELO DE AGUA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/b/5/b51jstlwnns.png",
     stamina: 100,
     morale: 100,
@@ -27122,7 +27123,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 183, name: "AIKIDO", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["645:NUTMEG","183:AIKIDO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/e/-/e-qruphieye.png",
     stamina: 100,
     morale: 100,
@@ -27168,7 +27169,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 651, name: "FINTA DEL TOPO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","651:FINTA DEL TOPO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/5/0/50eiqdxkd-u.png",
     stamina: 100,
     morale: 100,
@@ -27214,7 +27215,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 541, name: "PATADA RODANTE", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }, { id: 504, name: "FINTA DEL MATADOR", type: "Regate", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["642:DUST KICK","541:PATADA RODANTE","504:FINTA DEL MATADOR"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/t/d/tdmbgaui6fk.png",
     stamina: 100,
     morale: 100,
@@ -27260,7 +27261,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 651, name: "FINTA DEL TOPO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["645:NUTMEG","651:FINTA DEL TOPO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/u/vuya-jcsine.png",
     stamina: 100,
     morale: 100,
@@ -27306,7 +27307,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 607, name: "LOW DRIVE", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 40, name: "VENTISCA ETERNA", type: "Tiro", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["607:LOW DRIVE","40:VENTISCA ETERNA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/e/j/ejbtlyksks8.png",
     stamina: 100,
     morale: 100,
@@ -27352,7 +27353,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 649, name: "SÚPER ARMADILLO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["649:SÚPER ARMADILLO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/l/5/l5dsybtyzl0.png",
     stamina: 100,
     morale: 100,
@@ -27398,7 +27399,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 567, name: "REGATE AURORA", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["567:REGATE AURORA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/x/q/xqz38kjd0su.png",
     stamina: 100,
     morale: 100,
@@ -27444,7 +27445,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/p/5/p54_qlu6ghc.png",
     stamina: 100,
     morale: 100,
@@ -27490,7 +27491,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 209, name: "RUPTURA GAIA", type: "Tiro", element: "MOUNTAIN", POT: 80, PP: 80 }, { id: 502, name: "CARRERA A TRES PIERNAS", type: "Regate", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","209:RUPTURA GAIA","502:CARRERA A TRES PIERNAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/w/h/whigkwb2jdc.png",
     stamina: 100,
     morale: 100,
@@ -27536,7 +27537,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 566, name: "GIRO DE MONO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["566:GIRO DE MONO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/i/v/ivwaizlub8k.png",
     stamina: 100,
     morale: 100,
@@ -27582,7 +27583,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 614, name: "CABEZAZO KUNG FU", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }, { id: 658, name: "ULTRA LUNA", type: "Regate", element: "WOOD", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","614:CABEZAZO KUNG FU","658:ULTRA LUNA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/k/e/kezomytb9us.png",
     stamina: 100,
     morale: 100,
@@ -27628,7 +27629,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 571, name: "CARRERA DE PERRO", type: "Regate", element: "FIRE", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["642:DUST KICK","609:TIRO GRANADA","571:CARRERA DE PERRO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/w/s/wsayb-k-ds0.png",
     stamina: 100,
     morale: 100,
@@ -27674,7 +27675,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 653, name: "DOBLE TOQUE", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["653:DOBLE TOQUE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/-/j/-jtrk5xdcw0.png",
     stamina: 100,
     morale: 100,
@@ -27720,7 +27721,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 655, name: "LLUVIA DE METEOROS", type: "Regate", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["655:LLUVIA DE METEOROS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/b/j/bjtbnp9mow0.png",
     stamina: 100,
     morale: 100,
@@ -27766,7 +27767,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 603, name: "CHIP SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 653, name: "DOBLE TOQUE", type: "Regate", element: "FIRE", POT: 60, PP: 60 }, { id: 549, name: "GRANADA DOBLE", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["603:CHIP SHOT","653:DOBLE TOQUE","549:GRANADA DOBLE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/c/n/cnwziswxg7s.png",
     stamina: 100,
     morale: 100,
@@ -27812,7 +27813,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["84:ESPEJISMO DE BALÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/8/h/8hdet11byjm.png",
     stamina: 100,
     morale: 100,
@@ -27858,7 +27859,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/u/9/u9e7zlznlak.png",
     stamina: 100,
     morale: 100,
@@ -27904,7 +27905,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 541, name: "PATADA RODANTE", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }, { id: 658, name: "ULTRA LUNA", type: "Regate", element: "WOOD", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","541:PATADA RODANTE","658:ULTRA LUNA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/2/9/29b5ngnbqxe.png",
     stamina: 100,
     morale: 100,
@@ -27950,7 +27951,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/a/b/ab-2uprhryu.png",
     stamina: 100,
     morale: 100,
@@ -27996,7 +27997,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 502, name: "CARRERA A TRES PIERNAS", type: "Regate", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","502:CARRERA A TRES PIERNAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/b/6/b6gltzwatyk.png",
     stamina: 100,
     morale: 100,
@@ -28042,7 +28043,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 501, name: "CLON FALSO", type: "Regate", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","501:CLON FALSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/q/_/q_u0n0x0vb0.png",
     stamina: 100,
     morale: 100,
@@ -28088,7 +28089,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 86, name: "CONFUSIÓN", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["86:CONFUSIÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/8/o/8oq3kgjvzq0.png",
     stamina: 100,
     morale: 100,
@@ -28134,7 +28135,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 601, name: "TIRO FANTASMA", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["601:TIRO FANTASMA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/t/b/tbgtmspfafu.png",
     stamina: 100,
     morale: 100,
@@ -28180,7 +28181,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/c/o/cogplry-hq8.png",
     stamina: 100,
     morale: 100,
@@ -28226,7 +28227,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 605, name: "BOUNCE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 652, name: "REGATE ENGAÑOSO", type: "Regate", element: "WOOD", POT: 60, PP: 60 }, { id: 624, name: "TIRO ESPEJISMO", type: "Tiro", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["605:BOUNCE SHOT","652:REGATE ENGAÑOSO","624:TIRO ESPEJISMO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/d/4/d45-ggd-qic.png",
     stamina: 100,
     morale: 100,
@@ -28272,7 +28273,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 570, name: "CAÍDA DE TACÓN", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","570:CAÍDA DE TACÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/l/8/l89ubefitas.png",
     stamina: 100,
     morale: 100,
@@ -28318,7 +28319,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 507, name: "VELO DE AGUA", type: "Regate", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["507:VELO DE AGUA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/_/5/_5nb4fszh_8.png",
     stamina: 100,
     morale: 100,
@@ -28364,7 +28365,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 651, name: "FINTA DEL TOPO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","651:FINTA DEL TOPO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/j/m/jmkywp0ebvc.png",
     stamina: 100,
     morale: 100,
@@ -28410,7 +28411,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 209, name: "RUPTURA GAIA", type: "Tiro", element: "MOUNTAIN", POT: 80, PP: 80 }, { id: 502, name: "CARRERA A TRES PIERNAS", type: "Regate", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","209:RUPTURA GAIA","502:CARRERA A TRES PIERNAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/u/r/urqyuxpys2c.png",
     stamina: 100,
     morale: 100,
@@ -28456,7 +28457,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 604, name: "CURVE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 564, name: "TORBELLINO GIRATORIO", type: "Regate", element: "WIND", POT: 50, PP: 50 }, { id: 623, name: "CAÍDA TORBELLINO", type: "Tiro", element: "WIND", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["604:CURVE SHOT","564:TORBELLINO GIRATORIO","623:CAÍDA TORBELLINO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/x/v/xva2vnknnjs.png",
     stamina: 100,
     morale: 100,
@@ -28502,7 +28503,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 505, name: "TORMENTA DE CARRERA", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","505:TORMENTA DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/d/2/d2yvvhem7fm.png",
     stamina: 100,
     morale: 100,
@@ -28548,7 +28549,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 564, name: "TORBELLINO GIRATORIO", type: "Regate", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["564:TORBELLINO GIRATORIO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/k/m/kmjfl-i2oym.png",
     stamina: 100,
     morale: 100,
@@ -28594,7 +28595,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 507, name: "VELO DE AGUA", type: "Regate", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["507:VELO DE AGUA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/y/v/yv4kii2_xek.png",
     stamina: 100,
     morale: 100,
@@ -28640,7 +28641,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 568, name: "PATADA CANGURO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["568:PATADA CANGURO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/z/f/zfbksq1c4us.png",
     stamina: 100,
     morale: 100,
@@ -28686,7 +28687,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/w/d/wdoa3666cak.png",
     stamina: 100,
     morale: 100,
@@ -28732,7 +28733,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 606, name: "POWER SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 565, name: "ACELERADOR DE CARRERA", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 554, name: "GOLPE DE PALADÍN", type: "Tiro", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["606:POWER SHOT","565:ACELERADOR DE CARRERA","554:GOLPE DE PALADÍN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/b/k/bk20-r4vxjm.png",
     stamina: 100,
     morale: 100,
@@ -28778,7 +28779,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 544, name: "PICADA DEL CÓNDOR", type: "Tiro", element: "WIND", POT: 50, PP: 50 }, { id: 183, name: "AIKIDO", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["645:NUTMEG","544:PICADA DEL CÓNDOR","183:AIKIDO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/l/b/lb2pcy-ornc.png",
     stamina: 100,
     morale: 100,
@@ -28824,7 +28825,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/w/o/wokmm5qt_5u.png",
     stamina: 100,
     morale: 100,
@@ -28870,7 +28871,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 605, name: "BOUNCE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 564, name: "TORBELLINO GIRATORIO", type: "Regate", element: "WIND", POT: 50, PP: 50 }, { id: 30, name: "SUPERRELÁMPAGO", type: "Tiro", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["605:BOUNCE SHOT","564:TORBELLINO GIRATORIO","30:SUPERRELÁMPAGO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/b/l/blxlbcxewlu.png",
     stamina: 100,
     morale: 100,
@@ -28916,7 +28917,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 85, name: "ENTRADA DE LLAMAS", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","609:TIRO GRANADA","85:ENTRADA DE LLAMAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/t/y/ty7ohvcwrcc.png",
     stamina: 100,
     morale: 100,
@@ -28962,7 +28963,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 570, name: "CAÍDA DE TACÓN", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["646:FEINT DASH","609:TIRO GRANADA","570:CAÍDA DE TACÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/o/q/oqnd_8fsmku.png",
     stamina: 100,
     morale: 100,
@@ -29008,7 +29009,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/h/k/hkiykzbpvae.png",
     stamina: 100,
     morale: 100,
@@ -29054,7 +29055,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 547, name: "PATADA TARZÁN", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 502, name: "CARRERA A TRES PIERNAS", type: "Regate", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","547:PATADA TARZÁN","502:CARRERA A TRES PIERNAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/r/c/rcsiql4tzlm.png",
     stamina: 100,
     morale: 100,
@@ -29100,7 +29101,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 567, name: "REGATE AURORA", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["567:REGATE AURORA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/i/vixc9p0kdzu.png",
     stamina: 100,
     morale: 100,
@@ -29146,7 +29147,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/o/g/og0kv8ub4u8.png",
     stamina: 100,
     morale: 100,
@@ -29192,7 +29193,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/n/4/n4jvsk_p6rc.png",
     stamina: 100,
     morale: 100,
@@ -29238,7 +29239,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 566, name: "GIRO DE MONO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["566:GIRO DE MONO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/x/e/xeqigiic54e.png",
     stamina: 100,
     morale: 100,
@@ -29284,7 +29285,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 86, name: "CONFUSIÓN", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["86:CONFUSIÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/w/d/wdxdqp2g7b0.png",
     stamina: 100,
     morale: 100,
@@ -29330,7 +29331,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 567, name: "REGATE AURORA", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["567:REGATE AURORA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/u/c/ucwdiyomtnm.png",
     stamina: 100,
     morale: 100,
@@ -29376,7 +29377,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 44, name: "ASTRORREMATE", type: "Tiro", element: "WOOD", POT: 60, PP: 60 }, { id: 504, name: "FINTA DEL MATADOR", type: "Regate", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["646:FEINT DASH","44:ASTRORREMATE","504:FINTA DEL MATADOR"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/y/y/yy6a1un7kf0.png",
     stamina: 100,
     morale: 100,
@@ -29422,7 +29423,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 601, name: "TIRO FANTASMA", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }, { id: 501, name: "CLON FALSO", type: "Regate", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","601:TIRO FANTASMA","501:CLON FALSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/s/c/scj8uq5ls2u.png",
     stamina: 100,
     morale: 100,
@@ -29468,7 +29469,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["84:ESPEJISMO DE BALÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/o/vo__abixefs.png",
     stamina: 100,
     morale: 100,
@@ -29514,7 +29515,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/m/k/mkphf-xztlu.png",
     stamina: 100,
     morale: 100,
@@ -29560,7 +29561,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 35, name: "SABIDURÍA DIVINA", type: "Tiro", element: "WIND", POT: 70, PP: 70 }, { id: 183, name: "AIKIDO", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["646:FEINT DASH","35:SABIDURÍA DIVINA","183:AIKIDO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/t/u/tuxgrhzrrgs.png",
     stamina: 100,
     morale: 100,
@@ -29606,7 +29607,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 209, name: "RUPTURA GAIA", type: "Tiro", element: "MOUNTAIN", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["209:RUPTURA GAIA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/k/k/kka9qwsewa8.png",
     stamina: 100,
     morale: 100,
@@ -29652,7 +29653,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 650, name: "IMAGEN RESIDUAL", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["650:IMAGEN RESIDUAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/f/2/f2jrpkzm-xk.png",
     stamina: 100,
     morale: 100,
@@ -29698,7 +29699,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/q/m/qm3zr2bkqhe.png",
     stamina: 100,
     morale: 100,
@@ -29744,7 +29745,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 544, name: "PICADA DEL CÓNDOR", type: "Tiro", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["544:PICADA DEL CÓNDOR"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/s/e/sepojtjyqd0.png",
     stamina: 100,
     morale: 100,
@@ -29790,7 +29791,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 571, name: "CARRERA DE PERRO", type: "Regate", element: "FIRE", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","571:CARRERA DE PERRO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/4/3/43zvmz4zrle.png",
     stamina: 100,
     morale: 100,
@@ -29836,7 +29837,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 88, name: "ACELERRELÁMPAGO", type: "Regate", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["88:ACELERRELÁMPAGO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/q/n/qn4fzsufkms.png",
     stamina: 100,
     morale: 100,
@@ -29882,7 +29883,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 606, name: "POWER SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 649, name: "SÚPER ARMADILLO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 486, name: "TIRACHINAS", type: "Tiro", element: "MOUNTAIN", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["606:POWER SHOT","649:SÚPER ARMADILLO","486:TIRACHINAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/n/c/ncrcqyfgii8.png",
     stamina: 100,
     morale: 100,
@@ -29928,7 +29929,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/h/vhotqrymx08.png",
     stamina: 100,
     morale: 100,
@@ -29974,7 +29975,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 604, name: "CURVE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 88, name: "ACELERRELÁMPAGO", type: "Regate", element: "FIRE", POT: 70, PP: 70 }, { id: 29, name: "TORNADO DE FUEGO", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["604:CURVE SHOT","88:ACELERRELÁMPAGO","29:TORNADO DE FUEGO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/f/0/f0v6rflgehs.png",
     stamina: 100,
     morale: 100,
@@ -30020,7 +30021,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 86, name: "CONFUSIÓN", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["86:CONFUSIÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/5/o/5o2iozvahw0.png",
     stamina: 100,
     morale: 100,
@@ -30066,7 +30067,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["84:ESPEJISMO DE BALÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/1/s/1sfnvenh0fs.png",
     stamina: 100,
     morale: 100,
@@ -30112,7 +30113,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 85, name: "ENTRADA DE LLAMAS", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","609:TIRO GRANADA","85:ENTRADA DE LLAMAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/d/3/d3pofb1x3zm.png",
     stamina: 100,
     morale: 100,
@@ -30158,7 +30159,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 606, name: "POWER SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }, { id: 204, name: "TIRO CONGELANTE", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["606:POWER SHOT","84:ESPEJISMO DE BALÓN","204:TIRO CONGELANTE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/u/c/uckaax9ijms.png",
     stamina: 100,
     morale: 100,
@@ -30204,7 +30205,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 541, name: "PATADA RODANTE", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }, { id: 504, name: "FINTA DEL MATADOR", type: "Regate", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["646:FEINT DASH","541:PATADA RODANTE","504:FINTA DEL MATADOR"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/q/m/qmttnm9tcps.png",
     stamina: 100,
     morale: 100,
@@ -30250,7 +30251,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 614, name: "CABEZAZO KUNG FU", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["614:CABEZAZO KUNG FU"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/p/_/p_btbwdounm.png",
     stamina: 100,
     morale: 100,
@@ -30296,7 +30297,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 85, name: "ENTRADA DE LLAMAS", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["645:NUTMEG","609:TIRO GRANADA","85:ENTRADA DE LLAMAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/p/d/pdorwqo7onm.png",
     stamina: 100,
     morale: 100,
@@ -30342,7 +30343,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 607, name: "LOW DRIVE", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 88, name: "ACELERRELÁMPAGO", type: "Regate", element: "FIRE", POT: 70, PP: 70 }, { id: 542, name: "TIRO PATRIOTA", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["607:LOW DRIVE","88:ACELERRELÁMPAGO","542:TIRO PATRIOTA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/7/p/7pwxis5royc.png",
     stamina: 100,
     morale: 100,
@@ -30388,7 +30389,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 607, name: "LOW DRIVE", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 229, name: "RITMO AGRESIVO", type: "Regate", element: "FIRE", POT: 70, PP: 70 }, { id: 558, name: "CABEZA DE GUERRA", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["607:LOW DRIVE","229:RITMO AGRESIVO","558:CABEZA DE GUERRA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/1/v1wcdbbizyk.png",
     stamina: 100,
     morale: 100,
@@ -30434,7 +30435,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 209, name: "RUPTURA GAIA", type: "Tiro", element: "MOUNTAIN", POT: 80, PP: 80 }, { id: 502, name: "CARRERA A TRES PIERNAS", type: "Regate", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","209:RUPTURA GAIA","502:CARRERA A TRES PIERNAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/t/9/t9r-esq_2nm.png",
     stamina: 100,
     morale: 100,
@@ -30480,7 +30481,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/g/5/g5zmtnjozlc.png",
     stamina: 100,
     morale: 100,
@@ -30526,7 +30527,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 543, name: "IMPULSO CRUZADO", type: "Tiro", element: "WIND", POT: 50, PP: 50 }, { id: 87, name: "HORA CELESTIAL", type: "Regate", element: "WIND", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["642:DUST KICK","543:IMPULSO CRUZADO","87:HORA CELESTIAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/o/v/ovkcw7goffs.png",
     stamina: 100,
     morale: 100,
@@ -30572,7 +30573,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["609:TIRO GRANADA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/6/u/6um12h5yape.png",
     stamina: 100,
     morale: 100,
@@ -30618,7 +30619,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 501, name: "CLON FALSO", type: "Regate", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["642:DUST KICK","501:CLON FALSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/f/5/f5zhmnxpzg0.png",
     stamina: 100,
     morale: 100,
@@ -30664,7 +30665,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["609:TIRO GRANADA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/9/a/9agldulfww8.png",
     stamina: 100,
     morale: 100,
@@ -30710,7 +30711,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 607, name: "LOW DRIVE", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 86, name: "CONFUSIÓN", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 548, name: "BOLA DE TIERRA", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["607:LOW DRIVE","86:CONFUSIÓN","548:BOLA DE TIERRA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/y/a/yajjz2p54t0.png",
     stamina: 100,
     morale: 100,
@@ -30756,7 +30757,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/r/x/rxxpgwlnqb0.png",
     stamina: 100,
     morale: 100,
@@ -30802,7 +30803,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 183, name: "AIKIDO", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["642:DUST KICK","183:AIKIDO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/t/w/twvxubxyb-0.png",
     stamina: 100,
     morale: 100,
@@ -30848,7 +30849,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/x/a/xaywteb8rzk.png",
     stamina: 100,
     morale: 100,
@@ -30894,7 +30895,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/a/4/a4cwr1vnzf8.png",
     stamina: 100,
     morale: 100,
@@ -30940,7 +30941,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 606, name: "POWER SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 568, name: "PATADA CANGURO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 486, name: "TIRACHINAS", type: "Tiro", element: "MOUNTAIN", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["606:POWER SHOT","568:PATADA CANGURO","486:TIRACHINAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/7/v/7vd--efiy4u.png",
     stamina: 100,
     morale: 100,
@@ -30986,7 +30987,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 605, name: "BOUNCE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 653, name: "DOBLE TOQUE", type: "Regate", element: "FIRE", POT: 60, PP: 60 }, { id: 28, name: "REMATE COMBINADO", type: "Tiro", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["605:BOUNCE SHOT","653:DOBLE TOQUE","28:REMATE COMBINADO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/j/s/jssgdd9gpo8.png",
     stamina: 100,
     morale: 100,
@@ -31032,7 +31033,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 568, name: "PATADA CANGURO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["568:PATADA CANGURO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/u/c/ucij9xwllom.png",
     stamina: 100,
     morale: 100,
@@ -31078,7 +31079,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 652, name: "REGATE ENGAÑOSO", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["652:REGATE ENGAÑOSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/j/k/jk14nhhsnnu.png",
     stamina: 100,
     morale: 100,
@@ -31124,7 +31125,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 604, name: "CURVE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }, { id: 216, name: "TIRO PEGASO", type: "Tiro", element: "WOOD", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["604:CURVE SHOT","84:ESPEJISMO DE BALÓN","216:TIRO PEGASO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/i/c/ic1d9ixewn8.png",
     stamina: 100,
     morale: 100,
@@ -31170,7 +31171,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 603, name: "CHIP SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 216, name: "TIRO PEGASO", type: "Tiro", element: "WOOD", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["603:CHIP SHOT","216:TIRO PEGASO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/w/h/whk_dvdv9r0.png",
     stamina: 100,
     morale: 100,
@@ -31216,7 +31217,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["84:ESPEJISMO DE BALÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/h/l/hlvbtmnded8.png",
     stamina: 100,
     morale: 100,
@@ -31262,7 +31263,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 658, name: "ULTRA LUNA", type: "Regate", element: "WOOD", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["658:ULTRA LUNA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/t/2/t2vvykaoccs.png",
     stamina: 100,
     morale: 100,
@@ -31308,7 +31309,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 608, name: "TIRO DE FURIA", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }, { id: 658, name: "ULTRA LUNA", type: "Regate", element: "WOOD", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["645:NUTMEG","608:TIRO DE FURIA","658:ULTRA LUNA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/9/z/9z7g8axeo_8.png",
     stamina: 100,
     morale: 100,
@@ -31354,7 +31355,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 606, name: "POWER SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 205, name: "COMBATE KUNG FU", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["606:POWER SHOT","205:COMBATE KUNG FU"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/y/x/yxqm2plsduk.png",
     stamina: 100,
     morale: 100,
@@ -31400,7 +31401,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 35, name: "SABIDURÍA DIVINA", type: "Tiro", element: "WIND", POT: 70, PP: 70 }, { id: 87, name: "HORA CELESTIAL", type: "Regate", element: "WIND", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["646:FEINT DASH","35:SABIDURÍA DIVINA","87:HORA CELESTIAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/n/v/nvslakthf6k.png",
     stamina: 100,
     morale: 100,
@@ -31446,7 +31447,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/x/t/xtoydezgkju.png",
     stamina: 100,
     morale: 100,
@@ -31492,7 +31493,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 607, name: "LOW DRIVE", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 650, name: "IMAGEN RESIDUAL", type: "Regate", element: "WOOD", POT: 60, PP: 60 }, { id: 552, name: "TIRO DE SEGURIDAD", type: "Tiro", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["607:LOW DRIVE","650:IMAGEN RESIDUAL","552:TIRO DE SEGURIDAD"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/-/j/-jvvr6pu6v0.png",
     stamina: 100,
     morale: 100,
@@ -31538,7 +31539,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 650, name: "IMAGEN RESIDUAL", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["650:IMAGEN RESIDUAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/4/v/4vsm8qvdjns.png",
     stamina: 100,
     morale: 100,
@@ -31584,7 +31585,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 565, name: "ACELERADOR DE CARRERA", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["565:ACELERADOR DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/z/q/zqwiiallnl8.png",
     stamina: 100,
     morale: 100,
@@ -31630,7 +31631,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/p/h/phckjgx5xlc.png",
     stamina: 100,
     morale: 100,
@@ -31676,7 +31677,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 603, name: "CHIP SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 211, name: "TIRO DE CAMPANARIO", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["603:CHIP SHOT","211:TIRO DE CAMPANARIO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/a/5/a5nkzvaytyu.png",
     stamina: 100,
     morale: 100,
@@ -31722,7 +31723,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 651, name: "FINTA DEL TOPO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","651:FINTA DEL TOPO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/x/i/xiymobxj-48.png",
     stamina: 100,
     morale: 100,
@@ -31768,7 +31769,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 90, name: "COZ 3", type: "Regate", element: "FIRE", POT: 100, PP: 100 }],
+    techniques: getSupertechniques(["646:FEINT DASH","609:TIRO GRANADA","90:COZ 3"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/4/a/4a6foy7jweu.png",
     stamina: 100,
     morale: 100,
@@ -31814,7 +31815,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 85, name: "ENTRADA DE LLAMAS", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["642:DUST KICK","609:TIRO GRANADA","85:ENTRADA DE LLAMAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/5/q/5qirbnaun0c.png",
     stamina: 100,
     morale: 100,
@@ -31860,7 +31861,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/_/z/_zsapu0dt0u.png",
     stamina: 100,
     morale: 100,
@@ -31906,7 +31907,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 610, name: "TIRO GIRATORIO", type: "Tiro", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["610:TIRO GIRATORIO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/w/o/wotm66lhwym.png",
     stamina: 100,
     morale: 100,
@@ -31952,7 +31953,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 547, name: "PATADA TARZÁN", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 502, name: "CARRERA A TRES PIERNAS", type: "Regate", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","547:PATADA TARZÁN","502:CARRERA A TRES PIERNAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/m/f/mf5rg5_w0ae.png",
     stamina: 100,
     morale: 100,
@@ -31998,7 +31999,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 501, name: "CLON FALSO", type: "Regate", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","501:CLON FALSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/g/b/gbqwghid1hc.png",
     stamina: 100,
     morale: 100,
@@ -32044,7 +32045,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/h/w/hwww_o-4stc.png",
     stamina: 100,
     morale: 100,
@@ -32090,7 +32091,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 88, name: "ACELERRELÁMPAGO", type: "Regate", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["88:ACELERRELÁMPAGO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/e/p/epm2bg0poku.png",
     stamina: 100,
     morale: 100,
@@ -32136,7 +32137,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/u/q/uqzbl0mu4zc.png",
     stamina: 100,
     morale: 100,
@@ -32182,7 +32183,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 610, name: "TIRO GIRATORIO", type: "Tiro", element: "WIND", POT: 50, PP: 50 }, { id: 183, name: "AIKIDO", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","610:TIRO GIRATORIO","183:AIKIDO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/e/k/eks1prwnjmm.png",
     stamina: 100,
     morale: 100,
@@ -32228,7 +32229,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 607, name: "LOW DRIVE", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 567, name: "REGATE AURORA", type: "Regate", element: "WIND", POT: 70, PP: 70 }, { id: 210, name: "PINGÜINO ESPACIAL", type: "Tiro", element: "WIND", POT: 100, PP: 100 }],
+    techniques: getSupertechniques(["607:LOW DRIVE","567:REGATE AURORA","210:PINGÜINO ESPACIAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/e/e/ee1qn5oqfuk.png",
     stamina: 100,
     morale: 100,
@@ -32274,7 +32275,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 567, name: "REGATE AURORA", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["567:REGATE AURORA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/3/i/3imgcjsfgb0.png",
     stamina: 100,
     morale: 100,
@@ -32320,7 +32321,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "GK"
     },
-    techniques: [{ id: 604, name: "CURVE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 555, name: "DISPARO", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["604:CURVE SHOT","555:DISPARO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/y/l/ylymotnsz8e.png",
     stamina: 100,
     morale: 100,
@@ -32366,7 +32367,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 504, name: "FINTA DEL MATADOR", type: "Regate", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["645:NUTMEG","504:FINTA DEL MATADOR"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/k/9/k9khm47fti8.png",
     stamina: 100,
     morale: 100,
@@ -32412,7 +32413,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/a/z/azuofhghzru.png",
     stamina: 100,
     morale: 100,
@@ -32458,7 +32459,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/k/g/kgluy5aspes.png",
     stamina: 100,
     morale: 100,
@@ -32504,7 +32505,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 209, name: "RUPTURA GAIA", type: "Tiro", element: "MOUNTAIN", POT: 80, PP: 80 }, { id: 502, name: "CARRERA A TRES PIERNAS", type: "Regate", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["645:NUTMEG","209:RUPTURA GAIA","502:CARRERA A TRES PIERNAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/y/4/y4d_r8zmonc.png",
     stamina: 100,
     morale: 100,
@@ -32550,7 +32551,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 502, name: "CARRERA A TRES PIERNAS", type: "Regate", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["645:NUTMEG","502:CARRERA A TRES PIERNAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/h/vhwyinsojfu.png",
     stamina: 100,
     morale: 100,
@@ -32596,7 +32597,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 543, name: "IMPULSO CRUZADO", type: "Tiro", element: "WIND", POT: 50, PP: 50 }, { id: 87, name: "HORA CELESTIAL", type: "Regate", element: "WIND", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["645:NUTMEG","543:IMPULSO CRUZADO","87:HORA CELESTIAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/o/v/ov7p3nbhomc.png",
     stamina: 100,
     morale: 100,
@@ -32642,7 +32643,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/m/vmpsfflmcvs.png",
     stamina: 100,
     morale: 100,
@@ -32688,7 +32689,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 209, name: "RUPTURA GAIA", type: "Tiro", element: "MOUNTAIN", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["209:RUPTURA GAIA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/l/0/l0b8lnoca-k.png",
     stamina: 100,
     morale: 100,
@@ -32734,7 +32735,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 565, name: "ACELERADOR DE CARRERA", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["565:ACELERADOR DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/b/8/b8ksybiqu-e.png",
     stamina: 100,
     morale: 100,
@@ -32780,7 +32781,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 603, name: "CHIP SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 653, name: "DOBLE TOQUE", type: "Regate", element: "FIRE", POT: 60, PP: 60 }, { id: 34, name: "BATEO TOTAL", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["603:CHIP SHOT","653:DOBLE TOQUE","34:BATEO TOTAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/-/g/-gfds9bhdek.png",
     stamina: 100,
     morale: 100,
@@ -32826,7 +32827,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 566, name: "GIRO DE MONO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["566:GIRO DE MONO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/u/a/uagir52i7fs.png",
     stamina: 100,
     morale: 100,
@@ -32872,7 +32873,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 85, name: "ENTRADA DE LLAMAS", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","609:TIRO GRANADA","85:ENTRADA DE LLAMAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/x/8/x8fb6rlyh6s.png",
     stamina: 100,
     morale: 100,
@@ -32918,7 +32919,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 209, name: "RUPTURA GAIA", type: "Tiro", element: "MOUNTAIN", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["209:RUPTURA GAIA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/d/k/dkh-tpcqt0c.png",
     stamina: 100,
     morale: 100,
@@ -32964,7 +32965,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 653, name: "DOBLE TOQUE", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["653:DOBLE TOQUE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/d/x/dx2zuqtndsk.png",
     stamina: 100,
     morale: 100,
@@ -33010,7 +33011,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 507, name: "VELO DE AGUA", type: "Regate", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["507:VELO DE AGUA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/9/x/9xi1gywbdrs.png",
     stamina: 100,
     morale: 100,
@@ -33056,7 +33057,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 650, name: "IMAGEN RESIDUAL", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["650:IMAGEN RESIDUAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/p/w/pwl7yrrbj2c.png",
     stamina: 100,
     morale: 100,
@@ -33102,7 +33103,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 565, name: "ACELERADOR DE CARRERA", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["565:ACELERADOR DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/p/f/pf8i_e91ivk.png",
     stamina: 100,
     morale: 100,
@@ -33148,7 +33149,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 505, name: "TORMENTA DE CARRERA", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","505:TORMENTA DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/d/3/d3xjndrzpyk.png",
     stamina: 100,
     morale: 100,
@@ -33194,7 +33195,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/h/6/h6drtkxvwbu.png",
     stamina: 100,
     morale: 100,
@@ -33240,7 +33241,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 655, name: "LLUVIA DE METEOROS", type: "Regate", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["655:LLUVIA DE METEOROS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/n/g/ngen2ojleo0.png",
     stamina: 100,
     morale: 100,
@@ -33286,7 +33287,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/1/n/1nspusbsotk.png",
     stamina: 100,
     morale: 100,
@@ -33332,7 +33333,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 502, name: "CARRERA A TRES PIERNAS", type: "Regate", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["642:DUST KICK","502:CARRERA A TRES PIERNAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/-/k/-kie9n0ajfm.png",
     stamina: 100,
     morale: 100,
@@ -33378,7 +33379,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 603, name: "CHIP SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 653, name: "DOBLE TOQUE", type: "Regate", element: "FIRE", POT: 60, PP: 60 }, { id: 555, name: "DISPARO", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["603:CHIP SHOT","653:DOBLE TOQUE","555:DISPARO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/7/l/7ldiabrzxgm.png",
     stamina: 100,
     morale: 100,
@@ -33424,7 +33425,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 612, name: "TIRO ESPIRAL", type: "Tiro", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["612:TIRO ESPIRAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/f/b/fbuajxesnhc.png",
     stamina: 100,
     morale: 100,
@@ -33470,7 +33471,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 653, name: "DOBLE TOQUE", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["653:DOBLE TOQUE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/f/4/f4o6mlauva0.png",
     stamina: 100,
     morale: 100,
@@ -33516,7 +33517,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 44, name: "ASTRORREMATE", type: "Tiro", element: "WOOD", POT: 60, PP: 60 }, { id: 501, name: "CLON FALSO", type: "Regate", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["642:DUST KICK","44:ASTRORREMATE","501:CLON FALSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/s/vsq3uotw2ke.png",
     stamina: 100,
     morale: 100,
@@ -33562,7 +33563,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/t/o/towzuamyh_u.png",
     stamina: 100,
     morale: 100,
@@ -33608,7 +33609,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 655, name: "LLUVIA DE METEOROS", type: "Regate", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["655:LLUVIA DE METEOROS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/n/m/nm7hhg2xsk8.png",
     stamina: 100,
     morale: 100,
@@ -33654,7 +33655,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 604, name: "CURVE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 652, name: "REGATE ENGAÑOSO", type: "Regate", element: "WOOD", POT: 60, PP: 60 }, { id: 545, name: "CORRE BALÓN CORRE", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["604:CURVE SHOT","652:REGATE ENGAÑOSO","545:CORRE BALÓN CORRE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/m/h/mhrx4ysdgqe.png",
     stamina: 100,
     morale: 100,
@@ -33700,7 +33701,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 87, name: "HORA CELESTIAL", type: "Regate", element: "WIND", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["646:FEINT DASH","87:HORA CELESTIAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/o/vohbvy6cigs.png",
     stamina: 100,
     morale: 100,
@@ -33746,7 +33747,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/r/t/rty-fcsjgs0.png",
     stamina: 100,
     morale: 100,
@@ -33792,7 +33793,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/j/q/jq4yil2gbh8.png",
     stamina: 100,
     morale: 100,
@@ -33838,7 +33839,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 550, name: "GOLPE DOBLE", type: "Tiro", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["550:GOLPE DOBLE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/q/u/quvzfkeq5ns.png",
     stamina: 100,
     morale: 100,
@@ -33884,7 +33885,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 566, name: "GIRO DE MONO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["566:GIRO DE MONO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/8/o/8osj_j7c_t0.png",
     stamina: 100,
     morale: 100,
@@ -33930,7 +33931,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/o/z/ozx96gbuun8.png",
     stamina: 100,
     morale: 100,
@@ -33976,7 +33977,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/p/9/p9weebnqno8.png",
     stamina: 100,
     morale: 100,
@@ -34022,7 +34023,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 655, name: "LLUVIA DE METEOROS", type: "Regate", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["655:LLUVIA DE METEOROS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/2/9/29jhsj_22ye.png",
     stamina: 100,
     morale: 100,
@@ -34068,7 +34069,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 612, name: "TIRO ESPIRAL", type: "Tiro", element: "WIND", POT: 50, PP: 50 }, { id: 87, name: "HORA CELESTIAL", type: "Regate", element: "WIND", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","612:TIRO ESPIRAL","87:HORA CELESTIAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/z/i/zifr4di7vnu.png",
     stamina: 100,
     morale: 100,
@@ -34114,7 +34115,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 83, name: "ENTRADA HURACÁN", type: "Regate", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["83:ENTRADA HURACÁN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/t/a/ta3umu-emzu.png",
     stamina: 100,
     morale: 100,
@@ -34160,7 +34161,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 83, name: "ENTRADA HURACÁN", type: "Regate", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["83:ENTRADA HURACÁN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/w/d/wdqkc5ixkdk.png",
     stamina: 100,
     morale: 100,
@@ -34206,7 +34207,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 544, name: "PICADA DEL CÓNDOR", type: "Tiro", element: "WIND", POT: 50, PP: 50 }, { id: 183, name: "AIKIDO", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","544:PICADA DEL CÓNDOR","183:AIKIDO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/z/o/zoiocr2mzv8.png",
     stamina: 100,
     morale: 100,
@@ -34252,7 +34253,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/n/1/n1hfvgetjwm.png",
     stamina: 100,
     morale: 100,
@@ -34298,7 +34299,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 570, name: "CAÍDA DE TACÓN", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["642:DUST KICK","609:TIRO GRANADA","570:CAÍDA DE TACÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/1/j/1junjbmdpmc.png",
     stamina: 100,
     morale: 100,
@@ -34344,7 +34345,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 547, name: "PATADA TARZÁN", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["547:PATADA TARZÁN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/q/_/q_wk43pzzy0.png",
     stamina: 100,
     morale: 100,
@@ -34390,7 +34391,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 652, name: "REGATE ENGAÑOSO", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["652:REGATE ENGAÑOSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/o/a/oatvxuqc0cu.png",
     stamina: 100,
     morale: 100,
@@ -34436,7 +34437,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/f/w/fwu0ryn7yfm.png",
     stamina: 100,
     morale: 100,
@@ -34482,7 +34483,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 209, name: "RUPTURA GAIA", type: "Tiro", element: "MOUNTAIN", POT: 80, PP: 80 }, { id: 502, name: "CARRERA A TRES PIERNAS", type: "Regate", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","209:RUPTURA GAIA","502:CARRERA A TRES PIERNAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/o/c/ocbppldxgwu.png",
     stamina: 100,
     morale: 100,
@@ -34528,7 +34529,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 658, name: "ULTRA LUNA", type: "Regate", element: "WOOD", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","658:ULTRA LUNA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/m/x/mxkbrlx-jmu.png",
     stamina: 100,
     morale: 100,
@@ -34574,7 +34575,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 650, name: "IMAGEN RESIDUAL", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["650:IMAGEN RESIDUAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/d/o/doscejpdvec.png",
     stamina: 100,
     morale: 100,
@@ -34620,7 +34621,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 571, name: "CARRERA DE PERRO", type: "Regate", element: "FIRE", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","609:TIRO GRANADA","571:CARRERA DE PERRO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/w/9/w9p_toenoim.png",
     stamina: 100,
     morale: 100,
@@ -34666,7 +34667,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 655, name: "LLUVIA DE METEOROS", type: "Regate", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["655:LLUVIA DE METEOROS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/q/u/quelcwqzwle.png",
     stamina: 100,
     morale: 100,
@@ -34712,7 +34713,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 564, name: "TORBELLINO GIRATORIO", type: "Regate", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["564:TORBELLINO GIRATORIO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/h/v/hvnteaejsic.png",
     stamina: 100,
     morale: 100,
@@ -34758,7 +34759,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 651, name: "FINTA DEL TOPO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["646:FEINT DASH","651:FINTA DEL TOPO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/d/vdf6gyjp7-8.png",
     stamina: 100,
     morale: 100,
@@ -34804,7 +34805,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 603, name: "CHIP SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 551, name: "LECHO DE ROSAS", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }, { id: 504, name: "FINTA DEL MATADOR", type: "Regate", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["603:CHIP SHOT","551:LECHO DE ROSAS","504:FINTA DEL MATADOR"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/x/i/xikbkjcdmjs.png",
     stamina: 100,
     morale: 100,
@@ -34850,7 +34851,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 658, name: "ULTRA LUNA", type: "Regate", element: "WOOD", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["645:NUTMEG","658:ULTRA LUNA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/c/o/co-x-oathp8.png",
     stamina: 100,
     morale: 100,
@@ -34896,7 +34897,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/e/l/eld479yue80.png",
     stamina: 100,
     morale: 100,
@@ -34942,7 +34943,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 610, name: "TIRO GIRATORIO", type: "Tiro", element: "WIND", POT: 50, PP: 50 }, { id: 505, name: "TORMENTA DE CARRERA", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["642:DUST KICK","610:TIRO GIRATORIO","505:TORMENTA DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/d/4/d4bazfft2lc.png",
     stamina: 100,
     morale: 100,
@@ -34988,7 +34989,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 504, name: "FINTA DEL MATADOR", type: "Regate", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","504:FINTA DEL MATADOR"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/a/7/a7ztw7v8nq8.png",
     stamina: 100,
     morale: 100,
@@ -35034,7 +35035,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 504, name: "FINTA DEL MATADOR", type: "Regate", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["646:FEINT DASH","504:FINTA DEL MATADOR"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/w/vwbkdwhyzbs.png",
     stamina: 100,
     morale: 100,
@@ -35080,7 +35081,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/j/f/jflukajfqce.png",
     stamina: 100,
     morale: 100,
@@ -35126,7 +35127,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 655, name: "LLUVIA DE METEOROS", type: "Regate", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["655:LLUVIA DE METEOROS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/e/g/egrfm1i7d9s.png",
     stamina: 100,
     morale: 100,
@@ -35172,7 +35173,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 183, name: "AIKIDO", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","183:AIKIDO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/k/r/krubrnf1wnu.png",
     stamina: 100,
     morale: 100,
@@ -35218,7 +35219,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/x/c/xcfvkcet8s0.png",
     stamina: 100,
     morale: 100,
@@ -35264,7 +35265,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 604, name: "CURVE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 556, name: "TIRO RADIOCONTROL", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["604:CURVE SHOT","556:TIRO RADIOCONTROL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/h/1/h11dbonrxje.png",
     stamina: 100,
     morale: 100,
@@ -35310,7 +35311,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 603, name: "CHIP SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 213, name: "FUEGO INFERNAL", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["603:CHIP SHOT","213:FUEGO INFERNAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/n/n/nnzgat-rh4m.png",
     stamina: 100,
     morale: 100,
@@ -35356,7 +35357,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["84:ESPEJISMO DE BALÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/j/f/jfoolmej8ws.png",
     stamina: 100,
     morale: 100,
@@ -35402,7 +35403,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 652, name: "REGATE ENGAÑOSO", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["652:REGATE ENGAÑOSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/k/h/kha1r_hmvjc.png",
     stamina: 100,
     morale: 100,
@@ -35448,7 +35449,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 610, name: "TIRO GIRATORIO", type: "Tiro", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["610:TIRO GIRATORIO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/f/b/fbij2qdu1eu.png",
     stamina: 100,
     morale: 100,
@@ -35494,7 +35495,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 183, name: "AIKIDO", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","183:AIKIDO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/0/c/0ckb86taz0e.png",
     stamina: 100,
     morale: 100,
@@ -35540,7 +35541,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/d/q/dqgb3d8nf80.png",
     stamina: 100,
     morale: 100,
@@ -35586,7 +35587,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 541, name: "PATADA RODANTE", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }, { id: 658, name: "ULTRA LUNA", type: "Regate", element: "WOOD", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["645:NUTMEG","541:PATADA RODANTE","658:ULTRA LUNA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/9/y/9yyjjfyyk68.png",
     stamina: 100,
     morale: 100,
@@ -35632,7 +35633,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 655, name: "LLUVIA DE METEOROS", type: "Regate", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["655:LLUVIA DE METEOROS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/e/g/egfogxjq3nk.png",
     stamina: 100,
     morale: 100,
@@ -35678,7 +35679,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "GK"
     },
-    techniques: [{ id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["609:TIRO GRANADA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/-/j/-jr0zm3gc-c.png",
     stamina: 100,
     morale: 100,
@@ -35724,7 +35725,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 655, name: "LLUVIA DE METEOROS", type: "Regate", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["655:LLUVIA DE METEOROS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/1/m/1mjueuw3kvk.png",
     stamina: 100,
     morale: 100,
@@ -35770,7 +35771,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 83, name: "ENTRADA HURACÁN", type: "Regate", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["83:ENTRADA HURACÁN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/1/j/1jszwc-uppc.png",
     stamina: 100,
     morale: 100,
@@ -35816,7 +35817,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/z/w/zwfw4vqq9su.png",
     stamina: 100,
     morale: 100,
@@ -35862,7 +35863,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 183, name: "AIKIDO", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","183:AIKIDO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/t/a/tapqtxmpqau.png",
     stamina: 100,
     morale: 100,
@@ -35908,7 +35909,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 86, name: "CONFUSIÓN", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["86:CONFUSIÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/6/7/679zgrpl1yu.png",
     stamina: 100,
     morale: 100,
@@ -35954,7 +35955,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 612, name: "TIRO ESPIRAL", type: "Tiro", element: "WIND", POT: 50, PP: 50 }, { id: 87, name: "HORA CELESTIAL", type: "Regate", element: "WIND", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["642:DUST KICK","612:TIRO ESPIRAL","87:HORA CELESTIAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/f/0/f0tekgtn4es.png",
     stamina: 100,
     morale: 100,
@@ -36000,7 +36001,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 649, name: "SÚPER ARMADILLO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["649:SÚPER ARMADILLO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/u/r/uryn1-1iewc.png",
     stamina: 100,
     morale: 100,
@@ -36046,7 +36047,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 507, name: "VELO DE AGUA", type: "Regate", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["507:VELO DE AGUA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/z/9/z9_4wajdo0e.png",
     stamina: 100,
     morale: 100,
@@ -36092,7 +36093,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 650, name: "IMAGEN RESIDUAL", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["650:IMAGEN RESIDUAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/h/vhim9o0fvcu.png",
     stamina: 100,
     morale: 100,
@@ -36138,7 +36139,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/r/t/rtmf9ayt-5c.png",
     stamina: 100,
     morale: 100,
@@ -36184,7 +36185,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/0/t/0tmzk-deymu.png",
     stamina: 100,
     morale: 100,
@@ -36230,7 +36231,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/3/i/3i0epkkygc0.png",
     stamina: 100,
     morale: 100,
@@ -36276,7 +36277,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 653, name: "DOBLE TOQUE", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["653:DOBLE TOQUE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/0/t/0t0n_9fzulu.png",
     stamina: 100,
     morale: 100,
@@ -36322,7 +36323,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 603, name: "CHIP SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 652, name: "REGATE ENGAÑOSO", type: "Regate", element: "WOOD", POT: 60, PP: 60 }, { id: 624, name: "TIRO ESPEJISMO", type: "Tiro", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["603:CHIP SHOT","652:REGATE ENGAÑOSO","624:TIRO ESPEJISMO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/s/vs1rxc4i4um.png",
     stamina: 100,
     morale: 100,
@@ -36368,7 +36369,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 570, name: "CAÍDA DE TACÓN", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","609:TIRO GRANADA","570:CAÍDA DE TACÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/h/r/hrykjezailu.png",
     stamina: 100,
     morale: 100,
@@ -36414,7 +36415,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 606, name: "POWER SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 567, name: "REGATE AURORA", type: "Regate", element: "WIND", POT: 70, PP: 70 }, { id: 616, name: "TORNADO TRASERO", type: "Tiro", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["606:POWER SHOT","567:REGATE AURORA","616:TORNADO TRASERO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/5/2/52uabvckv3u.png",
     stamina: 100,
     morale: 100,
@@ -36460,7 +36461,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/b/r/brqxorj6eru.png",
     stamina: 100,
     morale: 100,
@@ -36506,7 +36507,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 90, name: "COZ 3", type: "Regate", element: "FIRE", POT: 100, PP: 100 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","90:COZ 3"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/n/p/nplakyt8tym.png",
     stamina: 100,
     morale: 100,
@@ -36552,7 +36553,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/q/d/qddfkhv6l48.png",
     stamina: 100,
     morale: 100,
@@ -36598,7 +36599,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 568, name: "PATADA CANGURO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["568:PATADA CANGURO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/i/6/i6tso4axwnc.png",
     stamina: 100,
     morale: 100,
@@ -36644,7 +36645,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/w/q/wq1_rqcrg4e.png",
     stamina: 100,
     morale: 100,
@@ -36690,7 +36691,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/j/vj4fikds32u.png",
     stamina: 100,
     morale: 100,
@@ -36736,7 +36737,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 650, name: "IMAGEN RESIDUAL", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["650:IMAGEN RESIDUAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/5/q/5qkowsg3tc0.png",
     stamina: 100,
     morale: 100,
@@ -36782,7 +36783,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 566, name: "GIRO DE MONO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["566:GIRO DE MONO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/_/z/_zqkcxsul3u.png",
     stamina: 100,
     morale: 100,
@@ -36828,7 +36829,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 655, name: "LLUVIA DE METEOROS", type: "Regate", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["655:LLUVIA DE METEOROS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/z/n/znyyfwep--s.png",
     stamina: 100,
     morale: 100,
@@ -36874,7 +36875,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 612, name: "TIRO ESPIRAL", type: "Tiro", element: "WIND", POT: 50, PP: 50 }, { id: 183, name: "AIKIDO", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","612:TIRO ESPIRAL","183:AIKIDO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/r/8/r8psvw80zjk.png",
     stamina: 100,
     morale: 100,
@@ -36920,7 +36921,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 655, name: "LLUVIA DE METEOROS", type: "Regate", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["655:LLUVIA DE METEOROS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/m/q/mqi92zvnbru.png",
     stamina: 100,
     morale: 100,
@@ -36966,7 +36967,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 571, name: "CARRERA DE PERRO", type: "Regate", element: "FIRE", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["646:FEINT DASH","609:TIRO GRANADA","571:CARRERA DE PERRO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/j/2/j2yjosfi9uc.png",
     stamina: 100,
     morale: 100,
@@ -37012,7 +37013,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 571, name: "CARRERA DE PERRO", type: "Regate", element: "FIRE", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["646:FEINT DASH","571:CARRERA DE PERRO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/b/k/bkg48jnw9ss.png",
     stamina: 100,
     morale: 100,
@@ -37058,7 +37059,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["84:ESPEJISMO DE BALÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/y/p/ypnust5enxm.png",
     stamina: 100,
     morale: 100,
@@ -37104,7 +37105,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 571, name: "CARRERA DE PERRO", type: "Regate", element: "FIRE", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["646:FEINT DASH","571:CARRERA DE PERRO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/a/0/a0jfz89vabs.png",
     stamina: 100,
     morale: 100,
@@ -37150,7 +37151,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 652, name: "REGATE ENGAÑOSO", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["652:REGATE ENGAÑOSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/b/j/bjlsyikkcp8.png",
     stamina: 100,
     morale: 100,
@@ -37196,7 +37197,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 83, name: "ENTRADA HURACÁN", type: "Regate", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["83:ENTRADA HURACÁN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/s/f/sfg3d9la8pk.png",
     stamina: 100,
     morale: 100,
@@ -37242,7 +37243,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 502, name: "CARRERA A TRES PIERNAS", type: "Regate", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["645:NUTMEG","502:CARRERA A TRES PIERNAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/w/9/w93bmrckolm.png",
     stamina: 100,
     morale: 100,
@@ -37288,7 +37289,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 650, name: "IMAGEN RESIDUAL", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["650:IMAGEN RESIDUAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/m/0/m0qvf_mzpk0.png",
     stamina: 100,
     morale: 100,
@@ -37334,7 +37335,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 649, name: "SÚPER ARMADILLO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["649:SÚPER ARMADILLO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/_/h/_hkiay99fv0.png",
     stamina: 100,
     morale: 100,
@@ -37380,7 +37381,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 606, name: "POWER SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 568, name: "PATADA CANGURO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 212, name: "IMPULSO DEL TIGRE", type: "Tiro", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["606:POWER SHOT","568:PATADA CANGURO","212:IMPULSO DEL TIGRE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/z/f/zf_fwmrsa_e.png",
     stamina: 100,
     morale: 100,
@@ -37426,7 +37427,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/r/c/rcwl4ilxxks.png",
     stamina: 100,
     morale: 100,
@@ -37472,7 +37473,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 35, name: "SABIDURÍA DIVINA", type: "Tiro", element: "WIND", POT: 70, PP: 70 }, { id: 505, name: "TORMENTA DE CARRERA", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","35:SABIDURÍA DIVINA","505:TORMENTA DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/g/q/gqakvkk4b60.png",
     stamina: 100,
     morale: 100,
@@ -37518,7 +37519,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 85, name: "ENTRADA DE LLAMAS", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["642:DUST KICK","609:TIRO GRANADA","85:ENTRADA DE LLAMAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/j/9/j9dtrvz5kue.png",
     stamina: 100,
     morale: 100,
@@ -37564,7 +37565,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["84:ESPEJISMO DE BALÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/9/2/92mtbpnwlme.png",
     stamina: 100,
     morale: 100,
@@ -37610,7 +37611,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 653, name: "DOBLE TOQUE", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["653:DOBLE TOQUE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/y/b/ybhfug3gak0.png",
     stamina: 100,
     morale: 100,
@@ -37656,7 +37657,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 570, name: "CAÍDA DE TACÓN", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["645:NUTMEG","609:TIRO GRANADA","570:CAÍDA DE TACÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/q/vqhy-itsymk.png",
     stamina: 100,
     morale: 100,
@@ -37702,7 +37703,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 653, name: "DOBLE TOQUE", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["653:DOBLE TOQUE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/4/4/44j5l0qa20u.png",
     stamina: 100,
     morale: 100,
@@ -37748,7 +37749,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 209, name: "RUPTURA GAIA", type: "Tiro", element: "MOUNTAIN", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["209:RUPTURA GAIA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/x/t/xtwoefbn_qs.png",
     stamina: 100,
     morale: 100,
@@ -37794,7 +37795,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["609:TIRO GRANADA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/s/_/s_hs5v1dwhm.png",
     stamina: 100,
     morale: 100,
@@ -37840,7 +37841,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 85, name: "ENTRADA DE LLAMAS", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","85:ENTRADA DE LLAMAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/e/r/er6dfvmji0c.png",
     stamina: 100,
     morale: 100,
@@ -37886,7 +37887,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 650, name: "IMAGEN RESIDUAL", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["650:IMAGEN RESIDUAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/r/8/r8vn4j6xtlm.png",
     stamina: 100,
     morale: 100,
@@ -37932,7 +37933,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/y/a/yaudc6y1unc.png",
     stamina: 100,
     morale: 100,
@@ -37978,7 +37979,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 653, name: "DOBLE TOQUE", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["653:DOBLE TOQUE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/m/2/m2e2srzxjoc.png",
     stamina: 100,
     morale: 100,
@@ -38024,7 +38025,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 568, name: "PATADA CANGURO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["568:PATADA CANGURO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/t/g/tgo13fy0ms8.png",
     stamina: 100,
     morale: 100,
@@ -38070,7 +38071,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 90, name: "COZ 3", type: "Regate", element: "FIRE", POT: 100, PP: 100 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","90:COZ 3"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/g/h/ghyaylkjvj8.png",
     stamina: 100,
     morale: 100,
@@ -38116,7 +38117,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 603, name: "CHIP SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 86, name: "CONFUSIÓN", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 212, name: "IMPULSO DEL TIGRE", type: "Tiro", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["603:CHIP SHOT","86:CONFUSIÓN","212:IMPULSO DEL TIGRE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/0/9/09k9ht6xv5s.png",
     stamina: 100,
     morale: 100,
@@ -38162,7 +38163,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 31, name: "REMATE DRAGÓN", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }, { id: 658, name: "ULTRA LUNA", type: "Regate", element: "WOOD", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","31:REMATE DRAGÓN","658:ULTRA LUNA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/c/y/cykw32seo0u.png",
     stamina: 100,
     morale: 100,
@@ -38208,7 +38209,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 653, name: "DOBLE TOQUE", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["653:DOBLE TOQUE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/n/v/nvub1jlm55k.png",
     stamina: 100,
     morale: 100,
@@ -38254,7 +38255,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 653, name: "DOBLE TOQUE", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["653:DOBLE TOQUE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/b/p/bpc3waaxqhu.png",
     stamina: 100,
     morale: 100,
@@ -38300,7 +38301,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 541, name: "PATADA RODANTE", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }, { id: 504, name: "FINTA DEL MATADOR", type: "Regate", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["645:NUTMEG","541:PATADA RODANTE","504:FINTA DEL MATADOR"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/b/l/blbhzeuha60.png",
     stamina: 100,
     morale: 100,
@@ -38346,7 +38347,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 90, name: "COZ 3", type: "Regate", element: "FIRE", POT: 100, PP: 100 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","609:TIRO GRANADA","90:COZ 3"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/d/y/dyy_ckzcils.png",
     stamina: 100,
     morale: 100,
@@ -38392,7 +38393,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 565, name: "ACELERADOR DE CARRERA", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["565:ACELERADOR DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/i/m/imn4d_aimm8.png",
     stamina: 100,
     morale: 100,
@@ -38438,7 +38439,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/f/6/f6mvnhk_tt8.png",
     stamina: 100,
     morale: 100,
@@ -38484,7 +38485,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 603, name: "CHIP SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 565, name: "ACELERADOR DE CARRERA", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 205, name: "COMBATE KUNG FU", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["603:CHIP SHOT","565:ACELERADOR DE CARRERA","205:COMBATE KUNG FU"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/r/x/rxrcsahwa40.png",
     stamina: 100,
     morale: 100,
@@ -38530,7 +38531,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 606, name: "POWER SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 28, name: "REMATE COMBINADO", type: "Tiro", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["606:POWER SHOT","28:REMATE COMBINADO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/h/m/hm2rjnonl4s.png",
     stamina: 100,
     morale: 100,
@@ -38576,7 +38577,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 565, name: "ACELERADOR DE CARRERA", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["565:ACELERADOR DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/1/u/1uujrofqaum.png",
     stamina: 100,
     morale: 100,
@@ -38622,7 +38623,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 547, name: "PATADA TARZÁN", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["547:PATADA TARZÁN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/r/e/recx1prerhm.png",
     stamina: 100,
     morale: 100,
@@ -38668,7 +38669,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["84:ESPEJISMO DE BALÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/s/n/snzqttrilne.png",
     stamina: 100,
     morale: 100,
@@ -38714,7 +38715,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 90, name: "COZ 3", type: "Regate", element: "FIRE", POT: 100, PP: 100 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","609:TIRO GRANADA","90:COZ 3"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/e/p/epei0jsionu.png",
     stamina: 100,
     morale: 100,
@@ -38760,7 +38761,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/q/s/qs02d0doohe.png",
     stamina: 100,
     morale: 100,
@@ -38806,7 +38807,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/b/4/b4eegv6rrls.png",
     stamina: 100,
     morale: 100,
@@ -38852,7 +38853,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 547, name: "PATADA TARZÁN", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 651, name: "FINTA DEL TOPO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","547:PATADA TARZÁN","651:FINTA DEL TOPO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/6/7/67d4k33rnz8.png",
     stamina: 100,
     morale: 100,
@@ -38898,7 +38899,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 606, name: "POWER SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 564, name: "TORBELLINO GIRATORIO", type: "Regate", element: "WIND", POT: 50, PP: 50 }, { id: 215, name: "EL TUBO", type: "Tiro", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["606:POWER SHOT","564:TORBELLINO GIRATORIO","215:EL TUBO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/m/f/mfmpc2wrets.png",
     stamina: 100,
     morale: 100,
@@ -38944,7 +38945,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 209, name: "RUPTURA GAIA", type: "Tiro", element: "MOUNTAIN", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["209:RUPTURA GAIA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/1/s/1s8pvfwhoem.png",
     stamina: 100,
     morale: 100,
@@ -38990,7 +38991,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 544, name: "PICADA DEL CÓNDOR", type: "Tiro", element: "WIND", POT: 50, PP: 50 }, { id: 505, name: "TORMENTA DE CARRERA", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","544:PICADA DEL CÓNDOR","505:TORMENTA DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/c/i/cihqv5mjtiu.png",
     stamina: 100,
     morale: 100,
@@ -39036,7 +39037,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/h/0/h08aelon9me.png",
     stamina: 100,
     morale: 100,
@@ -39082,7 +39083,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 570, name: "CAÍDA DE TACÓN", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["645:NUTMEG","570:CAÍDA DE TACÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/o/r/oreeg5skmpu.png",
     stamina: 100,
     morale: 100,
@@ -39128,7 +39129,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/y/g/ygcza73hqn0.png",
     stamina: 100,
     morale: 100,
@@ -39174,7 +39175,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 566, name: "GIRO DE MONO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["566:GIRO DE MONO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/j/_/j_prveguwee.png",
     stamina: 100,
     morale: 100,
@@ -39220,7 +39221,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["642:DUST KICK","84:ESPEJISMO DE BALÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/8/w/8wocttgsuu0.png",
     stamina: 100,
     morale: 100,
@@ -39266,7 +39267,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 87, name: "HORA CELESTIAL", type: "Regate", element: "WIND", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","87:HORA CELESTIAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/8/3/837mmpdnb0u.png",
     stamina: 100,
     morale: 100,
@@ -39312,7 +39313,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 603, name: "CHIP SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }, { id: 619, name: "BOMBARDERO ACROBÁTICO", type: "Tiro", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["603:CHIP SHOT","84:ESPEJISMO DE BALÓN","619:BOMBARDERO ACROBÁTICO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/s/w/swv6prfzxzc.png",
     stamina: 100,
     morale: 100,
@@ -39358,7 +39359,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 604, name: "CURVE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 623, name: "CAÍDA TORBELLINO", type: "Tiro", element: "WIND", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["604:CURVE SHOT","623:CAÍDA TORBELLINO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/c/y/cy03vqmqqf8.png",
     stamina: 100,
     morale: 100,
@@ -39404,7 +39405,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 608, name: "TIRO DE FURIA", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }, { id: 658, name: "ULTRA LUNA", type: "Regate", element: "WOOD", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["642:DUST KICK","608:TIRO DE FURIA","658:ULTRA LUNA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/h/4/h43tmccvksu.png",
     stamina: 100,
     morale: 100,
@@ -39450,7 +39451,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["84:ESPEJISMO DE BALÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/5/i/5irtmlrhlec.png",
     stamina: 100,
     morale: 100,
@@ -39496,7 +39497,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["84:ESPEJISMO DE BALÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/e/k/ekcyjvxm98e.png",
     stamina: 100,
     morale: 100,
@@ -39542,7 +39543,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 614, name: "CABEZAZO KUNG FU", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }, { id: 658, name: "ULTRA LUNA", type: "Regate", element: "WOOD", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["645:NUTMEG","614:CABEZAZO KUNG FU","658:ULTRA LUNA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/z/f/zfkbqdkzw2s.png",
     stamina: 100,
     morale: 100,
@@ -39588,7 +39589,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 651, name: "FINTA DEL TOPO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","651:FINTA DEL TOPO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/y/1/y1zw7vobf-k.png",
     stamina: 100,
     morale: 100,
@@ -39634,7 +39635,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 85, name: "ENTRADA DE LLAMAS", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["646:FEINT DASH","85:ENTRADA DE LLAMAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/u/e/ue4wi1_ctkm.png",
     stamina: 100,
     morale: 100,
@@ -39680,7 +39681,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 567, name: "REGATE AURORA", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["567:REGATE AURORA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/0/s/0s9og4sf-gu.png",
     stamina: 100,
     morale: 100,
@@ -39726,7 +39727,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 608, name: "TIRO DE FURIA", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["608:TIRO DE FURIA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/3/t/3tc2fo62hqk.png",
     stamina: 100,
     morale: 100,
@@ -39772,7 +39773,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/e/4/e4gfrvuztos.png",
     stamina: 100,
     morale: 100,
@@ -39818,7 +39819,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 653, name: "DOBLE TOQUE", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["653:DOBLE TOQUE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/r/c/rcubnlt6xjs.png",
     stamina: 100,
     morale: 100,
@@ -39864,7 +39865,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 652, name: "REGATE ENGAÑOSO", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["652:REGATE ENGAÑOSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/l/7/l7putjyybs0.png",
     stamina: 100,
     morale: 100,
@@ -39910,7 +39911,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 90, name: "COZ 3", type: "Regate", element: "FIRE", POT: 100, PP: 100 }],
+    techniques: getSupertechniques(["646:FEINT DASH","609:TIRO GRANADA","90:COZ 3"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/n/g/ng8zdn7i4r0.png",
     stamina: 100,
     morale: 100,
@@ -39956,7 +39957,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 605, name: "BOUNCE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }, { id: 551, name: "LECHO DE ROSAS", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["605:BOUNCE SHOT","84:ESPEJISMO DE BALÓN","551:LECHO DE ROSAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/a/7/a7pfyjkzrhc.png",
     stamina: 100,
     morale: 100,
@@ -40002,7 +40003,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 85, name: "ENTRADA DE LLAMAS", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["642:DUST KICK","85:ENTRADA DE LLAMAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/j/o/jogeqbk_lnu.png",
     stamina: 100,
     morale: 100,
@@ -40048,7 +40049,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 505, name: "TORMENTA DE CARRERA", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["646:FEINT DASH","505:TORMENTA DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/e/l/eljidtnwfgm.png",
     stamina: 100,
     morale: 100,
@@ -40094,7 +40095,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 502, name: "CARRERA A TRES PIERNAS", type: "Regate", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["642:DUST KICK","502:CARRERA A TRES PIERNAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/c/j/cjenqi1q5sm.png",
     stamina: 100,
     morale: 100,
@@ -40140,7 +40141,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 652, name: "REGATE ENGAÑOSO", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["652:REGATE ENGAÑOSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/c/h/chx8s-okkze.png",
     stamina: 100,
     morale: 100,
@@ -40186,7 +40187,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 564, name: "TORBELLINO GIRATORIO", type: "Regate", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["564:TORBELLINO GIRATORIO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/o/e/oeuij-enree.png",
     stamina: 100,
     morale: 100,
@@ -40232,7 +40233,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 567, name: "REGATE AURORA", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["567:REGATE AURORA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/g/b/gbzawitrcqe.png",
     stamina: 100,
     morale: 100,
@@ -40278,7 +40279,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 603, name: "CHIP SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 649, name: "SÚPER ARMADILLO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 548, name: "BOLA DE TIERRA", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["603:CHIP SHOT","649:SÚPER ARMADILLO","548:BOLA DE TIERRA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/i/a/iakjqqks8v0.png",
     stamina: 100,
     morale: 100,
@@ -40324,7 +40325,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 650, name: "IMAGEN RESIDUAL", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["650:IMAGEN RESIDUAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/9/3/93fqekogpje.png",
     stamina: 100,
     morale: 100,
@@ -40370,7 +40371,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 83, name: "ENTRADA HURACÁN", type: "Regate", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["83:ENTRADA HURACÁN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/l/u/luen0cosq1m.png",
     stamina: 100,
     morale: 100,
@@ -40416,7 +40417,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 605, name: "BOUNCE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 652, name: "REGATE ENGAÑOSO", type: "Regate", element: "WOOD", POT: 60, PP: 60 }, { id: 208, name: "EXPLOSIÓN CÓSMICA", type: "Tiro", element: "WOOD", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["605:BOUNCE SHOT","652:REGATE ENGAÑOSO","208:EXPLOSIÓN CÓSMICA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/6/w/6weziqqfuje.png",
     stamina: 100,
     morale: 100,
@@ -40462,7 +40463,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/q/h/qh2m-44k96u.png",
     stamina: 100,
     morale: 100,
@@ -40508,7 +40509,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 209, name: "RUPTURA GAIA", type: "Tiro", element: "MOUNTAIN", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["209:RUPTURA GAIA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/2/s/2sska1xv7o8.png",
     stamina: 100,
     morale: 100,
@@ -40554,7 +40555,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 547, name: "PATADA TARZÁN", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 651, name: "FINTA DEL TOPO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","547:PATADA TARZÁN","651:FINTA DEL TOPO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/r/r/rrotayf0e40.png",
     stamina: 100,
     morale: 100,
@@ -40600,7 +40601,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 571, name: "CARRERA DE PERRO", type: "Regate", element: "FIRE", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","571:CARRERA DE PERRO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/g/7/g7nvez2a5p0.png",
     stamina: 100,
     morale: 100,
@@ -40646,7 +40647,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 502, name: "CARRERA A TRES PIERNAS", type: "Regate", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","502:CARRERA A TRES PIERNAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/s/x/sxehlt0c91c.png",
     stamina: 100,
     morale: 100,
@@ -40692,7 +40693,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/0/a/0aupx93jpfk.png",
     stamina: 100,
     morale: 100,
@@ -40738,7 +40739,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/3/n/3ndtofcgtbm.png",
     stamina: 100,
     morale: 100,
@@ -40784,7 +40785,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 547, name: "PATADA TARZÁN", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 651, name: "FINTA DEL TOPO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["646:FEINT DASH","547:PATADA TARZÁN","651:FINTA DEL TOPO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/r/v/rvp71aszc6u.png",
     stamina: 100,
     morale: 100,
@@ -40830,7 +40831,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 83, name: "ENTRADA HURACÁN", type: "Regate", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["83:ENTRADA HURACÁN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/g/vgbpildzfzu.png",
     stamina: 100,
     morale: 100,
@@ -40876,7 +40877,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 603, name: "CHIP SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 83, name: "ENTRADA HURACÁN", type: "Regate", element: "WIND", POT: 60, PP: 60 }, { id: 58, name: "GRAN TIFÓN", type: "Tiro", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["603:CHIP SHOT","83:ENTRADA HURACÁN","58:GRAN TIFÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/n/v/nv-e-xidj7k.png",
     stamina: 100,
     morale: 100,
@@ -40922,7 +40923,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 88, name: "ACELERRELÁMPAGO", type: "Regate", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["88:ACELERRELÁMPAGO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/z/s/zsilxpf3dt8.png",
     stamina: 100,
     morale: 100,
@@ -40968,7 +40969,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 653, name: "DOBLE TOQUE", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["653:DOBLE TOQUE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/j/m/jmymfmsznsc.png",
     stamina: 100,
     morale: 100,
@@ -41014,7 +41015,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 570, name: "CAÍDA DE TACÓN", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["642:DUST KICK","609:TIRO GRANADA","570:CAÍDA DE TACÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/d/i/diz4ter9h-c.png",
     stamina: 100,
     morale: 100,
@@ -41060,7 +41061,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["84:ESPEJISMO DE BALÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/j/y/jylkfndzdt8.png",
     stamina: 100,
     morale: 100,
@@ -41106,7 +41107,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 505, name: "TORMENTA DE CARRERA", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["642:DUST KICK","505:TORMENTA DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/k/b/kbnqptfrjr0.png",
     stamina: 100,
     morale: 100,
@@ -41152,7 +41153,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 505, name: "TORMENTA DE CARRERA", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","505:TORMENTA DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/a/5/a59gb3fxhd0.png",
     stamina: 100,
     morale: 100,
@@ -41198,7 +41199,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 607, name: "LOW DRIVE", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 566, name: "GIRO DE MONO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 554, name: "GOLPE DE PALADÍN", type: "Tiro", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["607:LOW DRIVE","566:GIRO DE MONO","554:GOLPE DE PALADÍN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/m/r/mrhh-pay1g8.png",
     stamina: 100,
     morale: 100,
@@ -41244,7 +41245,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 651, name: "FINTA DEL TOPO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","651:FINTA DEL TOPO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/c/b/cbdwu6m0qbk.png",
     stamina: 100,
     morale: 100,
@@ -41290,7 +41291,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/i/t/itaip7uuz1k.png",
     stamina: 100,
     morale: 100,
@@ -41336,7 +41337,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/q/b/qbzw7l8t9s8.png",
     stamina: 100,
     morale: 100,
@@ -41382,7 +41383,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 85, name: "ENTRADA DE LLAMAS", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["646:FEINT DASH","85:ENTRADA DE LLAMAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/n/a/naw2itszip0.png",
     stamina: 100,
     morale: 100,
@@ -41428,7 +41429,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 90, name: "COZ 3", type: "Regate", element: "FIRE", POT: 100, PP: 100 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","609:TIRO GRANADA","90:COZ 3"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/w/m/wmhvtuevcqk.png",
     stamina: 100,
     morale: 100,
@@ -41474,7 +41475,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 564, name: "TORBELLINO GIRATORIO", type: "Regate", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["564:TORBELLINO GIRATORIO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/b/l/bljk0tilj_e.png",
     stamina: 100,
     morale: 100,
@@ -41520,7 +41521,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 652, name: "REGATE ENGAÑOSO", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["652:REGATE ENGAÑOSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/x/a/xakomhzr3ak.png",
     stamina: 100,
     morale: 100,
@@ -41566,7 +41567,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 90, name: "COZ 3", type: "Regate", element: "FIRE", POT: 100, PP: 100 }],
+    techniques: getSupertechniques(["646:FEINT DASH","90:COZ 3"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/0/8/08fhp3vkhue.png",
     stamina: 100,
     morale: 100,
@@ -41612,7 +41613,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 505, name: "TORMENTA DE CARRERA", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["646:FEINT DASH","505:TORMENTA DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/0/8/087atrlqz_s.png",
     stamina: 100,
     morale: 100,
@@ -41658,7 +41659,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 604, name: "CURVE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 83, name: "ENTRADA HURACÁN", type: "Regate", element: "WIND", POT: 60, PP: 60 }, { id: 623, name: "CAÍDA TORBELLINO", type: "Tiro", element: "WIND", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["604:CURVE SHOT","83:ENTRADA HURACÁN","623:CAÍDA TORBELLINO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/x/c/xc5cbmjdsy8.png",
     stamina: 100,
     morale: 100,
@@ -41704,7 +41705,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 88, name: "ACELERRELÁMPAGO", type: "Regate", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["88:ACELERRELÁMPAGO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/p/o/por5utbna8k.png",
     stamina: 100,
     morale: 100,
@@ -41750,7 +41751,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 568, name: "PATADA CANGURO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["568:PATADA CANGURO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/_/b/_bacxfnu5-u.png",
     stamina: 100,
     morale: 100,
@@ -41796,7 +41797,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 541, name: "PATADA RODANTE", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }, { id: 658, name: "ULTRA LUNA", type: "Regate", element: "WOOD", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","541:PATADA RODANTE","658:ULTRA LUNA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/c/z/czxp9uz6a5m.png",
     stamina: 100,
     morale: 100,
@@ -41842,7 +41843,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 607, name: "LOW DRIVE", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 86, name: "CONFUSIÓN", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 548, name: "BOLA DE TIERRA", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["607:LOW DRIVE","86:CONFUSIÓN","548:BOLA DE TIERRA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/i/a/iahpfmzgqlc.png",
     stamina: 100,
     morale: 100,
@@ -41888,7 +41889,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 85, name: "ENTRADA DE LLAMAS", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","85:ENTRADA DE LLAMAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/2/s/2su012pcdr8.png",
     stamina: 100,
     morale: 100,
@@ -41934,7 +41935,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["84:ESPEJISMO DE BALÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/9/k/9kfskk88uz0.png",
     stamina: 100,
     morale: 100,
@@ -41980,7 +41981,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/_/2/_2dx7c6agus.png",
     stamina: 100,
     morale: 100,
@@ -42026,7 +42027,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 614, name: "CABEZAZO KUNG FU", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["614:CABEZAZO KUNG FU"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/4/1/41n2pnt9bhs.png",
     stamina: 100,
     morale: 100,
@@ -42072,7 +42073,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 88, name: "ACELERRELÁMPAGO", type: "Regate", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["88:ACELERRELÁMPAGO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/-/m/-maydsn33pm.png",
     stamina: 100,
     morale: 100,
@@ -42118,7 +42119,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 183, name: "AIKIDO", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["645:NUTMEG","183:AIKIDO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/5/f/5fvimywgmtk.png",
     stamina: 100,
     morale: 100,
@@ -42164,7 +42165,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 88, name: "ACELERRELÁMPAGO", type: "Regate", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["88:ACELERRELÁMPAGO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/e/4/e4wmeon1bxk.png",
     stamina: 100,
     morale: 100,
@@ -42210,7 +42211,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/f/5/f5xqsjwktc8.png",
     stamina: 100,
     morale: 100,
@@ -42256,7 +42257,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 570, name: "CAÍDA DE TACÓN", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","570:CAÍDA DE TACÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/e/8/e8o-flnjyhm.png",
     stamina: 100,
     morale: 100,
@@ -42302,7 +42303,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["609:TIRO GRANADA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/n/6/n6jtzc0piic.png",
     stamina: 100,
     morale: 100,
@@ -42348,7 +42349,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 610, name: "TIRO GIRATORIO", type: "Tiro", element: "WIND", POT: 50, PP: 50 }, { id: 505, name: "TORMENTA DE CARRERA", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["645:NUTMEG","610:TIRO GIRATORIO","505:TORMENTA DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/s/e/serwwu712e0.png",
     stamina: 100,
     morale: 100,
@@ -42394,7 +42395,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 565, name: "ACELERADOR DE CARRERA", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["565:ACELERADOR DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/a/7/a7x-q_uxtk0.png",
     stamina: 100,
     morale: 100,
@@ -42440,7 +42441,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 653, name: "DOBLE TOQUE", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["653:DOBLE TOQUE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/b/e/bef86hhjjxs.png",
     stamina: 100,
     morale: 100,
@@ -42486,7 +42487,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/a/z/azaj_lhktlc.png",
     stamina: 100,
     morale: 100,
@@ -42532,7 +42533,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 651, name: "FINTA DEL TOPO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["642:DUST KICK","651:FINTA DEL TOPO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/9/4/94t4yo-coxu.png",
     stamina: 100,
     morale: 100,
@@ -42578,7 +42579,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/x/n/xnxr6x_6zie.png",
     stamina: 100,
     morale: 100,
@@ -42624,7 +42625,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 653, name: "DOBLE TOQUE", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["653:DOBLE TOQUE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/i/3/i3v8z0h1d8m.png",
     stamina: 100,
     morale: 100,
@@ -42670,7 +42671,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/n/p/npz-rb1r1xm.png",
     stamina: 100,
     morale: 100,
@@ -42716,7 +42717,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 183, name: "AIKIDO", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["645:NUTMEG","183:AIKIDO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/-/p/-pyw1oxz2dc.png",
     stamina: 100,
     morale: 100,
@@ -42762,7 +42763,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 652, name: "REGATE ENGAÑOSO", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["652:REGATE ENGAÑOSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/8/l/8lon3syrqlk.png",
     stamina: 100,
     morale: 100,
@@ -42808,7 +42809,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 86, name: "CONFUSIÓN", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["86:CONFUSIÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/g/q/gqc7c7mbfsc.png",
     stamina: 100,
     morale: 100,
@@ -42854,7 +42855,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 607, name: "LOW DRIVE", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 553, name: "MEGALODÓN", type: "Tiro", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["607:LOW DRIVE","553:MEGALODÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/m/f/mf0xp1o8iqs.png",
     stamina: 100,
     morale: 100,
@@ -42900,7 +42901,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 504, name: "FINTA DEL MATADOR", type: "Regate", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","504:FINTA DEL MATADOR"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/q/h/qhuzf3cwxau.png",
     stamina: 100,
     morale: 100,
@@ -42946,7 +42947,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/6/z/6zolltc2zyu.png",
     stamina: 100,
     morale: 100,
@@ -42992,7 +42993,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 604, name: "CURVE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 652, name: "REGATE ENGAÑOSO", type: "Regate", element: "WOOD", POT: 60, PP: 60 }, { id: 611, name: "TIRO CLON", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["604:CURVE SHOT","652:REGATE ENGAÑOSO","611:TIRO CLON"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/n/0/n0ogwdtbj1m.png",
     stamina: 100,
     morale: 100,
@@ -43038,7 +43039,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 567, name: "REGATE AURORA", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["567:REGATE AURORA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/g/z/gzairpddhoc.png",
     stamina: 100,
     morale: 100,
@@ -43084,7 +43085,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 29, name: "TORNADO DE FUEGO", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["29:TORNADO DE FUEGO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/7/v7cq7herayu.png",
     stamina: 100,
     morale: 100,
@@ -43130,7 +43131,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/v/vvrzhm1aiie.png",
     stamina: 100,
     morale: 100,
@@ -43176,7 +43177,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 85, name: "ENTRADA DE LLAMAS", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["645:NUTMEG","609:TIRO GRANADA","85:ENTRADA DE LLAMAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/3/v/3vowhfpbtak.png",
     stamina: 100,
     morale: 100,
@@ -43222,7 +43223,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 565, name: "ACELERADOR DE CARRERA", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["565:ACELERADOR DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/2/c/2cnhp0odq_s.png",
     stamina: 100,
     morale: 100,
@@ -43268,7 +43269,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 83, name: "ENTRADA HURACÁN", type: "Regate", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["83:ENTRADA HURACÁN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/x/c/xc4kedbvtye.png",
     stamina: 100,
     morale: 100,
@@ -43314,7 +43315,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/e/n/enhdoht9dze.png",
     stamina: 100,
     morale: 100,
@@ -43360,7 +43361,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 507, name: "VELO DE AGUA", type: "Regate", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["507:VELO DE AGUA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/r/t/rt80pmq6uac.png",
     stamina: 100,
     morale: 100,
@@ -43406,7 +43407,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 565, name: "ACELERADOR DE CARRERA", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["565:ACELERADOR DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/c/n/cnun9vo6g4s.png",
     stamina: 100,
     morale: 100,
@@ -43452,7 +43453,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 566, name: "GIRO DE MONO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["566:GIRO DE MONO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/m/q/mq2cuvxp5a8.png",
     stamina: 100,
     morale: 100,
@@ -43498,7 +43499,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 501, name: "CLON FALSO", type: "Regate", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","501:CLON FALSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/l/t/ltyzjirrgau.png",
     stamina: 100,
     morale: 100,
@@ -43544,7 +43545,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 86, name: "CONFUSIÓN", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["86:CONFUSIÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/b/vbxxsfs1fx8.png",
     stamina: 100,
     morale: 100,
@@ -43590,7 +43591,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 543, name: "IMPULSO CRUZADO", type: "Tiro", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["543:IMPULSO CRUZADO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/6/5/65pav_8r_68.png",
     stamina: 100,
     morale: 100,
@@ -43636,7 +43637,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 608, name: "TIRO DE FURIA", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["608:TIRO DE FURIA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/4/x/4x-kchgudts.png",
     stamina: 100,
     morale: 100,
@@ -43682,7 +43683,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 652, name: "REGATE ENGAÑOSO", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["652:REGATE ENGAÑOSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/1/d/1dl8yqazlh0.png",
     stamina: 100,
     morale: 100,
@@ -43728,7 +43729,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 507, name: "VELO DE AGUA", type: "Regate", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["507:VELO DE AGUA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/e/k/ekqlcoogvlm.png",
     stamina: 100,
     morale: 100,
@@ -43774,7 +43775,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 570, name: "CAÍDA DE TACÓN", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["642:DUST KICK","570:CAÍDA DE TACÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/y/3/y3nps7bppcm.png",
     stamina: 100,
     morale: 100,
@@ -43820,7 +43821,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 655, name: "LLUVIA DE METEOROS", type: "Regate", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["655:LLUVIA DE METEOROS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/0/z/0ztobv7uyt8.png",
     stamina: 100,
     morale: 100,
@@ -43866,7 +43867,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/c/b/cb88nfolkwe.png",
     stamina: 100,
     morale: 100,
@@ -43912,7 +43913,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 570, name: "CAÍDA DE TACÓN", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["642:DUST KICK","570:CAÍDA DE TACÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/y/v/yvuqujznt0m.png",
     stamina: 100,
     morale: 100,
@@ -43958,7 +43959,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 658, name: "ULTRA LUNA", type: "Regate", element: "WOOD", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","658:ULTRA LUNA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/s/f/sfyjo-ttaqk.png",
     stamina: 100,
     morale: 100,
@@ -44004,7 +44005,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/q/9/q98yz_izbr0.png",
     stamina: 100,
     morale: 100,
@@ -44050,7 +44051,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 88, name: "ACELERRELÁMPAGO", type: "Regate", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["88:ACELERRELÁMPAGO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/a/o/aodr-7ng8qm.png",
     stamina: 100,
     morale: 100,
@@ -44096,7 +44097,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 568, name: "PATADA CANGURO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["568:PATADA CANGURO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/k/e/kehw5xlsbxs.png",
     stamina: 100,
     morale: 100,
@@ -44142,7 +44143,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/l/6/l6yp5ppdnq0.png",
     stamina: 100,
     morale: 100,
@@ -44188,7 +44189,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 87, name: "HORA CELESTIAL", type: "Regate", element: "WIND", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","87:HORA CELESTIAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/w/c/wcznd8lhogk.png",
     stamina: 100,
     morale: 100,
@@ -44234,7 +44235,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 567, name: "REGATE AURORA", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["567:REGATE AURORA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/u/x/uxpdfgpo490.png",
     stamina: 100,
     morale: 100,
@@ -44280,7 +44281,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 571, name: "CARRERA DE PERRO", type: "Regate", element: "FIRE", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["645:NUTMEG","609:TIRO GRANADA","571:CARRERA DE PERRO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/m/e/me9y2wbkivs.png",
     stamina: 100,
     morale: 100,
@@ -44326,7 +44327,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 209, name: "RUPTURA GAIA", type: "Tiro", element: "MOUNTAIN", POT: 80, PP: 80 }, { id: 502, name: "CARRERA A TRES PIERNAS", type: "Regate", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["642:DUST KICK","209:RUPTURA GAIA","502:CARRERA A TRES PIERNAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/j/n/jnozla8yuds.png",
     stamina: 100,
     morale: 100,
@@ -44372,7 +44373,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 658, name: "ULTRA LUNA", type: "Regate", element: "WOOD", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["646:FEINT DASH","658:ULTRA LUNA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/k/o/ko3gmq34e6k.png",
     stamina: 100,
     morale: 100,
@@ -44418,7 +44419,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 606, name: "POWER SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 623, name: "CAÍDA TORBELLINO", type: "Tiro", element: "WIND", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["606:POWER SHOT","623:CAÍDA TORBELLINO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/b/j/bjvewq7vqyc.png",
     stamina: 100,
     morale: 100,
@@ -44464,7 +44465,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/1/i/1ilajhxydkc.png",
     stamina: 100,
     morale: 100,
@@ -44510,7 +44511,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 209, name: "RUPTURA GAIA", type: "Tiro", element: "MOUNTAIN", POT: 80, PP: 80 }, { id: 651, name: "FINTA DEL TOPO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["645:NUTMEG","209:RUPTURA GAIA","651:FINTA DEL TOPO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/3/t/3tkiqnibhtk.png",
     stamina: 100,
     morale: 100,
@@ -44556,7 +44557,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 655, name: "LLUVIA DE METEOROS", type: "Regate", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["655:LLUVIA DE METEOROS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/w/r/wrecbstkk-e.png",
     stamina: 100,
     morale: 100,
@@ -44602,7 +44603,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 606, name: "POWER SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 564, name: "TORBELLINO GIRATORIO", type: "Regate", element: "WIND", POT: 50, PP: 50 }, { id: 214, name: "LA BESTIA TRUENO", type: "Tiro", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["606:POWER SHOT","564:TORBELLINO GIRATORIO","214:LA BESTIA TRUENO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/l/u/luggwaqisek.png",
     stamina: 100,
     morale: 100,
@@ -44648,7 +44649,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 505, name: "TORMENTA DE CARRERA", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["642:DUST KICK","505:TORMENTA DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/e/i/eiwup07joq8.png",
     stamina: 100,
     morale: 100,
@@ -44694,7 +44695,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/c/h/chjcz9wnswe.png",
     stamina: 100,
     morale: 100,
@@ -44740,7 +44741,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 547, name: "PATADA TARZÁN", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 651, name: "FINTA DEL TOPO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","547:PATADA TARZÁN","651:FINTA DEL TOPO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/_/w/_wcmqtcqkle.png",
     stamina: 100,
     morale: 100,
@@ -44786,7 +44787,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 652, name: "REGATE ENGAÑOSO", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["652:REGATE ENGAÑOSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/x/t/xtiwrgzkzps.png",
     stamina: 100,
     morale: 100,
@@ -44832,7 +44833,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 608, name: "TIRO DE FURIA", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }, { id: 501, name: "CLON FALSO", type: "Regate", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["646:FEINT DASH","608:TIRO DE FURIA","501:CLON FALSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/h/l/hlyk5tifvjm.png",
     stamina: 100,
     morale: 100,
@@ -44878,7 +44879,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 90, name: "COZ 3", type: "Regate", element: "FIRE", POT: 100, PP: 100 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","609:TIRO GRANADA","90:COZ 3"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/w/z/wzuu6pdvlfc.png",
     stamina: 100,
     morale: 100,
@@ -44924,7 +44925,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 650, name: "IMAGEN RESIDUAL", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["650:IMAGEN RESIDUAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/n/y/ny_j-sgwdnc.png",
     stamina: 100,
     morale: 100,
@@ -44970,7 +44971,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 650, name: "IMAGEN RESIDUAL", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["650:IMAGEN RESIDUAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/7/j/7jxugah2cq0.png",
     stamina: 100,
     morale: 100,
@@ -45016,7 +45017,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/j/i/jin-zmybzhu.png",
     stamina: 100,
     morale: 100,
@@ -45062,7 +45063,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/k/8/k8di59sp5n8.png",
     stamina: 100,
     morale: 100,
@@ -45108,7 +45109,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/q/s/qspu1loxmom.png",
     stamina: 100,
     morale: 100,
@@ -45154,7 +45155,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 570, name: "CAÍDA DE TACÓN", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","570:CAÍDA DE TACÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/5/0/508clepj79u.png",
     stamina: 100,
     morale: 100,
@@ -45200,7 +45201,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/z/h/zh1s9dtqufk.png",
     stamina: 100,
     morale: 100,
@@ -45246,7 +45247,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 655, name: "LLUVIA DE METEOROS", type: "Regate", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["655:LLUVIA DE METEOROS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/r/z/rzbrneunys0.png",
     stamina: 100,
     morale: 100,
@@ -45292,7 +45293,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 607, name: "LOW DRIVE", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 650, name: "IMAGEN RESIDUAL", type: "Regate", element: "WOOD", POT: 60, PP: 60 }, { id: 617, name: "TORNADO OSCURO", type: "Tiro", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["607:LOW DRIVE","650:IMAGEN RESIDUAL","617:TORNADO OSCURO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/a/w/awk18ijjkam.png",
     stamina: 100,
     morale: 100,
@@ -45338,7 +45339,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 607, name: "LOW DRIVE", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 566, name: "GIRO DE MONO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 51, name: "REMATE GAFAS", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["607:LOW DRIVE","566:GIRO DE MONO","51:REMATE GAFAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/o/p/opd5yp41tne.png",
     stamina: 100,
     morale: 100,
@@ -45384,7 +45385,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/m/_/m_rq4komibe.png",
     stamina: 100,
     morale: 100,
@@ -45430,7 +45431,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 85, name: "ENTRADA DE LLAMAS", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","85:ENTRADA DE LLAMAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/t/w/twrqmdjwjvc.png",
     stamina: 100,
     morale: 100,
@@ -45476,7 +45477,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 607, name: "LOW DRIVE", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 567, name: "REGATE AURORA", type: "Regate", element: "WIND", POT: 70, PP: 70 }, { id: 214, name: "LA BESTIA TRUENO", type: "Tiro", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["607:LOW DRIVE","567:REGATE AURORA","214:LA BESTIA TRUENO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/f/o/ford8gqyw2e.png",
     stamina: 100,
     morale: 100,
@@ -45522,7 +45523,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "GK"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/f/u/fukhautq0me.png",
     stamina: 100,
     morale: 100,
@@ -45568,7 +45569,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/d/z/dz78dpwqios.png",
     stamina: 100,
     morale: 100,
@@ -45614,7 +45615,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 501, name: "CLON FALSO", type: "Regate", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["646:FEINT DASH","501:CLON FALSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/k/k/kk-nogtcxce.png",
     stamina: 100,
     morale: 100,
@@ -45660,7 +45661,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 649, name: "SÚPER ARMADILLO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["649:SÚPER ARMADILLO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/q/-/q-n3sxyc_e0.png",
     stamina: 100,
     morale: 100,
@@ -45706,7 +45707,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 651, name: "FINTA DEL TOPO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","651:FINTA DEL TOPO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/9/y/9ykdwcafc58.png",
     stamina: 100,
     morale: 100,
@@ -45752,7 +45753,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 86, name: "CONFUSIÓN", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["86:CONFUSIÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/o/e/oes2w9cgnde.png",
     stamina: 100,
     morale: 100,
@@ -45798,7 +45799,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 85, name: "ENTRADA DE LLAMAS", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","85:ENTRADA DE LLAMAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/j/w/jwf9szi9xpu.png",
     stamina: 100,
     morale: 100,
@@ -45844,7 +45845,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 570, name: "CAÍDA DE TACÓN", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","570:CAÍDA DE TACÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/b/6/b6y1yaotlbk.png",
     stamina: 100,
     morale: 100,
@@ -45890,7 +45891,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 88, name: "ACELERRELÁMPAGO", type: "Regate", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["88:ACELERRELÁMPAGO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/w/y/wynxls0jpac.png",
     stamina: 100,
     morale: 100,
@@ -45936,7 +45937,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 605, name: "BOUNCE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 568, name: "PATADA CANGURO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 548, name: "BOLA DE TIERRA", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["605:BOUNCE SHOT","568:PATADA CANGURO","548:BOLA DE TIERRA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/m/f/mfbvz6ndsze.png",
     stamina: 100,
     morale: 100,
@@ -45982,7 +45983,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 650, name: "IMAGEN RESIDUAL", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["650:IMAGEN RESIDUAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/e/j/ej5tqxs_cv8.png",
     stamina: 100,
     morale: 100,
@@ -46028,7 +46029,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["84:ESPEJISMO DE BALÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/r/-/r-7urdvznpk.png",
     stamina: 100,
     morale: 100,
@@ -46074,7 +46075,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 655, name: "LLUVIA DE METEOROS", type: "Regate", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["655:LLUVIA DE METEOROS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/_/5/_51_ngkeh88.png",
     stamina: 100,
     morale: 100,
@@ -46120,7 +46121,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 603, name: "CHIP SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 653, name: "DOBLE TOQUE", type: "Regate", element: "FIRE", POT: 60, PP: 60 }, { id: 211, name: "TIRO DE CAMPANARIO", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["603:CHIP SHOT","653:DOBLE TOQUE","211:TIRO DE CAMPANARIO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/y/t/ytaj93mdzwk.png",
     stamina: 100,
     morale: 100,
@@ -46166,7 +46167,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/3/c/3crf4bscsjc.png",
     stamina: 100,
     morale: 100,
@@ -46212,7 +46213,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["84:ESPEJISMO DE BALÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/h/j/hjbyeyytohu.png",
     stamina: 100,
     morale: 100,
@@ -46258,7 +46259,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 568, name: "PATADA CANGURO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["568:PATADA CANGURO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/y/u/yubmc52ynzk.png",
     stamina: 100,
     morale: 100,
@@ -46304,7 +46305,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 566, name: "GIRO DE MONO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["566:GIRO DE MONO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/z/w/zw73aj0kfh8.png",
     stamina: 100,
     morale: 100,
@@ -46350,7 +46351,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/u/vu6pfgmwete.png",
     stamina: 100,
     morale: 100,
@@ -46396,7 +46397,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 87, name: "HORA CELESTIAL", type: "Regate", element: "WIND", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","87:HORA CELESTIAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/i/c/ictwsymugh0.png",
     stamina: 100,
     morale: 100,
@@ -46442,7 +46443,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 541, name: "PATADA RODANTE", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["541:PATADA RODANTE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/m/m/mmuzn1ag5qc.png",
     stamina: 100,
     morale: 100,
@@ -46488,7 +46489,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 568, name: "PATADA CANGURO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["568:PATADA CANGURO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/u/r/uromhyx101c.png",
     stamina: 100,
     morale: 100,
@@ -46534,7 +46535,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 612, name: "TIRO ESPIRAL", type: "Tiro", element: "WIND", POT: 50, PP: 50 }, { id: 183, name: "AIKIDO", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","612:TIRO ESPIRAL","183:AIKIDO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/g/l/glymjg68aok.png",
     stamina: 100,
     morale: 100,
@@ -46580,7 +46581,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/g/e/gekut016amm.png",
     stamina: 100,
     morale: 100,
@@ -46626,7 +46627,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 566, name: "GIRO DE MONO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["566:GIRO DE MONO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/9/3/939uxjwrpge.png",
     stamina: 100,
     morale: 100,
@@ -46672,7 +46673,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["84:ESPEJISMO DE BALÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/f/o/fofuccrzism.png",
     stamina: 100,
     morale: 100,
@@ -46718,7 +46719,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 571, name: "CARRERA DE PERRO", type: "Regate", element: "FIRE", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","571:CARRERA DE PERRO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/q/j/qjaq2jx-748.png",
     stamina: 100,
     morale: 100,
@@ -46764,7 +46765,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 505, name: "TORMENTA DE CARRERA", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["645:NUTMEG","505:TORMENTA DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/u/t/utgll1mpkcc.png",
     stamina: 100,
     morale: 100,
@@ -46810,7 +46811,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 571, name: "CARRERA DE PERRO", type: "Regate", element: "FIRE", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["645:NUTMEG","571:CARRERA DE PERRO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/6/u/6ukqh-_rebs.png",
     stamina: 100,
     morale: 100,
@@ -46856,7 +46857,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 183, name: "AIKIDO", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["646:FEINT DASH","183:AIKIDO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/g/k/gkf_e1sirxc.png",
     stamina: 100,
     morale: 100,
@@ -46902,7 +46903,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 504, name: "FINTA DEL MATADOR", type: "Regate", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","504:FINTA DEL MATADOR"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/n/b/nbsv4asjemc.png",
     stamina: 100,
     morale: 100,
@@ -46948,7 +46949,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 565, name: "ACELERADOR DE CARRERA", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["565:ACELERADOR DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/6/f/6fexgqylpz0.png",
     stamina: 100,
     morale: 100,
@@ -46994,7 +46995,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 604, name: "CURVE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 564, name: "TORBELLINO GIRATORIO", type: "Regate", element: "WIND", POT: 50, PP: 50 }, { id: 215, name: "EL TUBO", type: "Tiro", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["604:CURVE SHOT","564:TORBELLINO GIRATORIO","215:EL TUBO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/a/w/aw65-6wggrs.png",
     stamina: 100,
     morale: 100,
@@ -47040,7 +47041,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 501, name: "CLON FALSO", type: "Regate", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","501:CLON FALSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/1/d/1dzchtyede0.png",
     stamina: 100,
     morale: 100,
@@ -47086,7 +47087,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 608, name: "TIRO DE FURIA", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["608:TIRO DE FURIA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/t/o/tounbd-1h8u.png",
     stamina: 100,
     morale: 100,
@@ -47132,7 +47133,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/p/9/p9jrldqf6tm.png",
     stamina: 100,
     morale: 100,
@@ -47178,7 +47179,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 87, name: "HORA CELESTIAL", type: "Regate", element: "WIND", POT: 80, PP: 80 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","87:HORA CELESTIAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/h/j/hjhhthewqj8.png",
     stamina: 100,
     morale: 100,
@@ -47224,7 +47225,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 610, name: "TIRO GIRATORIO", type: "Tiro", element: "WIND", POT: 50, PP: 50 }, { id: 505, name: "TORMENTA DE CARRERA", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["642:DUST KICK","610:TIRO GIRATORIO","505:TORMENTA DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/n/6/n6xtsbseuhc.png",
     stamina: 100,
     morale: 100,
@@ -47270,7 +47271,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 651, name: "FINTA DEL TOPO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","651:FINTA DEL TOPO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/g/z/gznd_2gfwis.png",
     stamina: 100,
     morale: 100,
@@ -47316,7 +47317,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 606, name: "POWER SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 210, name: "PINGÜINO ESPACIAL", type: "Tiro", element: "WIND", POT: 100, PP: 100 }],
+    techniques: getSupertechniques(["606:POWER SHOT","210:PINGÜINO ESPACIAL"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/g/h/ghgktmsojk8.png",
     stamina: 100,
     morale: 100,
@@ -47362,7 +47363,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 652, name: "REGATE ENGAÑOSO", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["652:REGATE ENGAÑOSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/n/v/nvgglu6wf4k.png",
     stamina: 100,
     morale: 100,
@@ -47408,7 +47409,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 507, name: "VELO DE AGUA", type: "Regate", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["507:VELO DE AGUA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/1/u/1u_foarz1sk.png",
     stamina: 100,
     morale: 100,
@@ -47454,7 +47455,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 604, name: "CURVE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 655, name: "LLUVIA DE METEOROS", type: "Regate", element: "FIRE", POT: 70, PP: 70 }, { id: 546, name: "IMPULSO BRILLANTE", type: "Tiro", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["604:CURVE SHOT","655:LLUVIA DE METEOROS","546:IMPULSO BRILLANTE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/m/0/m0uonj4xrhc.png",
     stamina: 100,
     morale: 100,
@@ -47500,7 +47501,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/c/v/cvozdlv5fhs.png",
     stamina: 100,
     morale: 100,
@@ -47546,7 +47547,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 652, name: "REGATE ENGAÑOSO", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["652:REGATE ENGAÑOSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/8/0/80gjhn58l7u.png",
     stamina: 100,
     morale: 100,
@@ -47592,7 +47593,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/q/s/qsrqamw6arm.png",
     stamina: 100,
     morale: 100,
@@ -47638,7 +47639,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/b/m/bmshvdy-3we.png",
     stamina: 100,
     morale: 100,
@@ -47684,7 +47685,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 567, name: "REGATE AURORA", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["567:REGATE AURORA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/x/r/xr8r0qmiab8.png",
     stamina: 100,
     morale: 100,
@@ -47730,7 +47731,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 608, name: "TIRO DE FURIA", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["608:TIRO DE FURIA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/s/f/sfmokinjibm.png",
     stamina: 100,
     morale: 100,
@@ -47776,7 +47777,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 647, name: "DECEPTIVE STEP", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 501, name: "CLON FALSO", type: "Regate", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["647:DECEPTIVE STEP","501:CLON FALSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/b/4/b48gzwignis.png",
     stamina: 100,
     morale: 100,
@@ -47822,7 +47823,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }, { id: 85, name: "ENTRADA DE LLAMAS", type: "Regate", element: "FIRE", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["646:FEINT DASH","609:TIRO GRANADA","85:ENTRADA DE LLAMAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/d/y/dyebiujjca0.png",
     stamina: 100,
     morale: 100,
@@ -47868,7 +47869,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 35, name: "SABIDURÍA DIVINA", type: "Tiro", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["35:SABIDURÍA DIVINA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/-/i/-iko78y12t0.png",
     stamina: 100,
     morale: 100,
@@ -47914,7 +47915,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "GK"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/s/y/syfcejozd6c.png",
     stamina: 100,
     morale: 100,
@@ -47960,7 +47961,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 507, name: "VELO DE AGUA", type: "Regate", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["507:VELO DE AGUA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/f/w/fwwkeb_wucm.png",
     stamina: 100,
     morale: 100,
@@ -48006,7 +48007,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 604, name: "CURVE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 650, name: "IMAGEN RESIDUAL", type: "Regate", element: "WOOD", POT: 60, PP: 60 }, { id: 545, name: "CORRE BALÓN CORRE", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["604:CURVE SHOT","650:IMAGEN RESIDUAL","545:CORRE BALÓN CORRE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/i/d/ide-xkaf8l8.png",
     stamina: 100,
     morale: 100,
@@ -48052,7 +48053,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 547, name: "PATADA TARZÁN", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 651, name: "FINTA DEL TOPO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["642:DUST KICK","547:PATADA TARZÁN","651:FINTA DEL TOPO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/e/r/ercjqs-ku3c.png",
     stamina: 100,
     morale: 100,
@@ -48098,7 +48099,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 605, name: "BOUNCE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 565, name: "ACELERADOR DE CARRERA", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 212, name: "IMPULSO DEL TIGRE", type: "Tiro", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["605:BOUNCE SHOT","565:ACELERADOR DE CARRERA","212:IMPULSO DEL TIGRE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/p/h/phavezravn0.png",
     stamina: 100,
     morale: 100,
@@ -48144,7 +48145,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 90, name: "COZ 3", type: "Regate", element: "FIRE", POT: 100, PP: 100 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","90:COZ 3"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/s/w/swxe6od0xwc.png",
     stamina: 100,
     morale: 100,
@@ -48190,7 +48191,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 566, name: "GIRO DE MONO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["566:GIRO DE MONO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/2/y/2yzrrkxfrju.png",
     stamina: 100,
     morale: 100,
@@ -48236,7 +48237,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/u/z/uz_qaka_gx0.png",
     stamina: 100,
     morale: 100,
@@ -48282,7 +48283,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 605, name: "BOUNCE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 565, name: "ACELERADOR DE CARRERA", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }, { id: 51, name: "REMATE GAFAS", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["605:BOUNCE SHOT","565:ACELERADOR DE CARRERA","51:REMATE GAFAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/a/u/auyzcpaoeqm.png",
     stamina: 100,
     morale: 100,
@@ -48328,7 +48329,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 568, name: "PATADA CANGURO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["568:PATADA CANGURO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/o/x/oxj7ers5ah8.png",
     stamina: 100,
     morale: 100,
@@ -48374,7 +48375,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 643, name: "CROSSCUT FEINT", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 543, name: "IMPULSO CRUZADO", type: "Tiro", element: "WIND", POT: 50, PP: 50 }, { id: 505, name: "TORMENTA DE CARRERA", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["643:CROSSCUT FEINT","543:IMPULSO CRUZADO","505:TORMENTA DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/o/t/otokdznotms.png",
     stamina: 100,
     morale: 100,
@@ -48420,7 +48421,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 564, name: "TORBELLINO GIRATORIO", type: "Regate", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["564:TORBELLINO GIRATORIO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/l/t/ltnuewmyepc.png",
     stamina: 100,
     morale: 100,
@@ -48466,7 +48467,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 544, name: "PICADA DEL CÓNDOR", type: "Tiro", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["544:PICADA DEL CÓNDOR"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/h/6/h6lvyjp4wyu.png",
     stamina: 100,
     morale: 100,
@@ -48512,7 +48513,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 655, name: "LLUVIA DE METEOROS", type: "Regate", element: "FIRE", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["655:LLUVIA DE METEOROS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/g/f/gftxyxcmqjm.png",
     stamina: 100,
     morale: 100,
@@ -48558,7 +48559,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 644, name: "HEEL FLICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 505, name: "TORMENTA DE CARRERA", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["644:HEEL FLICK","505:TORMENTA DE CARRERA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/d/f/dfxoqiq50lm.png",
     stamina: 100,
     morale: 100,
@@ -48604,7 +48605,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 606, name: "POWER SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 650, name: "IMAGEN RESIDUAL", type: "Regate", element: "WOOD", POT: 60, PP: 60 }, { id: 204, name: "TIRO CONGELANTE", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["606:POWER SHOT","650:IMAGEN RESIDUAL","204:TIRO CONGELANTE"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/p/h/phd_oakwggs.png",
     stamina: 100,
     morale: 100,
@@ -48650,7 +48651,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 502, name: "CARRERA A TRES PIERNAS", type: "Regate", element: "MOUNTAIN", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["645:NUTMEG","502:CARRERA A TRES PIERNAS"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/q/h/qhw5pn-pjs8.png",
     stamina: 100,
     morale: 100,
@@ -48696,7 +48697,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/s/e/sep0c4i2wsk.png",
     stamina: 100,
     morale: 100,
@@ -48742,7 +48743,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 547, name: "PATADA TARZÁN", type: "Tiro", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["547:PATADA TARZÁN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/a/u/auesv2cta4k.png",
     stamina: 100,
     morale: 100,
@@ -48788,7 +48789,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 609, name: "TIRO GRANADA", type: "Tiro", element: "FIRE", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["609:TIRO GRANADA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/z/b/zbnxdaisoek.png",
     stamina: 100,
     morale: 100,
@@ -48834,7 +48835,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 646, name: "FEINT DASH", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 90, name: "COZ 3", type: "Regate", element: "FIRE", POT: 100, PP: 100 }],
+    techniques: getSupertechniques(["646:FEINT DASH","90:COZ 3"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/i/c/icvv7tgn-vc.png",
     stamina: 100,
     morale: 100,
@@ -48880,7 +48881,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["84:ESPEJISMO DE BALÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/1/s/1sexggoqodm.png",
     stamina: 100,
     morale: 100,
@@ -48926,7 +48927,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 642, name: "DUST KICK", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 183, name: "AIKIDO", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["642:DUST KICK","183:AIKIDO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/v/d/vdnezb7id98.png",
     stamina: 100,
     morale: 100,
@@ -48972,7 +48973,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 652, name: "REGATE ENGAÑOSO", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["652:REGATE ENGAÑOSO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/u/t/uty1-2-isfc.png",
     stamina: 100,
     morale: 100,
@@ -49018,7 +49019,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 604, name: "CURVE SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 83, name: "ENTRADA HURACÁN", type: "Regate", element: "WIND", POT: 60, PP: 60 }, { id: 553, name: "MEGALODÓN", type: "Tiro", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["604:CURVE SHOT","83:ENTRADA HURACÁN","553:MEGALODÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/d/z/dzdcomohuns.png",
     stamina: 100,
     morale: 100,
@@ -49064,7 +49065,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 84, name: "ESPEJISMO DE BALÓN", type: "Regate", element: "WOOD", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["84:ESPEJISMO DE BALÓN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/y/j/yjyeflssr1e.png",
     stamina: 100,
     morale: 100,
@@ -49110,7 +49111,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/r/g/rghsmp--fo0.png",
     stamina: 100,
     morale: 100,
@@ -49156,7 +49157,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/g/u/gu2zhwyey9c.png",
     stamina: 100,
     morale: 100,
@@ -49202,7 +49203,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "DF"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["645:NUTMEG"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/i/p/ipxvppko37c.png",
     stamina: 100,
     morale: 100,
@@ -49248,7 +49249,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 606, name: "POWER SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 541, name: "PATADA RODANTE", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }, { id: 564, name: "TORBELLINO GIRATORIO", type: "Regate", element: "WIND", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["606:POWER SHOT","541:PATADA RODANTE","564:TORBELLINO GIRATORIO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/t/n/tnaoiwssai0.png",
     stamina: 100,
     morale: 100,
@@ -49294,7 +49295,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "GK"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/z/i/zij7xtzavoe.png",
     stamina: 100,
     morale: 100,
@@ -49340,7 +49341,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [],
+    techniques: getSupertechniques([]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/x/g/xgtu4hdcb38.png",
     stamina: 100,
     morale: 100,
@@ -49386,7 +49387,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 651, name: "FINTA DEL TOPO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["651:FINTA DEL TOPO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/a/u/aui1ve74seu.png",
     stamina: 100,
     morale: 100,
@@ -49432,7 +49433,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "FW"
     },
-    techniques: [{ id: 645, name: "NUTMEG", type: "Regate", element: "", POT: 50, PP: 50 }, { id: 653, name: "DOBLE TOQUE", type: "Regate", element: "FIRE", POT: 60, PP: 60 }, { id: 567, name: "REGATE AURORA", type: "Regate", element: "WIND", POT: 70, PP: 70 }],
+    techniques: getSupertechniques(["645:NUTMEG","653:DOBLE TOQUE","567:REGATE AURORA"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/c/p/cplp7hpupcu.png",
     stamina: 100,
     morale: 100,
@@ -49478,7 +49479,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 649, name: "SÚPER ARMADILLO", type: "Regate", element: "MOUNTAIN", POT: 50, PP: 50 }],
+    techniques: getSupertechniques(["649:SÚPER ARMADILLO"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/z/n/znuiw4puex8.png",
     stamina: 100,
     morale: 100,
@@ -49524,7 +49525,7 @@ export const players: Player[] = [
       trainingSessionsThisWeek: 0,
       positionAlt: "MD"
     },
-    techniques: [{ id: 603, name: "CHIP SHOT", type: "Tiro", element: "", POT: 50, PP: 50 }, { id: 541, name: "PATADA RODANTE", type: "Tiro", element: "WOOD", POT: 50, PP: 50 }, { id: 83, name: "ENTRADA HURACÁN", type: "Regate", element: "WIND", POT: 60, PP: 60 }],
+    techniques: getSupertechniques(["603:CHIP SHOT","541:PATADA RODANTE","83:ENTRADA HURACÁN"]),
     spriteUrl: "https://dxi4wb638ujep.cloudfront.net/1/k/t/i/ti39fl6mxrm.png",
     stamina: 100,
     morale: 100,

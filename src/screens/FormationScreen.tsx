@@ -2,14 +2,17 @@ import { useState, useEffect } from 'react'
 import {
   DndContext,
   DragOverlay,
-  PointerSensor,
+  MouseSensor,
+  TouchSensor,
+  KeyboardSensor,
   closestCenter,
+  pointerWithin,
   useSensor,
   useSensors,
   useDraggable,
   useDroppable,
 } from '@dnd-kit/core'
-import type { DragStartEvent, DragEndEvent } from '@dnd-kit/core'
+import type { CollisionDetection, DragStartEvent, DragEndEvent } from '@dnd-kit/core'
 import { snapCenterToCursor } from '@dnd-kit/modifiers'
 import { useCareerStore } from '../store/careerStore'
 import GameLayout from '../components/GameLayout'
@@ -21,6 +24,7 @@ import type { Player, Position } from '../types/player'
 import { getPlayerStatsSummary, playerDisplayName } from '../types/player'
 import { statColor } from '../components/StatBar'
 import { useNameStyle } from '../hooks/useNameStyle'
+import { initFormationSlotAssignment } from '../services/formationService'
 
 // ─── Neutral visual labels ───────────────────────────────────────────────────
 
@@ -31,20 +35,11 @@ const ELEMENT_SHORT: Record<string, string> = {
   MOUNTAIN: 'MNT',
 }
 
-// ─── Slot initialisation ─────────────────────────────────────────────────────
-
-function initSlots(formation: Formation, lineup: LineupSlot[]): (number | null)[] {
-  const slots = getFormationSlots(formation)
-  const result = new Array<number | null>(slots.length).fill(null)
-  const byPos: Record<Position, number[]> = { GK: [], DF: [], MD: [], FW: [] }
-  for (const s of lineup) {
-    if (s.isStarter) byPos[s.assignedPosition as Position]?.push(s.playerId)
-  }
-  for (let i = 0; i < slots.length; i++) {
-    const next = byPos[slots[i].position].shift()
-    if (next !== undefined) result[i] = next
-  }
-  return result
+// Mouse/touch drops must follow the pointer, not the centre of the (wide) bench row.
+// Keyboard dragging has no pointer coordinates, so it falls back to closestCenter.
+const formationCollisionDetection: CollisionDetection = (args) => {
+  const pointerCollisions = pointerWithin(args)
+  return pointerCollisions.length > 0 ? pointerCollisions : closestCenter(args)
 }
 
 // ─── Drag overlay token ───────────────────────────────────────────────────────
@@ -55,7 +50,7 @@ function PlayerOverlayToken({ player }: { player: Player }) {
   return (
     <div className="flex flex-col items-center gap-0.5 select-none drop-shadow-2xl opacity-95">
       <div className="relative">
-        <div className="w-11 h-11 rounded-full overflow-hidden ring-2 ring-gold-400 bg-dark-700/60 shadow-xl">
+        <div className="w-16 h-16 rounded-full overflow-hidden ring-4 ring-gold-400 bg-dark-700/60 shadow-xl">
           <img
             src={player.spriteUrl}
             alt={playerDisplayName(player, nameStyle)}
@@ -101,9 +96,9 @@ function BenchPlayerRow({
   return (
     <div
       ref={setNodeRef}
-      className={`relative flex items-center gap-3 pl-4 pr-3 py-3 border-b border-l-2 border-b-gold-600/15 border-l-gold-600/35 select-none
+      className={`group relative flex items-center gap-3 pl-4 pr-3 py-3 border-b border-l-2 border-b-gold-600/15 border-l-gold-600/35 select-none
         cursor-grab active:cursor-grabbing transition-colors transition-opacity
-        ${isDragging ? 'opacity-0' : 'hover:bg-dark-700/25 hover:border-l-gold-400/70'}`}
+        ${isDragging ? 'opacity-30' : 'hover:bg-dark-700/25 hover:border-l-gold-400/70'}`}
       onClick={() => onPlayerClick?.(player.id)}
       {...attributes}
       {...listeners}
@@ -157,7 +152,12 @@ function BenchPlayerRow({
       </span>
 
       {/* Drag handle */}
-      <Icon name="drag_indicator" size="xs" className="text-gray-600 shrink-0" />
+      <span
+        aria-hidden="true"
+        className="w-10 h-10 -mr-1 rounded-lg flex items-center justify-center text-gray-500 group-hover:text-gold-300 shrink-0"
+      >
+        <Icon name="drag_indicator" size="sm" />
+      </span>
     </div>
   )
 }
@@ -182,8 +182,8 @@ function BenchDropZone({
   return (
     <div
       ref={setNodeRef}
-      className={`flex-1 overflow-y-auto rounded-xl border transition-colors
-        ${isOver ? 'border-gold-500/60 bg-gold-900/10' : 'border-gold-600/20 bg-dark-800/30'}`}
+      className={`flex-1 overflow-y-auto rounded-xl border transition-all
+        ${isOver ? 'border-gold-400 bg-gold-900/20 ring-4 ring-gold-400/50' : 'border-gold-600/20 bg-dark-800/30'}`}
     >
       {bench.length === 0 ? (
         <div className="h-full flex items-center justify-center min-h-[80px]">
@@ -264,6 +264,7 @@ function playerCanPlayPosition(player: Player, position: Position) {
 
   return Boolean(
     player.position === position ||
+    player.positionAlt === position ||
     flexiblePlayer.positions?.includes(position) ||
     flexiblePlayer.secondaryPositions?.includes(position) ||
     flexiblePlayer.preferredPositions?.includes(position),
@@ -374,6 +375,7 @@ function FormationSlot({
   keyPlayerId,
   onPlayerClick,
   onSlotContextMenu,
+  draggedPlayer,
 }: {
   slot: FormationSlotData
   slotIndex: number
@@ -382,14 +384,31 @@ function FormationSlot({
   keyPlayerId?: number
   onPlayerClick: (playerId: number) => void
   onSlotContextMenu: (playerId: number, clientX: number, clientY: number) => void
+  draggedPlayer?: Player | null
 }) {
   const { setNodeRef, isOver } = useDroppable({ id: `slot-${slotIndex}` })
+  const isCompatible = draggedPlayer ? playerCanPlayPosition(draggedPlayer, slot.position as Position) : true
 
   return (
     <div
       ref={setNodeRef}
-      className="absolute z-10 flex h-28 w-28 -translate-x-1/2 -translate-y-1/2 items-center justify-center"
+      className={`absolute z-10 flex h-20 w-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl transition-all duration-150 ${
+        isOver
+          ? isCompatible
+            ? 'bg-green-400/15 ring-4 ring-green-400/80 scale-110'
+            : 'bg-amber-400/15 ring-4 ring-amber-400/80 scale-110'
+          : draggedPlayer
+            ? 'ring-1 ring-white/10 bg-white/[0.025]'
+            : ''
+      }`}
     >
+      {isOver && (
+        <span className={`absolute -top-5 z-30 whitespace-nowrap rounded-full px-2 py-1 text-[0.6rem] font-black uppercase shadow-xl ${
+          isCompatible ? 'bg-green-500 text-green-950' : 'bg-amber-400 text-amber-950'
+        }`}>
+          {player ? 'Intercambiar' : 'Colocar'} · {slot.position}
+        </span>
+      )}
       {player ? (
         <FieldPlayerToken
           player={player}
@@ -421,6 +440,7 @@ function FormationPitchBoard({
   keyPlayerId,
   onSlotContextMenu,
   onPlayerClick,
+  draggedPlayer,
 }: {
   formation: Formation
   slotAssignment: (number | null)[]
@@ -429,6 +449,7 @@ function FormationPitchBoard({
   keyPlayerId?: number
   onSlotContextMenu: (playerId: number, clientX: number, clientY: number) => void
   onPlayerClick: (playerId: number) => void
+  draggedPlayer?: Player | null
 }) {
   const slots = getFormationSlots(formation) as FormationSlotData[]
 
@@ -456,6 +477,7 @@ function FormationPitchBoard({
               keyPlayerId={keyPlayerId}
               onPlayerClick={onPlayerClick}
               onSlotContextMenu={onSlotContextMenu}
+              draggedPlayer={draggedPlayer}
             />
           </div>
         )
@@ -489,15 +511,20 @@ export default function FormationScreen() {
   const lineup = userTeam?.lineup ?? []
 
   const [slotAssignment, setSlotAssignment] = useState<(number | null)[]>(() =>
-    currentFormation ? initSlots(currentFormation, lineup) : [],
+    currentFormation ? initFormationSlotAssignment(currentFormation, lineup) : [],
   )
   const [activePlayerId, setActivePlayerId] = useState<number | null>(null)
   const [contextMenu, setContextMenu] = useState<ContextMenuState | null>(null)
+  const [previousAssignment, setPreviousAssignment] = useState<(number | null)[] | null>(null)
+  const [feedback, setFeedback] = useState<string | null>(null)
 
-  const starterKey = lineup.filter((s) => s.isStarter).map((s) => `${s.playerId}:${s.assignedPosition}`).join(',')
+  const starterKey = lineup
+    .filter((slot) => slot.isStarter)
+    .map((slot) => `${slot.playerId}:${slot.assignedPosition}:${slot.formationSlotIndex ?? ''}`)
+    .join(',')
 
   useEffect(() => {
-    if (currentFormation) setSlotAssignment(initSlots(currentFormation, lineup))
+    if (currentFormation) setSlotAssignment(initFormationSlotAssignment(currentFormation, lineup))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentFormation?.id, starterKey])
 
@@ -508,8 +535,16 @@ export default function FormationScreen() {
     return () => window.removeEventListener('keydown', onKey)
   }, [contextMenu])
 
+  useEffect(() => {
+    if (!feedback) return
+    const timeout = window.setTimeout(() => setFeedback(null), 3500)
+    return () => window.clearTimeout(timeout)
+  }, [feedback])
+
   const sensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
+    useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
+    useSensor(TouchSensor, { activationConstraint: { delay: 160, tolerance: 8 } }),
+    useSensor(KeyboardSensor),
   )
 
   const bench = lineup.filter((s) => !s.isStarter)
@@ -518,6 +553,19 @@ export default function FormationScreen() {
   function handleDragStart({ active }: DragStartEvent) {
     setActivePlayerId(active.data.current?.playerId ?? null)
     setContextMenu(null)
+  }
+
+  function commitAssignment(next: (number | null)[], message: string) {
+    if (!currentFormation) return
+    setPreviousAssignment(slotAssignment)
+    setSlotAssignment(next)
+    updateStartersAction(next, currentFormation)
+    setFeedback(message)
+  }
+
+  function playerName(playerId: number | null): string {
+    const player = playerId !== null ? players.find((candidate) => candidate.id === playerId) : null
+    return player ? playerDisplayName(player, nameStyle) : 'Jugador'
   }
 
   function handleDragEnd({ active, over }: DragEndEvent) {
@@ -533,8 +581,7 @@ export default function FormationScreen() {
       if (isFromField && fromSlotIndex !== undefined) {
         const next = [...slotAssignment]
         next[fromSlotIndex] = null
-        setSlotAssignment(next)
-        updateStartersAction(next, currentFormation)
+        commitAssignment(next, `${playerName(draggedPlayerId)} pasa a reservas`)
       }
       return
     }
@@ -554,9 +601,29 @@ export default function FormationScreen() {
         next[targetIdx] = draggedPlayerId
       }
 
-      setSlotAssignment(next)
-      updateStartersAction(next, currentFormation)
+      const targetPosition = getFormationSlots(currentFormation)[targetIdx]?.position
+      const draggedPlayer = players.find((player) => player.id === draggedPlayerId)
+      const positionWarning = draggedPlayer && targetPosition && !playerCanPlayPosition(draggedPlayer, targetPosition)
+        ? ' · fuera de posición'
+        : ''
+      const message = occupant !== null
+        ? `${playerName(draggedPlayerId)} intercambia puesto con ${playerName(occupant)}${positionWarning}`
+        : `${playerName(draggedPlayerId)} entra como ${targetPosition}${positionWarning}`
+      commitAssignment(next, message)
     }
+  }
+
+  function handleDragCancel() {
+    setActivePlayerId(null)
+  }
+
+  function handleUndo() {
+    if (!previousAssignment || !currentFormation) return
+    const current = slotAssignment
+    setSlotAssignment(previousAssignment)
+    updateStartersAction(previousAssignment, currentFormation)
+    setPreviousAssignment(current)
+    setFeedback('Último cambio deshecho')
   }
 
   function handlePlayerClick(playerId: number) {
@@ -592,7 +659,13 @@ export default function FormationScreen() {
   return (
     <GameLayout>
       <div className="h-full flex overflow-hidden">
-        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+        <DndContext
+          sensors={sensors}
+          collisionDetection={formationCollisionDetection}
+          onDragStart={handleDragStart}
+          onDragEnd={handleDragEnd}
+          onDragCancel={handleDragCancel}
+        >
           <main className="flex-1 flex flex-col overflow-hidden min-w-0">
             <div className="flex-1 overflow-hidden p-4 min-h-0">
               <div className="h-full min-h-0">
@@ -700,6 +773,7 @@ export default function FormationScreen() {
                                 keyPlayerId={userTeam?.keyPlayerId}
                                 onSlotContextMenu={handleSlotContextMenu}
                                 onPlayerClick={handlePlayerClick}
+                                draggedPlayer={activePlayer}
                               />
                             </div>
                           ) : (
@@ -718,6 +792,9 @@ export default function FormationScreen() {
                         <Icon name="groups" size="xs" className="text-gold-400" />
                         <span>Reservas</span>
                       </div>
+                      <span className="text-[0.65rem] font-medium normal-case tracking-normal text-gray-500">
+                        Arrastra cualquier parte de la fila
+                      </span>
                     </div>
                     <div className="p-3 flex-1 min-h-0">
                       <BenchDropZone
@@ -738,8 +815,29 @@ export default function FormationScreen() {
           <DragOverlay dropAnimation={null} modifiers={[snapCenterToCursor]}>
             {activePlayer ? <PlayerOverlayToken player={activePlayer} /> : null}
           </DragOverlay>
+
+          {activePlayer && (
+            <div className="fixed left-1/2 top-5 z-[90] -translate-x-1/2 rounded-xl border border-gold-400/60 bg-dark-950/95 px-4 py-2.5 shadow-2xl pointer-events-none">
+              <p className="text-sm font-bold text-white text-center">
+                Arrastra a un puesto para colocar o intercambiar
+              </p>
+              <p className="text-xs text-gray-400 text-center mt-0.5">También puedes soltarlo en Reservas</p>
+            </div>
+          )}
         </DndContext>
       </div>
+
+      {feedback && (
+        <div className="fixed bottom-5 left-1/2 z-[80] -translate-x-1/2 flex items-center gap-3 rounded-xl border-2 border-yellow-400 bg-[#0b0d12] px-4 py-3 shadow-2xl shadow-black/80">
+          <Icon name="check_circle" size="sm" className="text-green-400 shrink-0" />
+          <span className="text-sm font-semibold text-white">{feedback}</span>
+          {previousAssignment && (
+            <button onClick={handleUndo} className="ml-2 rounded-lg bg-yellow-400 px-3 py-1.5 text-xs font-black text-black hover:bg-yellow-300">
+              Deshacer
+            </button>
+          )}
+        </div>
+      )}
 
       {/* Right-click context menu */}
       {contextMenu && (

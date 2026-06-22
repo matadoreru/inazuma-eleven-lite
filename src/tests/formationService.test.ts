@@ -7,6 +7,7 @@ import {
   calcGoalkeeperScore,
   applyFormation,
   buildTeamSnapshot,
+  initFormationSlotAssignment,
 } from '../services/formationService'
 import type { Player } from '../types/player'
 import type { Team, Formation } from '../types/team'
@@ -101,7 +102,7 @@ describe('positionModifier', () => {
 
 describe('calcForwardScore', () => {
   it('returns the correct weighted sum with modifier 1.0', () => {
-    const player = makePlayer()
+    const player = makePlayer({ stats: { ...makePlayer().stats, POT: 99 } })
     const s = player.stats
     const expected = s.POT * 0.40 + s.TEC * 0.25 + s.CON * 0.15 + s.AGI * 0.10 + s.INT * 0.10
     expect(calcForwardScore(player, 1.0)).toBeCloseTo(expected)
@@ -165,6 +166,30 @@ describe('applyFormation', () => {
   })
 })
 
+describe('initFormationSlotAssignment', () => {
+  it('restores a player in the exact visual slot selected by the user', () => {
+    const formation = makeFormation(1)
+    const assignment = initFormationSlotAssignment(formation, [{
+      playerId: 10,
+      assignedPosition: 'MD',
+      isStarter: true,
+      formationSlotIndex: 8,
+    }])
+    expect(assignment[8]).toBe(10)
+    expect(assignment[5]).toBeNull()
+  })
+
+  it('keeps left-to-right placement only as a fallback for legacy saves', () => {
+    const formation = makeFormation(1)
+    const assignment = initFormationSlotAssignment(formation, [{
+      playerId: 10,
+      assignedPosition: 'MD',
+      isStarter: true,
+    }])
+    expect(assignment[5]).toBe(10)
+  })
+})
+
 describe('buildTeamSnapshot', () => {
   it('returns a snapshot with correct id and name', () => {
     const team = makeTeam()
@@ -204,6 +229,27 @@ describe('buildTeamSnapshot', () => {
     expect(snapshot.forwardScore).toBeCloseTo(expected)
   })
 
+  it('does not penalize a player used in their alternate position', () => {
+    const player = makePlayer({ id: 10, position: 'DF', positionAlt: 'MD' })
+    const team = makeTeam({
+      lineup: [{ playerId: 10, assignedPosition: 'MD', isStarter: true }],
+    })
+    const snapshot = buildTeamSnapshot(team, [player])
+    expect(snapshot.midfieldScore).toBeCloseTo(calcMidfieldScore(player, 1))
+  })
+
+  it('applies a severe 75% performance penalty to injured starters', () => {
+    const healthy = makePlayer({ id: 10, position: 'FW' })
+    const injured = { ...healthy, isInjured: true, injuryDaysRemaining: 12 }
+    const team = makeTeam({
+      lineup: [{ playerId: 10, assignedPosition: 'FW', isStarter: true }],
+    })
+    const healthySnapshot = buildTeamSnapshot(team, [healthy])
+    const injuredSnapshot = buildTeamSnapshot(team, [injured])
+    expect(injuredSnapshot.forwardScore).toBeCloseTo(healthySnapshot.forwardScore * 0.25)
+    expect(injuredSnapshot.starters![0].stats!.TOT).toBeLessThan(healthySnapshot.starters![0].stats!.TOT * 0.3)
+  })
+
   it('averages scores across multiple starters in the same slot', () => {
     const fw1 = makePlayer({ id: 1, position: 'FW' })
     const fw2 = makePlayer({ id: 2, position: 'FW', stats: { ...makePlayer().stats, POT: 50 } })
@@ -229,10 +275,12 @@ describe('buildTeamSnapshot', () => {
   })
 
   it('applies equipment stat bonuses to snapshot scores', () => {
-    const base = makePlayer({ id: 10, position: 'FW' })
+    const baseStats = { ...makePlayer().stats, POT: 70 }
+    const base = makePlayer({ id: 10, position: 'FW', stats: baseStats })
     const equipped = makePlayer({
       id: 10,
       position: 'FW',
+      stats: baseStats,
       equipment: { gloves: null, boots: { id: 'b1', slot: 'boots', name: 'Test', statBonuses: { POT: 10 }, tier: 1 }, pendant: null, bracelet: null },
     })
     const team = makeTeam({ lineup: [{ playerId: 10, assignedPosition: 'FW', isStarter: true }] })
@@ -240,5 +288,18 @@ describe('buildTeamSnapshot', () => {
     const equippedSnapshot = buildTeamSnapshot(team, [equipped])
     // +10 POT with weight 0.40 = +4.0 to forward score
     expect(equippedSnapshot.forwardScore).toBeCloseTo(baseSnapshot.forwardScore + 4.0)
+  })
+
+  it('reserves 99 as the ceiling and converts legacy values above 99 below it', () => {
+    const elite = makePlayer({ stats: { ...makePlayer().stats, POT: 99 } })
+    const legacyMax = makePlayer({ stats: { ...makePlayer().stats, POT: 234 } })
+    expect(calcForwardScore(legacyMax, 1)).toBeLessThan(calcForwardScore(elite, 1))
+  })
+
+  it('does not interpret equipment above 99 as a legacy rating', () => {
+    const elite = makePlayer({ id: 10, stats: { ...makePlayer().stats, POT: 99 } })
+    const equipped = { ...elite, equipment: { gloves: null, boots: { id: 'b', slot: 'boots' as const, name: 'Boots', statBonuses: { POT: 5 }, tier: 1 as const }, pendant: null, bracelet: null } }
+    const team = makeTeam({ lineup: [{ playerId: elite.id, assignedPosition: 'FW', isStarter: true }] })
+    expect(buildTeamSnapshot(team, [equipped]).forwardScore).toBe(buildTeamSnapshot(team, [elite]).forwardScore)
   })
 })

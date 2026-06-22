@@ -1,3 +1,5 @@
+import type { Technique } from './player'
+
 export interface League {
   id: string
   name: string
@@ -27,14 +29,22 @@ export interface Match {
 
 export interface MatchEvent {
   minute: number
-  type: 'GOAL' | 'SAVE' | 'MISS' | 'YELLOW' | 'RED' | 'INJURY' | 'PHASE' | 'STOPPAGE' | 'ET_START' | 'ET_END' | 'PENALTY_SHOOTOUT' | 'TECHNIQUE'
+  type: 'GOAL' | 'SAVE' | 'MISS' | 'CORNER' | 'YELLOW' | 'RED' | 'INJURY' | 'PHASE' | 'STOPPAGE' | 'ET_START' | 'ET_END' | 'PENALTY_SHOOTOUT' | 'TECHNIQUE'
   teamId: number
   playerId?: number
   playerName?: string
   playerSpriteUrl?: string
+  participants?: Array<{
+    playerId: number
+    playerName: string
+    playerSpriteUrl: string
+    isHome: boolean
+  }>
   text: string
   isHome: boolean
   techniqueName?: string
+  techniqueNames?: string[]
+  techniques?: Array<Pick<Technique, 'name' | 'type'> & { playerId?: number }>
   techniqueOutcome?: string
   techniqueElement?: string
 }

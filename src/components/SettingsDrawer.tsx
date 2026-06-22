@@ -42,18 +42,30 @@ export default function SettingsDrawer() {
   const [saveSlot, setSaveSlot] = useState(0)
   const [saving, setSaving] = useState(false)
   const [savedFeedback, setSavedFeedback] = useState(false)
+  const [saveError, setSaveError] = useState<string | null>(null)
 
   const userTeam = career ? teams.find((t) => t.id === career.teamId) : null
 
-  function handleQuickSave() {
+  async function handleQuickSave() {
     if (!career) return
     setSaving(true)
-    saveCareer(saveSlot, `${userTeam?.name ?? 'Carrera'} - Temporada ${career.seasonNumber}`)
-    setTimeout(() => {
-      setSaving(false)
+    setSaveError(null)
+    setSavedFeedback(false)
+    await new Promise((resolve) => setTimeout(resolve, 0))
+    try {
+      saveCareer(saveSlot, `${userTeam?.name ?? 'Carrera'} - Temporada ${career.seasonNumber}`)
       setSavedFeedback(true)
       setTimeout(() => setSavedFeedback(false), 2000)
-    }, 400)
+    } catch (error) {
+      const isQuotaError = error instanceof DOMException && (
+        error.name === 'QuotaExceededError' || error.name === 'NS_ERROR_DOM_QUOTA_REACHED'
+      )
+      setSaveError(isQuotaError
+        ? 'No hay espacio suficiente. Borra una ranura antigua e inténtalo de nuevo.'
+        : 'No se pudo guardar la partida. Inténtalo de nuevo.')
+    } finally {
+      setSaving(false)
+    }
   }
 
   return (
@@ -131,6 +143,12 @@ export default function SettingsDrawer() {
               <Icon name={savedFeedback ? 'check_circle' : 'save'} size="sm" />
               {saving ? 'Guardando...' : savedFeedback ? 'Guardado!' : 'Guardar partida'}
             </button>
+            {saveError && (
+              <div className="mt-2 flex items-start gap-2 rounded-lg border border-red-500/40 bg-red-950/60 px-3 py-2 text-xs font-semibold text-red-200">
+                <Icon name="error" size="xs" className="mt-0.5 shrink-0" />
+                <span>{saveError}</span>
+              </div>
+            )}
             <button
               onClick={() => { setUIPanel(null); navigate('save_load') }}
               className="w-full mt-2 flex items-center justify-center gap-2 py-2 rounded-lg text-gray-400 hover:text-white text-sm transition-colors"

@@ -18,6 +18,9 @@ export interface Stats {
   TOT: number
 }
 
+export type TechniqueStat = Exclude<keyof Stats, 'TOT'>
+export type TechniqueStatBoosts = Partial<Record<TechniqueStat, number>>
+
 export interface Technique {
   id: number
   name: string
@@ -25,6 +28,8 @@ export interface Technique {
   element: Element | ''
   POT: number
   PP: number
+  /** Attribute bonuses applied while this supertechnique is active. */
+  statBoosts?: TechniqueStatBoosts
 }
 
 export interface PlayerCareer {

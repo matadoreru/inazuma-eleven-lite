@@ -2,6 +2,12 @@ import type { Player, Position } from '../types/player'
 import type { PositionChangePlan } from '../types/training'
 import type { DifficultySettings } from '../types/career'
 
+export const ALL_POSITION_CHANGE_TARGETS: Position[] = ['GK', 'DF', 'MD', 'FW']
+
+export function getPositionChangeTargets(currentPosition: Position): Position[] {
+  return ALL_POSITION_CHANGE_TARGETS.filter((position) => position !== currentPosition)
+}
+
 // ─── Duration calculation (FIFA-inspired) ────────────────────────────────────
 
 // Whether two outfield positions are adjacent in the DF–MD–FW chain
@@ -49,7 +55,7 @@ export function startOrResetPositionChange(
   currentDate: string,
   settings: DifficultySettings,
 ): Player {
-  if (player.position === target || player.positionAlt === target) return player
+  if (player.position === target) return player
 
   const plan: PositionChangePlan = {
     targetPosition: target,
@@ -73,12 +79,14 @@ export function advancePositionChange(player: Player, days: number): Player {
   const newCompleted = plan.daysCompleted + days
 
   if (newCompleted >= plan.daysRequired) {
+    const previousPosition = player.position
     return {
       ...player,
-      positionAlt: plan.targetPosition,
+      position: plan.targetPosition,
+      positionAlt: previousPosition,
       career: {
         ...player.career,
-        positionAlt: plan.targetPosition,  // keep in sync
+        positionAlt: previousPosition,
         positionChangePlan: { ...plan, daysCompleted: plan.daysRequired, completed: true },
       },
     }

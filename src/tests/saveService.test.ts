@@ -171,6 +171,30 @@ describe('saveService', () => {
       expect(data.slotName).toBe('My Save')
     })
 
+    it('stores compact entity overrides instead of duplicating full profile arrays', () => {
+      save(0, 'Compact', makeCareer(), [makePlayer()], [makeTeam(1)])
+      const data = JSON.parse(localStorageMock.setItem.mock.calls.at(-1)![1])
+      expect(data.compact).toBe(true)
+      expect(data.players).toEqual([])
+      expect(data.teams).toEqual([])
+      expect(data.playerIds).toEqual([1])
+      expect(data.teamIds).toEqual([1])
+    })
+
+    it('removes the replaceable autosave and retries when storage is full', () => {
+      let firstSaveAttempt = true
+      localStorageMock.setItem.mockImplementation((key: string) => {
+        if (key === `${SAVE_KEY_PREFIX}0` && firstSaveAttempt) {
+          firstSaveAttempt = false
+          throw new DOMException('Storage full', 'QuotaExceededError')
+        }
+      })
+
+      expect(() => save(0, 'Retry', makeCareer(), [makePlayer()], [makeTeam(1)])).not.toThrow()
+      expect(localStorageMock.removeItem).toHaveBeenCalledWith('iel_autosave')
+      expect(localStorageMock.setItem.mock.calls.filter(([key]) => key === `${SAVE_KEY_PREFIX}0`)).toHaveLength(2)
+    })
+
     it('throws when slot number is out of range', () => {
       const career = makeCareer()
       expect(() => save(-1, 'Bad', career, [], [])).toThrow()

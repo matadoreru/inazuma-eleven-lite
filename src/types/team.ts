@@ -1,4 +1,4 @@
-import type { Position, Element, Technique } from './player'
+import type { Position, Element, Technique, Stats } from './player'
 
 export const MAX_CALLUP = 25
 
@@ -31,6 +31,8 @@ export interface LineupSlot {
   playerId: number
   assignedPosition: Position
   isStarter: boolean
+  /** Exact visual slot in the active formation. Optional for legacy saves. */
+  formationSlotIndex?: number
 }
 
 export interface Team {
@@ -58,6 +60,7 @@ export interface SnapshotPlayer {
   position: Position
   element?: Element
   techniques?: Technique[]
+  stats?: Stats
 }
 
 export interface TeamSnapshot {

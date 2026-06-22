@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useCareerStore } from '../store/careerStore'
 import GameLayout from '../components/GameLayout'
 import ObjectivesPanel from '../components/ObjectivesPanel'
@@ -11,6 +12,9 @@ import { sortStandings } from '../services/standingsService'
 import { leagues } from '../data/leagues'
 import type { Match } from '../types/competition'
 import type { Team } from '../types/team'
+import PreMatchLineupWarningModal from '../components/PreMatchLineupWarningModal'
+import { getStartingLineupWarnings } from '../services/lineupValidationService'
+import type { LineupWarning } from '../services/lineupValidationService'
 
 
 function UserFinishedBanner({ onAdvanceDay, onSimulateAll, hasCupMatchPending }: {
@@ -107,6 +111,7 @@ function NextMatchSection({
 export default function CareerHomeScreen() {
   const career = useCareerStore((s) => s.career)
   const teams = useCareerStore((s) => s.teams)
+  const players = useCareerStore((s) => s.players)
   const simulateMatch = useCareerStore((s) => s.simulateMatch)
   const simulateCupMatch = useCareerStore((s) => s.simulateCupMatch)
   const startLiveMatch = useCareerStore((s) => s.startLiveMatch)
@@ -117,6 +122,10 @@ export default function CareerHomeScreen() {
   const simulateAllRemainingAndClose = useCareerStore((s) => s.simulateAllRemainingAndClose)
   const navigate = useCareerStore((s) => s.navigate)
   const isSimulating = useCareerStore((s) => s.isSimulating)
+  const [lineupWarning, setLineupWarning] = useState<{
+    warnings: LineupWarning[]
+    action: 'quick' | 'live'
+  } | null>(null)
 
   if (!career) {
     return (
@@ -154,16 +163,34 @@ export default function CareerHomeScreen() {
     return null
   })()
 
-  function handleQuickSim() {
+  function runQuickSim() {
     if (!nextMatch) return
     if (nextMatch.isCup) { simulateCupMatch(nextMatch.match.id); navigate('match') }
     else { simulateMatch(nextMatch.match.id); navigate('match') }
   }
 
-  function handleLiveSim() {
+  function runLiveSim() {
     if (!nextMatch) return
     if (nextMatch.isCup) { startLiveCupMatch(nextMatch.match.id); navigate('match_live') }
     else { startLiveMatch(nextMatch.match.id); navigate('match_live') }
+  }
+
+  function requestMatchStart(action: 'quick' | 'live') {
+    if (!userTeam) return
+    const warnings = getStartingLineupWarnings(userTeam, players)
+    if (warnings.length > 0) {
+      setLineupWarning({ warnings, action })
+      return
+    }
+    if (action === 'quick') runQuickSim()
+    else runLiveSim()
+  }
+
+  function continueDespiteWarning() {
+    const action = lineupWarning?.action
+    setLineupWarning(null)
+    if (action === 'quick') runQuickSim()
+    if (action === 'live') runLiveSim()
   }
 
   return (
@@ -202,8 +229,8 @@ export default function CareerHomeScreen() {
                 currentDate={career.season.currentDate}
                 userTeamId={career.teamId}
                 isSimulating={isSimulating}
-                onQuickSim={handleQuickSim}
-                onLiveSim={handleLiveSim}
+                onQuickSim={() => requestMatchStart('quick')}
+                onLiveSim={() => requestMatchStart('live')}
               />
             ) : seasonStatus === 'active' ? (
               <div className="panel p-6 flex flex-col items-center justify-center gap-2 text-center">
@@ -217,6 +244,19 @@ export default function CareerHomeScreen() {
         {/* Objectives */}
         <ObjectivesPanel />
       </main>
+
+      {lineupWarning && (
+        <PreMatchLineupWarningModal
+          warnings={lineupWarning.warnings}
+          nameStyle={career.nameStyle}
+          onCancel={() => setLineupWarning(null)}
+          onContinue={continueDespiteWarning}
+          onEditLineup={() => {
+            setLineupWarning(null)
+            navigate('formation')
+          }}
+        />
+      )}
     </GameLayout>
   )
 }

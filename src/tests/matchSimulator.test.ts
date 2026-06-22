@@ -4,6 +4,9 @@ import { buildTeamSnapshot } from '../services/formationService'
 import type { Team, Formation, TeamSnapshot } from '../types/team'
 import type { Player } from '../types/player'
 import type { Match } from '../types/competition'
+import { players as seedPlayers } from '../data/players'
+import { teams as seedTeams } from '../data/teams'
+import { supertechniques } from '../data/supertechniques'
 
 const makeFormation = (tacticalType: Formation['tacticalType'] = 'BALANCED'): Formation => ({
   id: 1,
@@ -183,6 +186,14 @@ describe('simulate', () => {
     expect(result.awaySaves).toBeGreaterThanOrEqual(0)
   })
 
+  it('includes one corner event for every corner in the match statistics', () => {
+    const home = makeSnapshot(1, 'Raimon')
+    const away = makeSnapshot(2, 'Teikoku')
+    const result = simulate(home, away, makeMatch())
+    const cornerEvents = result.events.filter((event) => event.type === 'CORNER')
+    expect(cornerEvents).toHaveLength(result.homeCorners + result.awayCorners)
+  })
+
   it('returns numeric xG values', () => {
     const home = makeSnapshot(1, 'Raimon')
     const away = makeSnapshot(2, 'Teikoku')
@@ -207,10 +218,60 @@ describe('simulate', () => {
     }
     expect(totalGoalEvents).toBe(totalGoals)
   })
+
+  it('strongly favors an elite 99-rated team over a weak team across repeated simulations', () => {
+    const elite = { ...makeSnapshot(1, 'Elite'), forwardScore: 99, midfieldScore: 99, defenseScore: 99, goalkeeperScore: 99 }
+    const weak = { ...makeSnapshot(2, 'Weak'), forwardScore: 45, midfieldScore: 45, defenseScore: 45, goalkeeperScore: 45 }
+    let wins = 0
+    let draws = 0
+    let goalsFor = 0
+    let goalsAgainst = 0
+    for (let i = 0; i < 500; i++) {
+      const result = simulate(elite, weak, makeMatch())
+      if (result.homeGoals > result.awayGoals) wins++
+      if (result.homeGoals === result.awayGoals) draws++
+      goalsFor += result.homeGoals
+      goalsAgainst += result.awayGoals
+    }
+    expect(wins / 500).toBeGreaterThan(0.9)
+    expect(draws / 500).toBeLessThan(0.08)
+    expect(goalsFor).toBeGreaterThan(goalsAgainst * 8)
+  })
+
+  it('makes Inazuma Kids competitive after every starter is raised to at least 99', () => {
+    const kids = seedTeams.find((team) => team.name === 'Inazuma Kids FC')!
+    const boostedPlayers = seedPlayers.map((player) => {
+      if (!kids.playerIds.includes(player.id)) return player
+      const stats: Player['stats'] = {
+        POT: 99, CON: 99, TEC: 99, PRE: 99, FIS: 99, AGI: 99, INT: 99, TOT: 99,
+      }
+      return { ...player, stats }
+    })
+    const eliteKids = buildTeamSnapshot(kids, boostedPlayers)
+    const rivals = seedTeams.filter((team) => team.leagueId === kids.leagueId && team.id !== kids.id)
+    let wins = 0
+    let matches = 0
+    for (const rival of rivals) {
+      const rivalSnapshot = buildTeamSnapshot(rival, seedPlayers)
+      for (let i = 0; i < 100; i++) {
+        const match = { ...makeMatch(), homeTeamId: kids.id, awayTeamId: rival.id }
+        const result = simulate(eliteKids, rivalSnapshot, match)
+        if (result.homeGoals > result.awayGoals) wins++
+        matches++
+      }
+    }
+    expect(wins / matches).toBeGreaterThan(0.75)
+  })
 })
 
 describe('technique simulation', () => {
-  it('generates TECHNIQUE events when players have techniques', () => {
+  it('stores every seeded supertechnique and its stat effects in the separate catalog', () => {
+    const catalog = Object.values(supertechniques)
+    expect(catalog.length).toBeGreaterThan(0)
+    expect(catalog.every((technique) => technique.statBoosts !== undefined)).toBe(true)
+  })
+
+  it('includes techniques in the shot event instead of generating a separate event', () => {
     const tech: import('../types/player').Technique = { id: 1, name: 'Gran Fuego', type: 'Tiro', element: 'FIRE', POT: 150, PP: 20 }
     const snapWithTech = (id: number) => ({
       id, name: `Team ${id}`, formation: { tacticalType: 'BALANCED' } as any,
@@ -219,13 +280,84 @@ describe('technique simulation', () => {
         { id: 10, name: 'Striker', nameRomaji: 'Striker', spriteUrl: '', position: 'FW' as const, element: 'FIRE' as const, techniques: [tech] },
       ],
     })
-    let foundTech = false
+    let foundCombinedTechnique = false
     for (let i = 0; i < 100; i++) {
       const match = { id: 'm1', leagueId: 'test', round: 1, homeTeamId: 1, awayTeamId: 2, date: '2026-01-01', played: false, homeGoals: 0, awayGoals: 0, result: null } as any
       const result = simulate(snapWithTech(1), snapWithTech(2), match)
-      if (result.events.some(e => e.type === 'TECHNIQUE')) { foundTech = true; break }
+      expect(result.events.some(e => e.type === 'TECHNIQUE')).toBe(false)
+      if (result.events.some(e => e.techniqueName === tech.name && e.text.includes(tech.name))) {
+        foundCombinedTechnique = true
+        break
+      }
     }
-    expect(foundTech).toBe(true)
+    expect(foundCombinedTechnique).toBe(true)
+  })
+
+  it('never attributes a technique to a player who does not know it', () => {
+    const auditedTeams = seedTeams.slice(0, 6)
+    const playerById = new Map(seedPlayers.map((player) => [player.id, player]))
+    let auditedTechniques = 0
+
+    for (const team of seedTeams) {
+      const snapshot = buildTeamSnapshot(team, seedPlayers)
+      for (const snapshotPlayer of snapshot.starters ?? []) {
+        const profile = playerById.get(snapshotPlayer.id)!
+        const knownTechniques = [...profile.techniques, ...(profile.improvementTechniques ?? [])]
+        expect(snapshotPlayer.techniques).toEqual(knownTechniques)
+      }
+    }
+
+    for (let index = 0; index < auditedTeams.length - 1; index++) {
+      const homeTeam = auditedTeams[index]
+      const awayTeam = auditedTeams[index + 1]
+      const home = buildTeamSnapshot(homeTeam, seedPlayers)
+      const away = buildTeamSnapshot(awayTeam, seedPlayers)
+      const match = { ...makeMatch(), homeTeamId: homeTeam.id, awayTeamId: awayTeam.id }
+
+      for (let run = 0; run < 20; run++) {
+        const result = simulate(home, away, match)
+        for (const event of result.events) {
+          for (const technique of event.techniques ?? []) {
+            auditedTechniques++
+            expect(technique.playerId).toBeDefined()
+            const owner = playerById.get(technique.playerId!)
+            expect(owner, `${technique.name} no tiene un jugador válido`).toBeDefined()
+            expect(
+              [...owner!.techniques, ...(owner!.improvementTechniques ?? [])]
+                .some((known) => known.name === technique.name && known.type === technique.type),
+              `${owner!.name} no conoce ${technique.name}`,
+            ).toBe(true)
+          }
+        }
+      }
+    }
+
+    expect(auditedTechniques).toBeGreaterThan(0)
+  })
+
+  it('uses the explicit stat boosts stored on a shooting technique', () => {
+    const base = {
+      id: 10, name: 'Striker', nameRomaji: 'Striker', spriteUrl: '', position: 'FW' as const,
+      element: 'FIRE' as const,
+      stats: { POT: 60, CON: 60, TEC: 60, PRE: 60, FIS: 60, AGI: 60, INT: 60, TOT: 60 },
+    }
+    const technique = {
+      id: 1, name: 'Test Shot', type: 'Tiro' as const, element: 'FIRE' as const,
+      POT: 60, PP: 20, statBoosts: { POT: 15, TEC: 8 },
+    }
+    const withTechnique = { ...makeSnapshot(1, 'Tech'), starters: [{ ...base, techniques: [technique] }] }
+    const withoutTechnique = { ...makeSnapshot(1, 'Plain'), starters: [{ ...base, techniques: [] }] }
+    const keeper = {
+      ...makeSnapshot(2, 'Keeper'),
+      starters: [{ ...base, id: 20, name: 'Keeper', nameRomaji: 'Keeper', position: 'GK' as const, element: 'WOOD' as const, techniques: [] }],
+    }
+    let withGoals = 0
+    let withoutGoals = 0
+    for (let i = 0; i < 600; i++) {
+      withGoals += simulate(withTechnique, keeper, makeMatch()).homeGoals
+      withoutGoals += simulate(withoutTechnique, keeper, makeMatch()).homeGoals
+    }
+    expect(withGoals).toBeGreaterThan(withoutGoals * 1.1)
   })
 })
 

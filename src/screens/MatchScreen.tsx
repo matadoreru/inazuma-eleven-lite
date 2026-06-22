@@ -10,6 +10,8 @@ import type { MatchReward, MatchRewardType, RewardRarity } from '../types/reward
 import { REWARD_RARITY_LABELS } from '../types/reward'
 import { EQUIPMENT_SLOT_ICONS, EQUIPMENT_SLOT_LABELS } from '../types/equipment'
 import TeamNameInline from '../components/TeamNameInline'
+import TeamBadgeImage from '../components/TeamBadgeImage'
+import MatchEventText from '../components/MatchEventText'
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -126,6 +128,7 @@ const EVENT_ICON: Record<MatchEvent['type'], { icon: string; color: string }> = 
   GOAL:   { icon: 'sports_soccer',   color: 'text-yellow-400' },
   SAVE:   { icon: 'back_hand',       color: 'text-gold-500'   },
   MISS:   { icon: 'close',           color: 'text-gray-600'   },
+  CORNER: { icon: 'flag',            color: 'text-cyan-400'   },
   YELLOW: { icon: 'square',          color: 'text-yellow-400' },
   RED:    { icon: 'square',          color: 'text-red-500'    },
   INJURY: { icon: 'healing',         color: 'text-orange-400' },
@@ -147,13 +150,18 @@ function EventRow({
   awayTeamBadgeUrl?: string
 }) {
   const { icon, color } = EVENT_ICON[event.type] ?? { icon: 'fiber_manual_record', color: 'text-gray-600' }
+  const participants = event.participants?.length
+    ? event.participants
+    : event.playerSpriteUrl && event.playerId != null
+      ? [{ playerId: event.playerId, playerName: event.playerName ?? '', playerSpriteUrl: event.playerSpriteUrl, isHome: event.isHome }]
+      : []
 
   if (event.type === 'PHASE') {
     return (
-      <div className="flex items-center gap-2 my-2">
+      <div className="flex items-center gap-3 my-4">
         <div className="flex-1 h-px bg-gold-600/20" />
-        <span className="text-gray-600 text-[0.45rem] font-bold uppercase tracking-widest shrink-0">
-          {event.text}
+        <span className="text-gray-300 text-sm font-bold uppercase tracking-widest shrink-0">
+          <MatchEventText event={event} />
         </span>
         <div className="flex-1 h-px bg-gold-600/20" />
       </div>
@@ -161,46 +169,68 @@ function EventRow({
   }
 
   return (
-    <div className="flex items-center gap-2 py-1.5 border-b border-gold-600/20 last:border-0">
-      <span className="text-gray-600 text-[0.5rem] tabular-nums w-5 shrink-0 text-right">{event.minute}'</span>
+    <div className="flex items-center gap-4 py-4 border-b border-gold-600/20 last:border-0">
+      <span className="text-gray-300 text-sm tabular-nums w-8 shrink-0 text-right">{event.minute}'</span>
 
-      {event.playerSpriteUrl ? (
-        <div className={`w-5 h-5 rounded-full overflow-hidden bg-dark-700/60 shrink-0 ring-1 ${
-          event.type === 'GOAL' ? 'ring-yellow-500/50' :
-          event.type === 'RED'  ? 'ring-red-500/50' :
-          'ring-gray-600/50'
-        }`}>
-          <img
-            src={event.playerSpriteUrl}
-            alt={event.playerName}
-            className="w-full h-full object-cover"
-            onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
-          />
+      {participants.length > 0 ? (
+        <div className="flex items-center gap-2 shrink-0 px-1">
+          {participants.map((participant) => (
+            <div key={participant.playerId} className={`relative w-[68px] h-[68px] rounded-full bg-dark-700 shrink-0 ring-2 ring-dark-900 ${
+              event.type === 'GOAL' ? 'ring-yellow-500/60' :
+              event.type === 'RED' ? 'ring-red-500/60' : ''
+            }`} title={participant.playerName}>
+              <img
+                src={participant.playerSpriteUrl}
+                alt={participant.playerName}
+                className="w-full h-full object-cover rounded-full"
+                onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
+              />
+              <span className="absolute -left-1.5 -bottom-1.5 w-9 h-9 rounded-full bg-dark-900 ring-2 ring-gold-600/50 flex items-center justify-center">
+                <TeamBadgeImage
+                  teamName={participant.isHome ? homeTeamName : awayTeamName}
+                  badgeUrl={participant.isHome ? homeTeamBadgeUrl : awayTeamBadgeUrl}
+                  size="overlay"
+                />
+              </span>
+            </div>
+          ))}
         </div>
       ) : (
-        <span className={`material-icons ${color} shrink-0 leading-none`} style={{ fontSize: '12px' }}>{icon}</span>
+        null
       )}
 
+      {participants.length === 0 && event.type === 'CORNER' && (
+        <span className="w-16 h-16 rounded-full bg-dark-900/90 ring-2 ring-gold-600/40 flex items-center justify-center shrink-0">
+          <TeamBadgeImage
+            teamName={event.isHome ? homeTeamName : awayTeamName}
+            badgeUrl={event.isHome ? homeTeamBadgeUrl : awayTeamBadgeUrl}
+            size="event"
+          />
+        </span>
+      )}
+
+      <span className="w-11 h-11 rounded-xl bg-dark-800/90 border border-gold-600/20 flex items-center justify-center shrink-0" title={event.type}>
+        <span className={`material-icons ${color} leading-none`} style={{ fontSize: '28px' }}>{icon}</span>
+      </span>
+
       <div className="flex-1 min-w-0">
-        <p className={`text-[0.5625rem] leading-tight font-medium truncate ${
+        <p className={`text-base leading-relaxed font-semibold ${
           event.type === 'GOAL'   ? 'text-yellow-200' :
           event.type === 'RED'    ? 'text-red-300' :
           event.type === 'YELLOW' ? 'text-yellow-200/80' :
-          'text-gray-300'
+          'text-gray-100'
         }`}>
           {event.text}
         </p>
-        <TeamNameInline
-          teamName={event.isHome ? homeTeamName : awayTeamName}
-          badgeUrl={event.isHome ? homeTeamBadgeUrl : awayTeamBadgeUrl}
-          size="xs"
-          textClassName="text-gray-600 text-[0.45rem]"
-        />
+        {participants.length === 0 && event.type !== 'CORNER' && (
+          <TeamNameInline
+            teamName={event.isHome ? homeTeamName : awayTeamName}
+            badgeUrl={event.isHome ? homeTeamBadgeUrl : awayTeamBadgeUrl}
+            size="xs"
+            textClassName="text-gray-400 text-sm"
+          />
+        )}
       </div>
-
-      {event.playerSpriteUrl && (
-        <span className={`material-icons ${color} shrink-0 leading-none`} style={{ fontSize: '9px' }}>{icon}</span>
-      )}
     </div>
   )
 }

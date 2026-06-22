@@ -3,6 +3,7 @@ import type { Team } from '../types/team'
 import type { Player, Stats } from '../types/player'
 import type { MatchReward, RewardRarity } from '../types/reward'
 import type { EquipmentSlot } from '../types/equipment'
+import { buildTechniqueStatBoosts } from './techniqueService'
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -270,6 +271,7 @@ function generateTechniqueBookReward(rarity: RewardRarity): MatchReward {
         element,
         POT: pot,
         PP: pp,
+        statBoosts: buildTechniqueStatBoosts(type, pot),
       },
       isImprovement: type === 'Mejora',
     },

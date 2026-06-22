@@ -123,23 +123,41 @@ def normalize_element(el):
     upper = el.upper()
     return upper if upper in VALID_ELEMENTS else ""
 
-def build_technique(tech):
+def technique_key(tech):
+    return f"{int(tech.get('id', 0))}:{tech['name']}"
+
+TECHNIQUE_ACTION_STATS = {
+    "Tiro": ("POT", "TEC"),
+    "Regate": ("CON", "AGI"),
+    "Bloqueo": ("PRE", "FIS"),
+    "Parada": ("PRE", "AGI"),
+    "Mejora": ("INT", "TEC"),
+}
+
+def technique_boosts(tech):
+    tech_type = map_technique_type(tech.get("type", ""))
+    power = int(tech.get("POT", 0))
+    if power <= 0:
+        return "{}"
+    primary, secondary = TECHNIQUE_ACTION_STATS[tech_type]
+    primary_value = max(1, min(15, round(power / 8)))
+    return "{ " + f"{primary}: {primary_value}, {secondary}: {max(1, round(primary_value / 2))}" + " }"
+
+def build_supertechnique(tech):
     return (
-        "{ "
-        f"id: {int(tech['id']) if 'id' in tech else 0}, "
-        f"name: {quote(tech['name'])}, "
+        f"  {quote(technique_key(tech))}: {{ "
+        f"id: {int(tech.get('id', 0))}, name: {quote(tech['name'])}, "
         f"type: {quote(map_technique_type(tech.get('type', '')))}, "
         f"element: {quote(normalize_element(tech.get('element', '')))}, "
-        f"POT: {int(tech.get('POT', 0))}, "
-        f"PP: {int(tech.get('PP', 0))}"
-        " }"
+        f"POT: {int(tech.get('POT', 0))}, PP: {int(tech.get('PP', 0))}, "
+        f"statBoosts: {technique_boosts(tech)} }}"
     )
 
 def build_player(raw, team_id):
     pos_alt = map_position_alt(raw.get("position_alternative", ""))
     career = raw["career"]
     techniques = raw.get("supertechniques", [])
-    techs_str = ", ".join(build_technique(t) for t in techniques)
+    technique_keys = ", ".join(quote(technique_key(t)) for t in techniques)
 
     lines = [
         "  {",
@@ -168,7 +186,7 @@ def build_player(raw, team_id):
         "      trainingSessionsThisWeek: 0,",
         f"      positionAlt: {ts_null_or_str(pos_alt)}",
         "    },",
-        f"    techniques: [{techs_str}],",
+        f"    techniques: getSupertechniques([{technique_keys}]),",
         f"    spriteUrl: {quote(raw.get('sprite_url', ''))},",
         "    stamina: 100,",
         "    morale: 100,",
@@ -195,7 +213,8 @@ print(f"Players to export: {len(needed_players)}")
 
 player_blocks = [build_player(raw, player_team_map[pid]) for pid, raw in needed_players]
 players_ts = (
-    "import type { Player } from '../types/player'\n\n"
+    "import type { Player } from '../types/player'\n"
+    "import { getSupertechniques } from './supertechniques'\n\n"
     "export const players: Player[] = [\n"
     + ",\n".join(player_blocks)
     + "\n]\n"
@@ -205,6 +224,35 @@ with open(f"{OUT_DIR}/players.ts", "w", encoding="utf-8") as f:
     f.write(players_ts)
 
 print("Written players.ts")
+
+# Supertécnicas live in their own master catalog; players only keep references.
+supertechniques = {}
+for _, raw in needed_players:
+    for technique in raw.get("supertechniques", []):
+        supertechniques[technique_key(technique)] = technique
+
+supertechnique_blocks = [
+    build_supertechnique(supertechniques[key])
+    for key in sorted(supertechniques, key=lambda k: (int(k.split(":", 1)[0]), k))
+]
+supertechniques_ts = (
+    "import type { Technique } from '../types/player'\n\n"
+    "// Catálogo maestro. statBoosts define qué atributos aumenta cada técnica al usarse.\n"
+    "export const supertechniques: Readonly<Record<string, Technique>> = {\n"
+    + ",\n".join(supertechnique_blocks)
+    + "\n}\n\n"
+    "export function getSupertechniques(keys: string[]): Technique[] {\n"
+    "  return keys.map((key) => {\n"
+    "    const technique = supertechniques[key]\n"
+    "    if (!technique) throw new Error(`Supertécnica desconocida: ${key}`)\n"
+    "    return technique\n"
+    "  })\n"
+    "}\n"
+)
+with open(f"{OUT_DIR}/supertechniques.ts", "w", encoding="utf-8") as f:
+    f.write(supertechniques_ts)
+
+print("Written supertechniques.ts")
 
 # ─── Generate teams.ts ───────────────────────────────────────────────────────
 

@@ -3,6 +3,7 @@ import type { Player, Technique, Element } from '../types/player'
 import type { Match, MatchResult, MatchEvent } from '../types/competition'
 import type { TeamSnapshot, SnapshotPlayer } from '../types/team'
 import { buildTeamSnapshot } from './formationService'
+import { applyTechniqueStatBoosts, getTechniqueStatBoosts } from './techniqueService'
 
 function clamp(value: number, min: number, max: number): number {
   return Math.max(min, Math.min(max, value))
@@ -63,13 +64,36 @@ function mkEvent(
     text,
     isHome,
     ...(player ? { playerId: player.id, playerName: nameStyle === 'japanese' ? player.nameRomaji : player.name, playerSpriteUrl: player.spriteUrl } : {}),
+    ...(player ? { participants: [{
+      playerId: player.id,
+      playerName: nameStyle === 'japanese' ? player.nameRomaji : player.name,
+      playerSpriteUrl: player.spriteUrl,
+      isHome,
+    }] } : {}),
   }
+}
+
+function eventParticipants(
+  entries: Array<{ player: SnapshotPlayer | null; isHome: boolean }>,
+  nameStyle: 'western' | 'japanese',
+): NonNullable<MatchEvent['participants']> {
+  const seen = new Set<number>()
+  return entries.flatMap(({ player, isHome }) => {
+    if (!player || seen.has(player.id)) return []
+    seen.add(player.id)
+    return [{
+      playerId: player.id,
+      playerName: nameStyle === 'japanese' ? player.nameRomaji : player.name,
+      playerSpriteUrl: player.spriteUrl,
+      isHome,
+    }]
+  })
 }
 
 function tacticalChanceBonus(snapshot: TeamSnapshot): number {
   const t = snapshot.formation.tacticalType
-  if (t === 'MIDFIELD_CONTROL') return 0.45
-  if (t === 'COUNTER_ATTACK') return 0.20
+  if (t === 'MIDFIELD_CONTROL') return 0.012
+  if (t === 'COUNTER_ATTACK') return 0.008
   return 0
 }
 
@@ -103,8 +127,33 @@ function applyTacticalModifiers(snapshot: TeamSnapshot): TeamSnapshot {
   return { ...snapshot, forwardScore, midfieldScore, defenseScore, goalkeeperScore }
 }
 
-function calcAvgScore(snapshot: TeamSnapshot): number {
-  return (snapshot.forwardScore + snapshot.midfieldScore + snapshot.defenseScore + snapshot.goalkeeperScore) / 4
+function sigmoid(value: number): number {
+  return 1 / (1 + Math.exp(-value))
+}
+
+function playerScore(
+  player: SnapshotPlayer | null,
+  weights: Partial<Record<Exclude<keyof Player['stats'], 'TOT'>, number>>,
+  fallback: number,
+  technique: Technique | null = null,
+): number {
+  if (!player?.stats) return fallback
+  const passiveStats = (player.techniques ?? [])
+    .filter((candidate) => candidate.type === 'Mejora')
+    .reduce(
+      (stats, improvement) => applyTechniqueStatBoosts(stats, getTechniqueStatBoosts(improvement)),
+      player.stats,
+    )
+  const stats = technique
+    ? applyTechniqueStatBoosts(passiveStats, getTechniqueStatBoosts(technique))
+    : passiveStats
+  let score = 0
+  let totalWeight = 0
+  for (const [key, weight] of Object.entries(weights)) {
+    score += stats[key as keyof typeof weights]! * weight!
+    totalWeight += weight!
+  }
+  return totalWeight > 0 ? score / totalWeight : fallback
 }
 
 function simulateHalf(
@@ -113,46 +162,14 @@ function simulateHalf(
   isHome: boolean,
   startMinute: number,
   nameStyle: 'western' | 'japanese' = 'western',
-  goalProbMultiplier = 1.0,
+  intensityMultiplier = 1.0,
+  duration = 45,
 ): { goals: number; shots: number; shotsOnTarget: number; xg: number; events: MatchEvent[] } {
   const attackerMod = applyTacticalModifiers(attacker)
   const defenderMod = applyTacticalModifiers(defender)
 
-  const avgAtk = calcAvgScore(attackerMod)
-  const avgDef = calcAvgScore(defenderMod)
-
-  const creationPower =
-    attackerMod.forwardScore * 0.42 +
-    attackerMod.midfieldScore * 0.43 +
-    attackerMod.defenseScore * 0.05 +
-    avgAtk * 0.10
-
-  const preventionPower =
-    defenderMod.midfieldScore * 0.28 +
-    defenderMod.defenseScore * 0.47 +
-    defenderMod.goalkeeperScore * 0.25
-
-  const scoreBonus = clamp((creationPower - preventionPower) / 14, -3.5, 3.5)
-  const homeBonus = isHome ? 0.65 : 0
-  const chanceBonus = tacticalChanceBonus(attackerMod)
-  const variance = rand(-1.1, 1.1)
-  const baseChances = 5.5 + scoreBonus + homeBonus + chanceBonus + variance
-
-  const finishingPower =
-    attackerMod.forwardScore * 0.62 +
-    attackerMod.midfieldScore * 0.25 +
-    avgAtk * 0.13
-
-  const savePower =
-    defenderMod.goalkeeperScore * 0.55 +
-    defenderMod.defenseScore * 0.35 +
-    defenderMod.midfieldScore * 0.10
-
-  const strengthDelta = clamp((finishingPower - savePower) / 165, -0.10, 0.11)
-  const goalProbBonus = tacticalGoalProbBonus(attackerMod)
-  const goalProb = clamp((0.20 + strengthDelta + goalProbBonus) * goalProbMultiplier, 0.06, 0.75)
-
   let goals = 0
+  let shots = 0
   let shotsOnTarget = 0
   let xg = 0
   const events: MatchEvent[] = []
@@ -161,92 +178,147 @@ function simulateHalf(
   const defStarters = defender.starters ?? []
   const atkFwMd = atkStarters.filter((p) => p.position === 'FW' || p.position === 'MD')
   const atkFw   = atkStarters.filter((p) => p.position === 'FW')
+  const defDf   = defStarters.filter((p) => p.position === 'DF')
   const defGk   = defStarters.filter((p) => p.position === 'GK')
 
-  // Top midfielder with Regate gets a slight chance generation bonus
-  const topMid = atkFwMd.find((p) => p.position === 'MD')
+  // A dribbling technique improves progression, but does not directly guarantee a shot.
+  const topMid = atkFwMd.find((p) => p.position === 'MD') ?? null
   const regateTech = pickTechnique(topMid ?? null, 'Regate')
-  const regateBonus = regateTech ? 0.3 : 0
-  const actualChances = Math.max(0, Math.round((baseChances + regateBonus) / 2))
-  const minuteStep = Math.floor(45 / Math.max(1, actualChances))
+  const regatePower = playerScore(topMid, { CON: 0.55, AGI: 0.30, TEC: 0.15 }, attackerMod.midfieldScore, regateTech)
+  const normalProgression = playerScore(topMid, { CON: 0.55, AGI: 0.30, TEC: 0.15 }, attackerMod.midfieldScore)
+  const creationPower = attackerMod.midfieldScore * 0.52 + attackerMod.forwardScore * 0.48 + (regatePower - normalProgression)
+  const preventionPower = defenderMod.midfieldScore * 0.30 + defenderMod.defenseScore * 0.70
+  const territory = sigmoid((creationPower - preventionPower + (isHome ? 2.5 : 0)) / 12)
+  const shotChancePerMinute = clamp((0.025 + 0.22 * territory + tacticalChanceBonus(attackerMod)) * intensityMultiplier, 0.015, 0.27)
 
-  for (let i = 0; i < actualChances; i++) {
-    const minute = startMinute + Math.min(44, i * minuteStep + Math.floor(rand(0, minuteStep)))
-    xg += goalProb
+  // Resolve every virtual minute. Ratings decide the probability of each stage;
+  // randomness decides only the individual duel, not an arbitrary final score.
+  for (let offset = 0; offset < duration; offset++) {
+    if (Math.random() >= shotChancePerMinute) continue
+    const minute = startMinute + offset
+    shots++
 
-    const onTarget = Math.random() < 0.55
+    const scorer = pickFrom(atkFwMd.length > 0 ? atkFwMd : atkStarters)
+    const gk = pickFrom(defGk.length > 0 ? defGk : defStarters)
+    const blocker = pickFrom(defDf.length > 0 ? defDf : defStarters)
+    const atkTech = pickTechnique(scorer ?? null, 'Tiro')
+    const blockTech = pickTechnique(blocker ?? null, 'Bloqueo')
+    const gkTech = pickTechnique(gk ?? null, 'Parada')
+
+    const finishingPower = playerScore(scorer, { POT: 0.55, TEC: 0.30, INT: 0.15 }, attackerMod.forwardScore, atkTech)
+    const pressurePower = playerScore(blocker, { PRE: 0.50, FIS: 0.30, INT: 0.20 }, defenderMod.defenseScore, blockTech)
+    const savePower = playerScore(gk, { PRE: 0.45, AGI: 0.25, FIS: 0.15, INT: 0.15 }, defenderMod.goalkeeperScore, gkTech)
+    const onTargetProb = clamp(0.42 + (finishingPower - pressurePower) / 180, 0.18, 0.78)
+    const goalProb = clamp(0.27 + (finishingPower - savePower) / 180 + tacticalGoalProbBonus(attackerMod), 0.06, 0.65)
+    xg += onTargetProb * goalProb
+
+    const onTarget = Math.random() < onTargetProb
     if (onTarget) {
       shotsOnTarget++
-      const scorer = pickFrom(atkFwMd.length > 0 ? atkFwMd : atkStarters)
-      const gk = pickFrom(defGk.length > 0 ? defGk : defStarters)
-
-      // Technique modifiers
-      const atkTech   = pickTechnique(scorer ?? null, 'Tiro')
-      const gkTech    = pickTechnique(gk ?? null, 'Parada')
-      const techBonus  = atkTech ? atkTech.POT / 800 : 0
-      const techPenalty = gkTech ? gkTech.POT / 900 : 0
       const elemBonus  = elementMatchupBonus(
         atkTech?.element || scorer?.element,
         gkTech?.element  || gk?.element,
       )
-      const adjustedGoalProb = clamp(goalProb + techBonus - techPenalty + elemBonus, 0.06, 0.75)
+      const adjustedGoalProb = clamp(goalProb + elemBonus, 0.06, 0.70)
+      const scorerName = scorer ? (nameStyle === 'japanese' ? scorer.nameRomaji : scorer.name) : null
 
       if (Math.random() < adjustedGoalProb) {
         goals++
-        const scorerName = scorer ? (nameStyle === 'japanese' ? scorer.nameRomaji : scorer.name) : null
-        events.push(mkEvent(
+        const goalEvent = mkEvent(
           minute, 'GOAL', attacker.id,
-          scorerName ? `¡Gol de ${scorerName}!` : `¡Gol de ${attacker.name}!`,
+          scorerName
+            ? atkTech
+              ? `${scorerName} chuta con ${atkTech.name} y marca.`
+              : `¡Gol de ${scorerName}!`
+            : `¡Gol de ${attacker.name}!`,
           isHome, scorer, nameStyle,
-        ))
-        if (atkTech) {
-          events.push({
-            minute,
-            type: 'TECHNIQUE',
-            teamId: attacker.id,
-            isHome,
-            text: `${scorer ? (nameStyle === 'japanese' ? scorer.nameRomaji : scorer.name) : '?'} usa ${atkTech.name}!`,
-            playerId: scorer?.id,
-            playerName: scorer ? (nameStyle === 'japanese' ? scorer.nameRomaji : scorer.name) : undefined,
+        )
+        events.push(atkTech
+          ? {
+            ...goalEvent,
             techniqueName: atkTech.name,
+            techniqueNames: [atkTech.name],
+            techniques: [{ name: atkTech.name, type: atkTech.type, playerId: scorer?.id }],
             techniqueOutcome: 'success',
             techniqueElement: atkTech.element || undefined,
-          } as MatchEvent)
-        }
+          }
+          : goalEvent)
       } else {
         const gkName = gk ? (nameStyle === 'japanese' ? gk.nameRomaji : gk.name) : null
-        events.push(mkEvent(
+        const shotText = scorerName && atkTech
+          ? `${scorerName} chuta con ${atkTech.name}, pero `
+          : ''
+        const saveEvent = mkEvent(
           minute, 'SAVE', defender.id,
-          gkName ? `Parada de ${gkName}` : `Parada de ${defender.name}`,
+          gkName
+            ? gkTech
+              ? `${shotText}${gkName} usa ${gkTech.name} para parar el disparo y lo consigue.`
+              : shotText
+                ? `${shotText}${gkName} para el disparo.`
+                : `Parada de ${gkName}`
+            : `Parada de ${defender.name}`,
           !isHome, gk, nameStyle,
-        ))
-        if (gkTech) {
-          events.push({
-            minute,
-            type: 'TECHNIQUE',
-            teamId: defender.id,
-            isHome: !isHome,
-            text: `${gkName ?? '?'} usa ${gkTech.name}!`,
-            playerId: gk?.id,
-            playerName: gkName ?? undefined,
-            techniqueName: gkTech.name,
+        )
+        saveEvent.participants = eventParticipants([
+          { player: scorer, isHome },
+          { player: gk, isHome: !isHome },
+        ], nameStyle)
+        const displayedTechnique = gkTech ?? atkTech
+        events.push(displayedTechnique
+          ? {
+            ...saveEvent,
+            techniqueName: displayedTechnique.name,
+            techniqueNames: [atkTech?.name, gkTech?.name].filter((name): name is string => Boolean(name)),
+            techniques: [
+              ...(atkTech ? [{ name: atkTech.name, type: atkTech.type, playerId: scorer?.id }] : []),
+              ...(gkTech ? [{ name: gkTech.name, type: gkTech.type, playerId: gk?.id }] : []),
+            ],
             techniqueOutcome: 'success',
-            techniqueElement: gkTech.element || undefined,
-          } as MatchEvent)
-        }
+            techniqueElement: displayedTechnique.element || undefined,
+          }
+          : saveEvent)
       }
     } else {
-      const shooter = pickFrom(atkFw.length > 0 ? atkFw : atkFwMd.length > 0 ? atkFwMd : atkStarters)
+      const shooter = scorer ?? pickFrom(atkFw.length > 0 ? atkFw : atkFwMd.length > 0 ? atkFwMd : atkStarters)
       const shooterName = shooter ? (nameStyle === 'japanese' ? shooter.nameRomaji : shooter.name) : null
-      events.push(mkEvent(
+      const shooterTech = shooter?.id === scorer?.id ? atkTech : pickTechnique(shooter, 'Tiro')
+      const blockerName = blocker ? (nameStyle === 'japanese' ? blocker.nameRomaji : blocker.name) : null
+      const missText = shooterName
+        ? blockTech && blockerName
+          ? `${shooterName}${shooterTech ? ` chuta con ${shooterTech.name}` : ' chuta'}, pero ${blockerName} usa ${blockTech.name} para bloquear el disparo y lo manda fuera.`
+          : shooterTech
+            ? `${shooterName} chuta con ${shooterTech.name} pero va fuera.`
+            : `Disparo fuera de ${shooterName}`
+        : 'Disparo fuera'
+      const missEvent = mkEvent(
         minute, 'MISS', attacker.id,
-        shooterName ? `Disparo fuera de ${shooterName}` : 'Disparo fuera',
+        missText,
         isHome, shooter, nameStyle,
-      ))
+      )
+      missEvent.participants = eventParticipants(
+        blockTech
+          ? [{ player: shooter, isHome }, { player: blocker, isHome: !isHome }]
+          : [{ player: shooter, isHome }],
+        nameStyle,
+      )
+      const displayedTechnique = blockTech ?? shooterTech
+      events.push(displayedTechnique
+        ? {
+          ...missEvent,
+          techniqueName: displayedTechnique.name,
+          techniqueNames: [shooterTech?.name, blockTech?.name].filter((name): name is string => Boolean(name)),
+          techniques: [
+            ...(shooterTech ? [{ name: shooterTech.name, type: shooterTech.type, playerId: shooter?.id }] : []),
+            ...(blockTech ? [{ name: blockTech.name, type: blockTech.type, playerId: blocker?.id }] : []),
+          ],
+          techniqueOutcome: blockTech ? 'success' : 'failure',
+          techniqueElement: displayedTechnique.element || undefined,
+        }
+        : missEvent)
     }
   }
 
-  return { goals, shots: actualChances, shotsOnTarget, xg, events }
+  return { goals, shots, shotsOnTarget, xg, events }
 }
 
 function generateDisciplinaryEvents(
@@ -297,6 +369,16 @@ function generateDisciplinaryEvents(
   return events
 }
 
+function generateCornerEvents(team: TeamSnapshot, count: number, isHome: boolean): MatchEvent[] {
+  return Array.from({ length: count }, () => mkEvent(
+    Math.floor(rand(2, 90)),
+    'CORNER',
+    team.id,
+    `Córner para ${team.name}`,
+    isHome,
+  ))
+}
+
 export function simulate(homeTeam: TeamSnapshot, awayTeam: TeamSnapshot, match: Match, nameStyle: 'western' | 'japanese' = 'western'): MatchResult {
   const h1Home = simulateHalf(homeTeam, awayTeam, true, 1, nameStyle)
   const h1Away = simulateHalf(awayTeam, homeTeam, false, 1, nameStyle)
@@ -312,11 +394,8 @@ export function simulate(homeTeam: TeamSnapshot, awayTeam: TeamSnapshot, match: 
   const homeXG = h1Home.xg + h2Home.xg
   const awayXG = h1Away.xg + h2Away.xg
 
-  const totalCreation =
-    (homeTeam.midfieldScore + homeTeam.forwardScore) +
-    (awayTeam.midfieldScore + awayTeam.forwardScore)
-  const homeCreation = homeTeam.midfieldScore + homeTeam.forwardScore
-  const homePossession = totalCreation > 0 ? Math.round((homeCreation / totalCreation) * 100) : 50
+  const possessionDelta = (homeTeam.midfieldScore - awayTeam.midfieldScore + 2.5) / 18
+  const homePossession = Math.round(clamp(sigmoid(possessionDelta) * 100, 25, 75))
   const awayPossession = 100 - homePossession
 
   const homeFouls = Math.floor(rand(6, 18))
@@ -342,6 +421,11 @@ export function simulate(homeTeam: TeamSnapshot, awayTeam: TeamSnapshot, match: 
     ...generateDisciplinaryEvents(awayTeam, awayYellows, awayReds, false, nameStyle),
   ]
 
+  const corners = [
+    ...generateCornerEvents(homeTeam, homeCorners, true),
+    ...generateCornerEvents(awayTeam, awayCorners, false),
+  ]
+
   const h1Stoppage = calcStoppageTime([...h1Home.events, ...h1Away.events])
   const h2Stoppage = calcStoppageTime([...h2Home.events, ...h2Away.events])
 
@@ -357,6 +441,7 @@ export function simulate(homeTeam: TeamSnapshot, awayTeam: TeamSnapshot, match: 
     ...h2Home.events,
     ...h2Away.events,
     ...disciplinary,
+    ...corners,
     ...stoppageEvents,
   ].sort((a, b) => a.minute - b.minute)
 
@@ -430,11 +515,11 @@ export function simulateCupTiebreak(
   const regular = simulate(homeTeam, awayTeam, match, nameStyle)
   if (regular.homeGoals !== regular.awayGoals) return regular
 
-  // Extra time: 2 × 15 min at 60% intensity
-  const et1Home = simulateHalf(homeTeam, awayTeam, true,  91, nameStyle, 0.60)
-  const et1Away = simulateHalf(awayTeam, homeTeam, false, 91, nameStyle, 0.60)
-  const et2Home = simulateHalf(homeTeam, awayTeam, true,  106, nameStyle, 0.60)
-  const et2Away = simulateHalf(awayTeam, homeTeam, false, 106, nameStyle, 0.60)
+  // Extra time: exactly 2 × 15 virtual minutes at lower intensity.
+  const et1Home = simulateHalf(homeTeam, awayTeam, true,  91, nameStyle, 0.75, 15)
+  const et1Away = simulateHalf(awayTeam, homeTeam, false, 91, nameStyle, 0.75, 15)
+  const et2Home = simulateHalf(homeTeam, awayTeam, true,  106, nameStyle, 0.75, 15)
+  const et2Away = simulateHalf(awayTeam, homeTeam, false, 106, nameStyle, 0.75, 15)
 
   const etHomeGoals = et1Home.goals + et2Home.goals
   const etAwayGoals = et1Away.goals + et2Away.goals

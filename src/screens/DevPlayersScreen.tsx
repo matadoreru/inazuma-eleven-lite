@@ -6,6 +6,7 @@ import type { Team } from '../types/team'
 import PositionSprite from '../components/PositionSprite'
 import ElementBadge from '../components/ElementBadge'
 import TeamBadgeImage from '../components/TeamBadgeImage'
+import { buildTechniqueStatBoosts } from '../services/techniqueService'
 
 // ─── helpers ────────────────────────────────────────────────────────────────
 
@@ -69,13 +70,17 @@ const LABEL_CLS = 'block text-gray-400 text-xs mb-0.5'
 const STAT_KEYS: (keyof Stats)[] = ['POT', 'CON', 'TEC', 'PRE', 'FIS', 'AGI', 'INT']
 
 function newTech(): Technique {
-  return { id: Date.now(), name: '', type: 'Tiro', element: 'FIRE', POT: 50, PP: 5 }
+  return { id: Date.now(), name: '', type: 'Tiro', element: 'FIRE', POT: 50, PP: 5, statBoosts: buildTechniqueStatBoosts('Tiro', 50) }
 }
 
 function PlayerForm({ data, teams, onChange, onSave, onCancel }: PlayerFormProps) {
   function updateTech(idx: number, field: keyof Technique, value: string | number) {
     const techs = [...(data.techniques ?? [])]
-    techs[idx] = { ...techs[idx], [field]: value }
+    const updated = { ...techs[idx], [field]: value } as Technique
+    if (field === 'type' || field === 'POT') {
+      updated.statBoosts = buildTechniqueStatBoosts(updated.type, updated.POT)
+    }
+    techs[idx] = updated
     onChange({ ...data, techniques: techs })
   }
 
@@ -90,7 +95,11 @@ function PlayerForm({ data, teams, onChange, onSave, onCancel }: PlayerFormProps
 
   function updateImproveTech(idx: number, field: keyof Technique, value: string | number) {
     const techs = [...(data.improvementTechniques ?? [])]
-    techs[idx] = { ...techs[idx], [field]: value }
+    const updated = { ...techs[idx], [field]: value } as Technique
+    if (field === 'type' || field === 'POT') {
+      updated.statBoosts = buildTechniqueStatBoosts(updated.type, updated.POT)
+    }
+    techs[idx] = updated
     onChange({ ...data, improvementTechniques: techs })
   }
 
@@ -99,7 +108,7 @@ function PlayerForm({ data, teams, onChange, onSave, onCancel }: PlayerFormProps
       ...data,
       improvementTechniques: [
         ...(data.improvementTechniques ?? []),
-        { ...newTech(), type: 'Mejora' },
+        { ...newTech(), type: 'Mejora', statBoosts: buildTechniqueStatBoosts('Mejora', 50) },
       ],
     })
   }

@@ -165,14 +165,14 @@ export default function MainMenuScreen() {
       {/* Version bottom-right */}
       <button
         onClick={handleVersionTap}
-        className="absolute bottom-3 right-4 font-pixel text-gray-600 text-[0.35rem] select-none cursor-default focus:outline-none"
+        className="absolute bottom-3 right-4 font-pixel text-gray-400 text-[0.7rem] select-none cursor-default focus:outline-none"
       >
         {devMode && (
-          <span className="mr-1.5 px-1 py-0.5 rounded text-[0.5rem] font-bold bg-orange-600/20 text-orange-400 uppercase tracking-wider">
+          <span className="mr-1.5 px-1.5 py-0.5 rounded text-[0.7rem] font-bold bg-orange-600/20 text-orange-400 uppercase tracking-wider">
             DEV
           </span>
         )}
-        v{APP_VERSION}
+        {APP_VERSION}
       </button>
     </GameLayout>
   )

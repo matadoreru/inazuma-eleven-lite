@@ -33,8 +33,13 @@ export interface SaveData {
   teams: Team[]
   profileId?: string
   profileVersion?: string
+  compact?: boolean
+  playerOverrides?: Array<Partial<Player> & Pick<Player, 'id'>>
+  teamOverrides?: Array<Partial<Team> & Pick<Team, 'id'>>
+  playerIds?: number[]
+  teamIds?: number[]
 }
 
-export const SAVE_SCHEMA_VERSION = 1
+export const SAVE_SCHEMA_VERSION = 2
 export const MAX_SAVE_SLOTS = 5
 export const SAVE_KEY_PREFIX = 'iel_save_'

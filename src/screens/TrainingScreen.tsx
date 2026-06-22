@@ -6,6 +6,7 @@ import { playerDisplayName } from '../types/player'
 import type { WeeklyTrainingSlot, TrainingType } from '../types/training'
 import { MAX_TRAINING_SLOTS } from '../types/training'
 import { getEnergyState } from '../services/energyService'
+import { getPositionChangeTargets } from '../services/positionChangeService'
 import { useNameStyle } from '../hooks/useNameStyle'
 import Icon from '../components/Icon'
 
@@ -23,7 +24,6 @@ const STAT_INFO: Record<keyof Stats, { label: string; desc: string; roles: strin
 }
 
 const TRAINABLE_STATS: (keyof Stats)[] = ['POT', 'TEC', 'PRE', 'CON', 'FIS', 'AGI', 'INT']
-const ALL_POSITIONS: Position[] = ['GK', 'DF', 'MD', 'FW']
 const POS_LABEL: Record<Position, string> = { GK: 'PR', DF: 'DF', MD: 'MD', FW: 'DL' }
 const POS_FULL: Record<Position, string> = { GK: 'Portero', DF: 'Defensa', MD: 'Centrocampista', FW: 'Delantero' }
 
@@ -150,7 +150,7 @@ function PositionChangePanel({ players, onStart, onCancel }: {
 }) {
   const nameStyle = useNameStyle()
   const [newPlayerId, setNewPlayerId] = useState<number | ''>('')
-  const [newTarget, setNewTarget] = useState<Position>('DF')
+  const [newTarget, setNewTarget] = useState<Position | ''>('')
   const [error, setError] = useState('')
 
   const activePlans = players.filter((p) => p.career.positionChangePlan && !p.career.positionChangePlan.completed)
@@ -158,10 +158,10 @@ function PositionChangePanel({ players, onStart, onCancel }: {
   const canAddNew = slotsUsed < 2
   const availableForChange = players.filter((p) => !p.career.positionChangePlan || p.career.positionChangePlan.completed)
   const selectedPlayer = players.find((p) => p.id === Number(newPlayerId))
-  const targetOptions = selectedPlayer ? ALL_POSITIONS.filter((pos) => pos !== selectedPlayer.position) : ALL_POSITIONS
+  const targetOptions = selectedPlayer ? getPositionChangeTargets(selectedPlayer.position) : []
 
   function handleStart() {
-    if (!newPlayerId) return
+    if (!newPlayerId || !newTarget) return
     const result = onStart(Number(newPlayerId), newTarget)
     if (result === 'limit_reached') {
       setError('Solo se pueden tener 2 cambios de posición activos a la vez.')
@@ -233,7 +233,13 @@ function PositionChangePanel({ players, onStart, onCancel }: {
           <p className="text-[0.5rem] font-black uppercase tracking-widest text-gray-500 mb-1">Iniciar nuevo cambio</p>
           <select
             value={newPlayerId}
-            onChange={(e) => { setNewPlayerId(e.target.value === '' ? '' : Number(e.target.value)); setNewTarget('DF'); setError('') }}
+            onChange={(e) => {
+              const playerId = e.target.value === '' ? '' : Number(e.target.value)
+              const player = players.find((candidate) => candidate.id === Number(playerId))
+              setNewPlayerId(playerId)
+              setNewTarget(player ? getPositionChangeTargets(player.position)[0] : '')
+              setError('')
+            }}
             className="w-full bg-dark-700 border border-gold-600/30 rounded px-2 py-1.5 text-xs text-white"
           >
             <option value="">Seleccionar jugador...</option>
@@ -257,7 +263,7 @@ function PositionChangePanel({ players, onStart, onCancel }: {
           {error && <p className="text-red-400 text-[0.625rem]">{error}</p>}
           <button
             onClick={handleStart}
-            disabled={!newPlayerId}
+            disabled={!newPlayerId || !newTarget}
             className="w-full py-1.5 bg-gold-600 hover:bg-gold-500 disabled:opacity-40 disabled:cursor-not-allowed text-dark-900 text-xs font-bold rounded-lg transition-colors"
           >
             Iniciar cambio de posición

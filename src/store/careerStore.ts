@@ -52,7 +52,7 @@ import {
 } from '../services/potentialService'
 import { executeWeeklyPlan } from '../services/weeklyTrainingService'
 import { cancelPositionChange as cancelPositionChangeService, startOrResetPositionChange, advancePositionChange } from '../services/positionChangeService'
-import { learnTechnique as learnTechniqueService } from '../services/techniqueService'
+import { buildTechniqueStatBoosts, learnTechnique as learnTechniqueService } from '../services/techniqueService'
 import { getTechniqueBook } from '../data/techniqueBooks'
 import { EMPTY_INVENTORY } from '../types/inventory'
 import { generateMatchRewards } from '../services/rewardService'
@@ -80,6 +80,18 @@ function addDaysStr(dateStr: string, days: number): string {
   const d = new Date(dateStr)
   d.setDate(d.getDate() + days)
   return d.toISOString().split('T')[0]
+}
+
+function migrateTechniqueEffects(player: Player): Player {
+  const addEffects = (technique: Player['techniques'][number]) => ({
+    ...technique,
+    statBoosts: technique.statBoosts ?? buildTechniqueStatBoosts(technique.type, technique.POT),
+  })
+  return {
+    ...player,
+    techniques: player.techniques.map(addEffects),
+    improvementTechniques: (player.improvementTechniques ?? []).map(addEffects),
+  }
 }
 
 function advanceSeasonToDate(season: Career['season'], targetDate: string): Career['season'] {
@@ -891,15 +903,18 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     const data = loadSlot(slot)
     if (!data) return
     // Normalize fields that may be missing in older saves
-    const players = data.players.map((p: Player) => ({
-      ...p,
-      seasonStats: p.seasonStats ?? { goals: 0, assists: 0, cleanSheets: 0, matchesPlayed: 0, minutesPlayed: 0 },
-      improvementTechniques: p.improvementTechniques ?? [],
-      career: {
-        ...p.career,
-        positionChangePlan: p.career.positionChangePlan ?? null,
-      },
-    }))
+    const players = data.players.map((rawPlayer: Player) => {
+      const p = migrateTechniqueEffects(rawPlayer)
+      return {
+        ...p,
+        seasonStats: p.seasonStats ?? { goals: 0, assists: 0, cleanSheets: 0, matchesPlayed: 0, minutesPlayed: 0 },
+        improvementTechniques: p.improvementTechniques ?? [],
+        career: {
+          ...p.career,
+          positionChangePlan: p.career.positionChangePlan ?? null,
+        },
+      }
+    })
     const teams = data.teams.map((t: Team) => ({
       ...t,
       scoutLevel: t.scoutLevel ?? Math.max(1, Math.ceil(t.reputation / 20)),
@@ -970,12 +985,15 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     try {
       const data = loadAutoSave()
       if (!data) return false
-      const players = data.players.map((p: Player) => ({
-        ...p,
-        seasonStats: p.seasonStats ?? { goals: 0, assists: 0, cleanSheets: 0, matchesPlayed: 0, minutesPlayed: 0 },
-        improvementTechniques: p.improvementTechniques ?? [],
-        career: { ...p.career, positionChangePlan: p.career.positionChangePlan ?? null },
-      }))
+      const players = data.players.map((rawPlayer: Player) => {
+        const p = migrateTechniqueEffects(rawPlayer)
+        return {
+          ...p,
+          seasonStats: p.seasonStats ?? { goals: 0, assists: 0, cleanSheets: 0, matchesPlayed: 0, minutesPlayed: 0 },
+          improvementTechniques: p.improvementTechniques ?? [],
+          career: { ...p.career, positionChangePlan: p.career.positionChangePlan ?? null },
+        }
+      })
       const teams = data.teams.map((t: Team) => ({
         ...t,
         scoutLevel: t.scoutLevel ?? Math.max(1, Math.ceil(t.reputation / 20)),
@@ -1677,12 +1695,12 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     for (let i = 0; i < slots.length; i++) {
       const pid = slots[i]
       if (pid !== null && formSlots[i]) {
-        newStarters.push({ playerId: pid, assignedPosition: formSlots[i].position, isStarter: true })
+        newStarters.push({ playerId: pid, assignedPosition: formSlots[i].position, isStarter: true, formationSlotIndex: i })
       }
     }
     const bench = userTeam.lineup
       .filter((s) => !starterIds.has(s.playerId))
-      .map((s) => ({ ...s, isStarter: false }))
+      .map((s) => ({ ...s, isStarter: false, formationSlotIndex: undefined }))
 
     set({
       teams: teams.map((t) =>
@@ -1700,7 +1718,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     const benchSlot   = userTeam.lineup.find((s) => s.playerId === benchId && !s.isStarter)
     if (!starterSlot || !benchSlot) return
     const newLineup = userTeam.lineup.map((slot) => {
-      if (slot.playerId === starterId) return { ...slot, playerId: starterId, isStarter: false }
+      if (slot.playerId === starterId) return { ...slot, playerId: starterId, isStarter: false, formationSlotIndex: undefined }
       if (slot.playerId === benchId)   return { ...starterSlot, playerId: benchId }
       return slot
     })

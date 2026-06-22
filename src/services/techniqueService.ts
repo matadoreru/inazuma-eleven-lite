@@ -1,9 +1,38 @@
-import type { Player, Technique } from '../types/player'
+import type { Player, Stats, Technique, TechniqueStatBoosts } from '../types/player'
 import type { ClubInventory } from '../types/inventory'
 import type { TechniqueBook } from '../types/inventory'
 
 export const MAX_NORMAL_TECHNIQUES = 3
 export const MAX_IMPROVEMENT_TECHNIQUES = 2
+
+const ACTION_STATS: Record<Technique['type'], [keyof TechniqueStatBoosts, keyof TechniqueStatBoosts]> = {
+  Tiro: ['POT', 'TEC'],
+  Regate: ['CON', 'AGI'],
+  Bloqueo: ['PRE', 'FIS'],
+  Parada: ['PRE', 'AGI'],
+  Mejora: ['INT', 'TEC'],
+}
+
+/** Default used to migrate old saves and to create generated techniques. */
+export function buildTechniqueStatBoosts(type: Technique['type'], power: number): TechniqueStatBoosts {
+  if (power <= 0) return {}
+  const [primary, secondary] = ACTION_STATS[type]
+  const primaryBoost = Math.max(1, Math.min(15, Math.round(power / 8)))
+  return { [primary]: primaryBoost, [secondary]: Math.max(1, Math.round(primaryBoost / 2)) }
+}
+
+export function getTechniqueStatBoosts(technique: Technique): TechniqueStatBoosts {
+  return technique.statBoosts ?? buildTechniqueStatBoosts(technique.type, technique.POT)
+}
+
+export function applyTechniqueStatBoosts(stats: Stats, boosts: TechniqueStatBoosts): Stats {
+  const next = { ...stats }
+  for (const key of Object.keys(boosts) as Array<keyof TechniqueStatBoosts>) {
+    next[key] = Math.min(120, next[key] + (boosts[key] ?? 0))
+  }
+  next.TOT = Math.round((next.POT + next.CON + next.TEC + next.PRE + next.FIS + next.AGI + next.INT) / 7)
+  return next
+}
 
 // ─── Queries ─────────────────────────────────────────────────────────────────
 

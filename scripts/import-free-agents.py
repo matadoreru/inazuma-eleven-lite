@@ -8,6 +8,7 @@ from pathlib import Path
 
 DB_PATH = Path('/home/eru/Documents/Projects/inazuma/inazuma-eleven-universe/content/database/players/players.json')
 PLAYERS_TS = Path('src/data/players.ts')
+SUPERTECHNIQUES_TS = Path('src/data/supertechniques.ts')
 
 POS_MAP = {'MF': 'MD', 'GK': 'GK', 'DF': 'DF', 'FW': 'FW'}
 VALID_ELEMENTS = {'FIRE', 'WOOD', 'WIND', 'MOUNTAIN'}
@@ -27,22 +28,27 @@ def get_existing_ids(ts_path: Path) -> set:
 def format_techniques(supertechniques: list) -> str:
     # Filter for valid types and take first 3
     valid_techs = [t for t in supertechniques if t.get('type', '') in VALID_TYPES][:3]
-    if not valid_techs:
-        return '[]'
-    parts = []
-    for t in valid_techs:
-        elem = t.get('element', '')
-        if elem not in VALID_ELEMENTS:
-            elem = ''
-        tech_id = int(t.get("id", 0))
-        tech_pot = int(t.get("POT", 0))
-        tech_pp = int(t.get("PP", 0))
-        tech_name = t.get("name", "").replace('"', '\\"')
-        parts.append(
-            f'{{ id: {tech_id}, name: "{tech_name}", type: "{t["type"]}", '
-            f'element: "{elem}", POT: {tech_pot}, PP: {tech_pp} }}'
-        )
-    return '[' + ', '.join(parts) + ']'
+    keys = [f'{int(t.get("id", 0))}:{t.get("name", "")}' for t in valid_techs]
+    return 'getSupertechniques(' + json.dumps(keys, ensure_ascii=False) + ')'
+
+
+def format_catalog_entry(t: dict) -> str:
+    elem = t.get('element', '') if t.get('element', '') in VALID_ELEMENTS else ''
+    tech_type = t.get('type', 'Tiro')
+    power = int(t.get('POT', 0))
+    action_stats = {
+        'Tiro': ('POT', 'TEC'), 'Regate': ('CON', 'AGI'),
+        'Bloqueo': ('PRE', 'FIS'), 'Parada': ('PRE', 'AGI'), 'Mejora': ('INT', 'TEC'),
+    }
+    primary, secondary = action_stats[tech_type]
+    primary_value = max(1, min(15, round(power / 8))) if power > 0 else 0
+    boosts = '{}' if power <= 0 else f'{{ {primary}: {primary_value}, {secondary}: {max(1, round(primary_value / 2))} }}'
+    key = f'{int(t.get("id", 0))}:{t.get("name", "")}'
+    return (
+        f'  {json.dumps(key, ensure_ascii=False)}: {{ id: {int(t.get("id", 0))}, '
+        f'name: {json.dumps(t.get("name", ""), ensure_ascii=False)}, type: "{tech_type}", '
+        f'element: "{elem}", POT: {power}, PP: {int(t.get("PP", 0))}, statBoosts: {boosts} }},'
+    )
 
 
 def build_entry(p: dict) -> str:
@@ -132,6 +138,20 @@ def main():
     insert_pos = content.rstrip().rfind(']')
     new_content = content[:insert_pos] + ',\n' + new_block + '\n]\n'
     PLAYERS_TS.write_text(new_content, encoding='utf-8')
+
+    catalog = SUPERTECHNIQUES_TS.read_text(encoding='utf-8')
+    catalog_entries = []
+    for player in new_players:
+        for technique in player.get('supertechniques', []):
+            if technique.get('type', '') not in VALID_TYPES:
+                continue
+            key = f'{int(technique.get("id", 0))}:{technique.get("name", "")}'
+            if json.dumps(key, ensure_ascii=False) not in catalog:
+                catalog_entries.append(format_catalog_entry(technique))
+    if catalog_entries:
+        marker = '\n}\n\nexport function'
+        catalog = catalog.replace(marker, '\n' + '\n'.join(catalog_entries) + marker, 1)
+        SUPERTECHNIQUES_TS.write_text(catalog, encoding='utf-8')
     print(f'Done. Added {len(new_players)} free agents to src/data/players.ts')
 
 
