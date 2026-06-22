@@ -1,10 +1,17 @@
 services:
-  app:
+  app-prod:
     image: ghcr.io/matadoreru/inazuma-eleven-lite:latest
-    container_name: inazuma
+    container_name: inazuma-prod
     restart: unless-stopped
     ports:
       - "80:80"
+
+  app-pre:
+    image: ghcr.io/matadoreru/inazuma-eleven-lite:dev
+    container_name: inazuma-pre
+    restart: unless-stopped
+    ports:
+      - "8080:80"
 
   watchtower:
     image: containrrr/watchtower
