@@ -5,6 +5,9 @@ import PositionSprite from './PositionSprite'
 
 interface Props {
   warnings: LineupWarning[]
+  missingStarters: number
+  starterCount: number
+  requiredCount: number
   nameStyle: 'western' | 'japanese'
   onEditLineup: () => void
   onContinue: () => void
@@ -71,12 +74,16 @@ function WarningPlayerRow({
 }
 
 export default function PreMatchLineupWarningModal({
-  warnings, nameStyle, onEditLineup, onContinue, onCancel,
+  warnings, missingStarters, starterCount, requiredCount, nameStyle, onEditLineup, onContinue, onCancel,
 }: Props) {
   const injuredCount = warnings.filter((warning) => warning.isInjured).length
   const outOfPositionCount = warnings.filter((warning) => warning.isOutOfPosition).length
   const injuredWarnings = warnings.filter((warning) => warning.isInjured)
   const outOfPositionWarnings = warnings.filter((warning) => warning.isOutOfPosition)
+  const maxPositionPenalty = outOfPositionWarnings.reduce(
+    (max, warning) => Math.max(max, warning.positionPenaltyPercent), 0,
+  )
+  const isIncomplete = missingStarters > 0
 
   return (
     <div className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
@@ -88,17 +95,24 @@ export default function PreMatchLineupWarningModal({
           <div>
             <h2 className="text-white text-xl font-black">Problemas en el once titular</h2>
             <p className="text-gray-300 text-sm leading-relaxed mt-1">
-              Puedes disputar el partido, pero estos jugadores sufrirán una penalización importante de rendimiento.
+              {warnings.length > 0
+                ? 'Puedes disputar el partido, pero tu equipo sufrirá una penalización importante de rendimiento.'
+                : 'Puedes disputar el partido, pero tu equipo saldrá al campo en desventaja.'}
             </p>
             <div className="flex flex-wrap gap-2 mt-3">
+              {isIncomplete && (
+                <span className="rounded-full border border-orange-500/50 bg-orange-950/50 px-3 py-1 text-xs font-bold text-orange-300">
+                  Faltan {missingStarters} titular{missingStarters === 1 ? '' : 'es'} · {starterCount}/{requiredCount}
+                </span>
+              )}
               {injuredCount > 0 && (
                 <span className="rounded-full border border-red-500/40 bg-red-950/50 px-3 py-1 text-xs font-bold text-red-300">
-                  {injuredCount} lesionado{injuredCount === 1 ? '' : 's'} · −75% de rendimiento
+                  {injuredCount} lesionado{injuredCount === 1 ? '' : 's'}
                 </span>
               )}
               {outOfPositionCount > 0 && (
                 <span className="rounded-full border border-amber-500/40 bg-amber-950/40 px-3 py-1 text-xs font-bold text-amber-300">
-                  {outOfPositionCount} fuera de posición
+                  {outOfPositionCount} fuera de posición · hasta −{maxPositionPenalty}%
                 </span>
               )}
             </div>
@@ -106,6 +120,23 @@ export default function PreMatchLineupWarningModal({
         </div>
 
         <div className="overflow-y-auto p-4 space-y-5">
+          {isIncomplete && (
+            <section className="flex items-center gap-4 rounded-xl border border-orange-500/40 bg-orange-950/25 p-4">
+              <span className="w-12 h-12 rounded-full bg-orange-500/15 border border-orange-500/40 flex items-center justify-center shrink-0">
+                <Icon name="group_remove" size="md" className="text-orange-300" />
+              </span>
+              <div className="min-w-0">
+                <p className="text-white text-base font-bold">
+                  Alineación incompleta · {starterCount}/{requiredCount} titulares
+                </p>
+                <p className="text-sm text-orange-200/90 mt-1">
+                  Saldrás al campo con {missingStarters} jugador{missingStarters === 1 ? '' : 'es'} menos.
+                  Tu equipo jugará en inferioridad numérica durante todo el partido.
+                </p>
+              </div>
+            </section>
+          )}
+
           {injuredWarnings.length > 0 && (
             <section className="space-y-2">
               <h3 className="flex items-center gap-2 text-sm font-black uppercase tracking-wide text-red-300">

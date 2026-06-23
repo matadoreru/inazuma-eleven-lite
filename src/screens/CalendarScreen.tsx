@@ -101,7 +101,7 @@ function TeamBadge({
 function ResultBadge({ result }: { result: 'win' | 'draw' | 'loss' }) {
   const cfg = {
     win: { label: 'V', cls: 'bg-green-600/30 text-green-400 border-green-600/40' },
-    draw: { label: 'D', cls: 'bg-gray-700/40 text-gray-400 border-gray-600/40' },
+    draw: { label: 'D', cls: 'bg-amber-700/35 text-amber-300 border-amber-600/45' },
     loss: { label: 'L', cls: 'bg-red-700/30 text-red-400 border-red-600/40' },
   }[result]
   return (
@@ -116,8 +116,8 @@ function ResultBadge({ result }: { result: 'win' | 'draw' | 'loss' }) {
 function SectionLabel({ label }: { label: string }) {
   return (
     <div className="flex items-center gap-2">
-      <span className="text-[0.5rem] font-black uppercase tracking-widest text-gray-600 shrink-0">{label}</span>
-      <div className="flex-1 h-px bg-gold-600/20" />
+      <span className="text-[0.5rem] font-black uppercase tracking-widest text-gold-500 shrink-0">{label}</span>
+      <div className="flex-1 h-px bg-gold-600/30" />
     </div>
   )
 }
@@ -148,10 +148,10 @@ function DayDetailPanel({
   const userResult = userMatch ? getMatchResult(userMatch, userTeamId) : null
 
   return (
-    <div className="flex flex-col h-full overflow-hidden bg-dark-900 border-l border-gold-600/30">
+    <div className="flex flex-col h-full overflow-hidden bg-[#0b0b12] border-l border-gold-600/40 shadow-[-12px_0_30px_rgba(0,0,0,0.25)]">
 
       {/* Header */}
-      <div className="shrink-0 px-4 py-4 border-b border-gold-600/25 bg-dark-900">
+      <div className="shrink-0 px-4 py-4 border-b border-gold-600/35 bg-dark-800 shadow-lg">
         <div className="flex items-center gap-2">
           <h2 className="text-white font-black text-xl leading-tight">{fmtLong(selectedDate)}</h2>
           {userResult && <ResultBadge result={userResult} />}
@@ -169,7 +169,7 @@ function DayDetailPanel({
       </div>
 
       {/* Scrollable content */}
-      <div className="flex-1 overflow-y-auto bg-dark-900">
+      <div className="flex-1 overflow-y-auto bg-[#0b0b12]">
 
         {/* RESUMEN */}
         <div className="px-3 pt-3 pb-1">
@@ -183,9 +183,9 @@ function DayDetailPanel({
           </div>
         ) : (
           <div className="px-3 pb-2">
-            <div className={`mt-1.5 p-3 rounded-xl border bg-dark-800 ${
+            <div className={`mt-1.5 p-4 rounded-xl border bg-dark-800 shadow-[0_8px_22px_rgba(0,0,0,0.28)] ${
               userResult === 'win' ? 'border-green-600/55'
-              : userResult === 'draw' ? 'border-gray-600/50'
+              : userResult === 'draw' ? 'border-amber-600/50'
               : userResult === 'loss' ? 'border-red-700/55'
               : 'border-gold-600/35'
             }`}>
@@ -231,7 +231,7 @@ function DayDetailPanel({
         {otherMatches.length > 0 && (
           <div className="px-3 pt-2 pb-4">
             <SectionLabel label={`Otros partidos (${otherMatches.length})`} />
-            <div className="mt-2 rounded-xl border border-gold-600/30 overflow-hidden bg-dark-800">
+            <div className="mt-2 rounded-xl border border-gold-600/35 overflow-hidden bg-dark-800 shadow-[0_8px_22px_rgba(0,0,0,0.25)]">
               {otherMatches.map((match, i) => {
                 const home = teamById(match.homeTeamId)
                 const away = teamById(match.awayTeamId)
@@ -342,7 +342,7 @@ export default function CalendarScreen() {
           </div>
 
           {/* Right: day detail */}
-          <div className="w-80 shrink-0 border-l border-gold-600/30 overflow-hidden bg-dark-900">
+          <div className="w-80 shrink-0 overflow-hidden bg-[#0b0b12]">
             <DayDetailPanel
               selectedDate={selectedDate}
               allMatches={allMatches}
@@ -353,7 +353,7 @@ export default function CalendarScreen() {
         </div>
 
         {/* ── Bottom: upcoming 4 matches ── */}
-        <div className="shrink-0 border-t border-gold-600/20 bg-dark-950">
+        <div className="shrink-0 border-t border-gold-600/40 bg-[#08080d] shadow-[0_-10px_28px_rgba(0,0,0,0.35)]">
           <div className="flex items-stretch gap-3 px-4 py-3">
             {/* Match cards */}
             {upcoming.map((match) => {
@@ -370,10 +370,10 @@ export default function CalendarScreen() {
                     setSelectedDate(match.date)
                     setViewMonth(match.date.slice(0, 7))
                   }}
-                  className={`flex-1 flex flex-col items-center gap-1 px-2 py-2 rounded-xl border transition-all min-w-0
+                  className={`flex-1 flex flex-col items-center gap-1.5 px-3 py-2.5 rounded-xl border transition-all min-w-0 shadow-[0_6px_18px_rgba(0,0,0,0.3)]
                     ${isSel
-                      ? 'border-gold-500/75 bg-dark-950'
-                      : 'border-gold-600/25 bg-dark-950 hover:bg-dark-950 hover:border-gold-600/35'}`}
+                      ? 'border-gold-400 bg-[#211b12] ring-1 ring-gold-500/25'
+                      : 'border-gold-600/30 bg-dark-800 hover:bg-dark-700 hover:border-gold-500/60'}`}
                 >
                   <div className="flex flex-col items-center gap-0.5">
                     <span className={`text-xs font-black tabular-nums ${isSel ? 'text-gold-400' : 'text-gray-400'}`}>
@@ -388,6 +388,9 @@ export default function CalendarScreen() {
                     <span className="text-gray-500 text-[0.5625rem] font-black">VS</span>
                     <TeamBadge team={opponent} size="md" />
                   </div>
+                  <p className="max-w-full truncate text-[0.6rem] text-gray-400 font-semibold">
+                    {isHome ? 'Local' : 'Visitante'} · {matchLabel(match)}
+                  </p>
                 </button>
               )
             })}
@@ -396,7 +399,7 @@ export default function CalendarScreen() {
             {Array.from({ length: Math.max(0, 4 - upcoming.length) }, (_, i) => (
               <div
                 key={`pad-${i}`}
-                className="flex-1 rounded-xl border border-gold-600/20 bg-dark-950 flex items-center justify-center"
+                className="flex-1 rounded-xl border border-gold-600/20 bg-dark-800 flex items-center justify-center"
               >
                 <span className="text-gray-700 text-xs">—</span>
               </div>

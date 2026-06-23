@@ -12,8 +12,48 @@ export interface LineupWarning {
   totalPenaltyPercent: number
 }
 
+export interface LineupValidation {
+  warnings: LineupWarning[]
+  /** Number of starter slots filled with an existing player. */
+  starterCount: number
+  /** Number of starters the active formation requires (normally 11). */
+  requiredCount: number
+  /** How many starters are missing to complete the formation. */
+  missingStarters: number
+}
+
+export const REQUIRED_STARTER_COUNT = 11
+
 export function isPlayerOutOfPosition(player: Player, assignedPosition: Position): boolean {
   return player.position !== assignedPosition && player.positionAlt !== assignedPosition
+}
+
+export function getRequiredStarterCount(_team: Team): number {
+  return REQUIRED_STARTER_COUNT
+}
+
+export function getStarterCount(team: Team, players: Player[]): number {
+  const ids = new Set(players.map((player) => player.id))
+  return new Set(
+    team.lineup
+      .filter((slot) => slot.isStarter && ids.has(slot.playerId))
+      .map((slot) => slot.playerId),
+  ).size
+}
+
+export function validateStartingLineup(team: Team, players: Player[]): LineupValidation {
+  const starterCount = getStarterCount(team, players)
+  const requiredCount = getRequiredStarterCount(team)
+  return {
+    warnings: getStartingLineupWarnings(team, players),
+    starterCount,
+    requiredCount,
+    missingStarters: Math.max(0, requiredCount - starterCount),
+  }
+}
+
+export function lineupHasIssues(validation: LineupValidation): boolean {
+  return validation.warnings.length > 0 || validation.missingStarters > 0
 }
 
 export function getStartingLineupWarnings(team: Team, players: Player[]): LineupWarning[] {

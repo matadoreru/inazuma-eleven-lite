@@ -1,8 +1,7 @@
 import type { TechniqueBook } from './inventory'
 import type { EquipmentItem } from './equipment'
-import type { Stats } from './player'
 
-export type MatchRewardType = 'technique_book' | 'money' | 'stat_boost' | 'equipment'
+export type MatchRewardType = 'technique_book' | 'money' | 'equipment'
 export type RewardRarity = 'common' | 'uncommon' | 'special' | 'rare' | 'legendary'
 
 export const REWARD_RARITY_LABELS: Record<RewardRarity, string> = {
@@ -18,6 +17,5 @@ export interface MatchReward {
   rarity: RewardRarity
   techniqueBook?: TechniqueBook
   moneyAmount?: number
-  statBoost?: { playerId: number; playerName: string; stat: keyof Stats; amount: number }
   equipmentItem?: EquipmentItem
 }

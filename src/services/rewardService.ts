@@ -197,15 +197,15 @@ function generateEquipmentReward(rarity: RewardRarity): MatchReward {
 function generateMoneyReward(rarity: RewardRarity): MatchReward {
   let amountK: number
   if (rarity === 'common') {
-    amountK = randomInt(5, 15)
+    amountK = randomInt(2, 6)
   } else if (rarity === 'uncommon') {
-    amountK = randomInt(12, 25)
+    amountK = randomInt(5, 10)
   } else if (rarity === 'special') {
-    amountK = randomInt(25, 45)
+    amountK = randomInt(10, 18)
   } else if (rarity === 'rare') {
-    amountK = randomInt(45, 75)
+    amountK = randomInt(18, 30)
   } else {
-    amountK = randomInt(75, 120)
+    amountK = randomInt(30, 50)
   }
   return {
     type: 'money',
@@ -278,47 +278,6 @@ function generateTechniqueBookReward(rarity: RewardRarity): MatchReward {
   }
 }
 
-const POSITION_STATS: Record<Player['position'], Array<keyof Stats>> = {
-  GK: ['POT', 'CON'],
-  DF: ['PRE', 'FIS'],
-  MD: ['TEC', 'INT'],
-  FW: ['POT', 'TEC'],
-}
-
-function generateStatBoostReward(
-  rarity: RewardRarity,
-  starters: Player[],
-  nameStyle: 'western' | 'japanese' = 'western',
-): MatchReward {
-  const player = pickRandom(starters)
-  const statChoices = POSITION_STATS[player.position]
-  const stat = pickRandom(statChoices) as keyof Stats
-
-  let amount: number
-  if (rarity === 'common') {
-    amount = randomInt(1, 2)
-  } else if (rarity === 'uncommon') {
-    amount = randomInt(2, 3)
-  } else if (rarity === 'special') {
-    amount = randomInt(3, 4)
-  } else if (rarity === 'rare') {
-    amount = randomInt(4, 6)
-  } else {
-    amount = randomInt(6, 8)
-  }
-
-  return {
-    type: 'stat_boost',
-    rarity,
-    statBoost: {
-      playerId: player.id,
-      playerName: nameStyle === 'japanese' ? player.nameRomaji : player.name,
-      stat,
-      amount,
-    },
-  }
-}
-
 // ---------------------------------------------------------------------------
 // Main reward generation
 // ---------------------------------------------------------------------------
@@ -327,10 +286,10 @@ export function generateMatchRewards(
   match: Match,
   userTeam: Team,
   rivalTeam: Team,
-  starters: Player[],
+  _starters: Player[],
   rewardChoices: number,
   result?: Pick<MatchResult, 'homeGoals' | 'awayGoals'>,
-  nameStyle: 'western' | 'japanese' = 'western',
+  _nameStyle: 'western' | 'japanese' = 'western',
 ): MatchReward[] {
   const isCupMatch = match.type === 'cup'
   const baseDifficulty = calcMatchDifficulty(
@@ -348,10 +307,6 @@ export function generateMatchRewards(
     generateMoneyReward(rarity),
     generateTechniqueBookReward(rarity),
   ]
-
-  if (starters.length > 0) {
-    candidates.push(generateStatBoostReward(rarity, starters, nameStyle))
-  }
 
   // Shuffle and take first rewardChoices items
   const shuffled = shuffleArray(candidates)

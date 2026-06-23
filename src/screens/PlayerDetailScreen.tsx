@@ -4,6 +4,7 @@ import { useCareerStore } from '../store/careerStore'
 import StatBar, { statColor } from '../components/StatBar'
 import TechniqueBadge from '../components/TechniqueBadge'
 import { formatMoney } from '../utils/formatMoney'
+import { formatMoneyInput, parseMoneyInput } from '../utils/moneyInput'
 import ElementBadge from '../components/ElementBadge'
 import PositionSprite from '../components/PositionSprite'
 import Icon from '../components/Icon'
@@ -349,7 +350,7 @@ function PotentialSection({
     'text-gray-400'
 
   return (
-    <div className="panel rounded-xl overflow-hidden">
+    <div className="rounded-2xl border border-gold-600/40 bg-[#0b0b12] overflow-hidden shadow-xl">
       {/* Header */}
       <div className="px-4 py-3 border-b border-gold-600/20 flex items-center justify-between">
         <div className="flex items-center gap-2">
@@ -497,8 +498,8 @@ function EquipmentSection({
 
   return (
     <div className="panel rounded-xl overflow-hidden">
-      <div className="px-4 py-3 border-b border-gold-600/20">
-        <h2 className="text-white text-sm font-semibold">Equipamiento</h2>
+      <div className="px-4 py-3 border-b border-gold-600/30 bg-dark-800">
+        <h2 className="text-white text-base font-bold">Equipamiento</h2>
       </div>
       <div className="p-3 flex flex-col gap-2">
         {SLOTS.map((slot) => {
@@ -512,7 +513,7 @@ function EquipmentSection({
                 className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg border transition-colors text-left ${
                   item
                     ? 'border-amber-700/40 bg-amber-900/10 hover:bg-amber-900/20'
-                    : 'border-gold-600/20 bg-dark-700/20 hover:bg-dark-700/40'
+                    : 'border-gold-600/25 bg-dark-700 hover:bg-dark-600'
                 }`}
               >
                 <Icon
@@ -571,6 +572,103 @@ function EquipmentSection({
         })}
       </div>
     </div>
+  )
+}
+
+function PlayerStatsOverview({ player, total, media }: { player: Player; total: number; media: number }) {
+  return (
+    <section className="rounded-2xl border border-gold-600/40 bg-[#0b0b12] overflow-hidden shadow-xl">
+      <div className="flex items-center justify-between gap-4 px-5 py-4 border-b border-gold-600/30 bg-dark-800">
+        <div>
+          <h2 className="text-white text-lg font-black">Estadísticas</h2>
+          <p className="text-gray-400 text-xs mt-0.5">Rendimiento actual del jugador</p>
+        </div>
+        <div className="flex items-center gap-3">
+          <div className="min-w-24 rounded-xl border border-gold-600/30 bg-dark-700 px-4 py-2 text-center">
+            <p className="text-gray-400 text-[0.625rem] uppercase tracking-wide">Total</p>
+            <p className="text-white text-2xl font-black tabular-nums">{total}</p>
+          </div>
+          <div className="min-w-24 rounded-xl border border-gold-500/50 bg-[#211b12] px-4 py-2 text-center">
+            <p className="text-gold-400 text-[0.625rem] uppercase tracking-wide">Media</p>
+            <p className="text-3xl font-black tabular-nums" style={{ color: statColor(media, 250) }}>{media}</p>
+          </div>
+        </div>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3 p-4">
+        {STAT_KEYS.map((stat) => (
+          <div key={stat} className="rounded-xl border border-gold-600/20 bg-dark-800 p-3">
+            <StatBar label={stat} value={player.stats[stat]} max={250} />
+          </div>
+        ))}
+        <div className="rounded-xl border border-gold-600/20 bg-dark-800 p-3 grid grid-cols-3 gap-2 text-center">
+          <div><p className="text-white font-black">{player.seasonStats.goals}</p><p className="text-gray-500 text-[0.6rem]">Goles</p></div>
+          <div><p className="text-white font-black">{player.seasonStats.assists}</p><p className="text-gray-500 text-[0.6rem]">Asist.</p></div>
+          <div><p className="text-white font-black">{player.seasonStats.matchesPlayed}</p><p className="text-gray-500 text-[0.6rem]">Partidos</p></div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function PlayerTechniquesSection({
+  player,
+  bookCount,
+  editable,
+  onEdit,
+}: {
+  player: Player
+  bookCount: number
+  editable: boolean
+  onEdit: (kind: 'normal' | 'improvement', slotIndex: number) => void
+}) {
+  const normalTechs = getNormalTechniques(player)
+  const improveTechs = getImprovementTechniques(player)
+
+  function renderSlots(kind: 'normal' | 'improvement', max: number, techniques: typeof normalTechs) {
+    return Array.from({ length: max }, (_, index) => {
+      const technique = techniques[index]
+      return (
+        <div key={index} className={`flex items-center gap-2 px-3 py-2.5 rounded-xl border ${
+          technique ? 'border-gold-600/25 bg-dark-700' : 'border-dashed border-gold-600/25 bg-[#0d0d15]'
+        }`}>
+          {technique ? (
+            <>
+              <TechniqueBadge technique={technique} />
+              <div className="flex-1" />
+              {editable && (
+                <button onClick={() => onEdit(kind, index)} className="p-1.5 rounded-lg text-gray-400 hover:text-gold-400 hover:bg-dark-600" title="Cambiar técnica">
+                  <Icon name="swap_horiz" size="xs" />
+                </button>
+              )}
+            </>
+          ) : (
+            <button onClick={() => editable && onEdit(kind, index)} disabled={!editable} className="w-full flex items-center gap-2 text-gray-500 hover:text-gold-400 disabled:hover:text-gray-500">
+              <Icon name="add" size="xs" />
+              <span className="text-xs">Ranura vacía</span>
+            </button>
+          )}
+        </div>
+      )
+    })
+  }
+
+  return (
+    <section className="rounded-2xl border border-gold-600/40 bg-[#0b0b12] overflow-hidden shadow-xl">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-gold-600/30 bg-dark-800">
+        <h2 className="text-white text-base font-bold">Supertécnicas</h2>
+        {bookCount > 0 && <span className="text-gold-400 text-xs font-semibold">{bookCount} libro{bookCount === 1 ? '' : 's'}</span>}
+      </div>
+      <div className="p-4 space-y-4">
+        <div>
+          <p className="text-gray-400 text-xs font-bold uppercase tracking-wide mb-2">Habilidad ({normalTechs.length}/{MAX_NORMAL_TECHNIQUES})</p>
+          <div className="space-y-2">{renderSlots('normal', MAX_NORMAL_TECHNIQUES, normalTechs)}</div>
+        </div>
+        <div>
+          <p className="text-gray-400 text-xs font-bold uppercase tracking-wide mb-2">Pasiva ({improveTechs.length}/{MAX_IMPROVEMENT_TECHNIQUES})</p>
+          <div className="space-y-2">{renderSlots('improvement', MAX_IMPROVEMENT_TECHNIQUES, improveTechs)}</div>
+        </div>
+      </div>
+    </section>
   )
 }
 
@@ -653,7 +751,7 @@ export default function PlayerDetailScreen() {
   const isAtLimit = calledUpIds.size >= MAX_CALLUP
   const benchPlayers = players.filter((p) => benchIds.has(p.id))
 
-  // Potential
+  // Kept for compatibility with existing analysis data, but no longer shown on this screen.
   const analysis = career.playerPotential?.[player.id] ?? null
   const nextTier = analysis ? getNextAnalysisTier(analysis) : null
   const analysisCost = (analysis && nextTier && userTeam)
@@ -710,6 +808,7 @@ export default function PlayerDetailScreen() {
   }
 
   const statusLabel = isStarter ? 'TIT' : isBench ? 'SUP' : 'NC'
+  const statusFullLabel = isStarter ? 'Titular' : isBench ? 'Suplente' : 'No convocado'
   const statusStyle = isStarter
     ? 'bg-gold-600/30 text-gold-400 border border-gold-600/40'
     : isBench
@@ -723,7 +822,7 @@ export default function PlayerDetailScreen() {
       <main className="h-full flex flex-col overflow-hidden">
 
           {/* ── Hero strip ── */}
-          <div className="shrink-0 flex items-center gap-3 px-3 py-2.5 border-b border-gold-600/20">
+          <div className="shrink-0 flex items-center gap-5 px-5 py-4 border-b border-gold-600/40 bg-[#0a0a10] shadow-[0_8px_25px_rgba(0,0,0,0.35)]">
             <button
               onClick={() => navigate(previousScreen ?? 'squad')}
               className="text-gray-500 hover:text-white transition-colors shrink-0 p-1"
@@ -736,26 +835,23 @@ export default function PlayerDetailScreen() {
               <img
                 src={player.spriteUrl}
                 alt={playerDisplayName(player, nameStyle)}
-                className="w-14 h-14 object-contain rounded-lg bg-dark-800/70"
+                className="w-24 h-24 object-contain rounded-2xl bg-dark-800 border border-gold-600/35 shadow-xl"
                 onError={(e) => {
                   ;(e.currentTarget as HTMLImageElement).src =
                     "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56'%3E%3Crect width='56' height='56' rx='8' fill='%234b5563'/%3E%3C/svg%3E"
                 }}
               />
               <div className="absolute -bottom-1 -right-1 bg-dark-900/90 rounded-md p-0.5 border border-gold-600/30">
-                <PositionSprite position={player.position} size={20} />
+                <PositionSprite position={player.position} size={28} />
               </div>
             </div>
 
             {/* Identity */}
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-1.5 flex-wrap">
-                <h1 className="text-white text-base font-bold leading-tight">{playerDisplayName(player, nameStyle)}</h1>
-                <span className={`text-[0.625rem] font-bold px-1.5 py-0.5 rounded shrink-0 ${statusStyle}`}>{statusLabel}</span>
+                <h1 className="text-white text-2xl font-black leading-tight">{playerDisplayName(player, nameStyle)}</h1>
+                <span className={`text-xs font-bold px-2.5 py-1 rounded-lg shrink-0 ${statusStyle}`}>{statusFullLabel}</span>
                 <ElementBadge element={player.element} size="sm" />
-                {player.jerseyNumber > 0 && (
-                  <span className="text-gray-500 text-xs shrink-0">#{player.jerseyNumber}</span>
-                )}
                 {player.isInjured && (
                   <span className="bg-red-800 text-red-200 text-[0.625rem] px-1.5 py-0.5 rounded font-semibold shrink-0">Lesionado</span>
                 )}
@@ -763,26 +859,22 @@ export default function PlayerDetailScreen() {
                   <span className="bg-yellow-800 text-yellow-200 text-[0.625rem] px-1.5 py-0.5 rounded font-semibold shrink-0">Sancionado</span>
                 )}
               </div>
-              <p className="text-gray-600 text-[0.625rem] truncate leading-tight">{nameStyle === 'japanese' ? player.name : player.nameRomaji}</p>
-              <span className="text-gray-500 text-xs">Stamina <span className="text-amber-400">{player.stamina}%</span></span>
-            </div>
-
-            {/* Rating */}
-            <div className="shrink-0 text-right px-2">
-              <p className="text-3xl font-extrabold leading-none tabular-nums" style={{ color: statColor(media, 250) }}>{media}</p>
-              <p className="text-gray-600 text-[0.5rem]">Media</p>
-              <p className="text-gray-400 text-sm font-semibold tabular-nums">{total}</p>
-              <p className="text-gray-600 text-[0.5rem]">Total</p>
+              <p className="text-gray-400 text-sm truncate mt-1">{nameStyle === 'japanese' ? player.name : player.nameRomaji}</p>
+              <div className="flex items-center gap-3 mt-2">
+                <span className="text-gray-300 text-sm">Energía <span className="text-amber-400 font-bold">{player.stamina}%</span></span>
+                {player.jerseyNumber > 0 && <span className="text-gray-400 text-sm">Dorsal <span className="text-white font-bold">#{player.jerseyNumber}</span></span>}
+              </div>
             </div>
 
             {/* Action buttons */}
             {isInUserTeam && (
-              <div className="shrink-0 flex flex-col gap-1">
+              <div className="shrink-0 min-w-44 rounded-xl border border-gold-600/35 bg-dark-800 p-2.5 flex flex-col gap-2">
+                <p className="text-gold-400 text-[0.55rem] font-black uppercase tracking-widest px-1">Acciones</p>
                 {!isStarter && !isBench && (
                   <button
                     onClick={handleCallUp}
                     disabled={isAtLimit}
-                    className="flex items-center gap-1 px-2 py-1 bg-green-700 hover:bg-green-600 disabled:opacity-40 disabled:cursor-not-allowed text-white rounded text-xs font-semibold transition-colors"
+                    className="flex items-center justify-center gap-2 px-3 py-2 bg-gold-600 hover:bg-gold-500 disabled:opacity-40 disabled:cursor-not-allowed text-dark-900 rounded-lg text-xs font-bold transition-colors"
                   >
                     <Icon name="person_add" size="xs" />
                     Convocar
@@ -791,7 +883,7 @@ export default function PlayerDetailScreen() {
                 {isBench && (
                   <button
                     onClick={() => removeCallupPlayer(player.id)}
-                    className="flex items-center gap-1 px-2 py-1 bg-orange-700 hover:bg-orange-600 text-white rounded text-xs font-semibold transition-colors"
+                    className="flex items-center justify-center gap-2 px-3 py-2 bg-dark-700 hover:bg-dark-600 text-gray-200 rounded-lg text-xs font-semibold transition-colors"
                   >
                     <Icon name="person_remove" size="xs" />
                     Desconvocar
@@ -799,14 +891,14 @@ export default function PlayerDetailScreen() {
                 )}
                 <button
                   onClick={() => setShowJerseyModal(true)}
-                  className="flex items-center gap-1 px-2 py-1 bg-dark-700/60 hover:bg-gold-600/25 text-gold-300 border border-gold-500/60 rounded text-xs font-semibold transition-colors"
+                  className="flex items-center justify-center gap-2 px-3 py-2 bg-dark-700 hover:bg-gold-600/20 text-gold-300 border border-gold-500/50 rounded-lg text-xs font-bold transition-colors"
                 >
                   <Icon name="tag" size="xs" />
-                  Dorsal
+                  Cambiar dorsal
                 </button>
                 <button
                   onClick={() => setShowSellModal(true)}
-                  className="flex items-center gap-1 px-2 py-1 bg-red-700 hover:bg-red-600 text-white rounded text-xs font-semibold transition-colors"
+                  className="flex items-center justify-center gap-2 px-3 py-2 bg-red-800 hover:bg-red-700 text-red-100 border border-red-700 rounded-lg text-xs font-bold transition-colors"
                 >
                   <Icon name="sell" size="xs" />
                   Vender
@@ -931,7 +1023,7 @@ export default function PlayerDetailScreen() {
                 {recentNegotiation && recentNegotiation.phase === 'failed' && (
                   <div className="flex flex-col gap-1">
                     <span className="text-red-400 text-[0.625rem]">{getNegotiationFailureFeedback(recentNegotiation).title}</span>
-                    <span className="text-red-300/80 text-[0.625rem] leading-relaxed max-w-[14rem]">{getNegotiationFailureFeedback(recentNegotiation).body}</span>
+                    <span className="rounded-lg border border-red-700/35 bg-red-950/30 px-2.5 py-2 text-red-200 text-xs leading-relaxed max-w-[17rem]">{getNegotiationFailureFeedback(recentNegotiation).body}</span>
                     <button
                       onClick={() => { setOfferInput(String(marketValueForOffer)); setShowOfferModal(true) }}
                       className="flex items-center gap-1 px-2 py-1 bg-dark-700/60 hover:bg-gold-600/25 text-gold-300 border border-gold-500/60 rounded text-xs font-semibold transition-colors"
@@ -960,8 +1052,30 @@ export default function PlayerDetailScreen() {
             )}
           </div>
 
+          {/* ── Main player information ── */}
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-[#08080d]">
+            <PlayerStatsOverview player={player} total={total} media={media} />
+
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 items-start">
+              <PlayerTechniquesSection
+                player={player}
+                bookCount={Object.values(career.inventory.techniqueBooks).filter((quantity) => quantity > 0).length}
+                editable={isInUserTeam}
+                onEdit={(kind, slotIndex) => setTechModal({ kind, slotIndex })}
+              />
+              {isInUserTeam && (
+                <EquipmentSection
+                  player={player}
+                  inventoryItems={career.inventory.equipmentItems}
+                  onEquip={(itemId) => equipItemAction(player.id, itemId)}
+                  onUnequip={(slot) => unequipItemAction(player.id, slot)}
+                />
+              )}
+            </div>
+          </div>
+
           {/* ── 3-column body ── */}
-          <div className="flex flex-1 overflow-hidden">
+          <div className="hidden">
 
             {/* Left: Stats + Season */}
             <div className="w-52 shrink-0 border-r border-gold-600/20 overflow-y-auto p-3 flex flex-col gap-3">
@@ -1196,18 +1310,20 @@ export default function PlayerDetailScreen() {
             <div className="space-y-1.5">
               <label className="text-gray-400 text-xs">Tu oferta (¥)</label>
               <input
-                type="number"
-                value={activeNegotiation?.counterAmount ? counterInput : offerInput}
-                onChange={(e) => activeNegotiation?.counterAmount ? setCounterInput(e.target.value) : setOfferInput(e.target.value)}
+                type="text"
+                inputMode="numeric"
+                value={formatMoneyInput(activeNegotiation?.counterAmount ? counterInput : offerInput)}
+                onChange={(e) => activeNegotiation?.counterAmount
+                  ? setCounterInput(formatMoneyInput(e.target.value))
+                  : setOfferInput(formatMoneyInput(e.target.value))}
                 className="w-full bg-dark-700/80 border border-gold-600/30 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-gold-500"
-                min={1}
               />
             </div>
 
             <button
               onClick={() => {
-                const raw = activeNegotiation?.counterAmount ? parseInt(counterInput) : parseInt(offerInput)
-                if (isNaN(raw) || raw <= 0) return
+                const raw = parseMoneyInput(activeNegotiation?.counterAmount ? counterInput : offerInput)
+                if (raw <= 0) return
                 if (activeNegotiation?.counterAmount) {
                   respondToCounterOffer(activeNegotiation.id, 'counter', raw)
                 } else {

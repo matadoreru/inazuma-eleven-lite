@@ -84,26 +84,26 @@ export default function CalendarMonth({
   ]
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full bg-dark-900">
       {/* Month nav */}
-      <div className="flex items-center justify-between px-4 py-2.5 border-b border-gold-600/30 shrink-0 bg-dark-900/90">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-gold-600/40 shrink-0 bg-[#0d0d15] shadow-[0_8px_24px_rgba(0,0,0,0.25)] z-10">
         <button
           onClick={onPrevMonth}
           disabled={!canGoPrev}
-          className={`flex items-center gap-1 px-3 py-1.5 rounded bg-dark-800/80 border border-gold-600/30 text-gold-500 hover:text-gold-300 hover:border-gold-500 text-[0.45rem] font-pixel uppercase tracking-wide transition-all ${!canGoPrev ? 'opacity-30 cursor-not-allowed pointer-events-none' : ''}`}
+          className={`flex items-center gap-1 px-3 py-2 rounded-md bg-dark-800 border border-gold-600/40 text-gold-400 hover:text-gold-300 hover:border-gold-500 hover:bg-dark-700 text-[0.45rem] font-pixel uppercase tracking-wide transition-all ${!canGoPrev ? 'opacity-30 cursor-not-allowed pointer-events-none' : ''}`}
         >
           <span className="material-icons select-none leading-none" style={{ fontSize: 14 }}>chevron_left</span>
           Anterior
         </button>
 
-        <h2 className="text-gold-400 font-pixel text-[0.55rem] uppercase tracking-widest select-none">
+        <h2 className="text-gold-300 font-pixel text-[0.6rem] uppercase tracking-[0.18em] select-none">
           {MONTH_NAMES[month - 1]} {year}
         </h2>
 
         <button
           onClick={onNextMonth}
           disabled={!canGoNext}
-          className={`flex items-center gap-1 px-3 py-1.5 rounded bg-dark-800/80 border border-gold-600/30 text-gold-500 hover:text-gold-300 hover:border-gold-500 text-[0.45rem] font-pixel uppercase tracking-wide transition-all ${!canGoNext ? 'opacity-30 cursor-not-allowed pointer-events-none' : ''}`}
+          className={`flex items-center gap-1 px-3 py-2 rounded-md bg-dark-800 border border-gold-600/40 text-gold-400 hover:text-gold-300 hover:border-gold-500 hover:bg-dark-700 text-[0.45rem] font-pixel uppercase tracking-wide transition-all ${!canGoNext ? 'opacity-30 cursor-not-allowed pointer-events-none' : ''}`}
         >
           Siguiente
           <span className="material-icons select-none leading-none" style={{ fontSize: 14 }}>chevron_right</span>
@@ -111,9 +111,9 @@ export default function CalendarMonth({
       </div>
 
       {/* Day labels */}
-      <div className="grid grid-cols-7 shrink-0 border-b border-gold-600/20 bg-dark-900/80">
+      <div className="grid grid-cols-7 shrink-0 border-b border-gold-600/30 bg-dark-800">
         {DAY_LABELS.map((d) => (
-          <div key={d} className="text-center text-gold-700 text-[0.4rem] font-pixel uppercase tracking-widest py-1.5">
+          <div key={d} className="text-center text-gray-300 text-[0.4rem] font-pixel uppercase tracking-widest py-2">
             {d}
           </div>
         ))}
@@ -121,12 +121,12 @@ export default function CalendarMonth({
 
       {/* Grid */}
       <div
-        className="flex-1 grid grid-cols-7 gap-px bg-gold-600/10 min-h-0"
+        className="flex-1 grid grid-cols-7 gap-px bg-gold-600/25 min-h-0"
         style={{ gridTemplateRows: `repeat(${totalCells / 7}, 1fr)` }}
       >
         {cells.map((day, idx) => {
           if (day === null) {
-             return <div key={`pad-${idx}`} className="bg-dark-900/90" />
+             return <div key={`pad-${idx}`} className="bg-[#09090f]" />
           }
 
           const date = dateStr(year, month, day)
@@ -139,32 +139,33 @@ export default function CalendarMonth({
           const isSelected = date === selectedDate
           const isPast = date < currentDate
 
-          let bgClass = 'bg-dark-800/95'
+          let bgClass = 'bg-[#11111a]'
           let ringClass = ''
           if (isSelected) {
-            ringClass = 'ring-1 ring-inset ring-gold-500'
+            bgClass = 'bg-[#211b13]'
+            ringClass = 'ring-2 ring-inset ring-gold-400'
+          } else if (isPast) {
+            bgClass = 'bg-[#09090f]'
           } else if (result === 'win') {
-            bgClass = 'bg-green-900/75'
+            bgClass = 'bg-[#13251b]'
           } else if (result === 'draw') {
-            bgClass = 'bg-gray-800/85'
+            bgClass = 'bg-[#242014]'
           } else if (result === 'loss') {
-            bgClass = 'bg-red-900/70'
+            bgClass = 'bg-[#291519]'
           } else if (hasUserCupMatch) {
-            bgClass = 'bg-yellow-900/75'
+            bgClass = 'bg-[#292110]'
           } else if (hasUserLeagueMatch) {
-            bgClass = 'bg-green-900/80'
+            bgClass = 'bg-[#13231c]'
           } else if (isToday) {
-            bgClass = 'bg-dark-800/95'
-            ringClass = 'ring-1 ring-inset ring-gold-600/50'
+            bgClass = 'bg-[#191721]'
+            ringClass = 'ring-1 ring-inset ring-gold-600/70'
           }
 
           const isClickable = !!onDayClick
-          const dimmed = isPast && !hasUserMatch && !isSelected
-
           const dayNumberColor = isSelected
             ? 'text-gold-300'
             : result === 'win' ? 'text-green-300'
-            : result === 'draw' ? 'text-gray-300'
+            : result === 'draw' ? 'text-amber-200'
             : result === 'loss' ? 'text-red-300'
             : hasUserMatch ? 'text-green-100'
             : isToday ? 'text-gold-400'
@@ -176,8 +177,7 @@ export default function CalendarMonth({
               onClick={() => onDayClick?.(date)}
               className={`relative overflow-hidden transition-all select-none
                 ${bgClass} ${ringClass}
-                ${isClickable ? 'cursor-pointer hover:brightness-110' : ''}
-                ${dimmed ? 'opacity-65' : ''}`}
+                ${isClickable ? 'cursor-pointer hover:brightness-125 hover:z-[1]' : ''}`}
             >
               <span className={`absolute top-1.5 left-2 text-sm font-bold leading-none ${dayNumberColor}`}>
                 {day}
@@ -199,7 +199,7 @@ export default function CalendarMonth({
                 <img
                   src={info.opponentBadgeUrl ?? '/teams/default_team_icon.png'}
                   alt={info.opponentName}
-                  className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[42%] w-10 h-10 object-contain rounded bg-black/20 p-1 opacity-95"
+                  className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[42%] w-11 h-11 object-contain rounded-lg bg-black/30 border border-white/5 p-1 opacity-100 shadow-lg"
                   onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/teams/default_team_icon.png' }}
                 />
               )}
@@ -208,7 +208,7 @@ export default function CalendarMonth({
               {hasUserMatch && (
                 result ? (
                   <div className={`absolute bottom-1 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full flex items-center justify-center text-[0.4rem] font-black text-white
-                    ${result === 'win' ? 'bg-green-500' : result === 'draw' ? 'bg-gray-500' : 'bg-red-600'}`}
+                    ${result === 'win' ? 'bg-green-500' : result === 'draw' ? 'bg-amber-600' : 'bg-red-600'}`}
                   >
                     {result === 'win' ? 'V' : result === 'draw' ? 'D' : 'L'}
                   </div>
@@ -221,7 +221,7 @@ export default function CalendarMonth({
               )}
 
               {!hasUserMatch && !isPast && (
-                <span className="absolute bottom-1.5 left-0 right-0 text-center text-[0.65rem] text-gray-700 uppercase tracking-wide leading-none">
+                <span className="absolute bottom-1.5 left-0 right-0 text-center text-[0.6rem] text-gray-600 uppercase tracking-widest leading-none">
                   Libre
                 </span>
               )}

@@ -142,6 +142,40 @@ afterEach(() => {
 })
 
 describe('careerStore season end flow', () => {
+  it('does not start a new season while objective rewards remain unclaimed', () => {
+    const career = {
+      ...makeCareer([]),
+      seasonStatus: 'review' as const,
+      objectives: [{
+        id: 'objective-unclaimed',
+        type: 'WIN_MATCHES' as const,
+        description: 'Gana un partido',
+        target: 1,
+        current: 1,
+        completed: true,
+        failed: false,
+        claimed: false,
+        penaltyApplied: false,
+        reward: { money: 10_000, reputation: 2 },
+        penalty: { reputation: 0 },
+        isMandatory: false,
+      }],
+    }
+    useCareerStore.setState({
+      career,
+      players: [],
+      teams: [makeTeam(1, 'league-1'), makeTeam(2, 'league-1')],
+      leagues: testLeagues,
+      screen: 'season_review',
+    })
+
+    useCareerStore.getState().startNewSeason('normal')
+
+    expect(useCareerStore.getState().career?.seasonNumber).toBe(1)
+    expect(useCareerStore.getState().career?.seasonStatus).toBe('review')
+    expect(useCareerStore.getState().screen).toBe('season_review')
+  })
+
   it('advanceDay resolves pending external matches and transitions to season review', () => {
     useCareerStore.setState({
       career: {
@@ -180,7 +214,7 @@ describe('careerStore season end flow', () => {
     expect(state.career?.allLeagueSeasons['league-2'].finished).toBe(true)
   })
 
-  it('simulateAllRemainingAndClose starts the next season automatically', () => {
+  it('simulateAllRemainingAndClose stops at the season review', () => {
     useCareerStore.setState({
       career: makeCareer([makeMatch('ext-future', '2026-08-15', 3, 4)]),
       players: [],
@@ -192,9 +226,10 @@ describe('careerStore season end flow', () => {
     useCareerStore.getState().simulateAllRemainingAndClose()
 
     const state = useCareerStore.getState()
-    expect(state.career?.seasonNumber).toBe(2)
-    expect(state.career?.season.year).toBe(2027)
-    expect(state.career?.seasonStatus).toBe('active')
-    expect(state.screen).toBe('career_home')
+    expect(state.career?.seasonNumber).toBe(1)
+    expect(state.career?.season.year).toBe(2026)
+    expect(state.career?.seasonStatus).toBe('review')
+    expect(state.career?.lastSeasonReview).not.toBeNull()
+    expect(state.screen).toBe('season_review')
   })
 })

@@ -171,12 +171,21 @@ describe('generateMatchRewards', () => {
   })
 
   it('all rewards have valid type (run 10 times)', () => {
-    const validTypes = new Set(['technique_book', 'money', 'stat_boost', 'equipment'])
+    const validTypes = new Set(['technique_book', 'money', 'equipment'])
     for (let i = 0; i < 10; i++) {
       const rewards = generateMatchRewards(match, userTeam, rivalTeam, starters, 3)
       for (const reward of rewards) {
         expect(validTypes.has(reward.type)).toBe(true)
       }
+    }
+  })
+
+  it('never grants permanent player stat boosts', () => {
+    for (let i = 0; i < 20; i++) {
+      const rewards = generateMatchRewards(match, userTeam, rivalTeam, starters, 3)
+      expect(rewards.map((reward) => reward.type).sort()).toEqual(
+        ['equipment', 'money', 'technique_book'],
+      )
     }
   })
 
@@ -222,10 +231,10 @@ describe('generateMatchRewards', () => {
     )
 
     expect(rewards.every((r) => r.rarity === 'legendary')).toBe(true)
-    expect(rewards.find((r) => r.type === 'money')?.moneyAmount).toBeGreaterThanOrEqual(75_000)
+    expect(rewards.find((r) => r.type === 'money')?.moneyAmount).toBeGreaterThanOrEqual(30_000)
+    expect(rewards.find((r) => r.type === 'money')?.moneyAmount).toBeLessThanOrEqual(50_000)
     expect(rewards.find((r) => r.type === 'equipment')?.equipmentItem?.tier).toBe(3)
     expect(rewards.find((r) => r.type === 'technique_book')?.techniqueBook?.technique.POT).toBeGreaterThanOrEqual(82)
-    expect(rewards.find((r) => r.type === 'stat_boost')?.statBoost?.amount).toBeGreaterThanOrEqual(6)
   })
 
   it('downgrades all reward ranges after a hard loss', () => {
@@ -240,9 +249,8 @@ describe('generateMatchRewards', () => {
     )
 
     expect(rewards.every((r) => r.rarity === 'common')).toBe(true)
-    expect(rewards.find((r) => r.type === 'money')?.moneyAmount).toBeLessThanOrEqual(15_000)
+    expect(rewards.find((r) => r.type === 'money')?.moneyAmount).toBeLessThanOrEqual(6_000)
     expect(rewards.find((r) => r.type === 'equipment')?.equipmentItem?.tier).toBe(1)
     expect(rewards.find((r) => r.type === 'technique_book')?.techniqueBook?.technique.POT).toBeLessThanOrEqual(28)
-    expect(rewards.find((r) => r.type === 'stat_boost')?.statBoost?.amount).toBeLessThanOrEqual(2)
   })
 })

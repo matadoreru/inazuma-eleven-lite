@@ -13,8 +13,8 @@ import { leagues } from '../data/leagues'
 import type { Match } from '../types/competition'
 import type { Team } from '../types/team'
 import PreMatchLineupWarningModal from '../components/PreMatchLineupWarningModal'
-import { getStartingLineupWarnings } from '../services/lineupValidationService'
-import type { LineupWarning } from '../services/lineupValidationService'
+import { validateStartingLineup, lineupHasIssues } from '../services/lineupValidationService'
+import type { LineupValidation } from '../services/lineupValidationService'
 
 
 function UserFinishedBanner({ onAdvanceDay, onSimulateAll, hasCupMatchPending }: {
@@ -123,7 +123,7 @@ export default function CareerHomeScreen() {
   const navigate = useCareerStore((s) => s.navigate)
   const isSimulating = useCareerStore((s) => s.isSimulating)
   const [lineupWarning, setLineupWarning] = useState<{
-    warnings: LineupWarning[]
+    validation: LineupValidation
     action: 'quick' | 'live'
   } | null>(null)
 
@@ -177,9 +177,9 @@ export default function CareerHomeScreen() {
 
   function requestMatchStart(action: 'quick' | 'live') {
     if (!userTeam) return
-    const warnings = getStartingLineupWarnings(userTeam, players)
-    if (warnings.length > 0) {
-      setLineupWarning({ warnings, action })
+    const validation = validateStartingLineup(userTeam, players)
+    if (lineupHasIssues(validation)) {
+      setLineupWarning({ validation, action })
       return
     }
     if (action === 'quick') runQuickSim()
@@ -247,7 +247,10 @@ export default function CareerHomeScreen() {
 
       {lineupWarning && (
         <PreMatchLineupWarningModal
-          warnings={lineupWarning.warnings}
+          warnings={lineupWarning.validation.warnings}
+          missingStarters={lineupWarning.validation.missingStarters}
+          starterCount={lineupWarning.validation.starterCount}
+          requiredCount={lineupWarning.validation.requiredCount}
           nameStyle={career.nameStyle}
           onCancel={() => setLineupWarning(null)}
           onContinue={continueDespiteWarning}

@@ -69,33 +69,33 @@ export default function GameLayout({ children, bg = 'career', noNav = false }: P
         {!noNav && career && (
           <>
             {/* Top info bar */}
-            <div className="shrink-0 bg-dark-900/90 border-b-2 border-gold-600/60 px-4 py-1.5 flex items-center justify-between gap-4">
+            <div className="shrink-0 min-h-[54px] bg-[#0b0b12] border-b-2 border-gold-600/70 px-5 py-2 flex items-center justify-between gap-5 shadow-[0_6px_20px_rgba(0,0,0,0.3)]">
               {/* Left: badge + team name */}
-              <div className="flex items-center gap-2 min-w-0">
+              <div className="flex items-center gap-3 min-w-0">
                 {userTeam?.badgeUrl && (
-                  <TeamBadgeImage teamName={userTeam.name} badgeUrl={userTeam.badgeUrl} size="sm" className="shrink-0" />
+                  <TeamBadgeImage teamName={userTeam.name} badgeUrl={userTeam.badgeUrl} size="overlay" className="shrink-0" />
                 )}
-                <span className="text-gold-400 font-pixel text-[0.45rem] truncate uppercase tracking-wide">
+                <span className="text-gold-400 font-pixel text-[0.5rem] truncate uppercase tracking-wider">
                   {userTeam?.name ?? ''}
                 </span>
               </div>
 
               {/* Center: season + date */}
-              <div className="flex items-center gap-4 text-[0.45rem] font-pixel text-gray-300 uppercase tracking-widest">
+              <div className="flex items-center gap-5 text-[0.5rem] font-pixel text-gray-200 uppercase tracking-widest">
                 <span>Temp. {career.seasonNumber}</span>
                 <span className="text-gold-500">{formatDate(career.season.currentDate)}</span>
               </div>
 
               {/* Right: budget + actions */}
-              <div className="flex items-center gap-3">
-                <span className="text-gold-400 font-pixel text-[0.45rem] uppercase tracking-wide">
+              <div className="flex items-center gap-3.5">
+                <span className="text-gold-400 font-pixel text-[0.5rem] uppercase tracking-wide">
                   {formatMoney(teams.find((t) => t.id === career.teamId)?.budget ?? 0)}
                 </span>
 
                 {/* Bell */}
                 <button
                   onClick={() => setUIPanel(bellActive ? null : 'notifications')}
-                  className={`relative p-1.5 rounded transition-colors border ${
+                  className={`relative p-2 rounded-md transition-colors border ${
                     bellActive
                       ? 'bg-gold-500/20 border-gold-500 text-gold-400'
                       : 'border-gold-600/30 text-gray-500 hover:border-gold-500 hover:text-gold-400'
@@ -113,7 +113,7 @@ export default function GameLayout({ children, bg = 'career', noNav = false }: P
                 {/* Gear */}
                 <button
                   onClick={() => setUIPanel(gearActive ? null : 'settings')}
-                  className={`p-1.5 rounded transition-colors border ${
+                  className={`p-2 rounded-md transition-colors border ${
                     gearActive
                       ? 'bg-gold-500/20 border-gold-500 text-gold-400'
                       : 'border-gold-600/30 text-gray-500 hover:border-gold-500 hover:text-gold-400'
@@ -126,17 +126,17 @@ export default function GameLayout({ children, bg = 'career', noNav = false }: P
             </div>
 
             {/* Horizontal nav tabs */}
-            <nav className="shrink-0 bg-dark-900/80 border-b border-gold-600/30 px-2 flex gap-0.5 overflow-x-auto">
+            <nav className="shrink-0 w-full min-h-[46px] bg-dark-900 border-b border-gold-600/40 flex overflow-x-auto shadow-[0_5px_16px_rgba(0,0,0,0.22)]">
               {navItems.map(({ screen: s, label, icon }) => {
                 const isActive = screen === s
                 return (
                   <button
                     key={s}
                     onClick={() => navigate(s)}
-                    className={`flex items-center gap-1.5 px-3 py-2 text-[0.45rem] font-pixel uppercase tracking-wide shrink-0 transition-colors border-b-2 ${
+                    className={`flex-1 min-w-[108px] flex items-center justify-center gap-2 px-3 py-3 text-[0.5rem] font-pixel uppercase tracking-wide transition-colors border-b-2 border-r border-r-gold-600/10 ${
                       isActive
-                        ? 'border-gold-500 text-gold-400 bg-gold-500/10'
-                        : 'border-transparent text-gray-500 hover:text-gold-400 hover:border-gold-600/50'
+                        ? 'border-gold-400 text-gold-300 bg-gold-500/15'
+                        : 'border-b-transparent text-gray-400 hover:text-gold-400 hover:border-b-gold-600/60 hover:bg-dark-800'
                     }`}
                   >
                     <Icon name={icon} size="sm" />

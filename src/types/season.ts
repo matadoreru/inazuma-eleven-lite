@@ -1,4 +1,5 @@
 import type { Match, StandingRow } from './competition'
+import type { CareerSeasonStats } from './career'
 
 // ─── Season status machine ────────────────────────────────────────────────────
 
@@ -62,4 +63,5 @@ export interface SeasonReview {
   cupWinnerId: number | null
   userCupRoundsWon: number  // 0 = eliminated in Previa, 4 = won the cup
   objectives: { completed: number; total: number }
+  stats?: CareerSeasonStats
 }

@@ -36,6 +36,7 @@ import {
   confirmTransfer as confirmTransferService,
   respondToIncomingOffer,
   resolveIncomingCounters,
+  processOfferDeadlines,
 } from '../services/transferService'
 import { checkObjectives, canClaimObjective } from '../services/objectiveService'
 import { markRead, markAllRead, addEvent } from '../services/inboxService'
@@ -1336,8 +1337,9 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     }
     const negResult = resolveNegotiationsService(preNegCareer, nextDate, advancedPlayers, teams)
     const counterResult = resolveIncomingCounters(negResult.career, nextDate, negResult.players, negResult.teams)
-    set({ career: counterResult.career, players: counterResult.players, teams: counterResult.teams })
-    if (counterResult.career.season.currentDate >= finalDate) get().closeSeason()
+    const deadlineCareer = processOfferDeadlines(counterResult.career, nextDate)
+    set({ career: deadlineCareer, players: counterResult.players, teams: counterResult.teams })
+    if (deadlineCareer.season.currentDate >= finalDate) get().closeSeason()
   },
 
   advanceToNextMatch() {
@@ -1413,7 +1415,9 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
       seasonStatus: computeSeasonStatus({ ...career, season: updatedSeason, allLeagueSeasons, cup }),
     }
     const negResult = resolveNegotiationsService(preNegCareer, targetDate, advancedPlayers, teams)
-    set({ career: negResult.career, players: negResult.players, teams: negResult.teams })
+    const counterResult = resolveIncomingCounters(negResult.career, targetDate, negResult.players, negResult.teams)
+    const deadlineCareer = processOfferDeadlines(counterResult.career, targetDate)
+    set({ career: deadlineCareer, players: counterResult.players, teams: counterResult.teams })
   },
 
   // --- Training ---
@@ -1895,7 +1899,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
 
   // --- Match rewards ---
   claimReward(reward) {
-    const { career, players, teams } = get()
+    const { career, teams } = get()
     if (!career) return
 
     if (reward.type === 'equipment' && reward.equipmentItem) {
@@ -1915,17 +1919,6 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
         t.id === career.teamId ? { ...t, budget: t.budget + reward.moneyAmount! } : t,
       )
       set({ teams: updatedTeams, pendingRewards: null })
-    } else if (reward.type === 'stat_boost' && reward.statBoost) {
-      const { playerId, stat, amount } = reward.statBoost
-      const updatedPlayers = players.map((p) => {
-        if (p.id !== playerId) return p
-        const newStats = { ...p.stats, [stat]: (p.stats[stat] ?? 0) + amount }
-        newStats.TOT = Object.entries(newStats)
-          .filter(([k]) => k !== 'TOT')
-          .reduce((s, [, v]) => s + (v as number), 0)
-        return { ...p, stats: newStats }
-      })
-      set({ players: updatedPlayers, pendingRewards: null })
     } else {
       set({ pendingRewards: null })
     }
@@ -2127,6 +2120,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
     const totalObj = career.objectives.length
 
     const userLeague = leagues.find((l) => l.id === career.season.leagueId)
+    const stats = computeSeasonStats(career.season, career.teamId, career.seasonNumber)
     const review: import('../types/season').SeasonReview = {
       seasonNumber: career.seasonNumber,
       year: career.season.year,
@@ -2140,6 +2134,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
       cupWinnerId: career.cup?.winnerId ?? null,
       userCupRoundsWon: getUserCupRoundsWon(career.cup, career.teamId),
       objectives: { completed: completedObj, total: totalObj },
+      stats,
     }
 
     let updatedCareer: Career = {
@@ -2179,6 +2174,7 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
   startNewSeason(objectiveDifficulty: 'easy' | 'normal' | 'hard' | 'very_hard' = 'normal') {
     const { career, players, teams } = get()
     if (!career || career.seasonStatus !== 'review') return
+    if (career.objectives.some(canClaimObjective)) return
 
     const leagues = get().leagues
     const newSeasonNumber = career.seasonNumber + 1
@@ -2265,12 +2261,10 @@ export const useCareerStore = create<CareerState>()((set, get) => ({
       }
       get().advanceDay()
     }
-    // Fast path: skip review and go directly to next season
+    // Always stop at the season review so the player can inspect the outcome.
     const { career } = get()
     if (!career) return
     const finalStatus = computeSeasonStatus(career)
-    if (finalStatus === 'all_finished' || finalStatus === 'review') {
-      get().advanceToNextSeason()
-    }
+    if (finalStatus === 'all_finished') get().closeSeason()
   },
 }))

@@ -1,22 +1,25 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useCareerStore } from '../store/careerStore'
 import Drawer from './Drawer'
 import Icon from './Icon'
 import { APP_VERSION } from '../utils/version'
+import { MAX_SAVE_SLOTS } from '../types/save'
+import type { SaveSlot } from '../types/save'
+import { listSaves } from '../services/saveService'
+import { formatMoney } from '../utils/formatMoney'
 
 const LANGUAGES = [
   { code: 'es', label: 'Español', available: true },
-  { code: 'en', label: 'English', available: false },
 ]
 
-function formatDate(dateStr: string): string {
+function formatDate(dateStr: string | number): string {
   try {
     return new Date(dateStr).toLocaleDateString('es-ES', {
       day: '2-digit', month: '2-digit', year: 'numeric',
       hour: '2-digit', minute: '2-digit',
     })
   } catch {
-    return dateStr
+    return String(dateStr)
   }
 }
 
@@ -34,17 +37,22 @@ export default function SettingsDrawer() {
   const setUIPanel = useCareerStore((s) => s.setUIPanel)
   const career = useCareerStore((s) => s.career)
   const teams = useCareerStore((s) => s.teams)
-  const navigate = useCareerStore((s) => s.navigate)
   const saveCareer = useCareerStore((s) => s.saveCareer)
   const exitToMainMenu = useCareerStore((s) => s.exitToMainMenu)
 
   const [lang, setLang] = useState('es')
   const [saveSlot, setSaveSlot] = useState(0)
+  const [saves, setSaves] = useState<SaveSlot[]>(() => listSaves())
   const [saving, setSaving] = useState(false)
   const [savedFeedback, setSavedFeedback] = useState(false)
   const [saveError, setSaveError] = useState<string | null>(null)
 
   const userTeam = career ? teams.find((t) => t.id === career.teamId) : null
+  const selectedSave = saves.find((save) => save.slot === saveSlot) ?? null
+
+  useEffect(() => {
+    if (uiPanel === 'settings') setSaves(listSaves())
+  }, [uiPanel])
 
   async function handleQuickSave() {
     if (!career) return
@@ -54,6 +62,7 @@ export default function SettingsDrawer() {
     await new Promise((resolve) => setTimeout(resolve, 0))
     try {
       saveCareer(saveSlot, `${userTeam?.name ?? 'Carrera'} - Temporada ${career.seasonNumber}`)
+      setSaves(listSaves())
       setSavedFeedback(true)
       setTimeout(() => setSavedFeedback(false), 2000)
     } catch (error) {
@@ -90,7 +99,7 @@ export default function SettingsDrawer() {
                 onClick={() => available && setLang(code)}
                 className={`flex items-center justify-between px-3 py-2.5 rounded-lg border text-sm transition-colors ${
                   lang === code
-                    ? 'border-blue-500 bg-blue-600/10 text-white'
+                    ? 'border-gold-500 bg-gold-500/15 text-gold-200'
                     : available
                     ? 'border-gold-600/20 text-gray-300 hover:border-gold-500/50 hover:text-white'
                     : 'border-gray-800 text-gray-600 cursor-not-allowed'
@@ -101,7 +110,7 @@ export default function SettingsDrawer() {
                   {!available && (
                     <span className="text-[0.625rem] text-gray-600 uppercase tracking-wide">Próximamente</span>
                   )}
-                  {lang === code && <Icon name="check" size="xs" className="text-blue-400" />}
+                  {lang === code && <Icon name="check" size="xs" className="text-gold-400" />}
                 </div>
               </button>
             ))}
@@ -117,19 +126,59 @@ export default function SettingsDrawer() {
             </h3>
             <div className="flex items-center gap-2 mb-3">
               <span className="text-gray-400 text-sm">Ranura:</span>
-              {[0, 1, 2].map((slot) => (
+              {Array.from({ length: MAX_SAVE_SLOTS }, (_, slot) => slot).map((slot) => (
                 <button
                   key={slot}
                   onClick={() => setSaveSlot(slot)}
                   className={`px-2.5 py-1 rounded text-sm font-medium transition-colors ${
                     saveSlot === slot
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-dark-700/60 text-gray-300 hover:bg-dark-600/80'
+                      ? 'bg-gold-500 text-dark-900 font-bold'
+                      : 'bg-dark-700 text-gray-300 hover:bg-dark-600'
                   }`}
                 >
                   {slot + 1}
                 </button>
               ))}
+            </div>
+
+            <div className={`mb-3 rounded-xl border p-3 ${
+              selectedSave
+                ? 'border-gold-600/40 bg-dark-800'
+                : 'border-dashed border-gold-600/30 bg-dark-800'
+            }`}>
+              {selectedSave ? (
+                <div className="flex items-start gap-3">
+                  <img
+                    src={selectedSave.summary.managerAvatar || '/avatars/avatar-1.svg'}
+                    alt={selectedSave.summary.managerName}
+                    onError={(event) => { event.currentTarget.src = '/avatars/avatar-1.svg' }}
+                    className="w-10 h-10 rounded-full object-cover border border-gold-600/35 bg-dark-700 shrink-0"
+                  />
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="min-w-0">
+                        <p className="text-white text-sm font-bold truncate">{selectedSave.summary.teamName}</p>
+                        <p className="text-gold-400 text-xs truncate">{selectedSave.slotName}</p>
+                      </div>
+                      <span className="text-[0.625rem] text-gray-400 shrink-0">Ranura {saveSlot + 1}</span>
+                    </div>
+                    <p className="text-gray-300 text-xs mt-1">
+                      {selectedSave.summary.managerName} · Temporada {selectedSave.summary.seasonNumber} · Posición #{selectedSave.summary.leaguePosition}
+                    </p>
+                    <p className="text-gray-400 text-xs">
+                      Fecha de juego: {selectedSave.summary.currentDate} · {formatMoney(selectedSave.summary.budget)}
+                    </p>
+                    <p className="text-gray-500 text-[0.6875rem] mt-1">
+                      Guardado: {formatDate(selectedSave.savedAtUnix)}
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex items-center gap-2 text-gray-400 text-sm">
+                  <Icon name="add_circle_outline" size="sm" className="text-gold-500" />
+                  <span>Ranura {saveSlot + 1} vacía</span>
+                </div>
+              )}
             </div>
             <button
               onClick={handleQuickSave}
@@ -141,7 +190,13 @@ export default function SettingsDrawer() {
               }`}
             >
               <Icon name={savedFeedback ? 'check_circle' : 'save'} size="sm" />
-              {saving ? 'Guardando...' : savedFeedback ? 'Guardado!' : 'Guardar partida'}
+              {saving
+                ? 'Guardando...'
+                : savedFeedback
+                ? 'Guardado!'
+                : selectedSave
+                ? 'Sobrescribir partida'
+                : 'Guardar partida'}
             </button>
             {saveError && (
               <div className="mt-2 flex items-start gap-2 rounded-lg border border-red-500/40 bg-red-950/60 px-3 py-2 text-xs font-semibold text-red-200">
@@ -149,13 +204,6 @@ export default function SettingsDrawer() {
                 <span>{saveError}</span>
               </div>
             )}
-            <button
-              onClick={() => { setUIPanel(null); navigate('save_load') }}
-              className="w-full mt-2 flex items-center justify-center gap-2 py-2 rounded-lg text-gray-400 hover:text-white text-sm transition-colors"
-            >
-              <Icon name="folder_open" size="xs" />
-              Gestionar guardados
-            </button>
             <button
               onClick={() => exitToMainMenu()}
               className="w-full mt-1 flex items-center justify-center gap-2 py-2 rounded-lg text-red-500 hover:text-red-400 text-sm transition-colors"
@@ -173,7 +221,7 @@ export default function SettingsDrawer() {
               <Icon name="info" size="xs" />
               Información de la carrera
             </h3>
-            <div className="bg-dark-800/70 rounded-xl px-4 py-1 border border-gold-600/20">
+            <div className="bg-dark-800 rounded-xl px-4 py-1 border border-gold-600/30">
               <InfoRow label="Entrenador" value={career.managerName} />
               <InfoRow label="Equipo" value={userTeam?.name ?? '—'} />
               <InfoRow label="Temporada" value={`${career.seasonNumber}`} />
@@ -190,7 +238,7 @@ export default function SettingsDrawer() {
             <Icon name="sports_soccer" size="xs" />
             Aplicación
           </h3>
-          <div className="bg-dark-800/70 rounded-xl px-4 py-1 border border-gold-600/20">
+          <div className="bg-dark-800 rounded-xl px-4 py-1 border border-gold-600/30">
             <InfoRow label="Juego" value="Inazuma Eleven Lite" />
             <InfoRow label="Versión" value={APP_VERSION} />
           </div>

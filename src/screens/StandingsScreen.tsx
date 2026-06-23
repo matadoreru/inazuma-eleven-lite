@@ -216,6 +216,7 @@ export default function StandingsScreen() {
                             <TeamNameInline
                               teamName={row.teamName}
                               badgeUrl={team?.badgeUrl}
+                              size="md"
                               textClassName={`${isUserTeam ? 'text-gold-300' : 'text-white'}`}
                             />
                           </div>

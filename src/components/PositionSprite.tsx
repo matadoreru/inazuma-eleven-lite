@@ -7,6 +7,13 @@ const SPRITE: Record<Position, string> = {
   FW: '/positions/DL.webp',
 }
 
+export const POSITION_LABEL: Record<Position, string> = {
+  GK: 'PR',
+  DF: 'DF',
+  MD: 'MD',
+  FW: 'DL',
+}
+
 interface Props {
   position: Position
   size?: number  // px; default 32
@@ -17,7 +24,8 @@ export default function PositionSprite({ position, size = 32, className = '' }: 
   return (
     <img
       src={SPRITE[position]}
-      alt={position}
+      alt={POSITION_LABEL[position]}
+      title={POSITION_LABEL[position]}
       width={size}
       height={size}
       className={`object-contain select-none ${className}`}

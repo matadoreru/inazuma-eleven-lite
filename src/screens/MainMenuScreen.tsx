@@ -79,19 +79,22 @@ export default function MainMenuScreen() {
     return (
       <GameLayout bg="menu" noNav>
         <div className="h-full flex flex-col items-center justify-center px-4 py-8">
-          <div className="w-full max-w-lg">
-            <div className="flex items-center gap-4 mb-6">
+          <div className="w-full max-w-xl rounded-3xl border border-gold-600/55 bg-[#09090f] p-5 shadow-[0_24px_70px_rgba(0,0,0,0.6)]">
+            <div className="flex items-center gap-4 pb-4 mb-4 border-b border-gold-600/30">
               <button
                 onClick={() => setView('menu')}
-                className="flex items-center gap-2 text-gold-400 hover:text-gold-300 text-xs font-pixel uppercase tracking-wide transition-colors border border-gold-600/40 hover:border-gold-500 rounded px-3 py-2"
+                className="flex items-center gap-2 text-dark-900 bg-gold-500 hover:bg-gold-400 text-xs font-pixel uppercase tracking-wide transition-colors border border-gold-400 rounded-lg px-3 py-2.5"
               >
                 ← Volver
               </button>
-              <h2 className="text-gold-400 font-pixel text-[0.55rem] uppercase tracking-widest">
-                Cargar Partida
-              </h2>
+              <div>
+                <h2 className="text-gold-300 font-pixel text-[0.58rem] uppercase tracking-widest leading-relaxed">
+                  Cargar Partida
+                </h2>
+                <p className="text-gray-400 text-xs mt-1">Selecciona una ranura para continuar tu carrera.</p>
+              </div>
             </div>
-            <div className="panel p-4 flex flex-col gap-3">
+            <div className="flex flex-col gap-3">
               {saves.map((slot, i) => (
                 <SaveSlotCard
                   key={i}
@@ -110,7 +113,9 @@ export default function MainMenuScreen() {
 
   return (
     <GameLayout bg="menu" noNav>
-      <div className="relative h-full flex items-center justify-center px-8 gap-10">
+      <div className="relative h-full overflow-y-auto flex flex-col items-center justify-center px-8 py-7 gap-5">
+
+        <div className="flex items-stretch justify-center gap-10">
 
         {/* Left: Logo + title */}
         <div className="panel w-[21rem] min-h-[21rem] rounded-[2.5rem] px-8 py-10 flex flex-col items-center justify-center gap-6 shrink-0 bg-dark-900/75">
@@ -157,6 +162,39 @@ export default function MainMenuScreen() {
                 Menú Dev
               </button>
             )}
+          </div>
+        </div>
+
+        </div>
+
+        {/* Immersion and installation tips */}
+        <div className="w-full max-w-[44.5rem] grid grid-cols-2 gap-3">
+          <div className="rounded-2xl border border-gold-600/35 bg-dark-900/90 px-4 py-3 flex items-center gap-3 shadow-lg">
+            <span className="w-10 h-10 rounded-xl bg-gold-600/15 border border-gold-600/35 flex items-center justify-center shrink-0">
+              <span className="material-icons text-gold-400" style={{ fontSize: 21 }}>fullscreen</span>
+            </span>
+            <div className="min-w-0">
+              <p className="font-pixel text-[0.43rem] uppercase tracking-wider text-gold-400 leading-relaxed">
+                Mejor inmersión
+              </p>
+              <p className="text-gray-300 text-[0.72rem] leading-relaxed mt-0.5">
+                Se recomienda pulsar <span className="font-bold text-white">F11</span> para jugar a pantalla completa.
+              </p>
+            </div>
+          </div>
+
+          <div className="rounded-2xl border border-gold-600/35 bg-dark-900/90 px-4 py-3 flex items-center gap-3 shadow-lg">
+            <span className="w-10 h-10 rounded-xl bg-gold-600/15 border border-gold-600/35 flex items-center justify-center shrink-0">
+              <span className="material-icons text-gold-400" style={{ fontSize: 20 }}>install_desktop</span>
+            </span>
+            <div className="min-w-0">
+              <p className="font-pixel text-[0.43rem] uppercase tracking-wider text-gold-400 leading-relaxed">
+                Instala la aplicación
+              </p>
+              <p className="text-gray-300 text-[0.72rem] leading-relaxed mt-0.5">
+                Pulsa el icono <span className="material-icons align-[-3px] text-gray-200" style={{ fontSize: 15 }}>install_desktop</span> de la barra del navegador y después <span className="font-bold text-white">Install</span>.
+              </p>
+            </div>
           </div>
         </div>
 

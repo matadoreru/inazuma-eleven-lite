@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { getStartingLineupWarnings, isPlayerOutOfPosition } from '../services/lineupValidationService'
+import { getStartingLineupWarnings, isPlayerOutOfPosition, lineupHasIssues, validateStartingLineup } from '../services/lineupValidationService'
 import type { Player } from '../types/player'
 import type { Team } from '../types/team'
 
@@ -60,5 +60,37 @@ describe('lineup validation', () => {
     expect(warnings.find((warning) => warning.player.id === 2)?.isOutOfPosition).toBe(true)
     expect(warnings.find((warning) => warning.player.id === 1)?.injuryPenaltyPercent).toBe(75)
     expect(warnings.find((warning) => warning.player.id === 2)?.positionPenaltyPercent).toBe(70)
+  })
+
+  it('warns when fewer than 11 valid unique starters are selected', () => {
+    const tenPlayers = Array.from({ length: 10 }, (_, index) => ({ ...player, id: index + 1 }))
+    const incompleteTeam = {
+      ...team,
+      lineup: tenPlayers.map((current) => ({
+        playerId: current.id,
+        assignedPosition: 'DF' as const,
+        isStarter: true,
+      })),
+    }
+
+    const validation = validateStartingLineup(incompleteTeam, tenPlayers)
+
+    expect(validation.starterCount).toBe(10)
+    expect(validation.requiredCount).toBe(11)
+    expect(validation.missingStarters).toBe(1)
+    expect(lineupHasIssues(validation)).toBe(true)
+  })
+
+  it('does not count the same player twice toward the required eleven', () => {
+    const duplicatedTeam = {
+      ...team,
+      lineup: Array.from({ length: 11 }, () => ({
+        playerId: player.id,
+        assignedPosition: 'DF' as const,
+        isStarter: true,
+      })),
+    }
+
+    expect(validateStartingLineup(duplicatedTeam, [player]).starterCount).toBe(1)
   })
 })

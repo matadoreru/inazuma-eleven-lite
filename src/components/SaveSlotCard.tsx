@@ -11,7 +11,7 @@ interface Props {
 export default function SaveSlotCard({ slot, slotNumber, onLoad, onDelete }: Props) {
   if (!slot) {
     return (
-      <div className="flex items-center justify-center border border-dashed border-gold-600/25 rounded-xl px-6 py-5 text-gray-600 text-sm">
+      <div className="flex items-center justify-center border border-dashed border-gold-600/35 bg-dark-800 rounded-xl px-6 py-5 text-gray-400 text-sm">
         Ranura {slotNumber + 1} — vacía
       </div>
     )
@@ -23,12 +23,12 @@ export default function SaveSlotCard({ slot, slotNumber, onLoad, onDelete }: Pro
   })
 
   return (
-    <div className="flex items-center gap-4 bg-dark-800/80 rounded-xl px-5 py-4 border border-gold-600/25">
+    <div className="flex items-center gap-4 bg-dark-800 rounded-xl px-5 py-4 border border-gold-600/35 shadow-[0_8px_20px_rgba(0,0,0,0.28)]">
       <img
         src={slot.summary.managerAvatar || '/avatars/avatar-1.svg'}
         alt="Entrenador"
         onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/avatars/avatar-1.svg' }}
-        className="w-12 h-12 rounded-full object-cover flex-shrink-0 bg-dark-700/60"
+        className="w-12 h-12 rounded-full object-cover flex-shrink-0 bg-dark-700 border border-gold-600/25"
       />
       <img
         src={team?.badgeUrl ?? '/teams/default_team_icon.png'}
@@ -41,19 +41,19 @@ export default function SaveSlotCard({ slot, slotNumber, onLoad, onDelete }: Pro
         <p className="text-gray-400 text-xs">
           Temp. {slot.summary.seasonNumber} · {slot.summary.leagueName === 'first_division' ? '1ª Div.' : '2ª Div.'} · {slot.summary.leaguePosition}ª posición
         </p>
-        <p className="text-gray-500 text-xs">{slot.summary.managerName} · {savedAt}</p>
+        <p className="text-gray-400 text-xs">{slot.summary.managerName} · {savedAt}</p>
       </div>
       <div className="flex gap-2 flex-shrink-0">
         <button
           onClick={onLoad}
-          className="px-4 py-1.5 bg-green-600 hover:bg-green-500 text-white rounded-lg text-xs font-bold transition-colors"
+          className="px-4 py-1.5 bg-gold-500 hover:bg-gold-400 text-dark-900 rounded-lg text-xs font-black transition-colors"
         >
           Cargar
         </button>
         {onDelete && (
           <button
             onClick={onDelete}
-            className="px-3 py-1.5 bg-dark-700/60 hover:bg-red-700 text-gray-400 hover:text-white rounded-lg text-xs font-bold transition-colors"
+            className="px-3 py-1.5 bg-dark-700 hover:bg-red-700 text-gray-300 hover:text-white rounded-lg text-xs font-bold transition-colors"
           >
             ✕
           </button>

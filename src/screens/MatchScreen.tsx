@@ -3,9 +3,6 @@ import Icon from '../components/Icon'
 import { useCareerStore } from '../store/careerStore'
 import { formatMoney } from '../utils/formatMoney'
 import type { MatchEvent, MatchResult } from '../types/competition'
-import type { Player } from '../types/player'
-import { playerDisplayName } from '../types/player'
-import { useNameStyle } from '../hooks/useNameStyle'
 import type { MatchReward, MatchRewardType, RewardRarity } from '../types/reward'
 import { REWARD_RARITY_LABELS } from '../types/reward'
 import { EQUIPMENT_SLOT_ICONS, EQUIPMENT_SLOT_LABELS } from '../types/equipment'
@@ -18,7 +15,6 @@ import MatchEventText from '../components/MatchEventText'
 
 const REWARD_TYPE_LABELS: Record<MatchRewardType, string> = {
   money: 'Dinero',
-  stat_boost: 'Mejora',
   technique_book: 'Supertecnica',
   equipment: 'Equipamiento',
 }
@@ -237,8 +233,7 @@ function EventRow({
 
 // ─── Reward card ─────────────────────────────────────────────────────────────
 
-function RewardCard({ reward, onClaim, player }: { reward: MatchReward; onClaim: () => void; player?: Player }) {
-  const nameStyle = useNameStyle()
+function RewardCard({ reward, onClaim }: { reward: MatchReward; onClaim: () => void }) {
   const border  = RARITY_BORDER[reward.rarity]
   const bg      = RARITY_BG[reward.rarity]
   const hover   = RARITY_HOVER[reward.rarity]
@@ -261,35 +256,6 @@ function RewardCard({ reward, onClaim, player }: { reward: MatchReward; onClaim:
           </p>
           <p className="text-white font-black text-xl leading-tight tabular-nums">{formatMoney(reward.moneyAmount)}</p>
           <p className="text-gray-500 text-[0.5625rem] mt-0.5">Ingreso inmediato al presupuesto del club</p>
-        </div>
-        <Icon name="chevron_right" size="xs" className="text-gray-600 shrink-0" />
-      </button>
-    )
-  }
-
-  if (reward.type === 'stat_boost' && reward.statBoost) {
-    const { playerName, stat, amount } = reward.statBoost
-    const displayName = player ? playerDisplayName(player, nameStyle) : playerName
-    return (
-      <button onClick={onClaim} className={baseClass}>
-        <div className={`w-10 h-10 rounded-xl ${iconBg} flex items-center justify-center shrink-0 overflow-hidden`}>
-          {player ? (
-            <img
-              src={player.spriteUrl}
-              alt={displayName}
-              className="w-full h-full object-contain"
-              onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
-            />
-          ) : (
-            <Icon name="trending_up" size="sm" className={iconCol} />
-          )}
-        </div>
-        <div className="flex-1 min-w-0 text-left">
-          <p className={`text-[0.5625rem] font-bold uppercase tracking-wider ${lblCol}`}>
-            {REWARD_RARITY_LABELS[reward.rarity]} · {REWARD_TYPE_LABELS[reward.type]}
-          </p>
-          <p className="text-white font-semibold text-sm leading-tight truncate">{displayName}</p>
-          <p className="text-gray-400 text-xs mt-0.5">{stat} <span className="text-green-400 font-bold">+{amount}</span> · Mejora permanente de estadística</p>
         </div>
         <Icon name="chevron_right" size="xs" className="text-gray-600 shrink-0" />
       </button>
@@ -347,7 +313,6 @@ function RewardCard({ reward, onClaim, player }: { reward: MatchReward; onClaim:
 export default function MatchScreen() {
   const career            = useCareerStore((s) => s.career)
   const teams             = useCareerStore((s) => s.teams)
-  const players           = useCareerStore((s) => s.players)
   const navigate          = useCareerStore((s) => s.navigate)
   const lastMatchResult   = useCareerStore((s) => s.lastMatchResult)
   const selectedMatchId   = useCareerStore((s) => s.selectedMatchId)
@@ -493,13 +458,10 @@ export default function MatchScreen() {
         {hasRewards ? (
           <div className="flex flex-col gap-2 px-4 py-3">
             {pendingRewards.map((reward, i) => {
-              const statBoost    = reward.statBoost
-              const rewardPlayer = statBoost ? players.find((p) => p.id === statBoost.playerId) : undefined
               return (
                 <RewardCard
                   key={i}
                   reward={reward}
-                  player={rewardPlayer}
                   onClaim={() => {
                     claimReward(reward)
                     navigate('career_home')

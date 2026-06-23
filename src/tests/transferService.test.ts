@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { filterPlayers, calcTransferValue, calcFreeAgentRecommendedOffer, buyPlayer, sellPlayer, sanitizeAmount, MAX_TRANSFER_VALUE, evaluateClubOffer, evaluatePlayerDecision, initiateNegotiation, cancelNegotiation, respondToCounter, resolveNegotiations, respondToIncomingOffer } from '../services/transferService'
+import { filterPlayers, calcTransferValue, calcFreeAgentRecommendedOffer, buyPlayer, sellPlayer, sanitizeAmount, MAX_TRANSFER_VALUE, evaluateClubOffer, evaluatePlayerDecision, initiateNegotiation, cancelNegotiation, respondToCounter, resolveNegotiations, respondToIncomingOffer, processOfferDeadlines } from '../services/transferService'
 import type { OutgoingNegotiation, IncomingOffer } from '../types/career'
 import type { Player } from '../types/player'
 import type { Team, Formation } from '../types/team'
@@ -420,6 +420,7 @@ describe('evaluateClubOffer', () => {
     const marketValue = calcTransferValue(player) // ~60000
     const result = evaluateClubOffer(Math.round(marketValue * 0.5), player, sellingTeam, players, [sellingTeam])
     expect(result.decision).toBe('reject')
+    if (result.decision === 'reject') expect(result.detail.code).toBe('offer_too_low')
   })
 
   it('rejects when critical-position player has no replacement (GK with 0 other GKs)', () => {
@@ -429,6 +430,7 @@ describe('evaluateClubOffer', () => {
     const marketValue = calcTransferValue(player)
     const result = evaluateClubOffer(marketValue * 2, player, sellingTeam, players, [sellingTeam])
     expect(result.decision).toBe('reject')
+    if (result.decision === 'reject') expect(result.detail.code).toBe('squad_depth')
   })
 
   it('accepts when offer meets threshold (enough replacements, matching rep)', () => {
@@ -792,6 +794,7 @@ describe('resolveNegotiations', () => {
     const result = resolveNegotiations(career, '2026-01-01', allPlayers, [userTeam, sellingTeam])
     expect(result.career.outgoingNegotiations[0].phase).toBe('failed')
     expect(result.career.outgoingNegotiations[0].failureReason).toBe('club_rejected')
+    expect(result.career.outgoingNegotiations[0].failureDetail?.code).toBe('offer_too_low')
     expect(result.career.inbox.some((e) => e.type === 'OUTGOING_TRANSFER_CLUB_REJECTED')).toBe(true)
   })
 
@@ -820,6 +823,9 @@ describe('resolveNegotiations', () => {
     const result = resolveNegotiations(career, '2026-01-01', [starPlayer, otherFW1, otherFW2], [poorRepTeam, sellingTeam])
     expect(result.career.outgoingNegotiations[0].phase).toBe('failed')
     expect(result.career.outgoingNegotiations[0].failureReason).toBe('player_rejected')
+    expect(result.career.outgoingNegotiations[0].failureDetail).toMatchObject({
+      code: 'reputation', currentReputation: 30, requiredReputation: 70,
+    })
     expect(result.career.inbox.some((e) => e.type === 'OUTGOING_TRANSFER_PLAYER_REJECTED')).toBe(true)
   })
 
@@ -869,6 +875,53 @@ describe('respondToIncomingOffer', () => {
     const result = respondToIncomingOffer('o1', 'accept', baseCareer, [player], [userTeamIncoming, brokeBuyer])
     expect(result.error).toBe('insufficient_budget')
     expect(result.career.incomingOffers[0].status).toBe('budget_failed')
+  })
+})
+
+describe('processOfferDeadlines', () => {
+  it('warns two days before an incoming offer expires, only once', () => {
+    const career = {
+      ...makeCareer(1),
+      incomingOffers: [{
+        id: 'incoming-1', fromTeamId: 2, fromTeamName: 'Buyers FC', playerId: 5,
+        amount: 300_000, date: '2026-01-01', status: 'pending' as const, expiresAt: '2026-01-08',
+      }],
+    }
+
+    const warned = processOfferDeadlines(career, '2026-01-06')
+    const processedAgain = processOfferDeadlines(warned, '2026-01-07')
+
+    expect(warned.incomingOffers[0].expiryWarningSent).toBe(true)
+    expect(warned.inbox[0].title).toBe('Una oferta caduca en 2 días')
+    expect(processedAgain.inbox).toHaveLength(warned.inbox.length)
+  })
+
+  it('expires an unanswered incoming offer after one week', () => {
+    const career = {
+      ...makeCareer(1),
+      incomingOffers: [{
+        id: 'incoming-1', fromTeamId: 2, fromTeamName: 'Buyers FC', playerId: 5,
+        amount: 300_000, date: '2026-01-01', status: 'pending' as const, expiresAt: '2026-01-08',
+      }],
+    }
+
+    const result = processOfferDeadlines(career, '2026-01-08')
+
+    expect(result.incomingOffers[0].status).toBe('expired')
+    expect(result.inbox[0].title).toBe('Oferta recibida caducada')
+  })
+
+  it('expires an outgoing negotiation that is awaiting the user', () => {
+    const negotiation = makeNegotiation({
+      id: 'neg-expiring', phase: 'player_accepted', expiresAt: '2026-01-08',
+    })
+    const career = { ...makeCareer(1), outgoingNegotiations: [negotiation] }
+
+    const result = processOfferDeadlines(career, '2026-01-08')
+
+    expect(result.outgoingNegotiations[0].phase).toBe('failed')
+    expect(result.outgoingNegotiations[0].failureReason).toBe('offer_expired')
+    expect(result.inbox[0].title).toBe('Oferta enviada caducada')
   })
 })
 

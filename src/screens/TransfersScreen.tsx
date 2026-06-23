@@ -8,6 +8,7 @@ import PositionSprite from '../components/PositionSprite'
 import { statColor } from '../components/StatBar'
 import { filterPlayers, calcTransferValue, calcFreeAgentRecommendedOffer, getNegotiationFailureFeedback } from '../services/transferService'
 import { formatMoney } from '../utils/formatMoney'
+import { formatMoneyInput, parseMoneyInput } from '../utils/moneyInput'
 import { getPlayerStatsSummary, playerDisplayName } from '../types/player'
 import { useNameStyle } from '../hooks/useNameStyle'
 import type { Position, Element, Player } from '../types/player'
@@ -168,7 +169,7 @@ function PlayerDetailPanel({ player, onClose, onOfferSent }: {
   const STATS: (keyof typeof player.stats)[] = ['POT', 'TEC', 'FIS', 'AGI']
 
   function sendOffer() {
-    const amount = Number(offerAmount) || recOffer
+    const amount = parseMoneyInput(offerAmount) || recOffer
     if (amount <= 0) return
     initiateTransferNegotiation(player.id, amount)
     setOfferSent(true)
@@ -269,10 +270,11 @@ function PlayerDetailPanel({ player, onClose, onOfferSent }: {
               {isFreeAgent ? 'Tu oferta al jugador' : 'Tu oferta al club'}
             </p>
             <input
-              type="number"
-              placeholder={String(recOffer)}
-              value={offerAmount}
-              onChange={(e) => setOfferAmount(e.target.value)}
+              type="text"
+              inputMode="numeric"
+              placeholder={formatMoneyInput(String(recOffer))}
+              value={formatMoneyInput(offerAmount)}
+              onChange={(e) => setOfferAmount(formatMoneyInput(e.target.value))}
               className="w-full bg-dark-700 border border-gold-600/20 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-gold-500 placeholder-gray-600"
             />
             <button
@@ -322,6 +324,7 @@ function IncomingOfferCard({ offer, players, teams }: { offer: IncomingOffer; pl
           <p className="text-white font-bold">{player.name}</p>
           <p className="text-gray-400 text-xs">{player.position} · {player.age} años · Media {Math.round(player.stats.TOT / 7)}</p>
           <p className="text-gray-500 text-xs">Interesado: <span className="text-gray-300">{offer.fromTeamName}</span></p>
+          {offer.expiresAt && <p className="text-orange-400/80 text-[0.625rem]">Caduca: {offer.expiresAt}</p>}
         </div>
       </div>
       <div className="grid grid-cols-3 gap-2 text-center text-xs">
@@ -356,15 +359,16 @@ function IncomingOfferCard({ offer, players, teams }: { offer: IncomingOffer; pl
       </div>
       <div className="flex gap-2">
         <input
-          type="number"
+          type="text"
+          inputMode="numeric"
           placeholder={`Contraoferta (ej. ${formatMoney(Math.round(marketValue * 1.1))})`}
-          value={counterInput}
-          onChange={e => setCounterInput(e.target.value)}
+          value={formatMoneyInput(counterInput)}
+          onChange={e => setCounterInput(formatMoneyInput(e.target.value))}
           className="flex-1 bg-dark-700/60 border border-gray-700 rounded px-2 py-1.5 text-white text-xs focus:border-gold-500 outline-none"
         />
         <button
           onClick={() => {
-            const amt = Number(counterInput)
+            const amt = parseMoneyInput(counterInput)
             if (amt > 0 && amt <= 10_000_000) { counterOffer(offer.id, amt); setCounterInput('') }
           }}
           className="px-3 py-1.5 bg-dark-700/60 hover:bg-dark-600/60 text-gray-300 text-xs font-semibold rounded border border-gold-600/20 transition-colors"
@@ -428,13 +432,16 @@ function OutgoingNegotiationCard({
             <p className="text-gray-600 text-[0.625rem] mt-0.5">
               Oferta: {formatMoney(neg.currentOffer)}
               {!isPlayerAccepted && ` · Res. ${neg.resolutionDate}`}
+              {neg.expiresAt && ` · Caduca ${neg.expiresAt}`}
             </p>
           )}
           {isResolved && (
             <>
               <p className="text-gray-600 text-[0.625rem] mt-0.5">Oferta final: {formatMoney(neg.currentOffer)}</p>
               {neg.phase === 'failed' && (
-                <p className="text-red-300/80 text-[0.625rem] mt-1 leading-relaxed">{getNegotiationFailureFeedback(neg).body}</p>
+                <div className="mt-2 rounded-lg border border-red-700/35 bg-red-950/30 px-3 py-2">
+                  <p className="text-red-200 text-xs leading-relaxed">{getNegotiationFailureFeedback(neg).body}</p>
+                </div>
               )}
             </>
           )}
@@ -478,15 +485,16 @@ function OutgoingNegotiationCard({
               {neg.offerRound < 3 && (
                 <div className="flex gap-1 items-center">
                   <input
-                    type="number"
-                    value={counterInput}
-                    onChange={(e) => onCounterInputChange(e.target.value)}
-                    placeholder={String(Math.round(neg.currentOffer * 1.05))}
+                    type="text"
+                    inputMode="numeric"
+                    value={formatMoneyInput(counterInput)}
+                    onChange={(e) => onCounterInputChange(formatMoneyInput(e.target.value))}
+                    placeholder={formatMoneyInput(String(Math.round(neg.currentOffer * 1.05)))}
                     className="w-20 text-[0.625rem] px-1.5 py-1 bg-dark-700/80 border border-gold-600/30 rounded text-white placeholder-gray-500"
                   />
                   <button
                     onClick={() => {
-                      const raw = parseInt(counterInput)
+                      const raw = parseMoneyInput(counterInput)
                       if (raw > 0) onRespondCounter('counter', raw)
                     }}
                     className="text-[0.625rem] px-2 py-1 bg-yellow-700 hover:bg-yellow-600 text-white rounded font-semibold transition-colors"

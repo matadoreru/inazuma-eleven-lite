@@ -17,7 +17,7 @@ interface Props {
 }
 
 const STATUS_STYLE: Record<PlayerStatus, string> = {
-  TIT: 'bg-blue-600/30 text-blue-300 border border-blue-600/40',
+  TIT: 'bg-gold-600/20 text-gold-300 border border-gold-600/45',
   SUP: 'bg-dark-700/60 text-gray-400 border border-gold-600/30',
   NC: 'bg-dark-800/60 text-gray-600 border border-gold-600/10',
 }
@@ -38,24 +38,26 @@ export default function PlayerRow({ player, status, isSelected, onClick, actions
       onClick={onClick}
       className={`border-b border-gold-600/15 transition-colors ${
         onClick ? 'cursor-pointer' : ''
-      } ${isSelected ? 'bg-blue-900/20' : onClick ? 'hover:bg-dark-700/50' : ''}`}
+      } ${isSelected ? 'bg-[#211b12]' : onClick ? 'hover:bg-dark-700/70' : ''}`}
     >
       <td className="py-1.5 px-3 text-gray-400 text-xs w-10 text-right tabular-nums">
         {player.jerseyNumber > 0 ? `#${player.jerseyNumber}` : '–'}
       </td>
-      <td className="py-1.5 px-2 w-14">
-        <img
-          src={player.spriteUrl}
-          alt={displayName}
-          className="w-12 h-12 object-contain rounded"
-          onError={(e) => {
-            ;(e.currentTarget as HTMLImageElement).src =
-              "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Crect width='48' height='48' rx='6' fill='%234b5563'/%3E%3C/svg%3E"
-          }}
-        />
+      <td className="py-2 px-2 w-20">
+        <div className="w-16 h-16 rounded-xl bg-dark-700 border border-gold-600/25 overflow-hidden shadow-md">
+          <img
+            src={player.spriteUrl}
+            alt={displayName}
+            className="w-full h-full object-contain scale-110"
+            onError={(e) => {
+              ;(e.currentTarget as HTMLImageElement).src =
+                "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Crect width='64' height='64' rx='10' fill='%231a1a26'/%3E%3C/svg%3E"
+            }}
+          />
+        </div>
       </td>
       <td className="py-1.5 px-3">
-        <span className="text-white text-sm font-medium block leading-tight">{displayName}</span>
+        <span className="text-white text-base font-semibold block leading-tight">{displayName}</span>
         <div className="flex items-center gap-1 mt-0.5">
           <PositionSprite position={player.position} size={25} />
           <ElementBadge element={player.element} size="sm" />
@@ -71,9 +73,13 @@ export default function PlayerRow({ player, status, isSelected, onClick, actions
         <span className="text-gray-500 text-[0.625rem] block leading-tight">{total}</span>
       </td>
       <td className="py-1.5 px-3 text-right text-gray-300 text-sm tabular-nums w-12">{player.stats.POT}</td>
-      <td className="py-1.5 px-3 text-right text-gray-300 text-sm tabular-nums w-12 hidden sm:table-cell">{player.stats.TEC}</td>
-      <td className="py-1.5 px-3 text-right text-gray-300 text-sm tabular-nums w-12 hidden sm:table-cell">{player.stats.FIS}</td>
-      <td className="py-1.5 px-3 w-20 hidden md:table-cell">
+      <td className="py-1.5 px-3 text-right text-gray-300 text-sm tabular-nums w-12">{player.stats.CON}</td>
+      <td className="py-1.5 px-3 text-right text-gray-300 text-sm tabular-nums w-12">{player.stats.TEC}</td>
+      <td className="py-1.5 px-3 text-right text-gray-300 text-sm tabular-nums w-12">{player.stats.PRE}</td>
+      <td className="py-1.5 px-3 text-right text-gray-300 text-sm tabular-nums w-12">{player.stats.FIS}</td>
+      <td className="py-1.5 px-3 text-right text-gray-300 text-sm tabular-nums w-12">{player.stats.AGI}</td>
+      <td className="py-1.5 px-3 text-right text-gray-300 text-sm tabular-nums w-12">{player.stats.INT}</td>
+      <td className="py-1.5 px-3 w-20">
         <div className="flex flex-col items-end gap-0.5">
           <div className="w-14 h-1.5 bg-dark-600/80 rounded-full overflow-hidden">
             <div

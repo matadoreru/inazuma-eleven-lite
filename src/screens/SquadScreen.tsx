@@ -5,7 +5,7 @@ import PlayerRow from '../components/PlayerRow'
 import type { PlayerStatus } from '../components/PlayerRow'
 import Icon from '../components/Icon'
 import { MAX_CALLUP } from '../types/team'
-import type { Player, Element } from '../types/player'
+import type { Player, Element, Position } from '../types/player'
 
 type SortKey = 'position' | 'TOT' | 'name'
 type SquadFilter = 'all' | 'starters' | 'bench' | 'uncalled'
@@ -35,24 +35,28 @@ function TableHeader() {
     <thead>
       <tr className="bg-dark-900/60 text-gold-600/80 text-xs border-b border-gold-600/30">
         <th className="py-2 px-3 text-right w-8">#</th>
-        <th className="py-2 px-2 w-14" />
-        <th className="py-2 px-3 text-left">Jugador</th>
+        <th className="py-2 px-2 w-20" />
+        <th className="py-2 px-3 text-left w-[30%]">Jugador</th>
         <th className="py-2 px-3 text-right w-12">TOT</th>
         <th className="py-2 px-3 text-right w-12">POT</th>
-        <th className="py-2 px-3 text-right w-12 hidden sm:table-cell">TEC</th>
-        <th className="py-2 px-3 text-right w-12 hidden sm:table-cell">FIS</th>
-        <th className="py-2 px-3 text-right w-20 hidden md:table-cell">Energía</th>
+        <th className="py-2 px-3 text-right w-12">CON</th>
+        <th className="py-2 px-3 text-right w-12">TEC</th>
+        <th className="py-2 px-3 text-right w-12">PRE</th>
+        <th className="py-2 px-3 text-right w-12">FIS</th>
+        <th className="py-2 px-3 text-right w-12">AGI</th>
+        <th className="py-2 px-3 text-right w-12">INT</th>
+        <th className="py-2 px-3 text-right w-20">Energía</th>
         <th className="py-2 px-3 w-28" />
       </tr>
     </thead>
   )
 }
 
-const posGroups: { key: string; label: string }[] = [
-  { key: 'GK', label: 'Porteros' },
-  { key: 'DF', label: 'Defensas' },
-  { key: 'MD', label: 'Centrocampistas' },
-  { key: 'FW', label: 'Delanteros' },
+const posGroups: { key: Position; label: string; shortLabel: string; badgeClass: string }[] = [
+  { key: 'GK', label: 'Porteros', shortLabel: 'PR', badgeClass: 'bg-orange-900/35 border-orange-600/50 text-orange-300' },
+  { key: 'DF', label: 'Defensas', shortLabel: 'DF', badgeClass: 'bg-green-900/35 border-green-600/50 text-green-300' },
+  { key: 'MD', label: 'Centrocampistas', shortLabel: 'MD', badgeClass: 'bg-blue-900/35 border-blue-600/50 text-blue-300' },
+  { key: 'FW', label: 'Delanteros', shortLabel: 'DL', badgeClass: 'bg-red-900/35 border-red-600/50 text-red-300' },
 ]
 
 export default function SquadScreen() {
@@ -132,7 +136,7 @@ export default function SquadScreen() {
       return (
         <button
           onClick={(e) => { e.stopPropagation(); removeCallupPlayer(player.id) }}
-          className="text-[0.625rem] font-bold px-1.5 py-0.5 rounded bg-dark-700/60 text-gray-400 border border-gold-600/15 hover:bg-red-900/40 hover:text-red-400 hover:border-red-700/60 transition-colors whitespace-nowrap"
+          className="text-xs font-bold px-3 py-2 rounded-lg bg-dark-700 text-gray-300 border border-gold-600/25 hover:bg-red-900/50 hover:text-red-300 hover:border-red-700/60 transition-colors whitespace-nowrap"
         >
           Desconv.
         </button>
@@ -143,10 +147,10 @@ export default function SquadScreen() {
       <button
         onClick={(e) => { e.stopPropagation(); callUpPlayer(player.id) }}
         disabled={disabled}
-        className={`text-[0.625rem] font-bold px-1.5 py-0.5 rounded border transition-colors whitespace-nowrap
+        className={`text-xs font-bold px-3 py-2 rounded-lg border transition-colors whitespace-nowrap
           ${disabled
             ? 'bg-dark-800/60 text-gray-600 border-gold-600/10 cursor-not-allowed'
-            : 'bg-blue-900/30 text-gold-400 border-blue-700/50 hover:bg-blue-700/40 hover:text-blue-200'
+            : 'bg-gold-600/15 text-gold-300 border-gold-600/50 hover:bg-gold-600/25 hover:text-gold-200'
           }`}
       >
         Convocar
@@ -235,17 +239,22 @@ export default function SquadScreen() {
             {squadPlayers.length === 0 ? (
               <p className="text-center text-gray-500 text-sm py-12">No hay jugadores con esos filtros</p>
             ) : sortKey === 'position' ? (
-              posGroups.map(({ key, label }) => {
+              posGroups.map(({ key, label, shortLabel, badgeClass }) => {
                 const group = squadPlayers.filter((p) => p.position === key)
                 if (group.length === 0) return null
                 return (
-                  <div key={key} className="mb-3">
-                    <div className="flex items-center gap-2 mb-1.5 px-1">
-                      <span className="text-gray-500 text-xs font-semibold uppercase tracking-wide">{label}</span>
-                      <span className="text-gray-700 text-xs">({group.length})</span>
+                  <div key={key} className="mb-4 rounded-xl overflow-hidden border border-gold-600/40 bg-[#0d0d15] shadow-[0_8px_24px_rgba(0,0,0,0.28)]">
+                    <div className="flex items-center gap-3 px-4 py-2.5 bg-dark-800 border-b border-gold-600/35">
+                      <div className="flex items-center gap-2.5">
+                        <span className={`w-8 h-8 rounded-lg border flex items-center justify-center ${badgeClass}`}>
+                          <span className="text-[0.7rem] font-black">{shortLabel}</span>
+                        </span>
+                        <span className="text-white text-sm font-bold uppercase tracking-wide">{label}</span>
+                        <span className="rounded-full bg-dark-700 border border-gold-600/25 px-2 py-0.5 text-gold-400 text-xs font-bold">{group.length}</span>
+                      </div>
                     </div>
-                    <div className="panel rounded-xl overflow-hidden">
-                      <table className="w-full">
+                    <div className="overflow-x-auto">
+                      <table className="w-full min-w-[1100px] table-fixed">
                         <TableHeader />
                         <tbody>
                           {group.map((player) => (
@@ -263,8 +272,8 @@ export default function SquadScreen() {
                 )
               })
             ) : (
-              <div className="panel rounded-xl overflow-hidden">
-                <table className="w-full">
+              <div className="panel rounded-xl overflow-x-auto">
+                <table className="w-full min-w-[1100px] table-fixed">
                   <TableHeader />
                   <tbody>
                     {squadPlayers.map((player) => (

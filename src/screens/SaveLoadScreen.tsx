@@ -74,7 +74,8 @@ export default function SaveLoadScreen() {
 
   const content = (
     <main className="flex-1 overflow-y-auto p-4">
-      <div className="flex items-center gap-3 mb-4">
+      <div className="w-full max-w-2xl mx-auto">
+      <div className="flex items-center gap-3 mb-4 rounded-xl border border-gold-600/30 bg-[#0b0b12] px-4 py-3">
         {!isInGame && (
           <button
             onClick={() => navigate('main_menu')}
@@ -83,17 +84,17 @@ export default function SaveLoadScreen() {
             ← Volver
           </button>
         )}
-        <h1 className="text-white text-2xl font-bold">Guardar / Cargar</h1>
+        <h1 className="text-gold-300 text-xl font-black">Guardar / Cargar</h1>
       </div>
 
-      <div className="flex flex-col gap-3 max-w-xl">
+      <div className="flex flex-col gap-3 rounded-2xl border border-gold-600/40 bg-[#0b0b12] p-4 shadow-2xl">
         {slots.map((slotIdx) => {
           const save = savesBySlot.get(slotIdx)
 
           return (
             <div
               key={slotIdx}
-              className="bg-dark-800/80 rounded-xl border border-gold-600/15 p-4 border border-gold-600/20"
+              className="bg-dark-800 rounded-xl border border-gold-600/30 p-4 shadow-[0_7px_18px_rgba(0,0,0,0.24)]"
             >
               <div className="flex items-start justify-between gap-3">
                 {/* Slot Info */}
@@ -112,8 +113,8 @@ export default function SaveLoadScreen() {
                         Temp. {save.summary.seasonNumber} · Pos. #{save.summary.leaguePosition} ·{' '}
                         {fmt(save.summary.budget)}
                       </p>
-                      <p className="text-gray-500 text-xs">{save.summary.currentDate}</p>
-                      <p className="text-gray-600 text-xs">{formatDate(save.savedAtUnix)}</p>
+                      <p className="text-gray-300 text-xs">Fecha de juego: {save.summary.currentDate}</p>
+                      <p className="text-gray-400 text-xs">Guardado: {formatDate(save.savedAtUnix)}</p>
                       {save.profileId && !knownProfileIds.has(save.profileId) && (
                         <div className="mt-1.5 flex items-center gap-1.5 text-yellow-500 text-xs">
                           <span className="material-icons text-xs">warning</span>
@@ -122,7 +123,7 @@ export default function SaveLoadScreen() {
                       )}
                     </div>
                   ) : (
-                    <p className="text-gray-600 text-sm italic">Ranura vacía</p>
+                    <p className="text-gray-400 text-sm italic">Ranura vacía</p>
                   )}
                 </div>
 
@@ -131,7 +132,7 @@ export default function SaveLoadScreen() {
                   {save && (
                     <button
                       onClick={() => handleLoad(slotIdx)}
-                      className="text-xs px-3 py-1.5 bg-green-600 hover:bg-green-500 text-white rounded-lg font-semibold transition-colors"
+                      className="text-xs px-3 py-1.5 bg-gold-500 hover:bg-gold-400 text-dark-900 rounded-lg font-black transition-colors"
                     >
                       Cargar
                     </button>
@@ -142,7 +143,7 @@ export default function SaveLoadScreen() {
                         setSavingSlot(slotIdx)
                         setSlotName('')
                       }}
-                      className="text-xs px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-semibold transition-colors"
+                      className="text-xs px-3 py-1.5 bg-gold-500 hover:bg-gold-400 text-dark-900 rounded-lg font-black transition-colors"
                     >
                       Guardar
                     </button>
@@ -166,7 +167,7 @@ export default function SaveLoadScreen() {
                     value={slotName}
                     onChange={(e) => setSlotName(e.target.value)}
                     placeholder="Nombre del guardado (opcional)"
-                    className="flex-1 bg-dark-700/80 border border-gold-600/30 rounded-lg px-3 py-1.5 text-white text-xs placeholder-gray-500 focus:outline-none focus:border-gold-500"
+                    className="flex-1 bg-dark-700 border border-gold-600/40 rounded-lg px-3 py-1.5 text-white text-xs placeholder-gray-400 focus:outline-none focus:border-gold-400"
                     autoFocus
                     onKeyDown={(e) => {
                       if (e.key === 'Enter') handleSave(slotIdx)
@@ -175,13 +176,13 @@ export default function SaveLoadScreen() {
                   />
                   <button
                     onClick={() => handleSave(slotIdx)}
-                    className="text-xs px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-semibold transition-colors"
+                    className="text-xs px-3 py-1.5 bg-gold-500 hover:bg-gold-400 text-dark-900 rounded-lg font-black transition-colors"
                   >
                     OK
                   </button>
                   <button
                     onClick={() => setSavingSlot(null)}
-                    className="text-xs px-3 py-1.5 bg-dark-700/80 hover:bg-dark-600/80 text-white rounded-lg transition-colors"
+                    className="text-xs px-3 py-1.5 bg-dark-700 hover:bg-dark-600 text-white rounded-lg transition-colors"
                   >
                     X
                   </button>
@@ -190,6 +191,7 @@ export default function SaveLoadScreen() {
             </div>
           )
         })}
+      </div>
       </div>
     </main>
   )

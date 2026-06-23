@@ -97,9 +97,11 @@ export interface IncomingOffer {
   playerId: number
   amount: number
   date: string
-  status: 'pending' | 'accepted' | 'rejected' | 'budget_failed' | 'counter_sent' | 'counter_accepted' | 'counter_rejected'
+  status: 'pending' | 'accepted' | 'rejected' | 'expired' | 'budget_failed' | 'counter_sent' | 'counter_accepted' | 'counter_rejected'
   counterAmount?: number
   counterResolutionDate?: string
+  expiresAt?: string
+  expiryWarningSent?: boolean
 }
 
 // ─── Transfer Negotiations ────────────────────────────────────────────────────
@@ -118,6 +120,15 @@ export type NegotiationFailureReason =
   | 'player_rejected'
   | 'player_unavailable'
   | 'budget_failed'
+  | 'offer_expired'
+
+export type NegotiationFailureDetail =
+  | { code: 'offer_too_low'; offeredAmount: number; requiredAmount: number; marketValue: number }
+  | { code: 'squad_depth'; replacements: number; position: string }
+  | { code: 'club_valuation'; offeredAmount: number; requiredAmount: number; sellingClubReputation: number }
+  | { code: 'reputation'; currentReputation: number; requiredReputation: number; playerRating: number }
+  | { code: 'player_terms'; offeredAmount: number; marketValue: number; currentReputation: number }
+  | { code: 'budget'; availableBudget: number; requiredAmount: number }
 
 export interface OutgoingNegotiation {
   id: string
@@ -132,6 +143,9 @@ export interface OutgoingNegotiation {
   isFreeAgent: boolean
   resolutionDate: string        // ISO date when this phase resolves
   failureReason?: NegotiationFailureReason
+  failureDetail?: NegotiationFailureDetail
+  expiresAt?: string            // deadline while the negotiation awaits the user
+  expiryWarningSent?: boolean
 }
 
 export interface CareerSeasonStats {

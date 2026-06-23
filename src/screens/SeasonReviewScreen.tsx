@@ -5,6 +5,7 @@ import TeamNameInline from '../components/TeamNameInline'
 import type { SeasonReview, UserSeasonOutcome } from '../types/season'
 import { leagues } from '../data/leagues'
 import { playOutcomeSound } from '../services/soundService'
+import ObjectivesPanel from '../components/ObjectivesPanel'
 
 function formatOutcome(outcome: UserSeasonOutcome): { label: string; color: string; icon: string } {
   switch (outcome) {
@@ -24,7 +25,7 @@ function StatCard({ label, value, sub }: { label: string; value: string; sub?: s
   )
 }
 
-function CupResult({ review, teams }: { review: SeasonReview; teams: import('../types/team').Team[] }) {
+function CupResult({ review, teams, userTeamId }: { review: SeasonReview; teams: import('../types/team').Team[]; userTeamId: number }) {
   const roundNames = ['Previa', 'Octavos', 'Cuartos', 'Semis', 'Final']
 
   if (review.cupWinnerId === null) {
@@ -38,9 +39,10 @@ function CupResult({ review, teams }: { review: SeasonReview; teams: import('../
 
   const winner = teams.find((t) => t.id === review.cupWinnerId)
   const userRounds = review.userCupRoundsWon
+  const userWonCup = review.cupWinnerId === userTeamId
   const userResult = userRounds === 0
     ? 'No participó / eliminado en Previa'
-    : userRounds === 5
+    : userWonCup
     ? '¡Campeón de Copa!'
     : `Eliminado en ${roundNames[userRounds] ?? `ronda ${userRounds}`}`
 
@@ -56,7 +58,7 @@ function CupResult({ review, teams }: { review: SeasonReview; teams: import('../
       </div>
       <div>
         <p className="text-gray-400 text-xs">Tu resultado</p>
-        <p className={`text-sm font-medium ${userRounds === 5 ? 'text-yellow-400' : 'text-gray-300'}`}>
+        <p className={`text-sm font-medium ${userWonCup ? 'text-yellow-400' : 'text-gray-300'}`}>
           {userResult}
         </p>
       </div>
@@ -66,7 +68,7 @@ function CupResult({ review, teams }: { review: SeasonReview; teams: import('../
 
 const DIFFICULTY_OPTIONS = [
   { key: 'easy' as const,      label: 'Fácil',       desc: 'Objetivos asequibles, recompensas reducidas.',  color: 'text-green-400',  border: 'border-green-600/40' },
-  { key: 'normal' as const,    label: 'Normal',      desc: 'Equilibrio estándar.',                           color: 'text-blue-400',   border: 'border-blue-600/40'  },
+  { key: 'normal' as const,    label: 'Normal',      desc: 'Equilibrio estándar.',                           color: 'text-gold-400',   border: 'border-gold-600/40'  },
   { key: 'hard' as const,      label: 'Difícil',     desc: 'Objetivos exigentes, mejores recompensas.',     color: 'text-orange-400', border: 'border-orange-600/40'},
   { key: 'very_hard' as const, label: 'Muy difícil', desc: 'Objetivos ambiciosos, penalizaciones mayores.', color: 'text-red-400',    border: 'border-red-600/40'   },
 ]
@@ -84,14 +86,17 @@ export default function SeasonReviewScreen() {
   const review = career?.lastSeasonReview ?? null
 
   const isChampion = review?.finalPosition === 1
+  const isCupChampion = review?.cupWinnerId === career?.teamId
+  const titleNames = [isChampion ? 'Liga' : null, isCupChampion ? 'Copa' : null].filter((title): title is string => title !== null)
+  const hasWonTitle = titleNames.length > 0
   const revealDuration = (isChampion || (review?.userOutcome !== 'stayed')) ? 3500 : 2000
 
   const currentLeague = leagues.find((l) => l.id === review?.leagueId)
   const promotionTargetName = leagues.find((l) => l.id === currentLeague?.promotionTo)?.name ?? 'División Superior'
   const relegationTargetName = leagues.find((l) => l.id === currentLeague?.relegationTo)?.name ?? 'División Inferior'
 
-  const overlayConfig = isChampion
-    ? { bg: 'from-yellow-950 to-yellow-900', icon: 'emoji_events', iconColor: 'text-yellow-400', title: '¡CAMPEÓN!', sub: review?.leagueName ?? '', titleColor: 'text-yellow-300' }
+  const overlayConfig = hasWonTitle
+    ? { bg: 'from-yellow-950 to-yellow-900', icon: 'emoji_events', iconColor: 'text-yellow-400', title: '¡ENHORABUENA!', sub: `Campeón de ${titleNames.join(' y ')}`, titleColor: 'text-yellow-300' }
     : review?.userOutcome === 'promoted'
     ? { bg: 'from-green-950 to-green-900', icon: 'arrow_upward', iconColor: 'text-green-400', title: '¡ASCENSO!', sub: `→ ${promotionTargetName}`, titleColor: 'text-green-300' }
     : review?.userOutcome === 'relegated'
@@ -100,7 +105,7 @@ export default function SeasonReviewScreen() {
 
   useEffect(() => {
     if (!review) return
-    playOutcomeSound(isChampion ? 'champion' : review.userOutcome)
+    playOutcomeSound(hasWonTitle ? 'champion' : review.userOutcome)
     const fadeTimer = setTimeout(() => setFading(true), revealDuration - 600)
     const hideTimer = setTimeout(() => setShowReveal(false), revealDuration)
     return () => { clearTimeout(fadeTimer); clearTimeout(hideTimer) }
@@ -121,6 +126,11 @@ export default function SeasonReviewScreen() {
   const { label, color, icon } = formatOutcome(review.userOutcome)
   const promotedTeams = review.promotedTeamIds.map((id) => teams.find((t) => t.id === id)).filter(Boolean)
   const relegatedTeams = review.relegatedTeamIds.map((id) => teams.find((t) => t.id === id)).filter(Boolean)
+  const stats = review.stats
+  const unclaimedObjectives = career.objectives.filter(
+    (objective) => objective.completed && !objective.failed && !objective.claimed,
+  )
+  const hasUnclaimedRewards = unclaimedObjectives.length > 0
 
   return (
     <div className="h-full flex flex-col bg-game overflow-y-auto">
@@ -150,6 +160,16 @@ export default function SeasonReviewScreen() {
       </div>
 
       <div className="flex-1 p-4 space-y-4 max-w-2xl mx-auto w-full">
+
+        {hasWonTitle && (
+          <div className="rounded-xl border-2 border-yellow-500/50 bg-yellow-900/20 p-5 text-center">
+            <Icon name="emoji_events" size="lg" className="text-yellow-400" />
+            <p className="text-yellow-300 text-2xl font-black mt-2">¡Enhorabuena!</p>
+            <p className="text-gray-200 text-sm mt-1">
+              Has ganado {titleNames.length === 2 ? 'la Liga y la Copa' : `la ${titleNames[0]}`} esta temporada.
+            </p>
+          </div>
+        )}
 
         {/* Outcome banner */}
         <div className={`rounded-xl border-2 p-5 flex items-center gap-4 ${
@@ -188,8 +208,20 @@ export default function SeasonReviewScreen() {
           />
         </div>
 
+        {stats && (
+          <div className="bg-dark-800/80 rounded-xl border border-gold-600/20 p-4 space-y-3">
+            <p className="text-gray-300 text-sm font-semibold">Balance de la temporada</p>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <StatCard label="Partidos" value={String(stats.matchesPlayed)} sub={`${stats.wins}V · ${stats.draws}E · ${stats.losses}D`} />
+              <StatCard label="Puntos" value={String(stats.points)} sub={`${stats.winRate}% victorias`} />
+              <StatCard label="Goles" value={`${stats.goalsFor}–${stats.goalsAgainst}`} sub={`Diferencia ${stats.goalDiff >= 0 ? '+' : ''}${stats.goalDiff}`} />
+              <StatCard label="Porterías a cero" value={String(stats.cleanSheets)} sub={`Mejor racha: ${stats.bestWinStreak}V`} />
+            </div>
+          </div>
+        )}
+
         {/* Cup */}
-        <CupResult review={review} teams={teams} />
+        <CupResult review={review} teams={teams} userTeamId={career.teamId} />
 
         {/* Movimientos */}
         {(promotedTeams.length > 0 || relegatedTeams.length > 0) && (
@@ -226,13 +258,34 @@ export default function SeasonReviewScreen() {
           </div>
         )}
 
+        {/* Objectives must be claimed before advancing */}
+        <div className="space-y-2">
+          {hasUnclaimedRewards && (
+            <div className="flex items-start gap-3 rounded-xl border border-gold-500/50 bg-[#211b12] p-4">
+              <Icon name="redeem" size="sm" className="text-gold-400 shrink-0 mt-0.5" />
+              <div>
+                <p className="text-gold-300 text-sm font-bold">
+                  Tienes {unclaimedObjectives.length} recompensa{unclaimedObjectives.length === 1 ? '' : 's'} sin recoger
+                </p>
+                <p className="text-gray-300 text-xs mt-1">
+                  Reclama todas las recompensas de objetivos antes de pasar a la siguiente temporada.
+                </p>
+              </div>
+            </div>
+          )}
+          <ObjectivesPanel />
+        </div>
+
         {/* Start next season button */}
         <button
-          onClick={() => setShowDifficultyModal(true)}
-          className="w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold py-4 rounded-xl flex items-center justify-center gap-2 transition-colors"
+          onClick={() => { if (!hasUnclaimedRewards) setShowDifficultyModal(true) }}
+          disabled={hasUnclaimedRewards}
+          className="w-full bg-gold-500 hover:bg-gold-400 disabled:bg-dark-700 disabled:text-gray-500 disabled:border-gray-700 text-dark-900 font-bold py-4 rounded-xl border border-gold-400 flex items-center justify-center gap-2 transition-colors disabled:cursor-not-allowed"
         >
-          <Icon name="play_arrow" size="sm" />
-          Iniciar Temporada {review.seasonNumber + 1}
+          <Icon name={hasUnclaimedRewards ? 'lock' : 'play_arrow'} size="sm" />
+          {hasUnclaimedRewards
+            ? 'Recoge todas las recompensas para continuar'
+            : `Pasar a la Temporada ${review.seasonNumber + 1}`}
         </button>
       </div>
 
