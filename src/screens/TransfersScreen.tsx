@@ -206,23 +206,23 @@ function PlayerDetailPanel({ player, onClose, onOfferSent }: {
       <div className="flex-1 overflow-y-auto">
         {/* Player header */}
         <div className="p-4 border-b border-gold-600/15">
-          <div className="flex items-start gap-3">
+          <div className="flex items-start gap-4">
             <img
               src={player.spriteUrl}
               alt={displayName}
-              className="w-16 h-16 object-contain rounded bg-dark-700/40"
+              className="w-24 h-24 object-contain rounded bg-dark-700"
               onError={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = '0' }}
             />
-            <div className="flex-1 min-w-0">
-              <p className="text-white font-bold text-sm leading-tight truncate">{displayName}</p>
-              <div className="flex items-center gap-1.5 mt-1 flex-wrap">
+            <div className="flex-1 min-w-0 pt-1">
+              <p className="text-white font-bold text-base leading-tight truncate">{displayName}</p>
+              <div className="flex items-center gap-1.5 mt-0.5 flex-wrap">
                 <PositionSprite position={player.position} size={20} />
                 {player.positionAlt && (
                   <PositionSprite position={player.positionAlt} size={16} className="opacity-60" />
                 )}
                 <ElementBadge element={player.element} size="xs" />
               </div>
-              <p className="text-gray-500 text-xs mt-1">{player.age} años</p>
+              <p className="text-gray-500 text-xs mt-2">{player.age} años</p>
               {playerTeam ? (
                 <div className="flex items-center gap-1 mt-1">
                   {playerTeam.badgeUrl && (
@@ -248,7 +248,7 @@ function PlayerDetailPanel({ player, onClose, onOfferSent }: {
                 </p>
               </div>
             ))}
-            <div className="bg-dark-700/60 rounded p-2 text-center border border-gold-600/20">
+            <div className="bg-dark-700 rounded p-2 text-center border border-gold-600/20">
               <p className="text-gray-500 text-[9px] uppercase tracking-wide">Media</p>
               <p className="font-bold tabular-nums text-sm text-gold-400">{media}</p>
             </div>
@@ -291,11 +291,69 @@ function PlayerDetailPanel({ player, onClose, onOfferSent }: {
       <div className="shrink-0 p-3 border-t border-gold-600/15">
         <button
           onClick={handleViewFull}
-          className="w-full py-2 bg-dark-700/60 hover:bg-dark-600/60 text-gray-300 text-xs font-semibold rounded-lg border border-gold-600/15 transition-colors flex items-center justify-center gap-1.5"
+          className="w-full py-2 bg-dark-700 hover:bg-dark-600 text-gray-300 text-xs font-semibold rounded-lg border border-gold-600/15 transition-colors flex items-center justify-center gap-1.5"
         >
           <Icon name="open_in_new" size="xs" />
           Ver ficha completa
         </button>
+      </div>
+    </div>
+  )
+}
+
+function PlayerDetailPlaceholder() {
+  const stats = ['POT', 'TEC', 'FIS', 'AGI', 'Media']
+
+  return (
+    <div className="h-full flex flex-col">
+      <div className="flex items-center justify-between px-4 py-2 border-b border-gold-600/20 shrink-0">
+        <span className="text-gray-500 text-[10px] uppercase tracking-widest font-bold">Ficha</span>
+        <Icon name="close" size="xs" className="text-gray-700" />
+      </div>
+
+      <div className="flex-1 overflow-hidden">
+        <div className="p-4 border-b border-gold-600/15">
+          <div className="flex items-start gap-4">
+            <div className="w-24 h-24 rounded bg-dark-700 border border-gold-600/10" />
+            <div className="flex-1 min-w-0 pt-1 space-y-3">
+              <div className="h-4 w-3/4 rounded bg-dark-700" />
+              <div className="flex items-center gap-1.5">
+                <div className="w-5 h-5 rounded bg-dark-700" />
+                <div className="w-5 h-5 rounded bg-dark-700" />
+                <div className="h-5 w-20 rounded bg-dark-700" />
+              </div>
+              <div className="h-3 w-16 rounded bg-dark-700" />
+              <div className="h-3 w-24 rounded bg-dark-700" />
+            </div>
+          </div>
+        </div>
+
+        <div className="p-3 border-b border-gold-600/15">
+          <div className="grid grid-cols-5 gap-1.5">
+            {stats.map((stat) => (
+              <div key={stat} className="bg-dark-800 rounded p-2 text-center">
+                <p className="text-gray-600 text-[9px] uppercase tracking-wide">{stat}</p>
+                <div className="h-4 w-6 mx-auto mt-1 rounded bg-dark-700" />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="p-4 space-y-3">
+          <div>
+            <p className="text-gray-600 text-[10px] uppercase tracking-widest mb-1">Valor de mercado</p>
+            <div className="h-6 w-28 rounded bg-dark-700" />
+          </div>
+          <div className="space-y-2">
+            <p className="text-gray-600 text-[10px] uppercase tracking-widest">Tu oferta</p>
+            <div className="h-9 w-full rounded-lg bg-dark-700 border border-gold-600/10" />
+            <div className="h-9 w-full rounded-lg bg-dark-700 border border-gold-600/10" />
+          </div>
+        </div>
+      </div>
+
+      <div className="shrink-0 p-3 border-t border-gold-600/15">
+        <div className="h-9 w-full rounded-lg bg-dark-700 border border-gold-600/10" />
       </div>
     </div>
   )
@@ -310,71 +368,91 @@ function IncomingOfferCard({ offer, players, teams }: { offer: IncomingOffer; pl
   const player = players.find(p => p.id === offer.playerId)
   if (!player) return null
 
+  const interestedTeam = teams.find(t => t.id === offer.fromTeamId)
   const marketValue = calcTransferValue(player)
   const diff = offer.amount - marketValue
   const diffPct = Math.round((diff / marketValue) * 100)
 
   return (
-    <div className="bg-dark-800/80 rounded-xl border border-gold-600/20 p-4 space-y-3">
-      <div className="flex items-start gap-3">
+    <div className="bg-dark-800 rounded-xl border border-gold-600/30 p-4 space-y-4">
+      <div className="flex items-start gap-4">
         {player.spriteUrl && (
-          <img src={player.spriteUrl} alt={player.name} className="w-12 h-12 object-contain rounded" />
+          <img src={player.spriteUrl} alt={player.name} className="w-20 h-20 object-contain rounded bg-dark-700" />
         )}
-        <div className="flex-1">
-          <p className="text-white font-bold">{player.name}</p>
-          <p className="text-gray-400 text-xs">{player.position} · {player.age} años · Media {Math.round(player.stats.TOT / 7)}</p>
-          <p className="text-gray-500 text-xs">Interesado: <span className="text-gray-300">{offer.fromTeamName}</span></p>
+        <div className="flex-1 min-w-0 pt-1">
+          <p className="text-white font-bold text-base leading-tight truncate">{player.name}</p>
+          <div className="flex items-center gap-1.5 mt-1">
+            <PositionSprite position={player.position} size={20} />
+            {player.positionAlt && (
+              <PositionSprite position={player.positionAlt} size={16} className="opacity-60" />
+            )}
+            <ElementBadge element={player.element} size="xs" />
+          </div>
+          <div className="flex items-center gap-2 mt-3 min-w-0">
+            {interestedTeam?.badgeUrl && (
+              <img
+                src={interestedTeam.badgeUrl}
+                alt=""
+                className="w-7 h-7 object-contain shrink-0"
+                onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
+              />
+            )}
+            <div className="min-w-0">
+              <p className="text-gray-500 text-[10px] uppercase tracking-widest">Equipo interesado</p>
+              <p className="text-gray-300 text-xs font-semibold truncate">{offer.fromTeamName}</p>
+            </div>
+          </div>
           {offer.expiresAt && <p className="text-orange-400/80 text-[0.625rem]">Caduca: {offer.expiresAt}</p>}
         </div>
       </div>
       <div className="grid grid-cols-3 gap-2 text-center text-xs">
-        <div className="bg-dark-700/60 rounded p-2">
+        <div className="bg-dark-700 rounded p-2">
           <p className="text-gray-500">Valor mercado</p>
           <p className="text-white font-semibold">{formatMoney(marketValue)}</p>
         </div>
-        <div className="bg-dark-700/60 rounded p-2">
+        <div className="bg-dark-700 rounded p-2">
           <p className="text-gray-500">Oferta recibida</p>
           <p className="text-white font-semibold">{formatMoney(offer.amount)}</p>
         </div>
-        <div className={`rounded p-2 ${diff >= 0 ? 'bg-green-900/30' : 'bg-red-900/30'}`}>
+        <div className={`rounded p-2 ${diff >= 0 ? 'bg-green-950' : 'bg-red-950'}`}>
           <p className="text-gray-500">Diferencia</p>
           <p className={`font-semibold ${diff >= 0 ? 'text-green-400' : 'text-red-400'}`}>
             {diff >= 0 ? '+' : ''}{diffPct}%
           </p>
         </div>
       </div>
-      <div className="flex gap-2">
-        <button
-          onClick={() => acceptOffer(offer.id)}
-          className="flex-1 py-2 bg-green-800/60 hover:bg-green-700/60 text-green-300 text-xs font-semibold rounded border border-green-600/40 transition-colors"
-        >
-          Aceptar
-        </button>
-        <button
-          onClick={() => rejectOffer(offer.id)}
-          className="flex-1 py-2 bg-red-900/40 hover:bg-red-800/50 text-red-400 text-xs font-semibold rounded border border-red-700/40 transition-colors"
-        >
-          Rechazar
-        </button>
-      </div>
-      <div className="flex gap-2">
+      <div className="grid grid-cols-1 lg:grid-cols-[minmax(14rem,1fr)_auto] gap-2 items-center rounded-lg bg-dark-900 border border-gold-600/20 p-2">
         <input
           type="text"
           inputMode="numeric"
           placeholder={`Contraoferta (ej. ${formatMoney(Math.round(marketValue * 1.1))})`}
           value={formatMoneyInput(counterInput)}
           onChange={e => setCounterInput(formatMoneyInput(e.target.value))}
-          className="flex-1 bg-dark-700/60 border border-gray-700 rounded px-2 py-1.5 text-white text-xs focus:border-gold-500 outline-none"
+          className="w-full bg-dark-700 border border-gray-700 rounded px-3 py-2 text-white text-xs focus:border-gold-500 outline-none"
         />
-        <button
-          onClick={() => {
-            const amt = parseMoneyInput(counterInput)
-            if (amt > 0 && amt <= 10_000_000) { counterOffer(offer.id, amt); setCounterInput('') }
-          }}
-          className="px-3 py-1.5 bg-dark-700/60 hover:bg-dark-600/60 text-gray-300 text-xs font-semibold rounded border border-gold-600/20 transition-colors"
-        >
-          Contraofertar
-        </button>
+        <div className="grid grid-cols-3 gap-2 lg:w-[23rem]">
+          <button
+            onClick={() => acceptOffer(offer.id)}
+            className="py-2 bg-green-800 hover:bg-green-700 text-green-100 text-xs font-semibold rounded border border-green-600 transition-colors"
+          >
+            Aceptar
+          </button>
+          <button
+            onClick={() => rejectOffer(offer.id)}
+            className="py-2 bg-red-900 hover:bg-red-800 text-red-100 text-xs font-semibold rounded border border-red-700 transition-colors"
+          >
+            Rechazar
+          </button>
+          <button
+            onClick={() => {
+              const amt = parseMoneyInput(counterInput)
+              if (amt > 0 && amt <= 10_000_000) { counterOffer(offer.id, amt); setCounterInput('') }
+            }}
+            className="py-2 bg-gold-600 hover:bg-gold-500 text-dark-900 text-xs font-bold rounded border border-gold-500 transition-colors"
+          >
+            Contra
+          </button>
+        </div>
       </div>
     </div>
   )
@@ -710,7 +788,30 @@ export default function TransfersScreen() {
                 onChange={(val) => setTransferFilter({ teamSearch: val, page: 0 })}
               />
 
-              <span className="text-gray-600 text-xs ml-auto shrink-0">{filtered.length} jugadores</span>
+              <div className="ml-auto flex items-center gap-2 shrink-0">
+                <span className="text-gray-600 text-xs">{filtered.length} jugadores</span>
+                {totalPages > 1 && (
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => setTransferFilter({ page: Math.max(0, activeTransferFilter.page - 1) })}
+                      disabled={activeTransferFilter.page === 0}
+                      className="text-xs px-3 py-1.5 bg-dark-700 hover:bg-dark-600 disabled:opacity-40 text-white rounded-lg border border-gold-600/20 transition-colors"
+                    >
+                      Anterior
+                    </button>
+                    <span className="text-gray-400 text-xs tabular-nums min-w-10 text-center">
+                      {activeTransferFilter.page + 1} / {totalPages}
+                    </span>
+                    <button
+                      onClick={() => setTransferFilter({ page: Math.min(totalPages - 1, activeTransferFilter.page + 1) })}
+                      disabled={activeTransferFilter.page >= totalPages - 1}
+                      className="text-xs px-3 py-1.5 bg-dark-700 hover:bg-dark-600 disabled:opacity-40 text-white rounded-lg border border-gold-600/20 transition-colors"
+                    >
+                      Siguiente
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         )}
@@ -724,9 +825,9 @@ export default function TransfersScreen() {
                 <table className="w-full">
                   <thead>
                     <tr className="bg-dark-900/60 text-gold-600/80 text-xs border-b border-gold-600/30">
-                      <th className="py-2 px-2 w-14" />
+                      <th className="py-2 px-3 w-20" />
                       <SortHeader label="Jugador" col="name" currentKey={sortKey} currentDir={sortDir} onClick={handleSort} />
-                      <th className="py-2 px-3 w-28 text-left text-gray-500">Elem.</th>
+                      <th className="py-2 px-3 w-32 text-left text-gray-500">Elemento</th>
                       <SortHeader label="Edad" col="edad" currentKey={sortKey} currentDir={sortDir} onClick={handleSort} className="w-10 text-center" />
                       <SortHeader label="POT" col="POT" currentKey={sortKey} currentDir={sortDir} onClick={handleSort} className="w-10 text-right" />
                       <SortHeader label="TEC" col="TEC" currentKey={sortKey} currentDir={sortDir} onClick={handleSort} className="w-10 text-right" />
@@ -764,40 +865,21 @@ export default function TransfersScreen() {
                 </table>
               </div>
 
-              {totalPages > 1 && (
-                <div className="flex items-center justify-center gap-2">
-                  <button
-                    onClick={() => setTransferFilter({ page: Math.max(0, activeTransferFilter.page - 1) })}
-                    disabled={activeTransferFilter.page === 0}
-                    className="text-xs px-3 py-1.5 bg-dark-700/80 hover:bg-dark-600/80 disabled:opacity-40 text-white rounded-lg border border-gold-600/20 transition-colors"
-                  >
-                    Anterior
-                  </button>
-                  <span className="text-gray-400 text-xs tabular-nums">
-                    {activeTransferFilter.page + 1} / {totalPages}
-                  </span>
-                  <button
-                    onClick={() => setTransferFilter({ page: Math.min(totalPages - 1, activeTransferFilter.page + 1) })}
-                    disabled={activeTransferFilter.page >= totalPages - 1}
-                    className="text-xs px-3 py-1.5 bg-dark-700/80 hover:bg-dark-600/80 disabled:opacity-40 text-white rounded-lg border border-gold-600/20 transition-colors"
-                  >
-                    Siguiente
-                  </button>
-                </div>
-              )}
             </div>
 
             {/* Right panel */}
-            {selectedPlayer && (
-              <div className="w-72 shrink-0 border-l border-gold-600/20 bg-dark-900/60 overflow-hidden flex flex-col">
+            <div className="w-80 shrink-0 border-l border-gold-600/20 bg-dark-900 overflow-hidden flex flex-col">
+              {selectedPlayer ? (
                 <PlayerDetailPanel
                   key={selectedPlayer.id}
                   player={selectedPlayer}
                   onClose={() => setSelectedPlayerId(null)}
                   onOfferSent={() => setTimeout(() => setActiveTab('outgoing'), 1200)}
                 />
-              </div>
-            )}
+              ) : (
+                <PlayerDetailPlaceholder />
+              )}
+            </div>
           </div>
         )}
 

@@ -43,21 +43,21 @@ export default function TransferPlayerRow({ player, teamName, teamBadgeUrl, isFr
       onClick={onView}
     >
       {/* Avatar */}
-      <td className="py-1.5 px-2 w-14">
+      <td className="py-2 px-3 w-20">
         <img
           src={player.spriteUrl}
           alt={displayName}
-          className="w-12 h-12 object-contain rounded"
+          className="w-16 h-16 object-contain rounded bg-dark-700"
           onError={(e) => {
             ;(e.currentTarget as HTMLImageElement).src =
-              "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Crect width='48' height='48' rx='5' fill='%234b5563'/%3E%3C/svg%3E"
+              "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Crect width='64' height='64' rx='5' fill='%234b5563'/%3E%3C/svg%3E"
           }}
         />
       </td>
 
       {/* Nombre + posición */}
       <td className="py-1.5 px-3">
-        <div className="w-20">
+        <div className="w-28">
           <span className="text-white text-sm font-medium block leading-tight truncate">
             {displayName}
           </span>
@@ -71,8 +71,8 @@ export default function TransferPlayerRow({ player, teamName, teamBadgeUrl, isFr
       </td>
 
       {/* Elemento */}
-      <td className="py-1.5 px-3 w-28">
-        <ElementBadge element={player.element} size="sm" />
+      <td className="py-1.5 px-3 w-32">
+        <ElementBadge element={player.element} size="md" />
       </td>
 
       {/* Edad */}

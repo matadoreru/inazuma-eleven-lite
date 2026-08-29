@@ -119,14 +119,11 @@ export default function MainMenuScreen() {
 
         {/* Left: Logo + title */}
         <div className="panel w-[21rem] min-h-[21rem] rounded-[2.5rem] px-8 py-10 flex flex-col items-center justify-center gap-6 shrink-0 bg-dark-900/75">
-          <div className="flex items-center justify-center w-24 h-24 rounded-full overflow-hidden bg-dark-800/80 border-2 border-gold-500 shadow-lg shadow-gold-900/30">
-            <img src="/icon-menu.png" alt="Inazuma Eleven" className="w-full h-full object-cover rounded-full" />
-          </div>
           <div className="text-center">
-            <h1 className="font-pixel text-gold-400 text-[0.9rem] uppercase tracking-widest leading-loose">
+            <h1 className="font-pixel text-gold-400 text-[1.1rem] uppercase tracking-widest leading-loose">
               Inazuma Eleven
             </h1>
-            <p className="font-pixel text-gold-600 text-[0.58rem] uppercase tracking-widest mt-1.5">
+            <p className="font-pixel text-gold-500 text-[0.68rem] uppercase tracking-widest mt-2">
               ✦ Modo Carrera ✦
             </p>
           </div>
@@ -141,16 +138,16 @@ export default function MainMenuScreen() {
                 onClick={item.onClick}
                 className="w-full flex items-center gap-4 px-4 py-4 text-left transition-colors border border-gold-600/20 rounded-[1.75rem] group hover:bg-dark-700/50 min-h-[7rem]"
               >
-                <div className="w-8 h-8 rounded flex items-center justify-center border shrink-0 border-gold-600/40 bg-dark-700/60 text-gray-400 group-hover:text-gold-400 group-hover:border-gold-500/60">
-                  <span className="material-icons" style={{ fontSize: 18 }}>{item.icon}</span>
+                <div className="w-10 h-10 rounded-lg flex items-center justify-center border shrink-0 border-gold-600/40 bg-dark-700 text-gray-300 group-hover:text-gold-400 group-hover:border-gold-500/60">
+                  <span className="material-icons" style={{ fontSize: 21 }}>{item.icon}</span>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="font-pixel text-[0.52rem] uppercase tracking-wide text-gray-300 group-hover:text-gold-300 leading-relaxed">
+                  <p className="font-pixel text-[0.68rem] uppercase tracking-wide text-gray-100 group-hover:text-gold-300 leading-relaxed">
                     {item.label}
                   </p>
-                  <p className="text-gray-500 text-[0.7rem] mt-1 leading-relaxed">{item.sublabel}</p>
+                  <p className="text-gray-400 text-[0.8rem] mt-1.5 leading-relaxed">{item.sublabel}</p>
                 </div>
-                <span className="material-icons text-sm shrink-0 text-gray-600 group-hover:text-gold-600">chevron_right</span>
+                <span className="material-icons text-lg shrink-0 text-gray-500 group-hover:text-gold-500">chevron_right</span>
               </button>
             ))}
             {devMode && (
